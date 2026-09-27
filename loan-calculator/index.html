@@ -3,66 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Use our free loan calculator to estimate monthly payments, total interest and total repayment.">
-<title>Loan Calculator — Monthly Payment & Interest</title>
+<meta name="description" content="Free loan calculator with extra payment savings. Estimate monthly payments, total interest, payoff time and how much you can save by paying extra each month.">
+<title>Loan Calculator — Payment, Interest & Extra Payment Savings</title>
 <link rel="stylesheet" href="../style.css">
 <style>
-.calc-wrap{max-width:850px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}}
-.schedule-wrap{margin-top:35px}.schedule-wrap h2{font-size:25px;margin-bottom:5px}.schedule-wrap p{color:#647286;margin-top:0}.table-scroll{overflow:auto;max-height:520px;border:1px solid #e1e8f0;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;background:#fff}th,td{padding:12px 14px;border-bottom:1px solid #edf1f5;text-align:right;font-size:14px}th:first-child,td:first-child{text-align:center}th{position:sticky;top:0;background:#f5f8fc;color:#526174;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.savings{margin-top:25px;padding:22px;border-radius:15px;background:#eef8f1;border:1px solid #cfe8d6}.savings h2{margin:0 0 6px}.savings p{margin:0 0 18px;color:#526174}.savings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.saving-item{background:#fff;border-radius:10px;padding:15px}.saving-item small{display:block;color:#647286;margin-bottom:5px}.saving-item strong{font-size:20px}.note{font-size:14px;color:#687588;margin-top:25px}.schedule-wrap{margin-top:35px}.schedule-wrap h2{font-size:25px;margin-bottom:5px}.schedule-wrap p{color:#647286;margin-top:0}.table-scroll{overflow:auto;max-height:520px;border:1px solid #e1e8f0;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;background:#fff}th,td{padding:12px 14px;border-bottom:1px solid #edf1f5;text-align:right;font-size:14px}th:first-child,td:first-child{text-align:center}th{position:sticky;top:0;background:#f5f8fc;color:#526174;font-size:12px;text-transform:uppercase;letter-spacing:.04em}@media(max-width:650px){.form-grid,.results,.savings-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
 <main>
 <section class="section"><div class="container calc-wrap">
-<p class="eyebrow">LOAN CALCULATOR</p><h1>Estimate your monthly loan payment</h1>
-<p class="hero-text">Enter the loan amount, annual interest rate and loan term to estimate your payment and total interest.</p>
+<p class="eyebrow">LOAN CALCULATOR</p>
+<h1>Estimate your monthly loan payment</h1>
+<p class="hero-text">Calculate your monthly payment, total interest and see how an extra monthly payment could help you pay off your loan sooner.</p>
 <div class="calc-box">
 <div class="form-grid">
 <div><label for="amount">Loan amount ($)</label><input id="amount" type="number" min="0" value="25000"></div>
 <div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="7"></div>
 <div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="5"></div>
+<div><label for="extra">Extra monthly payment ($)</label><input id="extra" type="number" min="0" step="1" value="100"></div>
 </div>
 <button class="button calc-button" onclick="calculateLoan()">Calculate loan</button>
+
 <div class="results">
-<div class="result"><small>Monthly payment</small><strong id="monthly">$0.00</strong></div>
-<div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
-<div class="result"><small>Total repayment</small><strong id="total">$0.00</strong></div>
+<div class="result"><small>Regular monthly payment</small><strong id="monthly">$0.00</strong></div>
+<div class="result"><small>Total interest without extra</small><strong id="interest">$0.00</strong></div>
+<div class="result"><small>Total repayment without extra</small><strong id="total">$0.00</strong></div>
 </div>
+
+<div class="savings">
+<h2>Extra payment savings</h2>
+<p>Compare your normal loan schedule with the schedule using your extra monthly payment.</p>
+<div class="savings-grid">
+<div class="saving-item"><small>New payoff time</small><strong id="newTerm">0 months</strong></div>
+<div class="saving-item"><small>Time saved</small><strong id="monthsSaved">0 months</strong></div>
+<div class="saving-item"><small>Interest with extra</small><strong id="interestWithExtra">$0.00</strong></div>
+<div class="saving-item"><small>Interest saved</small><strong id="interestSaved">$0.00</strong></div>
+<div class="saving-item"><small>Monthly payment with extra</small><strong id="paymentWithExtra">$0.00</strong></div>
+<div class="saving-item"><small>Total repayment with extra</small><strong id="totalWithExtra">$0.00</strong></div>
+</div>
+</div>
+
 <div class="schedule-wrap">
-<h2>Amortization schedule</h2>
-<p>See how each monthly payment is split between interest and principal.</p>
-<div class="table-scroll"><table><thead><tr><th>Payment</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody id="schedule"></tbody></table></div>
+<h2>Amortization schedule with extra payment</h2>
+<p>See how each payment reduces principal and interest. The extra amount is included in the payment shown.</p>
+<div class="table-scroll"><table><thead><tr><th>#</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody id="schedule"></tbody></table></div>
 </div>
-<p class="note">Estimate only. Actual payments may differ because of fees, taxes, insurance, lender terms and other charges.</p>
+<p class="note">Estimate only. Actual payments may differ because of fees, taxes, insurance, lender terms and other charges. Extra-payment savings assume the extra amount is applied directly to principal each month.</p>
 </div>
 </div></section>
-<section class="section light"><div class="container narrow"><p class="eyebrow">HOW IT WORKS</p><h2>Loan payment formula</h2><p>For a standard fixed-rate amortizing loan, the monthly payment is calculated from the principal, monthly interest rate and number of monthly payments. The calculator converts the annual rate to a monthly rate and applies the standard amortization formula.</p><h2>Example</h2><p>A $25,000 loan at 7% annual interest over 5 years produces an estimated monthly payment based on the assumptions entered above.</p></div></section>
+
+<section class="section light"><div class="container narrow">
+<p class="eyebrow">HOW IT WORKS</p>
+<h2>Loan payment formula</h2>
+<p>For a standard fixed-rate amortizing loan, the monthly payment is calculated from the principal, monthly interest rate and number of monthly payments. The calculator converts the annual rate to a monthly rate and applies the standard amortization formula.</p>
+<h2>Why extra payments can save interest</h2>
+<p>An extra payment reduces the outstanding principal sooner. Because future interest is calculated on the remaining balance, reducing principal earlier can reduce total interest and shorten the payoff period.</p>
+<h2>Example</h2>
+<p>Try a $25,000 loan at 7% over 5 years and enter $100 as the extra monthly payment to see the estimated time and interest savings.</p>
+</div></section>
 </main>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+
 <script>
 function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
+
+function baseLoan(P,r,n){
+ const payment=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+ let balance=P,totalInterest=0,months=0;
+ while(balance>0.005 && months<n){
+   months++;
+   const interest=balance*r;
+   const principal=Math.min(payment-interest,balance);
+   balance=Math.max(0,balance-principal);
+   totalInterest+=interest;
+ }
+ return {payment,months,totalInterest,total: P+totalInterest};
+}
+
+function extraLoan(P,r,plannedPayment,extra){
+ let balance=P,totalInterest=0,months=0;
+ const payment=plannedPayment+extra;
+ const rows=[];
+ while(balance>0.005 && months<1200){
+   months++;
+   const interest=balance*r;
+   const principal=Math.min(payment-interest,balance);
+   const actualPayment=principal+interest;
+   balance=Math.max(0,balance-principal);
+   totalInterest+=interest;
+   rows.push({month:months,payment:actualPayment,principal,interest,balance});
+   if(months===1200) break;
+ }
+ return {payment,months,totalInterest,total:P+totalInterest,rows};
+}
+
 function calculateLoan(){
  const P=Number(document.getElementById("amount").value);
  const annual=Number(document.getElementById("rate").value);
  const years=Number(document.getElementById("years").value);
+ const extra=Math.max(0,Number(document.getElementById("extra").value)||0);
  if(!P||P<0||annual<0||!years||years<=0){alert("Please enter valid values.");return}
- const n=years*12,r=annual/100/12;
- const payment=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
- const total=payment*n,interest=total-P;
- document.getElementById("monthly").textContent=money(payment);
- document.getElementById("interest").textContent=money(interest);
- document.getElementById("total").textContent=money(total);
+
+ const n=Math.round(years*12),r=annual/100/12;
+ const base=baseLoan(P,r,n);
+ const accelerated=extraLoan(P,r,base.payment,extra);
+
+ document.getElementById("monthly").textContent=money(base.payment);
+ document.getElementById("interest").textContent=money(base.totalInterest);
+ document.getElementById("total").textContent=money(base.total);
+ document.getElementById("newTerm").textContent=accelerated.months+" month"+(accelerated.months===1?"":"s");
+ document.getElementById("monthsSaved").textContent=Math.max(0,base.months-accelerated.months)+" month"+(base.months-accelerated.months===1?"":"s");
+ document.getElementById("interestWithExtra").textContent=money(accelerated.totalInterest);
+ document.getElementById("interestSaved").textContent=money(Math.max(0,base.totalInterest-accelerated.totalInterest));
+ document.getElementById("paymentWithExtra").textContent=money(accelerated.payment);
+ document.getElementById("totalWithExtra").textContent=money(accelerated.total);
+
  const schedule=document.getElementById("schedule"); schedule.innerHTML="";
- let balance=P;
- for(let i=1;i<=n;i++){
-   const interestPart=balance*r;
-   const principalPart=Math.min(payment-interestPart,balance);
-   balance=Math.max(0,balance-principalPart);
-   const row=document.createElement("tr");
-   row.innerHTML="<td>"+i+"</td><td>"+money(i===n?principalPart+interestPart:payment)+"</td><td>"+money(principalPart)+"</td><td>"+money(interestPart)+"</td><td>"+money(balance)+"</td>";
-   schedule.appendChild(row);
- }
+ accelerated.rows.forEach(row=>{
+   const tr=document.createElement("tr");
+   tr.innerHTML="<td>"+row.month+"</td><td>"+money(row.payment)+"</td><td>"+money(row.principal)+"</td><td>"+money(row.interest)+"</td><td>"+money(row.balance)+"</td>";
+   schedule.appendChild(tr);
+ });
 }
 calculateLoan();
 </script>
