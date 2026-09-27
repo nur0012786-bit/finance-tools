@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Calculate compound interest growth with an initial investment, monthly contributions, interest rate, compounding frequency and time.">
+<meta name="description" content="Use this US compound interest calculator to estimate future value, contributions and interest growth from an initial investment and regular monthly deposits.">
 <meta name="robots" content="index, follow">
-<title>Compound Interest Calculator | Savings & Investment Growth</title>
+<title>US Compound Interest Calculator | Savings & Investment Growth</title>
 <link rel="stylesheet" href="../style.css">
 <style>
 .calculator-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(15,23,42,.08)}
@@ -56,9 +56,9 @@
 <section class="hero">
   <div class="container narrow">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>Compound Interest Calculator</span></nav>
-<p class="eyebrow">COMPOUND INTEREST CALCULATOR</p>
-    <h1>See how your money can grow over time.</h1>
-    <p class="hero-text">Estimate future value using an initial investment, monthly contributions, annual interest rate, compounding frequency and investment period.</p>
+<p class="eyebrow">US COMPOUND INTEREST CALCULATOR</p>
+<h1>US Compound Interest Calculator</h1>
+<p class="hero-text">Estimate how an initial investment and regular contributions could grow over time when returns are compounded at a selected frequency.</p>
   </div>
 </section>
 
@@ -136,7 +136,22 @@
 
     <div class="content-section">
       <h2>Frequently asked questions</h2>
-      <div class="faq"><h3>What is compound interest?</h3><p>Compound interest is growth calculated on your original balance plus previously accumulated interest or returns.</p></div>
+      <section class="guide">
+<p class="eyebrow">COMPOUNDING GUIDE</p>
+<h2>How this US compound interest calculator works</h2>
+<p>This calculator estimates future value from an initial amount, recurring monthly contributions, an annual rate, a compounding frequency and an investment period. It separates the projected ending balance into your contributions and estimated growth.</p>
+<p>Compounding means that previously earned interest or investment growth can itself contribute to future growth. The SEC describes compounding as earning on your savings and on the interest those savings have already earned. </p>
+<h2>Compound interest formula</h2>
+<p>For a single deposit with no additional contributions, a standard compound-growth model is <strong>A = P(1 + r/n)<sup>nt</sup></strong>, where P is the starting principal, r is the annual rate expressed as a decimal, n is the number of compounding periods per year, and t is the number of years. Regular contributions require an additional contribution schedule, which this calculator models separately.</p>
+<h2>Worked example</h2>
+<p>For example, enter <strong>$10,000</strong> as the initial investment, add <strong>$300 per month</strong>, use a <strong>7%</strong> annual rate and choose a <strong>10-year</strong> period. The calculator estimates the ending balance and shows how much came from deposits versus projected growth.</p>
+<h2>Compounding vs. investment returns</h2>
+<p>A calculator can illustrate mathematical growth, but an investment account does not necessarily earn a fixed or guaranteed rate. Actual returns can vary, and investment products can have fees, taxes and market risk. The SEC notes that investing involves risk and that fees can affect investment growth over time. </p>
+<h2>What this calculator does not model</h2>
+<p>This tool does not account for taxes, investment fees, inflation, withdrawals, changing returns, employer matches or account-specific rules. Treat the rate as an assumed average annual return for planning scenarios, not a guaranteed result.</p>
+</section>
+
+<div class="faq"><h3>What is compound interest?</h3><p>Compound interest is growth calculated on your original balance plus previously accumulated interest or returns.</p></div>
       <div class="faq"><h3>Does this calculator include monthly contributions?</h3><p>Yes. You can enter a monthly contribution and see how those deposits affect the estimated future value.</p></div>
       <div class="faq"><h3>What compounding frequency should I choose?</h3><p>Choose the frequency that matches the rate assumption you are using. Daily, monthly, quarterly and annual options are available.</p></div>
       <div class="faq"><h3>Are investment returns guaranteed?</h3><p>No. Investment returns are not guaranteed. This calculator is a mathematical estimate and does not predict actual market performance.</p></div>
@@ -193,19 +208,6 @@ function calculate(){
 calculate();
 </script>
 
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What is compound interest?","acceptedAnswer":{"@type":"Answer","text":"Compound interest is growth calculated on your original balance plus previously accumulated interest or returns."}},
-    {"@type":"Question","name":"Does this calculator include monthly contributions?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can enter a monthly contribution and see how those deposits affect the estimated future value."}},
-    {"@type":"Question","name":"What compounding frequency should I choose?","acceptedAnswer":{"@type":"Answer","text":"Choose the frequency that matches the rate assumption you are using. Daily, monthly, quarterly and annual options are available."}},
-    {"@type":"Question","name":"Are investment returns guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. Investment returns are not guaranteed. This calculator is a mathematical estimate and does not predict actual market performance."}},
-    {"@type":"Question","name":"Does this include taxes and fees?","acceptedAnswer":{"@type":"Answer","text":"No. Taxes, investment fees, account fees and other costs are not included unless you account for them separately in your assumptions."}},
-    {"@type":"Question","name":"Can I use this calculator for retirement planning?","acceptedAnswer":{"@type":"Answer","text":"You can use it for a rough growth illustration, but retirement planning should also consider inflation, taxes, fees, changing contributions and investment risk."}}
-  ]
-}
-</script>
+
 </body>
 </html>
