@@ -51,7 +51,7 @@
 
 <section class="section" style="padding-top:0"><div class="container">
 <div class="feature-strip">
-<div class="feature"><div class="feature-icon">◎</div><strong>Accurate Estimates</strong><span>Standard fixed-rate amortization math.</span></div>
+<div class="feature"><div class="feature-icon" aria-hidden="true">◎</div><strong>Accurate Estimates</strong><span>Standard fixed-rate amortization math.</span></div>
 <div class="feature"><div class="feature-icon">✓</div><strong>Plan Confidently</strong><span>See payment and total cost before you commit.</span></div>
 <div class="feature"><div class="feature-icon">▥</div><strong>Compare Scenarios</strong><span>Test rates, terms and down payments.</span></div>
 <div class="feature"><div class="feature-icon">⌂</div><strong>US-Focused</strong><span>Built around common US mortgage inputs.</span></div>
@@ -67,14 +67,14 @@
 <div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="6.5"></div>
 <div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="30"></div>
 </div>
-<button class="button calc-button" onclick="calculateMortgage()">Calculate Mortgage</button>
+<button type="button" class="button calc-button" onclick="calculateMortgage()">Calculate Mortgage</button>
 <p class="note">Principal and interest estimate only. Taxes, insurance, PMI, HOA dues and closing costs are separate.</p>
 </div>
 
 <div>
 <p class="eyebrow">YOUR ESTIMATE</p><h2>Monthly payment & total cost</h2>
 <div class="mortgage-results">
-<div class="primary-result"><small>Estimated monthly payment</small><strong id="monthly">$0.00</strong><span>Principal + interest · fixed rate · monthly payments</span></div>
+<div class="primary-result" aria-live="polite"><small>Estimated monthly payment</small><strong id="monthly">$0.00</strong><span>Principal + interest · fixed rate · monthly payments</span></div>
 <div class="secondary-results">
 <div class="result"><small>Loan amount</small><strong id="loanAmount">$0.00</strong></div>
 <div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
