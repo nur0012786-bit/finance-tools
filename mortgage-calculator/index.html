@@ -7,35 +7,76 @@
 <title>Mortgage Calculator — Monthly Payment & Interest</title>
 <link rel="stylesheet" href="../style.css">
 <style>
-.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}}
+.mortgage-page .hero{padding-bottom:58px}
+.mortgage-page .hero-grid{align-items:end}
+.mortgage-page .hero-card{min-height:280px}
+.mortgage-page .feature-strip{display:grid;grid-template-columns:repeat(4,1fr);margin-top:-10px;position:relative;z-index:2;background:#fff;border:1px solid var(--line-strong);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.mortgage-page .feature{padding:25px 20px;text-align:center;border-right:1px solid #e1e8f1}
+.mortgage-page .feature:last-child{border-right:0}
+.mortgage-page .feature-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;background:#eaf3ff;color:#1258a4;font-weight:900;font-size:20px}
+.mortgage-page .feature strong{display:block;color:var(--navy);font-family:"Manrope";font-size:14px;margin-bottom:5px}
+.mortgage-page .feature span{display:block;color:#718096;font-size:12px;line-height:1.45}
+.mortgage-page .mortgage-results{display:grid;grid-template-columns:1.05fr 1fr;gap:24px;margin-top:25px}
+.mortgage-page .primary-result{border-radius:21px;padding:27px;background:linear-gradient(145deg,#082b57,#104f91);color:#fff;box-shadow:0 18px 40px rgba(8,43,87,.2)}
+.mortgage-page .primary-result small{display:block;text-transform:uppercase;letter-spacing:.14em;font-weight:800;font-size:11px;opacity:.78}
+.mortgage-page .primary-result strong{display:block;font-family:"Manrope";font-size:clamp(42px,5vw,62px);line-height:1;margin:14px 0 7px;letter-spacing:-.055em}
+.mortgage-page .primary-result span{font-size:14px;color:#d9e9fb}
+.mortgage-page .secondary-results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.mortgage-page .secondary-results .result{padding:18px;background:#fff}
+.mortgage-page .breakdown{margin-top:18px;padding:22px;border:1px solid var(--line);border-radius:18px;background:#f8fbff}
+.mortgage-page .bar{height:13px;border-radius:99px;overflow:hidden;background:#e4edf7;display:flex;margin:15px 0}
+.mortgage-page .bar .principal{background:#1769d1}.mortgage-page .bar .interest{background:#62aee0}
+.mortgage-page .legend{display:flex;justify-content:space-between;font-size:12px;color:#65758a}
+@media(max-width:800px){.mortgage-page .feature-strip{grid-template-columns:repeat(2,1fr)}.mortgage-page .feature:nth-child(2){border-right:0}.mortgage-page .feature:nth-child(-n+2){border-bottom:1px solid #e1e8f1}.mortgage-page .mortgage-results{grid-template-columns:1fr}}
+@media(max-width:600px){.mortgage-page .feature-strip{grid-template-columns:1fr}.mortgage-page .feature{border-right:0!important;border-bottom:1px solid #e1e8f1!important}.mortgage-page .feature:last-child{border-bottom:0!important}.mortgage-page .secondary-results{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
 <main>
-<section class="section"><div class="container calc-wrap">
-<p class="eyebrow">MORTGAGE CALCULATOR</p>
-<h1>Estimate your monthly mortgage payment</h1>
-<p class="hero-text">Enter the home price, down payment, interest rate and loan term to estimate principal and interest payments.</p>
-<div class="calc-box">
+<main class="mortgage-page">
+<section class="hero"><div class="container hero-grid"><div>
+<p class="eyebrow">US MORTGAGE CALCULATOR</p>
+<h1>Mortgage Calculator</h1>
+<p class="hero-text">Estimate your monthly mortgage payment, total interest and full principal-and-interest cost with a clear US home-loan calculation.</p>
+</div>
+<div class="hero-card"><div class="hero-icon">$</div><h2>Plan your home loan with confidence</h2><p>Adjust price, down payment, rate and term to see how each choice changes your estimated payment and total borrowing cost.</p><a class="text-link" href="../mortgage-affordability-calculator/">Check Mortgage Affordability →</a></div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container">
+<div class="feature-strip">
+<div class="feature"><div class="feature-icon">◎</div><strong>Accurate Estimates</strong><span>Standard fixed-rate amortization math.</span></div>
+<div class="feature"><div class="feature-icon">✓</div><strong>Plan Confidently</strong><span>See payment and total cost before you commit.</span></div>
+<div class="feature"><div class="feature-icon">▥</div><strong>Compare Scenarios</strong><span>Test rates, terms and down payments.</span></div>
+<div class="feature"><div class="feature-icon">⌂</div><strong>US-Focused</strong><span>Built around common US mortgage inputs.</span></div>
+</div>
+
+<div class="calc-box" style="margin-top:24px">
+<div class="calculator-grid">
+<div>
+<p class="eyebrow">LOAN INPUTS</p><h2>Build your mortgage scenario</h2>
 <div class="form-grid">
-<div><label for="price">Home price ($)</label><input id="price" type="number" min="0" value="350000"></div>
-<div><label for="down">Down payment ($)</label><input id="down" type="number" min="0" value="70000"></div>
+<div><label for="price">Home price ($)</label><input id="price" type="number" min="0" value="400000"></div>
+<div><label for="down">Down payment ($)</label><input id="down" type="number" min="0" value="80000"></div>
 <div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="6.5"></div>
 <div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="30"></div>
 </div>
-<button class="button calc-button" onclick="calculateMortgage()">Calculate mortgage</button>
-<div class="results">
+<button class="button calc-button" onclick="calculateMortgage()">Calculate Mortgage</button>
+<p class="note">Principal and interest estimate only. Taxes, insurance, PMI, HOA dues and closing costs are separate.</p>
+</div>
+
+<div>
+<p class="eyebrow">YOUR ESTIMATE</p><h2>Monthly payment & total cost</h2>
+<div class="mortgage-results">
+<div class="primary-result"><small>Estimated monthly payment</small><strong id="monthly">$0.00</strong><span>Principal + interest · fixed rate · monthly payments</span></div>
+<div class="secondary-results">
 <div class="result"><small>Loan amount</small><strong id="loanAmount">$0.00</strong></div>
-<div class="result"><small>Monthly principal & interest</small><strong id="monthly">$0.00</strong></div>
 <div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
 <div class="result"><small>Total payments</small><strong id="total">$0.00</strong></div>
 <div class="result"><small>Down payment</small><strong id="downResult">$0.00</strong></div>
-<div class="result"><small>Loan term</small><strong id="termResult">0 years</strong></div>
-</div>
-<p class="note">Estimate only. This calculator does not include property taxes, homeowners insurance, HOA fees, mortgage insurance, closing costs or lender-specific charges.</p>
-</div>
-</div></section>
+</div></div>
+<div class="breakdown"><strong>Principal vs. interest</strong><div class="bar"><span class="principal" id="principalBar" style="width:50%"></span><span class="interest" id="interestBar" style="width:50%"></span></div><div class="legend"><span id="principalLegend">Principal</span><span id="interestLegend">Interest</span></div></div>
+</div></div></div></div>
+</section>
 
 <section class="section light"><div class="container narrow">
 <p class="eyebrow">MORTGAGE GUIDE</p>
@@ -74,6 +115,11 @@ function calculateMortgage(){
  document.getElementById("total").textContent=money(total);
  document.getElementById("downResult").textContent=money(down);
  document.getElementById("termResult").textContent=years+" year"+(years===1?"":"s");
+ const principalPct=total>0?(P/total)*100:100, interestPct=100-principalPct;
+ document.getElementById("principalBar").style.width=principalPct+"%";
+ document.getElementById("interestBar").style.width=interestPct+"%";
+ document.getElementById("principalLegend").textContent="Principal "+money(P)+" · "+principalPct.toFixed(1)+"%";
+ document.getElementById("interestLegend").textContent="Interest "+money(interest)+" · "+interestPct.toFixed(1)+"%";
 }
 calculateMortgage();
 </script>
