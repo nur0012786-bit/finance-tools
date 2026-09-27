@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free savings calculator to estimate how much your savings can grow with an initial balance, regular deposits and interest over time.">
+<meta name="robots" content="index, follow">
+<title>Savings Calculator — Estimate Your Savings Growth</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.calculator-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(15,23,42,.08)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.field label{display:block;font-weight:700;margin-bottom:8px;color:#172033}
+.field input{width:100%;padding:13px 14px;border:1px solid #d7dce5;border-radius:10px;font:inherit;box-sizing:border-box}
+.field input:focus{outline:2px solid rgba(37,99,235,.15);border-color:#2563eb}
+.full{grid-column:1/-1}
+.calculate-row{margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.result{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:18px}
+.result small{display:block;color:#667085;margin-bottom:7px}
+.result strong{font-size:1.35rem;color:#111827}
+.table-wrap{overflow-x:auto;margin-top:24px}
+.savings-table{width:100%;border-collapse:collapse;min-width:600px}
+.savings-table th,.savings-table td{padding:11px 12px;border-bottom:1px solid #e5e7eb;text-align:right}
+.savings-table th:first-child,.savings-table td:first-child{text-align:left}
+.savings-table th{background:#f8fafc}
+.info-box{margin-top:24px;padding:18px 20px;background:#eff6ff;border-left:4px solid #2563eb;border-radius:10px}
+.content-section{margin-top:38px}
+.faq{border-top:1px solid #e5e7eb;padding:18px 0}
+.faq h3{font-size:1rem;margin-bottom:7px}
+@media(max-width:800px){.results{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.form-grid{grid-template-columns:1fr}.results{grid-template-columns:1fr 1fr}.calculator-card{padding:20px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../index.html">Finance<span>Tools</span></a>
+    <nav><a href="../index.html#calculators">Calculators</a><a href="../index.html#about">About</a></nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container narrow">
+    <p class="eyebrow">SAVINGS CALCULATOR</p>
+    <h1>Estimate how your savings can grow.</h1>
+    <p class="hero-text">Enter your current savings, regular monthly deposits, interest rate and time period to estimate your future savings balance.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <div class="calculator-card">
+      <div class="form-grid">
+        <div class="field">
+          <label for="initial">Current savings ($)</label>
+          <input id="initial" type="number" min="0" step="100" value="5000">
+        </div>
+        <div class="field">
+          <label for="monthly">Monthly deposit ($)</label>
+          <input id="monthly" type="number" min="0" step="25" value="250">
+        </div>
+        <div class="field">
+          <label for="rate">Annual interest rate (%)</label>
+          <input id="rate" type="number" min="0" step="0.1" value="4">
+        </div>
+        <div class="field">
+          <label for="years">Savings period (years)</label>
+          <input id="years" type="number" min="1" step="1" value="5">
+        </div>
+        <div class="field full">
+          <label for="frequency">Interest compounding</label>
+          <select id="frequency" style="width:100%;padding:13px 14px;border:1px solid #d7dce5;border-radius:10px;font:inherit;background:#fff;box-sizing:border-box">
+            <option value="365">Daily</option>
+            <option value="12" selected>Monthly</option>
+            <option value="4">Quarterly</option>
+            <option value="1">Annually</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calculate-row">
+        <button class="button" type="button" onclick="calculate()">Calculate savings</button>
+        <span id="message" aria-live="polite"></span>
+      </div>
+
+      <div class="results" aria-live="polite">
+        <div class="result"><small>Future savings</small><strong id="future">$0</strong></div>
+        <div class="result"><small>Total deposits</small><strong id="deposits">$0</strong></div>
+        <div class="result"><small>Interest earned</small><strong id="interest">$0</strong></div>
+        <div class="result"><small>Starting balance</small><strong id="starting">$0</strong></div>
+      </div>
+
+      <div class="table-wrap">
+        <h2>Year-by-year savings</h2>
+        <table class="savings-table">
+          <thead><tr><th>Year</th><th>Total deposits</th><th>Interest earned</th><th>Ending balance</th></tr></thead>
+          <tbody id="growthBody"></tbody>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <strong>Important:</strong> This is an estimate, not a guarantee. The calculator assumes deposits are made at the end of each month and derives an effective monthly rate from the selected annual compounding frequency. Actual bank rates, fees, taxes and account rules can differ.
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>How a savings calculator works</h2>
+      <p>A savings calculator combines your starting balance, regular deposits, interest rate and time period to estimate how much money you could have in the future. Regular deposits can make a substantial difference because each deposit can have additional time to earn interest.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Why start saving early?</h2>
+      <p>Time gives your savings more opportunities to earn interest. Even when the monthly deposit is relatively small, consistent saving over several years can build a larger balance than occasional deposits.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Savings example</h2>
+      <p>If you start with $5,000, add $250 each month and earn an assumed 4% annual rate for five years, the calculator estimates the balance using those assumptions. Your actual result will depend on the account's rate, compounding method and deposit timing.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Frequently asked questions</h2>
+      <div class="faq"><h3>What does a savings calculator calculate?</h3><p>It estimates a future savings balance using your starting balance, regular deposits, interest rate, compounding frequency and time period.</p></div>
+      <div class="faq"><h3>Does this calculator include monthly deposits?</h3><p>Yes. Enter the amount you plan to deposit each month to include regular contributions in the estimate.</p></div>
+      <div class="faq"><h3>Is the calculated interest guaranteed?</h3><p>No. The result is an estimate based on the rate you enter. Savings account rates can change and account terms vary.</p></div>
+      <div class="faq"><h3>Does the calculator include bank fees?</h3><p>No. Monthly fees, account fees, taxes and other charges are not included.</p></div>
+      <div class="faq"><h3>What happens if I increase my monthly savings?</h3><p>A higher monthly deposit generally increases the projected future balance because more money is added to the account.</p></div>
+      <div class="faq"><h3>Can I use this for an emergency fund?</h3><p>Yes, it can help illustrate how regular deposits could build an emergency fund, but your target should reflect your own expenses and circumstances.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+
+<script>
+function money(value){
+  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(value);
+}
+
+function calculate(){
+  const initial=Math.max(0,Number(document.getElementById('initial').value)||0);
+  const monthly=Math.max(0,Number(document.getElementById('monthly').value)||0);
+  const annualRate=Math.max(0,Number(document.getElementById('rate').value)||0)/100;
+  const compounds=Number(document.getElementById('frequency').value);
+  const years=Math.max(1,Math.floor(Number(document.getElementById('years').value)||1));
+  const months=years*12;
+  const monthlyRate=annualRate===0 ? 0 : Math.pow(1+annualRate/compounds,compounds/12)-1;
+
+  let balance=initial;
+  let deposits=initial;
+  const body=document.getElementById('growthBody');
+  body.innerHTML='';
+
+  for(let month=1;month<=months;month++){
+    balance += balance*monthlyRate;
+    balance += monthly;
+    deposits += monthly;
+
+    if(month%12===0 || month===months){
+      const row=document.createElement('tr');
+      row.innerHTML='<td>'+Math.ceil(month/12)+'</td><td>'+money(deposits)+'</td><td>'+money(Math.max(0,balance-deposits))+'</td><td>'+money(balance)+'</td>';
+      body.appendChild(row);
+    }
+  }
+
+  document.getElementById('future').textContent=money(balance);
+  document.getElementById('deposits').textContent=money(deposits);
+  document.getElementById('interest').textContent=money(Math.max(0,balance-deposits));
+  document.getElementById('starting').textContent=money(initial);
+  document.getElementById('message').textContent='Estimate updated.';
+}
+
+calculate();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What does a savings calculator calculate?","acceptedAnswer":{"@type":"Answer","text":"It estimates a future savings balance using your starting balance, regular deposits, interest rate, compounding frequency and time period."}},
+    {"@type":"Question","name":"Does this calculator include monthly deposits?","acceptedAnswer":{"@type":"Answer","text":"Yes. Enter the amount you plan to deposit each month to include regular contributions in the estimate."}},
+    {"@type":"Question","name":"Is the calculated interest guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. The result is an estimate based on the rate you enter. Savings account rates can change and account terms vary."}},
+    {"@type":"Question","name":"Does the calculator include bank fees?","acceptedAnswer":{"@type":"Answer","text":"No. Monthly fees, account fees, taxes and other charges are not included."}},
+    {"@type":"Question","name":"What happens if I increase my monthly savings?","acceptedAnswer":{"@type":"Answer","text":"A higher monthly deposit generally increases the projected future balance because more money is added to the account."}},
+    {"@type":"Question","name":"Can I use this for an emergency fund?","acceptedAnswer":{"@type":"Answer","text":"Yes, it can help illustrate how regular deposits could build an emergency fund, but your target should reflect your own expenses and circumstances."}}
+  ]
+}
+</script>
+</body>
+</html>
