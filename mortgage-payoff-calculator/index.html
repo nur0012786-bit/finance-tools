@@ -10,9 +10,16 @@
 {"@type":"Question","name":"What if I make a one-time extra payment?","acceptedAnswer":{"@type":"Answer","text":"A one-time principal payment can reduce the balance and potentially shorten the payoff period. This calculator lets you estimate that effect."}},
 {"@type":"Question","name":"Is this an exact lender payoff quote?","acceptedAnswer":{"@type":"Answer","text":"No. A lender payoff quote can include accrued interest, fees and other charges. This tool is an educational estimate."}}
 ]}</script><link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/mortgage-payoff-calculator/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Finance Tools","item":"https://nur0012786-bit.github.io/finance-tools/"},
+{"@type":"ListItem","position":2,"name":"Mortgage Payoff Calculator","item":"https://nur0012786-bit.github.io/finance-tools/mortgage-payoff-calculator/"}
+]}
+</script>
 </head>
 <body class="design-payoff"><header class="site-header"><div class="container nav"><a class="brand" href="../index.html">Finance<span>Tools</span></a><nav><a href="../index.html#calculators">Calculators</a><a href="../index.html#about">About</a></nav></div></header>
-<main><section class="hero"><div class="container hero-grid"><div><p class="eyebrow">US MORTGAGE PAYOFF CALCULATOR</p><h1>Mortgage Payoff Calculator</h1><p class="hero-text">See how extra monthly or one-time principal payments could shorten your mortgage and reduce estimated interest.</p></div>
+<main>
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>Mortgage Payoff Calculator</span></nav><section class="hero"><div class="container hero-grid"><div><p class="eyebrow">US MORTGAGE PAYOFF CALCULATOR</p><h1>Mortgage Payoff Calculator</h1><p class="hero-text">See how extra monthly or one-time principal payments could shorten your mortgage and reduce estimated interest.</p></div>
 <div class="hero-card"><div class="hero-icon">$</div><h2>Pay off your mortgage faster</h2><p>Compare your regular schedule with an accelerated payoff plan using additional principal payments.</p><a class="text-link" href="../mortgage-calculator/">Compare with Mortgage Calculator →</a></div></div></section>
 <section class="section"><div class="container"><div class="calculator-grid"><div class="calculator-card"><h2>Enter your mortgage details</h2><div class="input-grid">
 <label>Current mortgage balance ($)<input id="balance" type="number" min="1" step="1000" value="300000"></label>
@@ -41,7 +48,8 @@
 <h3>Is this a lender payoff quote?</h3><p>No. A lender's payoff quote may include accrued interest, fees and other charges that this calculator does not model.</p>
 <h3>Can I use this for any mortgage?</h3><p>It is designed for a simplified fixed-rate amortization model. Adjustable-rate mortgages and unusual loan structures may require a different calculation.</p></div></section>
 <section class="section"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This calculator is for planning only. It does not provide a lender payoff quote or financial advice. Check your loan documents and lender terms before making additional principal payments.</div></div></section>
-</main><footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+</main><section class="section light related-tools"><div class="container narrow"><p class="eyebrow">RELATED TOOLS</p><h2>Explore more financial calculators</h2><p><a href="../mortgage-calculator/">Mortgage Calculator</a> · <a href="../mortgage-affordability-calculator/">Mortgage Affordability</a> · <a href="../loan-calculator/">Loan Calculator</a> · <a href="../savings-calculator/">Savings Calculator</a> · <a href="../retirement-calculator/">Retirement Calculator</a> · <a href="../debt-payoff-calculator/">Debt Payoff</a></p></div></section>
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
 function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);}
 function monthlyPayment(p,rate,months){const r=rate/100/12;if(r===0)return p/months;return p*r/(1-Math.pow(1+r,-months));}
