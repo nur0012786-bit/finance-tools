@@ -37,13 +37,13 @@
 <div><label for="closing">Refinance closing costs ($)</label><input id="closing" type="number" min="0" value="8000"></div>
 <div><label for="otherDebt">Other liens/debt paid from refinance ($)</label><input id="otherDebt" type="number" min="0" value="0"></div>
 </div>
-<button class="button calc-button" onclick="calculateCashOut()">Calculate Cash-Out Refinance</button>
+<button type="button" class="button calc-button" onclick="calculateCashOut()">Calculate Cash-Out Refinance</button>
 
 <div class="results">
 <div class="result"><small>Maximum estimated new loan</small><strong id="maxLoan">$0.00</strong></div>
 <div class="result"><small>Requested new loan</small><strong id="newLoan">$0.00</strong></div>
 <div class="result"><small>Maximum cash available</small><strong id="cashResult">$0.00</strong></div>
-<div class="result"><small>New monthly principal & interest</small><strong id="monthly">$0.00</strong></div>
+<div class="result"><small>New monthly principal & interest</small><strong id="monthly" aria-live="polite">$0.00</strong></div>
 <div class="result"><small>Requested new loan-to-value</small><strong id="ltv">0.00%</strong></div>
 <div class="result"><small>Estimated total interest</small><strong id="interest">$0.00</strong></div>
 </div>
