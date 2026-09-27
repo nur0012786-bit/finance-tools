@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMI Calculator | Estimate Private Mortgage Insurance</title>
+<meta name="description" content="Estimate monthly private mortgage insurance (PMI), PMI cost, loan-to-value ratio, and the effect of a larger down payment on a conventional mortgage.">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is PMI?","acceptedAnswer":{"@type":"Answer","text":"Private mortgage insurance, or PMI, is commonly required on conventional mortgages when the borrower's equity is below a lender's required threshold."}},
+{"@type":"Question","name":"How is PMI calculated?","acceptedAnswer":{"@type":"Answer","text":"PMI can be estimated by multiplying the mortgage balance by an annual PMI rate and dividing by 12. Actual pricing varies by borrower, loan, insurer and lender."}},
+{"@type":"Question","name":"When is PMI required?","acceptedAnswer":{"@type":"Answer","text":"On many conventional loans, PMI may be required when the down payment is less than 20 percent, although lender requirements and loan programs vary."}},
+{"@type":"Question","name":"Can I avoid PMI with a 20 percent down payment?","acceptedAnswer":{"@type":"Answer","text":"A 20 percent down payment can often avoid borrower-paid PMI on a conventional mortgage, but specific lender and loan requirements can differ."}},
+{"@type":"Question","name":"Can PMI be removed?","acceptedAnswer":{"@type":"Answer","text":"For eligible conventional mortgages, PMI may be cancellable when the loan reaches certain equity or principal-balance conditions. Servicer rules and federal requirements apply."}},
+{"@type":"Question","name":"Does FHA insurance work the same as PMI?","acceptedAnswer":{"@type":"Answer","text":"No. FHA loans use mortgage insurance under FHA program rules, while PMI is generally associated with conventional mortgages."}}
+]}
+</script>
+<style>
+.calculator{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field label{display:block;font-weight:700;margin-bottom:7px}
+.field input{width:100%;padding:12px;border:1px solid #d8dee8;border-radius:10px;font-size:16px;box-sizing:border-box}
+.results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.result{background:#f7f9fc;border:1px solid #e1e6ef;border-radius:12px;padding:15px}
+.result span{display:block;color:#667085;font-size:13px;margin-bottom:5px}.result strong{font-size:21px}
+.note,.warning{margin-top:18px;padding:14px;border-radius:10px}.note{background:#eef7ff}.warning{background:#fff8e6}
+@media(max-width:650px){.calculator,.results{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">FinanceTools</a><nav><a href="../">Calculators</a><a href="../#about">About</a></nav></div></header>
+<main class="container narrow">
+<section class="hero-text">
+<p class="eyebrow">US MORTGAGE PLANNING</p>
+<h1>PMI Calculator</h1>
+<p>Estimate private mortgage insurance costs for a conventional mortgage and see how your down payment affects loan-to-value.</p>
+</section>
+
+<section class="card">
+<div class="calculator">
+<div class="field"><label for="price">Home price ($)</label><input id="price" type="number" value="400000" min="0" step="1000"></div>
+<div class="field"><label for="down">Down payment ($)</label><input id="down" type="number" value="40000" min="0" step="1000"></div>
+<div class="field"><label for="rate">Annual mortgage interest rate (%)</label><input id="rate" type="number" value="6.5" min="0" step="0.01"></div>
+<div class="field"><label for="term">Loan term (years)</label><input id="term" type="number" value="30" min="1" max="50" step="1"></div>
+<div class="field"><label for="pmiRate">Estimated annual PMI rate (%)</label><input id="pmiRate" type="number" value="0.7" min="0" step="0.01"></div>
+</div>
+<button class="button" style="margin-top:20px" onclick="calculate()">Calculate PMI</button>
+<div class="results">
+<div class="result"><span>Estimated loan amount</span><strong id="loan">$0</strong></div>
+<div class="result"><span>Loan-to-value (LTV)</span><strong id="ltv">0%</strong></div>
+<div class="result"><span>Estimated monthly PMI</span><strong id="monthlyPmi">$0</strong></div>
+<div class="result"><span>Estimated annual PMI</span><strong id="annualPmi">$0</strong></div>
+<div class="result"><span>Estimated monthly principal & interest</span><strong id="payment">$0</strong></div>
+<div class="result"><span>Estimated monthly housing payment</span><strong id="total">$0</strong></div>
+</div>
+<div class="note" id="summary"></div>
+<div class="warning">PMI pricing varies significantly by borrower credit profile, down payment, loan characteristics, insurer and lender. This calculator uses the PMI rate you enter and is an educational estimate, not a quote.</div>
+</section>
+
+<section class="card">
+<h2>How PMI works</h2>
+<p>Private mortgage insurance is commonly associated with conventional mortgages when the borrower's equity is below a lender's required level. PMI protects the lender against certain losses; it does not protect the homeowner from missed payments.</p>
+<h3>PMI estimate</h3>
+<p>This calculator estimates annual PMI by multiplying the mortgage balance by your entered annual PMI rate. It then divides that estimate by 12 for an estimated monthly PMI cost.</p>
+<h3>Why your down payment matters</h3>
+<p>A larger down payment reduces the mortgage balance and lowers the starting LTV. On conventional loans, reaching 20% equity can often eliminate the need for borrower-paid PMI at origination, subject to lender and loan rules.</p>
+<h3>PMI is not the same as FHA mortgage insurance</h3>
+<p>Conventional PMI and FHA mortgage insurance operate under different program rules. If you are comparing loan programs, review the specific insurance, upfront costs and ongoing requirements that apply to each loan.</p>
+</section>
+
+<section class="card">
+<h2>PMI FAQs</h2>
+<h3>What is PMI?</h3><p>PMI is private mortgage insurance commonly used with conventional mortgages when required by the loan structure.</p>
+<h3>How is PMI estimated?</h3><p>A simple estimate is mortgage balance × annual PMI rate ÷ 12.</p>
+<h3>When is PMI required?</h3><p>Many conventional loans require PMI when the down payment is below 20%, but requirements vary.</p>
+<h3>Can I avoid PMI with 20% down?</h3><p>A 20% down payment can often avoid borrower-paid PMI on a conventional mortgage, subject to loan and lender rules.</p>
+<h3>Can PMI be removed?</h3><p>Eligible conventional borrowers may have rights to request or obtain cancellation when certain equity conditions are met.</p>
+<h3>Is this a PMI quote?</h3><p>No. It is an estimate based on the inputs you provide.</p>
+</section>
+</main>
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<script>
+function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+function calculate(){
+const price=Math.max(0,Number(document.getElementById('price').value)||0);
+const down=Math.max(0,Number(document.getElementById('down').value)||0);
+const rate=Math.max(0,Number(document.getElementById('rate').value)||0)/100;
+const years=Math.max(1,Number(document.getElementById('term').value)||30);
+const pmiRate=Math.max(0,Number(document.getElementById('pmiRate').value)||0)/100;
+const loan=Math.max(0,price-down);
+const ltv=price>0?loan/price*100:0;
+const annualPmi=loan*pmiRate;
+const monthlyPmi=annualPmi/12;
+const months=years*12;
+let payment=0;
+if(loan>0){
+const r=rate/12;
+payment=r===0?loan/months:loan*r/(1-Math.pow(1+r,-months));
+}
+const total=payment+monthlyPmi;
+document.getElementById('loan').textContent=money(loan);
+document.getElementById('ltv').textContent=ltv.toFixed(1)+'%';
+document.getElementById('monthlyPmi').textContent=money(monthlyPmi);
+document.getElementById('annualPmi').textContent=money(annualPmi);
+document.getElementById('payment').textContent=money(payment);
+document.getElementById('total').textContent=money(total);
+document.getElementById('summary').textContent='With a '+(down/price*100||0).toFixed(1)+'% down payment, your estimated starting LTV is '+ltv.toFixed(1)+'%. At an assumed PMI rate of '+(pmiRate*100).toFixed(2)+'%, estimated PMI is '+money(monthlyPmi)+' per month.';
+}
+calculate();
+</script>
+</body>
+</html>
