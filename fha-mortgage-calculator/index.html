@@ -6,16 +6,6 @@
 <meta name="description" content="Estimate an FHA mortgage payment including upfront mortgage insurance, annual MIP, property taxes and homeowners insurance.">
 <title>FHA Mortgage Calculator | Payment & MIP Estimate</title>
 <link rel="stylesheet" href="../style.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"What is an FHA mortgage calculator?","acceptedAnswer":{"@type":"Answer","text":"An FHA mortgage calculator estimates the base loan, upfront mortgage insurance premium, monthly mortgage insurance, and principal-and-interest payment for an FHA-style home loan."}},
-{"@type":"Question","name":"How much down payment is required for an FHA loan?","acceptedAnswer":{"@type":"Answer","text":"FHA 203(b) loans can provide approximately 96.5% financing for eligible borrowers, which corresponds to about a 3.5% minimum down payment. Actual eligibility and terms depend on the lender and borrower."}},
-{"@type":"Question","name":"What is FHA upfront MIP?","acceptedAnswer":{"@type":"Answer","text":"Upfront mortgage insurance premium, or UFMIP, is a mortgage insurance charge associated with most FHA single-family mortgage insurance programs. It may be financed into the loan."}},
-{"@type":"Question","name":"Does this calculator include taxes and homeowners insurance?","acceptedAnswer":{"@type":"Answer","text":"The calculator can estimate principal, interest and FHA mortgage insurance. Property taxes, homeowners insurance, HOA dues and lender-specific fees are not included unless you account for them separately."}},
-{"@type":"Question","name":"Are FHA loan limits the same everywhere?","acceptedAnswer":{"@type":"Answer","text":"No. FHA forward mortgage limits vary by county or metropolitan area and property size. HUD publishes annual limits."}},
-{"@type":"Question","name":"Is this an FHA loan approval calculator?","acceptedAnswer":{"@type":"Answer","text":"No. It is an educational estimate. FHA approval depends on credit, income, debts, property, documentation, lender requirements and other underwriting factors."}}
-]}
-</script>
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/fha-mortgage-calculator/">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -30,8 +20,8 @@
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>FHA Mortgage Calculator</span></nav>
 <section class="hero"><div class="container hero-grid"><div>
 <p class="eyebrow">US FHA MORTGAGE CALCULATOR</p>
-<h1>FHA Mortgage Calculator</h1>
-<p class="hero-text">Estimate an FHA-style monthly payment, upfront mortgage insurance premium (UFMIP), monthly MIP, loan-to-value and total estimated payment.</p>
+<h1>US FHA Mortgage Calculator</h1>
+<p class="hero-text">Estimate an FHA-style mortgage payment with upfront MIP, annual MIP, principal and interest, property taxes, homeowners insurance, and starting loan-to-value.</p>
 </div>
 <div class="hero-card"><div class="hero-icon">$</div><h2>2026 FHA limits</h2><p>HUD's 2026 one-unit FHA national floor is $541,287 and the high-cost ceiling is $1,249,125. Local limits can vary by county.</p><a class="text-link" href="https://www.hud.gov/news/hud-no-25-145">Verify FHA limits with HUD →</a></div></div></section>
 
@@ -71,31 +61,36 @@
 </div></section>
 
 <section class="section light"><div class="container narrow">
-<p class="eyebrow">HOW IT WORKS</p><h2>How the FHA calculator works</h2>
-<p>The calculator subtracts your down payment from the home price to estimate the base mortgage. It then estimates upfront MIP and, if financed, adds that amount to the starting loan balance. Principal and interest are calculated using a standard fixed-rate amortization formula.</p>
-<p>The monthly MIP estimate uses the annual MIP percentage entered above divided by 12 and applied to the starting loan balance. Actual FHA MIP billing is more detailed and can use annual average outstanding balance calculations, so this tool should be treated as an estimate.</p>
-<p>HUD states that FHA 203(b) financing can provide approximately 96.5% financing for eligible borrowers, and the upfront MIP may be financed.</p>
-<p>For 2026, HUD lists a national FHA one-unit loan-limit floor of $541,287 and ceiling of $1,249,125, with county/MSA-specific limits between those levels.</p>
+<p class="eyebrow">HOW IT WORKS</p><h2>How this US FHA mortgage calculator works</h2>
+<p>The calculator starts with the purchase price and subtracts your down payment to estimate the <strong>base FHA loan</strong>. It then calculates upfront mortgage insurance premium (UFMIP) from the base loan amount. In this model, UFMIP is assumed to be financed, so it is added to the base loan before principal and interest are calculated.</p>
+<p>Monthly MIP is estimated by taking the financed starting loan balance, multiplying it by the annual MIP rate you enter, and dividing by 12. This is a simplified planning method; actual FHA mortgage-insurance billing depends on the applicable FHA premium structure and loan balance. HUD publishes the applicable MIP rules and rates.</p>
+<p>The calculator then adds estimated monthly property tax and homeowners insurance to principal, interest, and MIP. It does <strong>not</strong> include closing costs, HOA dues, maintenance, utilities, discount points, lender-specific fees, or other transaction costs.</p>
+<h3>FHA down payment and UFMIP</h3>
+<p>HUD states that FHA 203(b) financing can provide approximately 96.5% financing for eligible borrowers, and the upfront mortgage insurance premium may be financed into the mortgage. That corresponds to a commonly used 3.5% minimum down-payment scenario, subject to eligibility and underwriting requirements.</p>
+<h3>2026 FHA loan limits</h3>
+<p>FHA loan limits vary by county or metropolitan area and property size. For 2026, the national one-unit floor is $541,287 and the national one-unit ceiling is $1,249,125. These figures are not a single nationwide borrowing limit: the applicable limit depends on the property's location and number of units.</p>
+<p>If your calculated base loan exceeds the applicable local FHA limit, the result should not be treated as an FHA-eligible loan amount. Verify the current limit for the property location before relying on the estimate.</p>
 </div></section>
 
 <section class="section"><div class="container narrow">
 <p class="eyebrow">EXAMPLE</p><h2>Example FHA payment</h2>
-<p>Suppose you purchase a $350,000 home with a 3.5% down payment, a 6.25% rate and a 30-year term. The calculator estimates the base FHA loan, adds the entered upfront MIP, and then estimates principal, interest, monthly MIP, property tax and homeowners insurance.</p>
-<p>Your actual FHA payment can differ because lenders, credit profiles, property taxes, insurance costs, loan limits and FHA mortgage-insurance calculations vary.</p>
+<p>Suppose you purchase a $350,000 home with a 3.5% down payment, a 6.25% interest rate, a 30-year term, 1.75% UFMIP, 0.55% annual MIP, 1.1% annual property tax, and $1,800 of annual homeowners insurance. The 3.5% down payment is $12,250, producing a $337,750 base loan. At 1.75%, the estimated UFMIP is about $5,911, giving a starting financed loan of about $343,661.</p>
+<p>Using those inputs, the calculator estimates principal and interest from the financed loan and then adds monthly MIP, property tax, and homeowners insurance. Your actual FHA payment can differ because the applicable MIP structure, loan limit, lender terms, property taxes, insurance, and other costs can vary.</p>
 </div></section>
 
 <section class="section light"><div class="container narrow">
 <p class="eyebrow">FAQ</p><h2>FHA mortgage calculator FAQs</h2>
-<h3>What is an FHA mortgage calculator?</h3><p>It estimates key costs for an FHA-style mortgage, including the base loan, upfront MIP, monthly MIP and principal-and-interest payment.</p>
-<h3>How much down payment is required?</h3><p>FHA 203(b) can provide approximately 96.5% financing for eligible borrowers, corresponding to about 3.5% down. Lender and borrower requirements still apply.</p>
-<h3>What is UFMIP?</h3><p>UFMIP is the upfront mortgage insurance premium. HUD says it is required for most FHA single-family mortgage insurance programs and may be financed.</p>
-<h3>Do FHA loan limits vary?</h3><p>Yes. HUD publishes limits by county or metropolitan area and property size. The national floor and ceiling do not represent the exact limit for every location.</p>
-<h3>Does this calculate FHA approval?</h3><p>No. This tool does not determine eligibility or approval. A lender evaluates income, debts, credit, property, documentation and other underwriting factors.</p>
-<h3>Does it include closing costs?</h3><p>No. Closing costs, lender fees, discount points and other transaction-specific charges are not included in the estimate.</p>
+<h3>What does an FHA mortgage calculator estimate?</h3><p>It estimates the base FHA loan, upfront MIP, financed starting loan, principal and interest, monthly MIP, property tax, homeowners insurance, and a combined monthly payment based on your inputs.</p>
+<h3>How much down payment is required for FHA financing?</h3><p>HUD states that eligible FHA 203(b) borrowers can receive approximately 96.5% financing, which corresponds to about 3.5% down. Eligibility, credit requirements, and lender underwriting still apply.</p>
+<h3>What is FHA UFMIP?</h3><p>UFMIP is the upfront mortgage insurance premium required for most FHA single-family mortgage-insurance programs. HUD's current published structure lists 1.75% of the base loan amount for standard purchase/refinance cases, subject to program-specific exceptions.</p>
+<h3>What is annual FHA MIP?</h3><p>Annual MIP is an ongoing mortgage-insurance premium generally collected in monthly installments. The applicable rate depends on factors such as loan term, base loan amount, and loan-to-value, so the calculator lets you enter the rate used for your scenario.</p>
+<h3>Are FHA loan limits the same everywhere?</h3><p>No. FHA forward loan limits vary by county or metropolitan area and property size. For 2026, the one-unit national floor is $541,287 and ceiling is $1,249,125, but a property's applicable local limit may fall between those figures.</p>
+<h3>Does this calculate FHA approval?</h3><p>No. This is a payment and insurance estimate. FHA eligibility and approval depend on borrower, property, documentation, lender, and program requirements.</p>
+<h3>Does this include closing costs?</h3><p>No. The calculator does not include closing costs, lender fees, discount points, HOA dues, maintenance, utilities, or other transaction-specific expenses.</p>
 </div></section>
 
 <section class="section"><div class="container narrow">
-<div class="notice"><strong>Educational estimate:</strong> This calculator is for planning and educational purposes only. FHA rules, MIP rates, county loan limits, lender requirements, taxes and insurance costs can change. Verify current requirements and limits with HUD and an FHA-approved lender before making a borrowing decision.</div>
+<div class="notice"><strong>Educational estimate:</strong> This calculator is for planning and educational purposes only. FHA MIP rules, county loan limits, lender requirements, taxes, insurance costs, and other loan terms can change. Verify the applicable requirements and local FHA loan limit with HUD and an FHA-approved lender before relying on the result.</div>
 </div></section>
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Estimate FHA mortgage payments and upfront and annual mortgage insurance with related home-loan tools.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../va-mortgage-calculator/">VA Mortgage Calculator</a></li><li><a href="../usda-mortgage-calculator/">USDA Mortgage Calculator</a></li></ul></div></section>
 </main>
