@@ -1221,3 +1221,14 @@ button,input,select,textarea{font:inherit}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* Accessibility: keep keyboard focus clearly visible without changing the visual design. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible{
+  outline:3px solid #1769d1;
+  outline-offset:3px;
+}
