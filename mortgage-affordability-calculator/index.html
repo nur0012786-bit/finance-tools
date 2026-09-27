@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Affordability Calculator | How Much House Can I Afford?</title>
+<meta name="description" content="Estimate how much house you may be able to afford based on income, debts, down payment, mortgage rate, taxes, and insurance.">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../style.css">
+<style>
+.calculator{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field label{display:block;font-weight:700;margin-bottom:7px}
+.field input{width:100%;padding:12px;border:1px solid #d8dee8;border-radius:10px;font-size:16px;box-sizing:border-box}
+.results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.result{background:#f7f9fc;border:1px solid #e1e6ef;border-radius:12px;padding:15px}
+.result span{display:block;color:#667085;font-size:13px;margin-bottom:5px}.result strong{font-size:21px}
+.note,.warning{margin-top:18px;padding:14px;border-radius:10px}.note{background:#eef7ff}.warning{background:#fff8e6}
+.table-wrap{overflow-x:auto;margin-top:20px}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left}
+@media(max-width:650px){.calculator,.results{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"FAQPage",
+ "mainEntity":[
+  {"@type":"Question","name":"How much house can I afford?","acceptedAnswer":{"@type":"Answer","text":"Your affordable home price depends on income, monthly debts, down payment, mortgage rate, property taxes, homeowners insurance, and the debt-to-income limits used by a lender."}},
+  {"@type":"Question","name":"What is a housing debt-to-income ratio?","acceptedAnswer":{"@type":"Answer","text":"A housing debt-to-income ratio compares your monthly housing costs with gross monthly income. A common planning assumption is 28%, but lenders and loan programs can use different standards."}},
+  {"@type":"Question","name":"What is total debt-to-income ratio?","acceptedAnswer":{"@type":"Answer","text":"Total DTI compares monthly housing costs plus other recurring debt payments with gross monthly income. The acceptable limit varies by lender and loan program."}},
+  {"@type":"Question","name":"Does a down payment increase affordability?","acceptedAnswer":{"@type":"Answer","text":"A larger down payment can reduce the mortgage amount needed for a given home price and may also reduce borrowing costs. Other requirements can still apply."}},
+  {"@type":"Question","name":"Does this calculator provide mortgage preapproval?","acceptedAnswer":{"@type":"Answer","text":"No. This calculator provides an educational estimate. Actual qualification can depend on credit, employment, assets, reserves, loan type, lender rules, and other factors."}},
+  {"@type":"Question","name":"Are property taxes and insurance included?","acceptedAnswer":{"@type":"Answer","text":"Yes. The estimate uses the property tax rate and annual homeowners insurance you enter. Actual costs vary by property and location."}}
+ ]
+}
+</script>
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">FinanceTools</a><nav><a href="../">Calculators</a><a href="../#about">About</a></nav></div></header>
+
+<main class="container narrow">
+<section class="hero-text">
+<p class="eyebrow">Mortgage Planning</p>
+<h1>Mortgage Affordability Calculator</h1>
+<p>Estimate how much home you may be able to afford using your income, existing debt, down payment, mortgage rate, property taxes, insurance, and DTI assumptions.</p>
+</section>
+
+<section class="card">
+<div class="calculator">
+<div class="field"><label for="income">Annual gross income ($)</label><input id="income" type="number" value="90000" min="0" step="1000"></div>
+<div class="field"><label for="debts">Monthly debt payments ($)</label><input id="debts" type="number" value="500" min="0" step="25"></div>
+<div class="field"><label for="down">Down payment ($)</label><input id="down" type="number" value="30000" min="0" step="1000"></div>
+<div class="field"><label for="rate">Annual mortgage interest rate (%)</label><input id="rate" type="number" value="6.5" min="0" step="0.01"></div>
+<div class="field"><label for="term">Loan term (years)</label><input id="term" type="number" value="30" min="1" max="50"></div>
+<div class="field"><label for="tax">Property tax rate (% of home price/year)</label><input id="tax" type="number" value="1.2" min="0" step="0.01"></div>
+<div class="field"><label for="insurance">Homeowners insurance ($/year)</label><input id="insurance" type="number" value="1800" min="0" step="100"></div>
+<div class="field"><label for="housingDti">Max housing DTI (%)</label><input id="housingDti" type="number" value="28" min="1" max="100" step="0.5"></div>
+<div class="field"><label for="totalDti">Max total DTI (%)</label><input id="totalDti" type="number" value="36" min="1" max="100" step="0.5"></div>
+</div>
+<button class="button" style="margin-top:20px" onclick="calculate()">Calculate Affordability</button>
+
+<div class="results">
+<div class="result"><span>Estimated maximum home price</span><strong id="homePrice">$0</strong></div>
+<div class="result"><span>Estimated mortgage amount</span><strong id="loan">$0</strong></div>
+<div class="result"><span>Monthly housing budget</span><strong id="housingBudget">$0</strong></div>
+<div class="result"><span>Monthly principal & interest</span><strong id="pi">$0</strong></div>
+<div class="result"><span>Monthly property tax</span><strong id="taxMonthly">$0</strong></div>
+<div class="result"><span>Monthly insurance</span><strong id="insuranceMonthly">$0</strong></div>
+<div class="result"><span>Housing DTI used</span><strong id="housingUsed">0%</strong></div>
+<div class="result"><span>Total DTI used</span><strong id="totalUsed">0%</strong></div>
+</div>
+<div class="note" id="constraint"></div>
+<div class="warning">This is an educational estimate, not a mortgage preapproval or lending decision. It does not include every possible cost, such as PMI, HOA dues, closing costs, maintenance, or lender-specific fees.</div>
+</section>
+
+<section class="card">
+<h2>How this mortgage affordability calculator works</h2>
+<p>The calculator first estimates your gross monthly income and two debt limits. The housing limit uses the housing DTI assumption, while the total debt limit accounts for your existing monthly debt payments.</p>
+<p>It then estimates the highest home price that can fit within those limits while accounting for principal and interest, property taxes, homeowners insurance, and your down payment.</p>
+<h3>Example</h3>
+<p>If you earn $90,000 per year, have $500 in monthly debt payments, put $30,000 down, and use a 6.5% mortgage rate, the result provides a planning estimate based on the DTI and cost assumptions you enter.</p>
+<h3>Why the estimate can differ from a lender</h3>
+<p>Lenders may consider credit history, employment and income documentation, assets and reserves, loan program rules, mortgage insurance, property characteristics, and other recurring obligations. Rates and qualifying standards can also vary.</p>
+</section>
+
+<section class="card">
+<h2>Mortgage affordability FAQs</h2>
+<h3>How much house can I afford?</h3><p>Your affordable home price depends on income, debt, down payment, rate, taxes, insurance, and lender qualification rules.</p>
+<h3>What is housing DTI?</h3><p>Housing DTI compares monthly housing costs with gross monthly income. 28% is a common planning assumption, but actual limits vary.</p>
+<h3>What is total DTI?</h3><p>Total DTI includes housing costs plus other recurring debt payments divided by gross monthly income.</p>
+<h3>Does a larger down payment help?</h3><p>It reduces the mortgage needed for a given home price and can reduce borrowing costs, although other qualification rules still apply.</p>
+<h3>Does this calculator provide preapproval?</h3><p>No. It is a planning estimate and does not replace a lender's underwriting or preapproval process.</p>
+<h3>Are taxes and insurance included?</h3><p>Yes. The estimate uses the tax rate and annual insurance amount you enter. Actual costs vary by location and property.</p>
+</section>
+</main>
+
+<footer class="site-footer"><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+
+<script>
+function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+function monthlyPI(principal, annualRate, years){
+  const r=annualRate/100/12, n=years*12;
+  if(principal<=0)return 0;
+  if(r===0)return principal/n;
+  return principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+}
+function calculate(){
+  const income=Math.max(0,Number(document.getElementById('income').value)||0);
+  const debts=Math.max(0,Number(document.getElementById('debts').value)||0);
+  const down=Math.max(0,Number(document.getElementById('down').value)||0);
+  const rate=Math.max(0,Number(document.getElementById('rate').value)||0);
+  const years=Math.max(1,Number(document.getElementById('term').value)||30);
+  const taxRate=Math.max(0,Number(document.getElementById('tax').value)||0)/100;
+  const insurance=Math.max(0,Number(document.getElementById('insurance').value)||0)/12;
+  const hDti=Math.max(0,Number(document.getElementById('housingDti').value)||0)/100;
+  const tDti=Math.max(0,Number(document.getElementById('totalDti').value)||0)/100;
+  const gross=income/12;
+  const housingBudget=gross*hDti;
+  const totalBudget=Math.max(0,gross*tDti-debts);
+  const maxHousing=Math.min(housingBudget,totalBudget);
+
+  function fits(price){
+    const loan=Math.max(0,price-down);
+    const pi=monthlyPI(loan,rate,years);
+    const tax=price*taxRate/12;
+    return pi+tax+insurance<=maxHousing+0.01;
+  }
+
+  let low=0, high=Math.max(down+1, income*10+down);
+  while(fits(high) && high<10000000) high*=2;
+  for(let i=0;i<70;i++){const mid=(low+high)/2;if(fits(mid))low=mid;else high=mid;}
+  const price=low;
+  const loan=Math.max(0,price-down);
+  const pi=monthlyPI(loan,rate,years);
+  const tax=price*taxRate/12;
+  const housing=pi+tax+insurance;
+  const housingUsed=gross?housing/gross*100:0;
+  const totalUsed=gross?(housing+debts)/gross*100:0;
+
+  document.getElementById('homePrice').textContent=money(price);
+  document.getElementById('loan').textContent=money(loan);
+  document.getElementById('housingBudget').textContent=money(maxHousing);
+  document.getElementById('pi').textContent=money(pi);
+  document.getElementById('taxMonthly').textContent=money(tax);
+  document.getElementById('insuranceMonthly').textContent=money(insurance);
+  document.getElementById('housingUsed').textContent=housingUsed.toFixed(1)+'%';
+  document.getElementById('totalUsed').textContent=totalUsed.toFixed(1)+'%';
+
+  const housingBinding=housingBudget<=totalBudget;
+  document.getElementById('constraint').textContent=
+    'The estimate uses the lower available housing budget after applying your '+(housingBinding?'housing DTI':'total DTI and existing debt')+' assumption.';
+}
+calculate();
+</script>
+</body>
+</html>
