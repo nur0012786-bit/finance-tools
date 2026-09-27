@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free compound interest calculator with monthly contributions. Estimate future value, total contributions and interest earned over time.">
+<meta name="robots" content="index, follow">
+<title>Compound Interest Calculator — Free Investment Growth Calculator</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.calculator-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(15,23,42,.08)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.field label{display:block;font-weight:700;margin-bottom:8px;color:#172033}
+.field input,.field select{width:100%;padding:13px 14px;border:1px solid #d7dce5;border-radius:10px;font:inherit;background:#fff;box-sizing:border-box}
+.field input:focus,.field select:focus{outline:2px solid rgba(37,99,235,.15);border-color:#2563eb}
+.full{grid-column:1/-1}
+.calculate-row{margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.result{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:18px}
+.result small{display:block;color:#667085;margin-bottom:7px}
+.result strong{font-size:1.35rem;color:#111827}
+.table-wrap{overflow-x:auto;margin-top:22px}
+.growth-table{width:100%;border-collapse:collapse;min-width:620px}
+.growth-table th,.growth-table td{padding:11px 12px;border-bottom:1px solid #e5e7eb;text-align:right}
+.growth-table th:first-child,.growth-table td:first-child{text-align:left}
+.growth-table th{background:#f8fafc}
+.info-box{margin-top:24px;padding:18px 20px;background:#eff6ff;border-left:4px solid #2563eb;border-radius:10px}
+.content-section{margin-top:38px}
+.content-section h2{margin-bottom:12px}
+.faq{border-top:1px solid #e5e7eb;padding:18px 0}
+.faq h3{font-size:1rem;margin-bottom:7px}
+@media(max-width:800px){.results{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.form-grid{grid-template-columns:1fr}.results{grid-template-columns:1fr 1fr}.calculator-card{padding:20px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../index.html">Finance<span>Tools</span></a>
+    <nav><a href="../index.html#calculators">Calculators</a><a href="../index.html#about">About</a></nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container narrow">
+    <p class="eyebrow">COMPOUND INTEREST CALCULATOR</p>
+    <h1>See how your money can grow over time.</h1>
+    <p class="hero-text">Estimate future value using an initial investment, monthly contributions, annual interest rate, compounding frequency and investment period.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <div class="calculator-card">
+      <div class="form-grid">
+        <div class="field">
+          <label for="principal">Initial investment ($)</label>
+          <input id="principal" type="number" min="0" step="100" value="10000">
+        </div>
+        <div class="field">
+          <label for="monthly">Monthly contribution ($)</label>
+          <input id="monthly" type="number" min="0" step="25" value="300">
+        </div>
+        <div class="field">
+          <label for="rate">Annual interest rate (%)</label>
+          <input id="rate" type="number" min="0" step="0.1" value="7">
+        </div>
+        <div class="field">
+          <label for="frequency">Compounding frequency</label>
+          <select id="frequency">
+            <option value="365">Daily</option>
+            <option value="12" selected>Monthly</option>
+            <option value="4">Quarterly</option>
+            <option value="1">Annually</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="years">Investment period (years)</label>
+          <input id="years" type="number" min="1" step="1" value="20">
+        </div>
+      </div>
+
+      <div class="calculate-row">
+        <button class="button" type="button" onclick="calculate()">Calculate growth</button>
+        <span id="message" aria-live="polite"></span>
+      </div>
+
+      <div class="results" id="results" aria-live="polite">
+        <div class="result"><small>Future value</small><strong id="futureValue">$0</strong></div>
+        <div class="result"><small>Total contributions</small><strong id="contributions">$0</strong></div>
+        <div class="result"><small>Total interest earned</small><strong id="interest">$0</strong></div>
+        <div class="result"><small>Initial investment</small><strong id="initialValue">$0</strong></div>
+      </div>
+
+      <div class="table-wrap">
+        <h2>Year-by-year growth</h2>
+        <table class="growth-table">
+          <thead><tr><th>Year</th><th>Contributions</th><th>Interest earned</th><th>Ending balance</th></tr></thead>
+          <tbody id="growthBody"></tbody>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <strong>Important:</strong> This calculator is an estimate. It assumes contributions are made at the end of each month and uses the selected annual compounding convention to derive an effective monthly growth rate. Actual investment returns can vary and may include fees, taxes and market losses.
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>What is compound interest?</h2>
+      <p>Compound interest means you can earn returns on both your original money and the interest that has accumulated. Over longer periods, this compounding effect can become a significant part of your account growth.</p>
+      <p>For example, if you start with $10,000, contribute $300 each month and earn an average 7% annual return for 20 years, the account can grow substantially because contributions and accumulated returns continue working over time.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Why regular contributions matter</h2>
+      <p>Adding money consistently can increase your future balance because each contribution gets more time to potentially earn returns. The earlier money is invested, the more opportunity it has to compound.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Compound interest formula</h2>
+      <p>A basic compound interest calculation can be represented as <strong>A = P(1 + r/n)<sup>nt</sup></strong>, where P is the principal, r is the annual rate, n is the number of compounding periods per year, and t is the number of years. Regular contributions require an additional contribution calculation, so this calculator models monthly deposits separately.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Frequently asked questions</h2>
+      <div class="faq"><h3>What is compound interest?</h3><p>Compound interest is growth calculated on your original balance plus previously accumulated interest or returns.</p></div>
+      <div class="faq"><h3>Does this calculator include monthly contributions?</h3><p>Yes. You can enter a monthly contribution and see how those deposits affect the estimated future value.</p></div>
+      <div class="faq"><h3>What compounding frequency should I choose?</h3><p>Choose the frequency that matches the rate assumption you are using. Daily, monthly, quarterly and annual options are available.</p></div>
+      <div class="faq"><h3>Are investment returns guaranteed?</h3><p>No. Investment returns are not guaranteed. This calculator is a mathematical estimate and does not predict actual market performance.</p></div>
+      <div class="faq"><h3>Does this include taxes and fees?</h3><p>No. Taxes, investment fees, account fees and other costs are not included unless you account for them separately in your assumptions.</p></div>
+      <div class="faq"><h3>Can I use this calculator for retirement planning?</h3><p>You can use it for a rough growth illustration, but retirement planning should also consider inflation, taxes, fees, changing contributions and investment risk.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+
+<script>
+function money(value){
+  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(value);
+}
+
+function calculate(){
+  const principal=Math.max(0,Number(document.getElementById('principal').value)||0);
+  const monthly=Math.max(0,Number(document.getElementById('monthly').value)||0);
+  const annualRate=Math.max(0,Number(document.getElementById('rate').value)||0)/100;
+  const compounds=Number(document.getElementById('frequency').value);
+  const years=Math.max(1,Math.floor(Number(document.getElementById('years').value)||1));
+  const months=years*12;
+
+  const monthlyRate=annualRate===0 ? 0 : Math.pow(1+annualRate/compounds,compounds/12)-1;
+  let balance=principal;
+  let totalContributions=principal;
+  const body=document.getElementById('growthBody');
+  body.innerHTML='';
+
+  for(let month=1;month<=months;month++){
+    const interest=balance*monthlyRate;
+    balance+=interest+monthly;
+    totalContributions+=monthly;
+
+    if(month%12===0 || month===months){
+      const row=document.createElement('tr');
+      const year=Math.ceil(month/12);
+      const interestEarned=balance-totalContributions;
+      row.innerHTML='<td>'+year+'</td><td>'+money(totalContributions)+'</td><td>'+money(interestEarned)+'</td><td>'+money(balance)+'</td>';
+      body.appendChild(row);
+    }
+  }
+
+  document.getElementById('futureValue').textContent=money(balance);
+  document.getElementById('contributions').textContent=money(totalContributions);
+  document.getElementById('interest').textContent=money(Math.max(0,balance-totalContributions));
+  document.getElementById('initialValue').textContent=money(principal);
+  document.getElementById('message').textContent='Estimate updated.';
+}
+
+calculate();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What is compound interest?","acceptedAnswer":{"@type":"Answer","text":"Compound interest is growth calculated on your original balance plus previously accumulated interest or returns."}},
+    {"@type":"Question","name":"Does this calculator include monthly contributions?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can enter a monthly contribution and see how those deposits affect the estimated future value."}},
+    {"@type":"Question","name":"What compounding frequency should I choose?","acceptedAnswer":{"@type":"Answer","text":"Choose the frequency that matches the rate assumption you are using. Daily, monthly, quarterly and annual options are available."}},
+    {"@type":"Question","name":"Are investment returns guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. Investment returns are not guaranteed. This calculator is a mathematical estimate and does not predict actual market performance."}},
+    {"@type":"Question","name":"Does this include taxes and fees?","acceptedAnswer":{"@type":"Answer","text":"No. Taxes, investment fees, account fees and other costs are not included unless you account for them separately in your assumptions."}},
+    {"@type":"Question","name":"Can I use this calculator for retirement planning?","acceptedAnswer":{"@type":"Answer","text":"You can use it for a rough growth illustration, but retirement planning should also consider inflation, taxes, fees, changing contributions and investment risk."}}
+  ]
+}
+</script>
+</body>
+</html>
