@@ -43,18 +43,18 @@
 <section class="section light"><div class="container narrow">
 <p class="eyebrow">CASH-OUT REFINANCE GUIDE</p>
 <h2>How does a cash-out refinance work?</h2>
-<p>A cash-out refinance replaces an existing mortgage with a larger mortgage and gives the borrower the difference in cash, after accounting for the existing mortgage and eligible transaction costs. citeturn0search1turn0search0</p>
+<p>A cash-out refinance replaces an existing mortgage with a larger mortgage and gives the borrower the difference in cash, after accounting for the existing mortgage and eligible transaction costs.</p>
 <h2>How much equity can you access?</h2>
 <p>This calculator uses a target maximum loan-to-value assumption. The mathematical maximum is the home value multiplied by your target LTV, but actual lender limits and underwriting requirements vary by loan type, borrower and property.</p>
 <h2>Why closing costs matter</h2>
-<p>Refinancing involves costs and fees. Some costs may be paid upfront, while other structures can finance costs into the new loan. Financing closing costs increases the loan balance and can reduce equity. citeturn0search2turn0search3</p>
+<p>Refinancing involves costs and fees. Some costs may be paid upfront, while other structures can finance costs into the new loan. Financing closing costs increases the loan balance and can reduce equity.</p>
 <h2>Cash-out refinance example</h2>
 <p>Try a $450,000 home value, a $260,000 current mortgage balance, an 80% target LTV and $50,000 requested cash-out. Add estimated closing costs to see how they affect the requested new loan and estimated cash available.</p>
 <div class="faq"><p class="eyebrow">FAQ</p><h2>Frequently asked questions</h2>
-<div class="faq-item"><h3>What is a cash-out refinance?</h3><p>It is a refinance in which the new mortgage is larger than the existing mortgage balance and the borrower receives cash from the equity being accessed, subject to the loan's terms and costs. citeturn0search0turn0search1</p></div>
+<div class="faq-item"><h3>What is a cash-out refinance?</h3><p>It is a refinance in which the new mortgage is larger than the existing mortgage balance and the borrower receives cash from the equity being accessed, subject to the loan's terms and costs.</p></div>
 <div class="faq-item"><h3>Does this calculator guarantee how much cash I can get?</h3><p>No. It provides a mathematical estimate based on the assumptions you enter. Lenders can apply different LTV limits, credit and income requirements, property rules, pricing and eligible-cost rules.</p></div>
-<div class="faq-item"><h3>Should closing costs be included in the new loan?</h3><p>They can sometimes be financed, depending on the loan structure and lender. Financing them increases the loan balance, which can increase payments and reduce equity. citeturn0search2</p></div>
-<div class="faq-item"><h3>Can cash-out refinancing be used to pay other debt?</h3><p>Cash-out proceeds can be used for purposes such as debt consolidation or home improvements, depending on the loan and borrower. Turning other debt into mortgage debt also puts the home-secured loan in a different risk position, so the total cost and repayment risk should be considered. citeturn0search4turn0search7</p></div>
+<div class="faq-item"><h3>Should closing costs be included in the new loan?</h3><p>They can sometimes be financed, depending on the loan structure and lender. Financing them increases the loan balance, which can increase payments and reduce equity.</p></div>
+<div class="faq-item"><h3>Can cash-out refinancing be used to pay other debt?</h3><p>Cash-out proceeds can be used for purposes such as debt consolidation or home improvements, depending on the loan and borrower. Turning other debt into mortgage debt also puts the home-secured loan in a different risk position, so the total cost and repayment risk should be considered.</p></div>
 <div class="faq-item"><h3>Why might the new payment be higher?</h3><p>The new loan may have a larger principal balance, a different interest rate or a different term. The monthly payment can therefore increase even if some of the cash-out proceeds are used for other purposes.</p></div>
 <div class="faq-item"><h3>Is this a lender quote?</h3><p>No. It is an educational estimate and does not account for every lender fee, prepaid item, mortgage insurance rule, tax effect or underwriting requirement.</p></div>
 </div>
@@ -80,7 +80,7 @@ function calculateCashOut(){
  document.getElementById("cashResult").textContent=money(Math.min(cash,cashAvailable));
  document.getElementById("monthly").textContent=money(monthly);
  document.getElementById("ltv").textContent=ltv.toFixed(2)+"%";
- document.getElementById("interest").textContent=money(totalInterest);
+ document.getElementById("interest").textContent=money(totalInterest); if(requested>maxLoan){alert("The requested new loan exceeds the target maximum LTV. Reduce the cash-out amount or change the target LTV assumption.");}
 }
 calculateCashOut();
 </script>
