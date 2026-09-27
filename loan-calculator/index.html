@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free loan calculator with extra payment savings. Estimate monthly payments, total interest, payoff time and how much you can save by paying extra each month.">
-<title>Loan Calculator — Payment, Interest & Extra Payment Savings</title>
+<meta name="description" content="Use this US loan calculator to estimate monthly payments, total interest, payoff time and extra-payment savings for an amortizing installment loan.">
+<title>US Loan Calculator | Payment, Interest & Extra Payment Savings</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/loan-calculator/">
 <style>
@@ -26,9 +26,9 @@
 <main>
 <section class="section"><div class="container calc-wrap">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>Loan Calculator</span></nav>
-<p class="eyebrow">LOAN CALCULATOR</p>
-<h1>Estimate your monthly loan payment</h1>
-<p class="hero-text">Calculate your monthly payment, total interest and see how an extra monthly payment could help you pay off your loan sooner.</p>
+<p class="eyebrow">US INSTALLMENT LOAN CALCULATOR</p>
+<h1>US Loan Calculator</h1>
+<p class="hero-text">Estimate a monthly installment-loan payment, total interest, payoff time and the potential effect of an extra monthly payment. Enter the loan amount, annual interest rate and term to calculate a standard amortization scenario.</p>
 <div class="calc-box">
 <div class="form-grid">
 <div><label for="amount">Loan amount ($)</label><input id="amount" type="number" min="0" value="25000"></div>
@@ -68,20 +68,29 @@
 
 <section class="section light"><div class="container narrow">
 <p class="eyebrow">LOAN CALCULATOR GUIDE</p>
-<h2>How does a loan calculator work?</h2>
-<p>A loan calculator estimates the periodic payment on an amortizing loan using the loan amount, annual interest rate and repayment term. It also estimates total interest over the life of the loan. Results are estimates and actual lender terms can vary.</p>
+<h2>How this US loan calculator works</h2>
+<p>The calculator uses standard amortization mathematics for a fixed-rate installment loan. It uses the loan amount, monthly interest rate and number of scheduled monthly payments to estimate the regular payment. Total interest is calculated from the interest accrued as the balance declines.</p>
+<p>The model assumes a constant rate and regular monthly payments. It does not include lender-specific fees, insurance, taxes or other charges unless they are already reflected in the amount you enter.</p>
 
-<h2>How can an extra payment reduce loan interest?</h2>
-<p>An extra payment can reduce the outstanding principal sooner. Since future interest is calculated from the remaining balance, paying additional principal may reduce the total interest paid and shorten the payoff period. Check your lender's terms to confirm how extra payments are applied.</p>
+<h2>Interest rate vs. APR</h2>
+<p>The interest rate measures the cost of borrowing. APR can include the interest rate plus certain fees, so it can provide a broader measure when comparing credit offers. The CFPB explains that an interest rate and APR are different measures.</p>
+
+<h2>How extra payments change the schedule</h2>
+<p>If an extra payment is applied to principal, the balance can decline faster. That can reduce future interest and shorten the payoff period. This calculator assumes the extra amount is applied directly to principal each month; your lender or loan agreement determines how additional payments are actually applied.</p>
 
 <h2>Loan payment example</h2>
-<p>For example, enter a $25,000 loan at 7% annual interest for 5 years. Then enter $100 in the extra monthly payment field to compare the estimated payoff period and interest with the regular schedule.</p>
+<p>For example, enter a <strong>$25,000</strong> loan at <strong>7%</strong> annual interest for <strong>5 years</strong>. Then enter <strong>$100</strong> as the extra monthly payment. The calculator will compare the standard schedule with the accelerated schedule and show estimated time and interest savings.</p>
+
+<h2>Fees can change the true borrowing cost</h2>
+<p>A payment calculation based only on principal, interest and term does not necessarily represent the full cost of borrowing. Depending on the loan, lenders may charge origination, documentation, late or other fees. Review the lender disclosure and loan agreement before comparing offers.</p>
 
 <div class="faq">
 <p class="eyebrow">FAQ</p>
 <h2>Frequently asked questions</h2>
 
 <div class="faq-item"><h3>What information do I need to calculate a loan payment?</h3><p>You generally need the principal or loan amount, annual interest rate and repayment term. This calculator also lets you enter an optional extra monthly payment.</p></div>
+
+<div class="faq-item"><h3>What is the difference between interest rate and APR?</h3><p>The interest rate measures borrowing cost, while APR can incorporate the interest rate plus certain fees. They should not be treated as interchangeable when comparing loan offers.</p></div>
 
 <div class="faq-item"><h3>Does paying extra every month save interest?</h3><p>It can. When an extra payment is applied to principal, the balance falls faster, which can reduce the amount of interest charged over time. Your lender's payment rules and any prepayment terms should be checked first.</p></div>
 
@@ -146,19 +155,5 @@ function calculateLoan(){
 calculateLoan();
 </script>
 
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"FAQPage",
- "mainEntity":[
-  {"@type":"Question","name":"What information do I need to calculate a loan payment?","acceptedAnswer":{"@type":"Answer","text":"You generally need the principal or loan amount, annual interest rate and repayment term. This calculator also lets you enter an optional extra monthly payment."}},
-  {"@type":"Question","name":"Does paying extra every month save interest?","acceptedAnswer":{"@type":"Answer","text":"It can. When an extra payment is applied to principal, the balance falls faster, which can reduce the amount of interest charged over time. Your lender's payment rules and any prepayment terms should be checked first."}},
-  {"@type":"Question","name":"What is an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"An amortization schedule shows each payment and how it is divided between interest and principal, along with the remaining loan balance after the payment."}},
-  {"@type":"Question","name":"Is the loan calculator accurate?","acceptedAnswer":{"@type":"Answer","text":"It provides an estimate based on the values you enter and standard amortization mathematics. Real loan payments may also include fees, taxes, insurance or other charges that are not included here."}},
-  {"@type":"Question","name":"Can I use this calculator for different loan amounts?","acceptedAnswer":{"@type":"Answer","text":"Yes. Enter the amount, interest rate, term and optional extra payment, then select Calculate loan to generate a new estimate and amortization schedule."}},
-  {"@type":"Question","name":"Can an extra payment shorten the loan term?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the additional amount is applied to principal, it can reduce the remaining balance faster and potentially shorten the repayment period."}}
- ]
-}
-</script>
 </body>
 </html>
