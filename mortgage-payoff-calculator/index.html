@@ -21,9 +21,9 @@
 <label>Remaining term (years)<input id="years" type="number" min="1" max="50" step="1" value="25"></label>
 <label>Extra monthly payment ($)<input id="extra" type="number" min="0" step="25" value="300"></label>
 <label>One-time extra payment ($)<input id="lump" type="number" min="0" step="100" value="0"></label>
-</div><button class="button" id="calculate">Calculate Payoff</button><p class="small-note">The accelerated scenario applies the extra amounts directly to principal in a simplified fixed-rate monthly model.</p></div>
+</div><button type="button" class="button" id="calculate">Calculate Payoff</button><p class="small-note">The accelerated scenario applies the extra amounts directly to principal in a simplified fixed-rate monthly model.</p></div>
 <div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Your payoff comparison</h2><div class="results">
-<div><span>Regular monthly P&amp;I</span><strong id="payment">$0</strong></div>
+<div><span>Regular monthly P&amp;I</span><strong id="payment" aria-live="polite">$0</strong></div>
 <div><span>Regular payoff time</span><strong id="regularTime">0</strong></div>
 <div><span>Regular total interest</span><strong id="regularInterest">$0</strong></div>
 <div><span>Accelerated payoff time</span><strong id="newTime">0</strong></div>
