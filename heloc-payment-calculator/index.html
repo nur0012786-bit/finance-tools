@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HELOC Payment Calculator | Home Equity Line of Credit</title>
+<meta name="description" content="Estimate HELOC monthly payments, interest-only payments, principal and interest payments, and total interest for a home equity line of credit.">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../style.css">
+<style>
+.calculator{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field label{display:block;font-weight:700;margin-bottom:7px}
+.field input,.field select{width:100%;padding:12px;border:1px solid #d8dee8;border-radius:10px;font-size:16px;box-sizing:border-box}
+.results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.result{background:#f7f9fc;border:1px solid #e1e6ef;border-radius:12px;padding:15px}
+.result span{display:block;color:#667085;font-size:13px;margin-bottom:5px}.result strong{font-size:21px}
+.note,.warning{margin-top:18px;padding:14px;border-radius:10px}.note{background:#eef7ff}.warning{background:#fff8e6}
+@media(max-width:650px){.calculator,.results{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a HELOC?","acceptedAnswer":{"@type":"Answer","text":"A HELOC is a home equity line of credit that lets a borrower access available equity in a home up to a credit limit. It typically has a draw period followed by a repayment period."}},
+{"@type":"Question","name":"How is a HELOC payment calculated?","acceptedAnswer":{"@type":"Answer","text":"During an interest-only period, the payment can be estimated by multiplying the outstanding balance by the annual rate divided by 12. During repayment, principal is also paid and the required payment depends on the balance, rate and repayment term."}},
+{"@type":"Question","name":"Are HELOC rates fixed?","acceptedAnswer":{"@type":"Answer","text":"Many HELOCs use variable rates, although products and terms differ by lender. This calculator uses the rate entered by the user and does not forecast future rate changes."}},
+{"@type":"Question","name":"Does a HELOC use home equity?","acceptedAnswer":{"@type":"Answer","text":"Yes. A HELOC is secured by the home and the available credit is generally based on home value, existing mortgage debt, lender limits and other qualification factors."}},
+{"@type":"Question","name":"Does this calculator include fees?","acceptedAnswer":{"@type":"Answer","text":"No. Application fees, annual fees, closing costs, appraisal charges, taxes and lender-specific charges are not included unless reflected separately by the user."}},
+{"@type":"Question","name":"Is this a HELOC approval calculator?","acceptedAnswer":{"@type":"Answer","text":"No. It provides payment estimates only. Actual eligibility and credit limits depend on the lender, property, credit profile, income, debt and other underwriting factors."}}
+]}
+</script>
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">FinanceTools</a><nav><a href="../">Calculators</a><a href="../#about">About</a></nav></div></header>
+<main class="container narrow">
+<section class="hero-text">
+<p class="eyebrow">Home Equity Planning</p>
+<h1>HELOC Payment Calculator</h1>
+<p>Estimate monthly HELOC payments using your balance, interest rate, draw period, and repayment period. Compare interest-only and principal-and-interest payment estimates.</p>
+</section>
+<section class="card">
+<div class="calculator">
+<div class="field"><label for="balance">HELOC balance ($)</label><input id="balance" type="number" value="50000" min="0" step="500"></div>
+<div class="field"><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" value="8.5" min="0" step="0.01"></div>
+<div class="field"><label for="draw">Draw period (years)</label><input id="draw" type="number" value="10" min="1" max="30"></div>
+<div class="field"><label for="repay">Repayment period (years)</label><input id="repay" type="number" value="20" min="1" max="30"></div>
+<div class="field"><label for="paymentType">Payment estimate</label><select id="paymentType"><option value="interest">Interest-only</option><option value="principal">Principal + interest</option></select></div>
+</div>
+<button class="button" onclick="calculate()">Calculate HELOC Payment</button>
+<div class="results">
+<div class="result"><span>Estimated monthly payment</span><strong id="payment">$0</strong></div>
+<div class="result"><span>Monthly interest at current balance</span><strong id="interest">$0</strong></div>
+<div class="result"><span>Estimated total interest</span><strong id="totalInterest">$0</strong></div>
+<div class="result"><span>Balance used</span><strong id="balanceOut">$0</strong></div>
+<div class="result"><span>Draw period</span><strong id="drawOut">0 years</strong></div>
+<div class="result"><span>Repayment period</span><strong id="repayOut">0 years</strong></div>
+</div>
+<div class="note" id="summary"></div>
+<div class="warning">HELOCs often have variable rates. This calculator keeps the entered rate constant and is for educational estimates only. Actual payments can change when the rate changes.</div>
+</section>
+<section class="card">
+<h2>How this HELOC calculator works</h2>
+<p>A home equity line of credit lets you borrow against available equity in your home. HELOCs commonly have a draw period followed by a repayment period, although terms vary by lender.</p>
+<p>For an interest-only estimate, this calculator uses the current balance multiplied by the annual interest rate divided by 12. For a principal-and-interest estimate, it uses a standard fixed-rate payment formula over the repayment term.</p>
+<h3>HELOC draw period vs. repayment period</h3>
+<p>During a draw period, a borrower may be able to access available credit and may have an interest-only payment depending on the product. During repayment, principal generally must also be repaid. Read the specific HELOC agreement for the actual payment rules.</p>
+<h3>Example</h3>
+<p>With a $50,000 balance at an 8.5% annual rate, the simple interest-only estimate is about $354 per month. The actual payment can differ because lenders may use daily balances, variable rates, fees, or other contractual terms.</p>
+<h3>What can affect your actual HELOC cost?</h3>
+<p>Your rate, outstanding balance, lender fees, draw activity, repayment terms, minimum-payment rules and future rate changes can all affect the amount you pay.</p>
+</section>
+<section class="card">
+<h2>HELOC payment FAQs</h2>
+<h3>What is a HELOC?</h3><p>A HELOC is a revolving line of credit secured by your home and generally based on available home equity.</p>
+<h3>How is a HELOC payment calculated?</h3><p>Interest-only payments can be estimated from balance and rate. Principal-and-interest payments also depend on the repayment term.</p>
+<h3>Are HELOC rates fixed?</h3><p>Many HELOCs have variable rates. This calculator holds the entered rate constant.</p>
+<h3>Does a HELOC use home equity?</h3><p>Yes. The line is secured by the home and the available limit depends on lender rules and your financial circumstances.</p>
+<h3>Does this calculator include fees?</h3><p>No. Lender and transaction fees are not included in these payment estimates.</p>
+<h3>Is this an approval calculator?</h3><p>No. It estimates payments and does not determine eligibility or the amount a lender will approve.</p>
+</section>
+</main>
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<script>
+function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+function payment(principal,annualRate,years){const n=Math.max(1,Math.round(years*12)),r=annualRate/100/12;if(principal<=0)return 0;if(r===0)return principal/n;return principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);}
+function calculate(){
+const balance=Math.max(0,Number(document.getElementById('balance').value)||0);
+const rate=Math.max(0,Number(document.getElementById('rate').value)||0);
+const draw=Math.max(1,Number(document.getElementById('draw').value)||1);
+const repay=Math.max(1,Number(document.getElementById('repay').value)||1);
+const type=document.getElementById('paymentType').value;
+const monthlyInterest=balance*rate/100/12;
+const monthlyPayment=type==='interest'?monthlyInterest:payment(balance,rate,repay);
+const totalInterest=type==='interest'?monthlyInterest*draw*12:Math.max(0,monthlyPayment*repay*12-balance);
+document.getElementById('payment').textContent=money(monthlyPayment);
+document.getElementById('interest').textContent=money(monthlyInterest);
+document.getElementById('totalInterest').textContent=money(totalInterest);
+document.getElementById('balanceOut').textContent=money(balance);
+document.getElementById('drawOut').textContent=draw+' years';
+document.getElementById('repayOut').textContent=repay+' years';
+document.getElementById('summary').textContent=type==='interest'?'At the entered balance and rate, the interest-only estimate is '+money(monthlyPayment)+' per month. This does not reduce the principal balance.':'At the entered balance and rate, the estimated principal-and-interest payment is '+money(monthlyPayment)+' per month over '+repay+' years.';
+}
+calculate();
+</script>
+</body>
+</html>
