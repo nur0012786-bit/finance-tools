@@ -23,7 +23,7 @@
 <h1>US Mortgage Points Calculator</h1>
 <p class="hero-text">Compare a mortgage rate with and without discount points, estimate the upfront points cost, monthly principal-and-interest savings and simple break-even time.</p>
 </div>
-<div class="hero-card"><div class="hero-icon">$</div><h2>Compare upfront cost vs. rate savings</h2><p>Test the tradeoff between paying more at closing and receiving a lower mortgage interest rate.</p><a class="text-link" href="../mortgage-calculator/">Compare with Mortgage Calculator →</a></div></div></section>
+<div class="hero-card"><div class="hero-icon" aria-hidden="true">$</div><h2>Compare upfront cost vs. rate savings</h2><p>Test the tradeoff between paying more at closing and receiving a lower mortgage interest rate.</p><a class="text-link" href="../mortgage-calculator/">Compare with Mortgage Calculator →</a></div></div></section>
 
 <section class="section"><div class="container"><div class="calculator-grid">
 <div class="calculator-card"><h2>Enter mortgage details</h2><div class="input-grid">
@@ -32,12 +32,12 @@
 <label>Rate without points (%)<input id="rate0" type="number" min="0" step="0.01" value="6.50"></label>
 <label>Rate with points (%)<input id="rate1" type="number" min="0" step="0.01" value="6.25"></label>
 <label>Loan term (years)<input id="years" type="number" min="1" max="50" step="1" value="30"></label>
-</div><button class="button" id="calculate">Calculate Points</button><p class="small-note">One discount point generally costs 1% of the loan amount. The interest-rate reduction per point is not fixed and varies by lender, loan type and market conditions.</p></div>
+</div><button type="button" class="button" id="calculate">Calculate Points</button><p class="small-note">One discount point generally costs 1% of the loan amount. The interest-rate reduction per point is not fixed and varies by lender, loan type and market conditions.</p></div>
 <div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Points comparison</h2><div class="results">
 <div><span>Upfront cost of points</span><strong id="cost">$0</strong></div>
 <div><span>Payment without points</span><strong id="p0">$0</strong></div>
 <div><span>Payment with points</span><strong id="p1">$0</strong></div>
-<div><span>Monthly payment savings</span><strong id="saving">$0</strong></div>
+<div><span>Monthly payment savings</span><strong id="saving" aria-live="polite">$0</strong></div>
 <div><span>Simple break-even</span><strong id="breakEven">—</strong></div>
 <div><span>Interest without points</span><strong id="i0">$0</strong></div>
 <div><span>Interest with points</span><strong id="i1">$0</strong></div>
