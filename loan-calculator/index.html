@@ -36,10 +36,10 @@
 <div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="5"></div>
 <div><label for="extra">Extra monthly payment ($)</label><input id="extra" type="number" min="0" step="1" value="100"></div>
 </div>
-<button class="button calc-button" onclick="calculateLoan()">Calculate loan</button>
+<button type="button" class="button calc-button" onclick="calculateLoan()">Calculate loan</button>
 
 <div class="results">
-<div class="result"><small>Regular monthly payment</small><strong id="monthly">$0.00</strong></div>
+<div class="result"><small>Regular monthly payment</small><strong id="monthly" aria-live="polite">$0.00</strong></div>
 <div class="result"><small>Total interest without extra</small><strong id="interest">$0.00</strong></div>
 <div class="result"><small>Total repayment without extra</small><strong id="total">$0.00</strong></div>
 </div>
