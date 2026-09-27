@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estimate debt payoff time, total interest and potential savings from making extra monthly payments.">
+<meta name="description" content="Use this US debt payoff calculator to estimate payoff time, total interest, debt-free date and savings from making extra monthly payments.">
 <meta name="robots" content="index, follow">
-<title>Debt Payoff Calculator | Payoff Time & Interest Savings</title>
+<title>US Debt Payoff Calculator | Payoff Time & Interest Savings</title>
 <link rel="stylesheet" href="../style.css">
 <style>
 .calculator-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(15,23,42,.08)}
@@ -59,9 +59,9 @@
 <section class="hero">
   <div class="container narrow">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>Debt Payoff Calculator</span></nav>
-<p class="eyebrow">DEBT PAYOFF CALCULATOR</p>
-    <h1>Estimate how long it could take to become debt-free.</h1>
-    <p class="hero-text">Enter your balance, interest rate and monthly payment to estimate payoff time and see how an extra monthly payment could reduce interest and repayment time.</p>
+<p class="eyebrow">US DEBT PAYOFF CALCULATOR</p>
+<h1>US Debt Payoff Calculator</h1>
+<p class="hero-text">Estimate how long it may take to repay an amortizing debt, how much interest you could pay, and how an extra monthly payment may change the payoff schedule.</p>
   </div>
 </section>
 
@@ -150,7 +150,22 @@
 
     <div class="content-section">
       <h2>Frequently asked questions</h2>
-      <div class="faq"><h3>What does a debt payoff calculator show?</h3><p>It estimates the number of monthly payments, total interest and total amount paid needed to eliminate a debt balance under the assumptions you enter.</p></div>
+      <section class="guide">
+<p class="eyebrow">DEBT PAYOFF GUIDE</p>
+<h2>How this US debt payoff calculator works</h2>
+<p>The calculator models a fixed-rate amortizing debt using the current balance, annual interest rate and planned monthly payment. Each simulated payment first accounts for monthly interest, with the remaining amount reducing principal. This continues until the balance reaches zero.</p>
+<p>The model is intended for debts with a predictable interest rate and payment structure. Variable-rate loans, fees, penalties, irregular payments and payment rules that differ from this model can produce different results.</p>
+<h2>Why extra payments can reduce interest</h2>
+<p>When an additional payment reduces principal, future interest is calculated on a smaller balance. That can shorten the repayment period and reduce total interest. The CFPB explains that paying down principal faster can reduce interest costs, but borrowers should check how their servicer applies extra payments. </p>
+<h2>Debt payoff example</h2>
+<p>For example, enter a <strong>$10,000</strong> balance at <strong>12%</strong> APR with a <strong>$250</strong> monthly payment. Then test an additional <strong>$50</strong> monthly payment to compare the estimated payoff period and interest.</p>
+<h2>Payoff amount vs. account balance</h2>
+<p>The amount shown on an account statement may not always be identical to the exact amount required to satisfy a debt on a particular date. For loans such as mortgages, a lender or servicer may provide a formal payoff amount that accounts for interest through a specified date and possible fees. </p>
+<h2>Debt reduction methods</h2>
+<p>If you have several debts, common approaches include directing extra money toward the highest-interest debt or toward the smallest balance. The CFPB describes both approaches; this calculator models one debt at a time rather than comparing multiple debts simultaneously. </p>
+</section>
+
+<div class="faq"><h3>What does a debt payoff calculator show?</h3><p>It estimates the number of monthly payments, total interest and total amount paid needed to eliminate a debt balance under the assumptions you enter.</p></div>
       <div class="faq"><h3>Does an extra payment reduce interest?</h3><p>An extra payment can reduce interest in a fixed-rate model because more money goes toward reducing the outstanding principal sooner.</p></div>
       <div class="faq"><h3>What if my monthly payment is too low?</h3><p>If the payment does not cover the first month's interest, the balance will not decline under the calculator's model. You should review the debt terms with your lender or card issuer.</p></div>
       <div class="faq"><h3>Does this include late fees?</h3><p>No. Late fees, annual fees, penalty rates and other charges are not included.</p></div>
@@ -257,19 +272,6 @@ function calculate(){
 calculate();
 </script>
 
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a debt payoff calculator show?","acceptedAnswer":{"@type":"Answer","text":"It estimates the number of monthly payments, total interest and total amount paid needed to eliminate a debt balance under the assumptions you enter."}},
-    {"@type":"Question","name":"Does an extra payment reduce interest?","acceptedAnswer":{"@type":"Answer","text":"An extra payment can reduce interest in a fixed-rate model because more money goes toward reducing the outstanding principal sooner."}},
-    {"@type":"Question","name":"What if my monthly payment is too low?","acceptedAnswer":{"@type":"Answer","text":"If the payment does not cover the first month's interest, the balance will not decline under the calculator's model."}},
-    {"@type":"Question","name":"Does this include late fees?","acceptedAnswer":{"@type":"Answer","text":"No. Late fees, annual fees, penalty rates and other charges are not included."}},
-    {"@type":"Question","name":"Can I use this for credit card debt?","acceptedAnswer":{"@type":"Answer","text":"Yes, as a simplified estimate when you know the balance, APR and intended monthly payment. Actual credit card rules can differ."}},
-    {"@type":"Question","name":"Can I use it for a personal loan?","acceptedAnswer":{"@type":"Answer","text":"Yes. For a fixed-rate personal loan, the calculator can provide a useful payoff estimate based on the entered balance, rate and payment."}}
-  ]
-}
-</script>
+
 </body>
 </html>
