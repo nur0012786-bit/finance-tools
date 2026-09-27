@@ -7,7 +7,7 @@
 <title>Loan Calculator — Payment, Interest & Extra Payment Savings</title>
 <link rel="stylesheet" href="../style.css">
 <style>
-.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.savings{margin-top:25px;padding:22px;border-radius:15px;background:#eef8f1;border:1px solid #cfe8d6}.savings h2{margin:0 0 6px}.savings p{margin:0 0 18px;color:#526174}.savings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.saving-item{background:#fff;border-radius:10px;padding:15px}.saving-item small{display:block;color:#647286;margin-bottom:5px}.saving-item strong{font-size:20px}.note{font-size:14px;color:#687588;margin-top:25px}.schedule-wrap{margin-top:35px}.schedule-wrap h2{font-size:25px;margin-bottom:5px}.schedule-wrap p{color:#647286;margin-top:0}.table-scroll{overflow:auto;max-height:520px;border:1px solid #e1e8f0;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;background:#fff}th,td{padding:12px 14px;border-bottom:1px solid #edf1f5;text-align:right;font-size:14px}th:first-child,td:first-child{text-align:center}th{position:sticky;top:0;background:#f5f8fc;color:#526174;font-size:12px;text-transform:uppercase;letter-spacing:.04em}@media(max-width:650px){.form-grid,.results,.savings-grid{grid-template-columns:1fr}}
+.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.savings{margin-top:25px;padding:22px;border-radius:15px;background:#eef8f1;border:1px solid #cfe8d6}.savings h2{margin:0 0 6px}.savings p{margin:0 0 18px;color:#526174}.savings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.saving-item{background:#fff;border-radius:10px;padding:15px}.saving-item small{display:block;color:#647286;margin-bottom:5px}.saving-item strong{font-size:20px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}.schedule-wrap{margin-top:35px}.schedule-wrap h2{font-size:25px;margin-bottom:5px}.schedule-wrap p{color:#647286;margin-top:0}.table-scroll{overflow:auto;max-height:520px;border:1px solid #e1e8f0;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;background:#fff}th,td{padding:12px 14px;border-bottom:1px solid #edf1f5;text-align:right;font-size:14px}th:first-child,td:first-child{text-align:center}th{position:sticky;top:0;background:#f5f8fc;color:#526174;font-size:12px;text-transform:uppercase;letter-spacing:.04em}@media(max-width:650px){.form-grid,.results,.savings-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,20 +55,38 @@
 </div></section>
 
 <section class="section light"><div class="container narrow">
-<p class="eyebrow">HOW IT WORKS</p>
-<h2>Loan payment formula</h2>
-<p>For a standard fixed-rate amortizing loan, the monthly payment is calculated from the principal, monthly interest rate and number of monthly payments. The calculator converts the annual rate to a monthly rate and applies the standard amortization formula.</p>
-<h2>Why extra payments can save interest</h2>
-<p>An extra payment reduces the outstanding principal sooner. Because future interest is calculated on the remaining balance, reducing principal earlier can reduce total interest and shorten the payoff period.</p>
-<h2>Example</h2>
-<p>Try a $25,000 loan at 7% over 5 years and enter $100 as the extra monthly payment to see the estimated time and interest savings.</p>
+<p class="eyebrow">LOAN CALCULATOR GUIDE</p>
+<h2>How does a loan calculator work?</h2>
+<p>A loan calculator estimates the periodic payment on an amortizing loan using the loan amount, annual interest rate and repayment term. It also estimates total interest over the life of the loan. Results are estimates and actual lender terms can vary.</p>
+
+<h2>How can an extra payment reduce loan interest?</h2>
+<p>An extra payment can reduce the outstanding principal sooner. Since future interest is calculated from the remaining balance, paying additional principal may reduce the total interest paid and shorten the payoff period. Check your lender's terms to confirm how extra payments are applied.</p>
+
+<h2>Loan payment example</h2>
+<p>For example, enter a $25,000 loan at 7% annual interest for 5 years. Then enter $100 in the extra monthly payment field to compare the estimated payoff period and interest with the regular schedule.</p>
+
+<div class="faq">
+<p class="eyebrow">FAQ</p>
+<h2>Frequently asked questions</h2>
+
+<div class="faq-item"><h3>What information do I need to calculate a loan payment?</h3><p>You generally need the principal or loan amount, annual interest rate and repayment term. This calculator also lets you enter an optional extra monthly payment.</p></div>
+
+<div class="faq-item"><h3>Does paying extra every month save interest?</h3><p>It can. When an extra payment is applied to principal, the balance falls faster, which can reduce the amount of interest charged over time. Your lender's payment rules and any prepayment terms should be checked first.</p></div>
+
+<div class="faq-item"><h3>What is an amortization schedule?</h3><p>An amortization schedule shows each payment and how it is divided between interest and principal, along with the remaining loan balance after the payment.</p></div>
+
+<div class="faq-item"><h3>Is the loan calculator accurate?</h3><p>It provides an estimate based on the values you enter and standard amortization mathematics. Real loan payments may also include fees, taxes, insurance or other charges that are not included here.</p></div>
+
+<div class="faq-item"><h3>Can I use this calculator for different loan amounts?</h3><p>Yes. Enter the amount, interest rate, term and optional extra payment, then select Calculate loan to generate a new estimate and amortization schedule.</p></div>
+
+<div class="faq-item"><h3>Can an extra payment shorten the loan term?</h3><p>Yes, if the additional amount is applied to principal, it can reduce the remaining balance faster and potentially shorten the repayment period.</p></div>
+</div>
 </div></section>
 </main>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 
 <script>
 function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
-
 function baseLoan(P,r,n){
  const payment=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
  let balance=P,totalInterest=0,months=0;
@@ -79,13 +97,11 @@ function baseLoan(P,r,n){
    balance=Math.max(0,balance-principal);
    totalInterest+=interest;
  }
- return {payment,months,totalInterest,total: P+totalInterest};
+ return {payment,months,totalInterest,total:P+totalInterest};
 }
-
 function extraLoan(P,r,plannedPayment,extra){
  let balance=P,totalInterest=0,months=0;
- const payment=plannedPayment+extra;
- const rows=[];
+ const payment=plannedPayment+extra,rows=[];
  while(balance>0.005 && months<1200){
    months++;
    const interest=balance*r;
@@ -94,40 +110,42 @@ function extraLoan(P,r,plannedPayment,extra){
    balance=Math.max(0,balance-principal);
    totalInterest+=interest;
    rows.push({month:months,payment:actualPayment,principal,interest,balance});
-   if(months===1200) break;
  }
  return {payment,months,totalInterest,total:P+totalInterest,rows};
 }
-
 function calculateLoan(){
- const P=Number(document.getElementById("amount").value);
- const annual=Number(document.getElementById("rate").value);
- const years=Number(document.getElementById("years").value);
- const extra=Math.max(0,Number(document.getElementById("extra").value)||0);
+ const P=Number(document.getElementById("amount").value),annual=Number(document.getElementById("rate").value),years=Number(document.getElementById("years").value),extra=Math.max(0,Number(document.getElementById("extra").value)||0);
  if(!P||P<0||annual<0||!years||years<=0){alert("Please enter valid values.");return}
-
- const n=Math.round(years*12),r=annual/100/12;
- const base=baseLoan(P,r,n);
- const accelerated=extraLoan(P,r,base.payment,extra);
-
+ const n=Math.round(years*12),r=annual/100/12,base=baseLoan(P,r,n),accelerated=extraLoan(P,r,base.payment,extra);
  document.getElementById("monthly").textContent=money(base.payment);
  document.getElementById("interest").textContent=money(base.totalInterest);
  document.getElementById("total").textContent=money(base.total);
  document.getElementById("newTerm").textContent=accelerated.months+" month"+(accelerated.months===1?"":"s");
- document.getElementById("monthsSaved").textContent=Math.max(0,base.months-accelerated.months)+" month"+(base.months-accelerated.months===1?"":"s");
+ const saved=Math.max(0,base.months-accelerated.months);
+ document.getElementById("monthsSaved").textContent=saved+" month"+(saved===1?"":"s");
  document.getElementById("interestWithExtra").textContent=money(accelerated.totalInterest);
  document.getElementById("interestSaved").textContent=money(Math.max(0,base.totalInterest-accelerated.totalInterest));
  document.getElementById("paymentWithExtra").textContent=money(accelerated.payment);
  document.getElementById("totalWithExtra").textContent=money(accelerated.total);
-
- const schedule=document.getElementById("schedule"); schedule.innerHTML="";
- accelerated.rows.forEach(row=>{
-   const tr=document.createElement("tr");
-   tr.innerHTML="<td>"+row.month+"</td><td>"+money(row.payment)+"</td><td>"+money(row.principal)+"</td><td>"+money(row.interest)+"</td><td>"+money(row.balance)+"</td>";
-   schedule.appendChild(tr);
- });
+ const schedule=document.getElementById("schedule");schedule.innerHTML="";
+ accelerated.rows.forEach(row=>{const tr=document.createElement("tr");tr.innerHTML="<td>"+row.month+"</td><td>"+money(row.payment)+"</td><td>"+money(row.principal)+"</td><td>"+money(row.interest)+"</td><td>"+money(row.balance)+"</td>";schedule.appendChild(tr)});
 }
 calculateLoan();
+</script>
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"FAQPage",
+ "mainEntity":[
+  {"@type":"Question","name":"What information do I need to calculate a loan payment?","acceptedAnswer":{"@type":"Answer","text":"You generally need the principal or loan amount, annual interest rate and repayment term. This calculator also lets you enter an optional extra monthly payment."}},
+  {"@type":"Question","name":"Does paying extra every month save interest?","acceptedAnswer":{"@type":"Answer","text":"It can. When an extra payment is applied to principal, the balance falls faster, which can reduce the amount of interest charged over time. Your lender's payment rules and any prepayment terms should be checked first."}},
+  {"@type":"Question","name":"What is an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"An amortization schedule shows each payment and how it is divided between interest and principal, along with the remaining loan balance after the payment."}},
+  {"@type":"Question","name":"Is the loan calculator accurate?","acceptedAnswer":{"@type":"Answer","text":"It provides an estimate based on the values you enter and standard amortization mathematics. Real loan payments may also include fees, taxes, insurance or other charges that are not included here."}},
+  {"@type":"Question","name":"Can I use this calculator for different loan amounts?","acceptedAnswer":{"@type":"Answer","text":"Yes. Enter the amount, interest rate, term and optional extra payment, then select Calculate loan to generate a new estimate and amortization schedule."}},
+  {"@type":"Question","name":"Can an extra payment shorten the loan term?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the additional amount is applied to principal, it can reduce the remaining balance faster and potentially shorten the repayment period."}}
+ ]
+}
 </script>
 </body>
 </html>
