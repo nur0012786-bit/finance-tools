@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estimate annual and monthly property taxes using home value, assessed value, tax rate and exemptions.">
+<meta name="description" content="Estimate US property taxes from assessed value, local tax rate and exemptions. See annual and monthly property tax estimates for a home.">
 <title>Property Tax Calculator | Annual & Monthly Estimate</title>
 <link rel="stylesheet" href="../style.css">
 <style>
@@ -26,9 +26,9 @@
 <main>
 <section class="section"><div class="container calc-wrap">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>Property Tax Calculator</span></nav>
-<p class="eyebrow">PROPERTY TAX CALCULATOR</p>
-<h1>Estimate your annual property taxes</h1>
-<p class="hero-text">Enter your property's assessed value, local property tax rate and any annual exemption to estimate your yearly and monthly property tax.</p>
+<p class="eyebrow">US PROPERTY TAX CALCULATOR</p>
+<h1>US Property Tax Calculator</h1>
+<p class="hero-text">Estimate annual and monthly property taxes from your assessed value, local property tax rate and applicable exemption. Use local assessment information for a more useful estimate.</p>
 <div class="calc-box">
 <div class="form-grid">
 <div><label for="value">Property value ($)</label><input id="value" type="number" min="0" value="400000"></div>
@@ -41,38 +41,67 @@
 <div class="result"><small>Estimated annual property tax</small><strong id="annualTax">$0.00</strong></div>
 <div class="result"><small>Estimated monthly property tax</small><strong id="monthlyTax">$0.00</strong></div>
 <div class="result"><small>Taxable assessed value</small><strong id="taxableValue">$0.00</strong></div>
-<div class="result"><small>Effective tax rate</small><strong id="effectiveRate">0.00%</strong></div>
+<div class="result"><small>Effective tax rate on property value</small><strong id="effectiveRate">0.00%</strong></div>
 <div class="result"><small>Property value</small><strong id="valueResult">$0.00</strong></div>
 <div class="result"><small>Annual exemption</small><strong id="exemptionResult">$0.00</strong></div>
 </div>
-<p class="note">Estimate only. Property tax rules, assessment methods, exemptions, rates and billing schedules vary by state and local jurisdiction. Use your actual assessment and local tax information for a more precise estimate.</p>
+<p class="note">Estimate only. Property tax rules, assessment ratios, exemptions, rates, special assessments and billing schedules vary by state and local jurisdiction. Use your actual assessment and local tax information when available.</p>
 </div>
 </div></section>
 
 <section class="section light"><div class="container narrow">
 <p class="eyebrow">PROPERTY TAX GUIDE</p>
-<h2>How is property tax calculated?</h2>
-<p>A simple estimate starts with the taxable assessed value of a property and the applicable property tax rate. This calculator subtracts the annual exemption you enter from the assessed value, then applies the tax rate to the remaining taxable value.</p>
-<h2>Market value vs. assessed value</h2>
-<p>The home's market value and its assessed value are not necessarily the same. Local governments use their own assessment rules and schedules, so enter the assessed value from your local property records when you have it.</p>
-<h2>Why your mortgage payment may include property taxes</h2>
-<p>Property taxes are often collected through a mortgage escrow account. The Consumer Financial Protection Bureau explains that escrow lets a borrower pay property-related expenses through monthly amounts rather than one or two large bills, and that property taxes can change from year to year.</p>
-<h2>Property tax example</h2>
-<p>Suppose a property has an assessed value of $400,000, a 1.2% property tax rate and no exemption. The estimated annual tax is $4,800, or about $400 per month. Your actual bill can differ because local assessments, exemptions, special assessments and other jurisdiction-specific rules may apply.</p>
+<h2>How this property tax calculator works</h2>
+<p>The calculator starts with the assessed value you enter and subtracts the annual exemption. The remaining amount is treated as the taxable assessed value. The calculator then multiplies that taxable value by your entered annual property tax rate.</p>
+<p><strong>Formula:</strong> taxable assessed value = assessed value − exemption. Estimated annual tax = taxable assessed value × tax rate. Estimated monthly tax = annual tax ÷ 12.</p>
+<p>The separate property-value input lets the calculator show an effective tax rate relative to the property's stated value. This is useful when market or purchase value differs from assessed value.</p>
 
+<h2>Market value vs. assessed value</h2>
+<p>A home's market value and assessed value are not necessarily the same. Local taxing authorities determine assessments under state and local rules, and assessment ratios or reassessment schedules can differ. If you have a current assessment notice or tax record, use that assessed value instead of assuming the purchase price is taxable.</p>
+
+<h2>Why property taxes can change</h2>
+<p>Your property tax bill can change when the assessed value changes, a local tax rate changes, an exemption changes, or special assessments are added. A purchase, reassessment, improvement or change in local rules can therefore make an older tax bill a poor estimate of future taxes.</p>
+
+<h2>Property tax and mortgage escrow</h2>
+<p>Property taxes are often collected through mortgage escrow. The Consumer Financial Protection Bureau explains that escrow allows property-related expenses such as taxes and insurance to be paid through monthly amounts collected with the mortgage. Because taxes and insurance can change, the escrow portion of a mortgage payment can change as well.</p>
+<a class="text-link" href="https://www.consumerfinance.gov/ask-cfpb/what-is-an-escrow-or-impound-account-en-219/">Review CFPB escrow guidance →</a>
+</div></section>
+
+<section class="section"><div class="container narrow">
+<p class="eyebrow">WORKED EXAMPLE</p>
+<h2>Example property tax calculation</h2>
+<p>Suppose a home has a $400,000 assessed value, a 1.2% annual property tax rate and no exemption. The estimated annual property tax is $4,800, or $400 per month.</p>
+<p>If the same property had a $50,000 exemption, the taxable assessed value would be $350,000. At the same 1.2% rate, estimated annual tax would be $4,200, or $350 per month.</p>
+<p>These examples illustrate the calculator's arithmetic only. Your local tax authority may use assessment ratios, mill rates, multiple taxing districts, special assessments or other rules that are not represented here.</p>
+</div></section>
+
+<section class="section light"><div class="container narrow">
+<p class="eyebrow">US TAX CONTEXT</p>
+<h2>Property tax deductions</h2>
+<p>Federal tax treatment is separate from the property-tax calculation itself. IRS rules can allow certain taxpayers who itemize deductions to deduct qualifying state and local taxes, subject to applicable limitations. This calculator does not estimate a federal or state tax deduction.</p>
+<p>For current tax treatment, use official IRS guidance or consult a qualified tax professional rather than relying on the calculator's property-tax estimate.</p>
+<a class="text-link" href="https://www.irs.gov/taxtopics/tc503">Review IRS state and local tax guidance →</a>
+</div></section>
+
+<section class="section"><div class="container narrow">
 <div class="faq">
-<p class="eyebrow">FAQ</p><h2>Frequently asked questions</h2>
-<div class="faq-item"><h3>What value should I use for property tax?</h3><p>Use the assessed value used by your local taxing authority when it is available. If you only know the home's purchase or market value, treat the result as a rough estimate.</p></div>
-<div class="faq-item"><h3>What property tax rate should I enter?</h3><p>Enter the effective rate that applies to the property and jurisdiction. Rates and assessment practices vary across states, counties, cities and other taxing authorities.</p></div>
-<div class="faq-item"><h3>Does this calculator include exemptions?</h3><p>Yes. Enter an annual exemption amount and the calculator subtracts it from the assessed value before applying the tax rate. Eligibility and exemption amounts depend on local rules.</p></div>
-<div class="faq-item"><h3>Does property tax affect my mortgage payment?</h3><p>It can. When property taxes are included in escrow, the tax portion is collected with the mortgage payment. The Consumer Financial Protection Bureau notes that escrow and total monthly payments can change when taxes or insurance change.</p></div>
-<div class="faq-item"><h3>Are property taxes deductible on federal taxes?</h3><p>State and local real property taxes can generally be deductible for taxpayers who itemize, subject to applicable federal rules and limits. This calculator does not estimate a tax deduction.</p></div>
+<p class="eyebrow">FAQ</p><h2>US property tax calculator FAQs</h2>
+<div class="faq-item"><h3>What value should I use for property tax?</h3><p>Use the assessed value used by your local taxing authority when it is available. If you only know the home's market or purchase value, treat the result as a rough estimate unless your local jurisdiction uses that value directly.</p></div>
+<div class="faq-item"><h3>What property tax rate should I enter?</h3><p>Enter the annual rate that applies to the property and jurisdiction. If your local authority publishes a mill rate or a different assessment formula, convert it appropriately or use the tax amount from your local records instead.</p></div>
+<div class="faq-item"><h3>Does this calculator include exemptions?</h3><p>Yes. Enter an annual exemption amount and the calculator subtracts it from assessed value before applying the tax rate. Eligibility and exemption amounts depend on local rules.</p></div>
+<div class="faq-item"><h3>What is the difference between assessed value and market value?</h3><p>Market value reflects an estimate of what the property could sell for, while assessed value is the value used under the local property-tax system. They can be equal, but they do not have to be.</p></div>
+<div class="faq-item"><h3>Does property tax affect my mortgage payment?</h3><p>It can. When property taxes are paid through escrow, the estimated monthly tax amount is collected with the mortgage payment. Changes in taxes or insurance can change the escrow portion.</p></div>
+<div class="faq-item"><h3>Can I use this calculator for any US state?</h3><p>You can use it as a general arithmetic estimator, but local property-tax systems differ. Some jurisdictions use assessment ratios, mill rates, multiple taxing authorities, exemptions and special assessments that this simple calculator does not model separately.</p></div>
+<div class="faq-item"><h3>Are property taxes deductible on federal taxes?</h3><p>Some taxpayers who itemize may be able to deduct qualifying state and local taxes subject to current federal rules and limitations. This calculator does not calculate a tax deduction.</p></div>
 <div class="faq-item"><h3>Is this property tax calculator tax advice?</h3><p>No. It is an educational estimate. Check your local tax authority for the actual assessment, rate, exemptions and bill, and consult a qualified tax professional for tax questions.</p></div>
 </div>
 </div></section>
-<section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Estimate annual and monthly property taxes with related home-buying calculators.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../mortgage-affordability-calculator/">Mortgage Affordability Calculator</a></li><li><a href="../closing-costs-calculator/">Closing Costs Calculator</a></li></ul></div></section>
+
+<section class="section"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This calculator does not determine your official property-tax bill. Local assessment methods, tax rates, exemptions and special assessments vary. Use your tax authority's current records for the amount due.</div></div></section>
+
+<section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Estimate property taxes alongside other US home-buying and mortgage costs.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../mortgage-affordability-calculator/">Mortgage Affordability Calculator</a></li><li><a href="../closing-costs-calculator/">Closing Costs Calculator</a></li><li><a href="../down-payment-calculator/">Down Payment Calculator</a></li></ul></div></section>
 </main>
-<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<footer><div class="container"><div>© 2026 Finance Tools. For educational purposes only.</div></div></footer>
 <script>
 function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
 function calculateTax(){
@@ -80,7 +109,7 @@ function calculateTax(){
  const assessed=Number(document.getElementById("assessment").value);
  const rate=Number(document.getElementById("rate").value);
  const exemption=Number(document.getElementById("exemption").value);
- if(value<0||assessed<0||rate<0||exemption<0||!Number.isFinite(value)||!Number.isFinite(assessed)||!Number.isFinite(rate)||!Number.isFinite(exemption)){alert("Please enter valid non-negative values.");return}
+ if(value<0||assessed<0||rate<0||exemption<0||!Number.isFinite(value)||!Number.isFinite(assessed)||!Number.isFinite(rate)||!Number.isFinite(exemption)){return}
  const taxable=Math.max(0,assessed-exemption);
  const annual=taxable*(rate/100);
  const monthly=annual/12;
@@ -93,16 +122,6 @@ function calculateTax(){
  document.getElementById("exemptionResult").textContent=money(exemption);
 }
 calculateTax();
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"What value should I use for property tax?","acceptedAnswer":{"@type":"Answer","text":"Use the assessed value used by your local taxing authority when it is available. If you only know the home's purchase or market value, treat the result as a rough estimate."}},
-{"@type":"Question","name":"What property tax rate should I enter?","acceptedAnswer":{"@type":"Answer","text":"Enter the effective rate that applies to the property and jurisdiction. Rates and assessment practices vary across states, counties, cities and other taxing authorities."}},
-{"@type":"Question","name":"Does this calculator include exemptions?","acceptedAnswer":{"@type":"Answer","text":"Yes. Enter an annual exemption amount and the calculator subtracts it from the assessed value before applying the tax rate. Eligibility and exemption amounts depend on local rules."}},
-{"@type":"Question","name":"Does property tax affect my mortgage payment?","acceptedAnswer":{"@type":"Answer","text":"It can. When property taxes are included in escrow, the tax portion is collected with the mortgage payment. Escrow and total monthly payments can change when taxes or insurance change."}},
-{"@type":"Question","name":"Are property taxes deductible on federal taxes?","acceptedAnswer":{"@type":"Answer","text":"State and local real property taxes can generally be deductible for taxpayers who itemize, subject to applicable federal rules and limits. This calculator does not estimate a tax deduction."}},
-{"@type":"Question","name":"Is this property tax calculator tax advice?","acceptedAnswer":{"@type":"Answer","text":"No. It is an educational estimate. Check your local tax authority for the actual assessment, rate, exemptions and bill, and consult a qualified tax professional for tax questions."}}
-]}
 </script>
 </body>
 </html>
