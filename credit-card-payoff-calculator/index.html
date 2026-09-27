@@ -85,14 +85,14 @@
       <input id="extra" type="number" min="0" step="0.01" value="50">
     </div>
     <div class="full">
-      <button class="button" type="button" onclick="calculate()">Calculate payoff</button>
+      <button type="button" class="button" type="button" onclick="calculate()">Calculate payoff</button>
     </div>
   </div>
 
   <div id="message" class="note" style="display:none"></div>
 
   <div class="result-grid">
-    <div class="result"><small>Payoff time</small><strong id="payoff">—</strong></div>
+    <div class="result"><small>Payoff time</small><strong id="payoff" aria-live="polite">—</strong></div>
     <div class="result"><small>Total interest</small><strong id="interest">—</strong></div>
     <div class="result"><small>Total paid</small><strong id="total">—</strong></div>
     <div class="result"><small>Debt-free date</small><strong id="date">—</strong></div>
