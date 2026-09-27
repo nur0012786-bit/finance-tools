@@ -2,22 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Compare estimated renting and buying costs, equity, sale proceeds and opportunity costs over your expected time in a home.">
+<meta name="description" content="Use this US rent vs buy calculator to compare rent, mortgage, taxes, insurance, maintenance, closing costs, equity and opportunity cost over your expected time horizon.">
+<meta name="robots" content="index,follow">
 <title>Rent vs Buy Calculator | Housing Cost Comparison</title>
 <link rel="stylesheet" href="../style.css">
-<style>
-.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.compare{margin-top:25px}.compare table{width:100%;border-collapse:collapse}.compare th,.compare td{padding:12px;border-bottom:1px solid #e1e8f0;text-align:left}.compare th{background:#f5f8fc}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}.compare{overflow-x:auto}}
-</style>
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/rent-vs-buy-calculator/">
+<style>
+.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.compare{margin-top:25px}.compare table{width:100%;border-collapse:collapse}.compare th,.compare td{padding:12px;border-bottom:1px solid #e1e8f0;text-align:left}.compare th{background:#f5f8fc}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note,.warning{font-size:14px;color:#687588;margin-top:25px;padding:14px;border-radius:10px}.warning{background:#fff8e6;color:#6b5b2a}.note{background:#eef7ff}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}.compare{overflow-x:auto}}
+</style>
 <script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"BreadcrumbList",
- "itemListElement":[
-  {"@type":"ListItem","position":1,"name":"Finance Tools","item":"https://nur0012786-bit.github.io/finance-tools/"},
-  {"@type":"ListItem","position":2,"name":"Rent vs Buy Calculator","item":"https://nur0012786-bit.github.io/finance-tools/rent-vs-buy-calculator/"}
- ]
-}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Finance Tools","item":"https://nur0012786-bit.github.io/finance-tools/"},
+{"@type":"ListItem","position":2,"name":"Rent vs Buy Calculator","item":"https://nur0012786-bit.github.io/finance-tools/rent-vs-buy-calculator/"}
+]}
 </script>
 </head>
 <body class="design-rent">
@@ -25,9 +22,10 @@
 <main>
 <section class="section"><div class="container calc-wrap">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>Rent vs Buy Calculator</span></nav>
-<p class="eyebrow">RENT VS BUY CALCULATOR</p>
-<h1>Compare the estimated cost of renting vs. buying</h1>
-<p class="hero-text">Compare housing costs over your expected time horizon, including rent, mortgage principal and interest, taxes, insurance, maintenance, closing costs and estimated home equity.</p>
+<p class="eyebrow">US HOUSING COST COMPARISON</p>
+<h1>US Rent vs Buy Calculator</h1>
+<p class="hero-text">Compare estimated renting and buying costs over your expected time in a home. This scenario model includes rent growth, mortgage payments, property taxes, insurance, maintenance, closing costs, selling costs, home equity and the opportunity cost of upfront cash.</p>
+
 <div class="calc-box">
 <div class="form-grid">
 <div><label for="rent">Current monthly rent ($)</label><input id="rent" type="number" min="0" value="2500"></div>
@@ -45,15 +43,17 @@
 <div><label for="years">Expected years in the home</label><input id="years" type="number" min="1" value="7"></div>
 <div><label for="investment">Annual return on cash not used for buying (%)</label><input id="investment" type="number" min="0" step="0.1" value="5"></div>
 </div>
-<button class="button calc-button" onclick="calculateRentBuy()">Compare rent vs. buy</button>
+<button class="button calc-button" onclick="calculateRentBuy()">Compare Rent vs. Buy</button>
+
 <div class="results">
-<div class="result"><small>Total estimated rent cost</small><strong id="rentTotal">$0.00</strong></div>
-<div class="result"><small>Buy cash outflows</small><strong id="buyOutflow">$0.00</strong></div>
-<div class="result"><small>Estimated home equity</small><strong id="equity">$0.00</strong></div>
-<div class="result"><small>Estimated sale proceeds</small><strong id="saleProceeds">$0.00</strong></div>
-<div class="result"><small>Opportunity cost of upfront cash</small><strong id="opportunity">$0.00</strong></div>
-<div class="result"><small>Buy net cost estimate</small><strong id="buyNet">$0.00</strong></div>
+<div class="result"><small>Total estimated rent cost</small><strong id="rentTotal">$0</strong></div>
+<div class="result"><small>Buy cash outflows</small><strong id="buyOutflow">$0</strong></div>
+<div class="result"><small>Estimated home equity</small><strong id="equity">$0</strong></div>
+<div class="result"><small>Estimated sale proceeds</small><strong id="saleProceeds">$0</strong></div>
+<div class="result"><small>Opportunity cost of upfront cash</small><strong id="opportunity">$0</strong></div>
+<div class="result"><small>Buy net cost estimate</small><strong id="buyNet">$0</strong></div>
 </div>
+
 <div class="compare">
 <table><thead><tr><th>Comparison</th><th>Rent</th><th>Buy</th></tr></thead><tbody>
 <tr><td>Initial cash</td><td id="rentInitial">$0</td><td id="buyInitial">$0</td></tr>
@@ -62,87 +62,106 @@
 <tr><td>Net cost after ending equity</td><td id="rentNet">$0</td><td id="buyNetTable">$0</td></tr>
 </tbody></table>
 </div>
-<p class="note">Educational estimate only. This model uses your assumptions and does not predict future rent, home values, interest rates, taxes, insurance or investment returns. It also excludes income-tax effects, HOA dues, utilities and many transaction-specific costs unless entered.</p>
+
+<div class="warning">This calculator is a scenario model, not a prediction or recommendation. Results can change substantially when rent growth, home appreciation, mortgage rates, maintenance, taxes, insurance, selling costs or investment returns change.</div>
+<p class="note">The buying model excludes income-tax effects, HOA dues, utilities and mortgage insurance unless separately represented by the assumptions. It also uses a simplified maintenance assumption based on home price.</p>
 </div>
 </div></section>
 
 <section class="section light"><div class="container narrow">
-<p class="eyebrow">RENT VS BUY GUIDE</p>
-<h2>How should you compare renting and buying?</h2>
-<p>Renting and buying have different cash flows and risks. The CFPB notes that buying can involve principal and interest plus property taxes, homeowners insurance, mortgage insurance, HOA fees and maintenance. Selling a home can also involve transaction costs.</p>
-<h2>Why time horizon matters</h2>
-<p>Buying and selling a home can be expensive, so the number of years you expect to stay matters. The CFPB specifically recommends considering whether you are willing to stay put for a few years and notes that moving again after a short period can make buying more costly.</p>
-<h2>What this calculator measures</h2>
-<p>This calculator projects rent payments with an annual increase, then compares them with estimated ownership cash outflows. For buying, it models mortgage principal and interest, property taxes, homeowners insurance, maintenance, upfront closing costs and selling costs. It also estimates remaining mortgage balance and home equity after the selected period.</p>
-<h2>Rent vs buy example</h2>
-<p>Try $2,500 monthly rent, a $400,000 home, $80,000 down, a 6.5% mortgage rate and a 7-year horizon. Adjust rent growth, appreciation, taxes, insurance and maintenance to reflect your local situation. The result is a scenario comparison—not a prediction or a recommendation.</p>
-<div class="faq"><p class="eyebrow">FAQ</p><h2>Frequently asked questions</h2>
-<div class="faq-item"><h3>Does buying always cost less than renting?</h3><p>No. The result depends on assumptions such as rent growth, home appreciation, mortgage rate, taxes, insurance, maintenance, transaction costs and how long you stay.</p></div>
-<div class="faq-item"><h3>Why does the calculator include maintenance?</h3><p>Homeowners are responsible for repairs and maintenance. The CFPB recommends budgeting for these costs because they can range from small repairs to major replacements.</p></div>
-<div class="faq-item"><h3>Why are selling costs included?</h3><p>Selling a home can involve commissions, taxes and other transaction costs. Including an estimated selling-cost percentage makes the comparison more complete over a finite time horizon.</p></div>
-<div class="faq-item"><h3>Does the calculator include mortgage principal as a cost?</h3><p>Principal is a cash outflow, but it also reduces the mortgage balance and contributes to home equity. The model therefore shows both ownership cash outflows and ending equity rather than treating principal as pure economic expense.</p></div>
-<div class="faq-item"><h3>Does it include tax deductions?</h3><p>No. Tax effects can depend on individual circumstances, filing status and applicable federal and state rules. The calculator leaves them out so users can compare the core housing assumptions without making a personalized tax calculation.</p></div>
-<div class="faq-item"><h3>Is this a financial recommendation?</h3><p>No. It is a scenario calculator. Use realistic local assumptions and consider your cash reserves, mobility, maintenance responsibilities and long-term plans before making a housing decision.</p></div>
+<p class="eyebrow">CALCULATION METHOD</p>
+<h2>How this US rent vs buy calculator works</h2>
+<p>The calculator projects your total rent payments over the selected number of years, applying the annual rent-increase assumption at the start of each year. For buying, it models the down payment, closing costs, mortgage principal and interest, property taxes, homeowners insurance and maintenance.</p>
+<p>It also estimates the remaining mortgage balance after the selected period. Home value is projected using your appreciation assumption, then estimated selling costs are deducted to calculate sale proceeds. The resulting home equity is shown separately so you can see how principal repayment and home-price changes affect the ownership scenario.</p>
+<p>Finally, the calculator estimates the opportunity cost of the initial cash used for the down payment and closing costs. This represents the hypothetical investment growth that cash could have generated at the annual return assumption if it had remained invested instead.</p>
+
+<h2>Why the time horizon matters</h2>
+<p>Buying and selling a home involve transaction costs. The CFPB notes that buying and selling can be expensive and that moving again within a few years can make homeownership more costly. A rent-versus-buy comparison should therefore be tested across several time horizons rather than relying on a single year count. citeturn0search0turn0search2</p>
+
+<h2>What costs should buyers include?</h2>
+<p>A mortgage principal-and-interest payment is only part of the ownership budget. Property taxes, homeowners insurance, mortgage insurance when applicable, HOA charges and maintenance can materially affect the total cost. The CFPB specifically advises buyers to account for these expenses and for repairs and maintenance. citeturn0search3turn0search6</p>
+
+<h2>Worked scenario</h2>
+<p>For an illustrative scenario, enter <strong>$2,500 monthly rent</strong>, a <strong>$400,000 home</strong>, an <strong>$80,000 down payment</strong>, a <strong>6.5% mortgage rate</strong> and a <strong>7-year horizon</strong>. Then test different rent-growth and home-appreciation assumptions. The purpose is to see how sensitive the comparison is to the assumptions, not to identify a universal answer.</p>
+
+<h2>Renting and buying have different risks</h2>
+<p>Renting generally avoids most property maintenance and repair responsibilities, while buying transfers those responsibilities to the homeowner. Homeowners also take on the risk that property values can decline. Renters may have more flexibility if they expect to move, while buyers face transaction costs when purchasing and later selling. citeturn0search1turn0search2</p>
+</div></section>
+
+<section class="section"><div class="container narrow">
+<div class="faq"><p class="eyebrow">FAQ</p><h2>US rent vs buy calculator FAQs</h2>
+<div class="faq-item"><h3>Does buying always cost less than renting?</h3><p>No. The result depends on rent growth, home appreciation, mortgage rate, taxes, insurance, maintenance, transaction costs, investment assumptions and the time you remain in the property.</p></div>
+<div class="faq-item"><h3>Why does the calculator include maintenance?</h3><p>Homeowners are responsible for repairs and maintenance. The CFPB recommends budgeting for these costs because repairs can range from routine expenses to major replacements. citeturn0search0</p></div>
+<div class="faq-item"><h3>Why are selling costs included?</h3><p>Selling a home can involve commissions, taxes and other transaction costs. Including an estimated selling-cost percentage helps represent the cost of exiting the ownership scenario.</p></div>
+<div class="faq-item"><h3>Does mortgage principal count as a cost?</h3><p>Principal is a cash outflow, but it also reduces the mortgage balance and therefore contributes to home equity. The calculator shows both cash outflows and ending equity instead of treating principal as pure expense.</p></div>
+<div class="faq-item"><h3>Does the calculator include tax deductions?</h3><p>No. Tax effects depend on individual circumstances and applicable federal and state rules. The model leaves them out rather than assuming a tax benefit applies to every buyer.</p></div>
+<div class="faq-item"><h3>Does it include property taxes and insurance?</h3><p>Yes. You can enter an annual property-tax rate and annual homeowners-insurance cost. Actual taxes and insurance can change over time.</p></div>
+<div class="faq-item"><h3>Does it include HOA fees?</h3><p>No. Add HOA costs to your ownership budget separately when evaluating a property where they apply.</p></div>
+<div class="faq-item"><h3>Why is opportunity cost included?</h3><p>The down payment and closing costs use cash that could otherwise remain invested. The calculator estimates the hypothetical growth of that initial cash at the return assumption you enter.</p></div>
+<div class="faq-item"><h3>Should I use one set of assumptions?</h3><p>No. Future rent, home prices, investment returns, maintenance and other costs are uncertain. Testing several reasonable scenarios can show how sensitive the comparison is to those assumptions. citeturn0search1turn0search2</p></div>
+<div class="faq-item"><h3>Is this a financial recommendation?</h3><p>No. It is a scenario calculator. Consider your cash reserves, mobility, household budget, maintenance responsibilities and long-term plans when evaluating housing choices.</p></div>
 </div>
 </div></section>
-<section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Compare estimated renting and buying costs with related mortgage planning tools.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../mortgage-affordability-calculator/">Mortgage Affordability Calculator</a></li><li><a href="../property-tax-calculator/">Property Tax Calculator</a></li></ul></div></section>
+
+<section class="section light"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This calculator does not predict future housing or investment returns and does not provide personalized financial, mortgage or tax advice. Review local costs and your own financial circumstances before making a housing decision.</div></div></section>
+
+<section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Continue planning with related US home-finance calculators.</p><ul>
+<li><a href="../mortgage-calculator/">Mortgage Calculator</a></li>
+<li><a href="../mortgage-affordability-calculator/">Mortgage Affordability Calculator</a></li>
+<li><a href="../property-tax-calculator/">Property Tax Calculator</a></li>
+<li><a href="../down-payment-calculator/">Down Payment Calculator</a></li>
+<li><a href="../closing-costs-calculator/">Closing Costs Calculator</a></li>
+</ul></div></section>
 </main>
-<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<footer><div class="container"><a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../financial-disclaimer.html">Disclaimer</a> · <a href="../contact.html">Contact</a><br>© 2026 Finance Tools. For educational purposes only.</div></footer>
+
 <script>
-function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
-function mortgagePayment(P,annual,months){const r=annual/100/12;return r===0?P/months:P*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1)}
+function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});}
+function mortgagePayment(P,annual,months){const r=annual/100/12;if(P<=0)return 0;if(r===0)return P/months;return P*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1);}
 function calculateRentBuy(){
- const rent=Number(document.getElementById("rent").value),rg=Number(document.getElementById("rentGrowth").value);
- const price=Number(document.getElementById("price").value),down=Number(document.getElementById("down").value);
- const rate=Number(document.getElementById("rate").value),term=Number(document.getElementById("term").value);
- const tax=Number(document.getElementById("propertyTax").value),insurance=Number(document.getElementById("insurance").value);
- const maint=Number(document.getElementById("maintenance").value),closing=Number(document.getElementById("closing").value);
- const selling=Number(document.getElementById("selling").value),app=Number(document.getElementById("appreciation").value);
- const years=Number(document.getElementById("years").value),inv=Number(document.getElementById("investment").value);
- if([rent,rg,price,down,rate,term,tax,insurance,maint,closing,selling,app,years,inv].some(x=>!Number.isFinite(x)||x<0)||down>price||term<=0||years<=0){alert("Please enter valid values. Down payment cannot exceed the home price.");return}
- const months=Math.round(years*12), loan=price-down, loanMonths=Math.round(term*12), pmt=mortgagePayment(loan,rate,loanMonths);
- let balance=loan,rentTotal=0,buyHousing=down+closing,homeInsurance=0;
- for(let m=1;m<=months;m++){
-   const yearIndex=Math.floor((m-1)/12);
-   rentTotal += rent*Math.pow(1+rg/100,yearIndex);
-   const rr=rate/100/12;
-   const interest=balance*rr;
-   const principal=Math.min(balance,Math.max(0,pmt-interest));
-   balance=Math.max(0,balance-principal);
-   buyHousing += pmt + price*(tax/100)/12 + insurance/12 + price*(maint/100)/12;
- }
- const futureHome=price*Math.pow(1+app/100,years);
- const saleCost=futureHome*(selling/100);
- const saleProceeds=Math.max(0,futureHome-saleCost-balance);
- const equity=Math.max(0,futureHome-balance);
- const upfront=down+closing;
- const opportunity=upfront*(Math.pow(1+inv/100,years)-1);
- const buyNet=buyHousing-saleProceeds+opportunity;
- const rentNet=rentTotal;
- document.getElementById("rentTotal").textContent=money(rentTotal);
- document.getElementById("buyOutflow").textContent=money(buyHousing);
- document.getElementById("equity").textContent=money(equity);
- document.getElementById("saleProceeds").textContent=money(saleProceeds);
- document.getElementById("opportunity").textContent=money(opportunity);
- document.getElementById("buyNet").textContent=money(buyNet);
- document.getElementById("rentInitial").textContent=money(0);
- document.getElementById("buyInitial").textContent=money(upfront);
- document.getElementById("rentOutflow").textContent=money(rentTotal);
- document.getElementById("buyHousing").textContent=money(buyHousing);
- document.getElementById("buyEnding").textContent=money(equity);
- document.getElementById("rentNet").textContent=money(rentNet);
- document.getElementById("buyNetTable").textContent=money(buyNet);
+const rent=Math.max(0,Number(document.getElementById("rent").value)||0);
+const rg=Math.max(0,Number(document.getElementById("rentGrowth").value)||0);
+const price=Math.max(0,Number(document.getElementById("price").value)||0);
+const down=Math.max(0,Number(document.getElementById("down").value)||0);
+const rate=Math.max(0,Number(document.getElementById("rate").value)||0);
+const term=Math.max(1,Number(document.getElementById("term").value)||1);
+const tax=Math.max(0,Number(document.getElementById("propertyTax").value)||0);
+const insurance=Math.max(0,Number(document.getElementById("insurance").value)||0);
+const maint=Math.max(0,Number(document.getElementById("maintenance").value)||0);
+const closing=Math.max(0,Number(document.getElementById("closing").value)||0);
+const selling=Math.max(0,Number(document.getElementById("selling").value)||0);
+const app=Number(document.getElementById("appreciation").value)||0;
+const years=Math.max(1,Number(document.getElementById("years").value)||1);
+const inv=Math.max(0,Number(document.getElementById("investment").value)||0);
+if(price<=0||down>price){document.getElementById("rentTotal").textContent="$0";document.getElementById("buyOutflow").textContent="$0";document.getElementById("equity").textContent="$0";document.getElementById("saleProceeds").textContent="$0";document.getElementById("opportunity").textContent="$0";document.getElementById("buyNet").textContent="$0";return;}
+const months=Math.max(1,Math.round(years*12)),loan=price-down,loanMonths=Math.max(1,Math.round(term*12)),pmt=mortgagePayment(loan,rate,loanMonths);
+let balance=loan,rentTotal=0,buyHousing=down+closing;
+for(let m=1;m<=months;m++){
+const yearIndex=Math.floor((m-1)/12);
+rentTotal+=rent*Math.pow(1+rg/100,yearIndex);
+const rr=rate/100/12,interest=balance*rr,principal=Math.min(balance,Math.max(0,pmt-interest));
+balance=Math.max(0,balance-principal);
+buyHousing+=pmt+price*(tax/100)/12+insurance/12+price*(maint/100)/12;
+}
+const futureHome=price*Math.pow(1+app/100,years),saleCost=futureHome*(selling/100);
+const saleProceeds=Math.max(0,futureHome-saleCost-balance),equity=Math.max(0,futureHome-balance);
+const upfront=down+closing,opportunity=upfront*(Math.pow(1+inv/100,years)-1);
+const buyNet=buyHousing-saleProceeds+opportunity;
+document.getElementById("rentTotal").textContent=money(rentTotal);
+document.getElementById("buyOutflow").textContent=money(buyHousing);
+document.getElementById("equity").textContent=money(equity);
+document.getElementById("saleProceeds").textContent=money(saleProceeds);
+document.getElementById("opportunity").textContent=money(opportunity);
+document.getElementById("buyNet").textContent=money(buyNet);
+document.getElementById("rentInitial").textContent=money(0);
+document.getElementById("buyInitial").textContent=money(upfront);
+document.getElementById("rentOutflow").textContent=money(rentTotal);
+document.getElementById("buyHousing").textContent=money(buyHousing);
+document.getElementById("buyEnding").textContent=money(equity);
+document.getElementById("rentNet").textContent=money(rentTotal);
+document.getElementById("buyNetTable").textContent=money(buyNet);
 }
 calculateRentBuy();
 </script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Does buying always cost less than renting?","acceptedAnswer":{"@type":"Answer","text":"No. The result depends on assumptions such as rent growth, home appreciation, mortgage rate, taxes, insurance, maintenance, transaction costs and how long you stay."}},
-{"@type":"Question","name":"Why does the calculator include maintenance?","acceptedAnswer":{"@type":"Answer","text":"Homeowners are responsible for repairs and maintenance, which can include small repairs and major replacements."}},
-{"@type":"Question","name":"Why are selling costs included?","acceptedAnswer":{"@type":"Answer","text":"Selling a home can involve commissions, taxes and other transaction costs. Including an estimated selling-cost percentage makes the comparison more complete over a finite time horizon."}},
-{"@type":"Question","name":"Does the calculator include mortgage principal as a cost?","acceptedAnswer":{"@type":"Answer","text":"Principal is a cash outflow, but it also reduces the mortgage balance and contributes to home equity. The model therefore shows both ownership cash outflows and ending equity."}},
-{"@type":"Question","name":"Does it include tax deductions?","acceptedAnswer":{"@type":"Answer","text":"No. Tax effects can depend on individual circumstances, filing status and applicable federal and state rules."}},
-{"@type":"Question","name":"Is this a financial recommendation?","acceptedAnswer":{"@type":"Answer","text":"No. It is a scenario calculator. Use realistic local assumptions and consider your cash reserves, mobility, maintenance responsibilities and long-term plans before making a housing decision."}}
-]}
-</script>
-</body></html>
+</body>
+</html>
