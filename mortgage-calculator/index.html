@@ -40,12 +40,11 @@
 </head>
 <body class="design-mortgage">
 <header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
-<main>
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>Mortgage Calculator</span></nav>
 <main class="mortgage-page">
 <section class="hero"><div class="container hero-grid"><div>
 <p class="eyebrow">US MORTGAGE CALCULATOR</p>
-<h1>Mortgage Calculator</h1>
+<h1>US Mortgage Calculator</h1>
 <p class="hero-text">Estimate your monthly mortgage payment, total interest and full principal-and-interest cost with a clear US home-loan calculation.</p>
 </div>
 <div class="hero-card"><div class="hero-icon">$</div><h2>Plan your home loan with confidence</h2><p>Adjust price, down payment, rate and term to see how each choice changes your estimated payment and total borrowing cost.</p><a class="text-link" href="../mortgage-affordability-calculator/">Check Mortgage Affordability →</a></div></div></section>
@@ -89,9 +88,14 @@
 <section class="section light"><div class="container narrow">
 <p class="eyebrow">MORTGAGE GUIDE</p>
 <h2>How does a mortgage calculator work?</h2>
-<p>A mortgage calculator estimates the principal and interest portion of a home-loan payment from the loan amount, annual interest rate and repayment term. The down payment reduces the amount borrowed from the lender.</p>
+<p>A mortgage calculator estimates the principal-and-interest portion of a fixed-rate home loan from the amount borrowed, annual interest rate and repayment term. The down payment reduces the amount financed from the home price.</p>
+<h2>How is the monthly mortgage payment calculated?</h2>
+<p>For a standard fixed-rate mortgage, the monthly principal-and-interest payment is calculated from the loan amount, monthly interest rate and total number of monthly payments. Each scheduled payment includes interest on the remaining balance and a portion that reduces principal.</p>
+<p>For example, a $350,000 home with a $70,000 down payment leaves a $280,000 loan. At 6.5% interest over 30 years, the estimated principal-and-interest payment is about $1,770 per month. This example excludes taxes, insurance, PMI, HOA dues and closing costs.</p>
 <h2>What is included in this estimate?</h2>
-<p>This calculator estimates principal and interest only. A real monthly housing payment can also include property taxes, homeowners insurance, mortgage insurance and other costs depending on the loan and property.</p>
+<p>This calculator estimates principal and interest only. It uses the home price, down payment, annual interest rate and loan term to calculate the financed amount and scheduled payment.</p>
+<h2>What is not included?</h2>
+<p>The estimate does not include property taxes, homeowners insurance, PMI, HOA dues, lender fees, prepaid costs or closing costs. These expenses can materially change the amount a homeowner actually pays each month or at closing.</p>
 <h2>Mortgage example</h2>
 <p>Try a $350,000 home with a $70,000 down payment, a 6.5% annual interest rate and a 30-year term to see an estimated principal-and-interest payment.</p>
 
@@ -124,7 +128,6 @@ function calculateMortgage(){
  document.getElementById("interest").textContent=money(interest);
  document.getElementById("total").textContent=money(total);
  document.getElementById("downResult").textContent=money(down);
- document.getElementById("termResult").textContent=years+" year"+(years===1?"":"s");
  const principalPct=total>0?(P/total)*100:100, interestPct=100-principalPct;
  document.getElementById("principalBar").style.width=principalPct+"%";
  document.getElementById("interestBar").style.width=interestPct+"%";
@@ -133,14 +136,6 @@ function calculateMortgage(){
 }
 calculateMortgage();
 </script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"How much should I enter for the down payment?","acceptedAnswer":{"@type":"Answer","text":"Enter the amount you expect to pay upfront toward the home's purchase price. The calculator subtracts it from the home price to estimate the loan amount."}},
-{"@type":"Question","name":"Does this mortgage calculator include property taxes?","acceptedAnswer":{"@type":"Answer","text":"No. The estimate covers principal and interest only. Property taxes, homeowners insurance, mortgage insurance and HOA fees are not included."}},
-{"@type":"Question","name":"What happens if I change the interest rate?","acceptedAnswer":{"@type":"Answer","text":"A higher interest rate generally increases the estimated monthly principal-and-interest payment and total interest for the same loan amount and term."}},
-{"@type":"Question","name":"What does a 30-year mortgage term mean?","acceptedAnswer":{"@type":"Answer","text":"A 30-year term means the scheduled loan repayment period is 30 years, or 360 monthly payments under a standard monthly amortization schedule."}},
-{"@type":"Question","name":"Is this mortgage calculator financial advice?","acceptedAnswer":{"@type":"Answer","text":"No. It is an educational estimate. Actual loan terms and housing costs vary by lender, borrower, property and loan program."}}
-]}
-</script>
+
 </body>
 </html>
