@@ -7,16 +7,6 @@
 <meta name="description" content="Estimate private mortgage insurance, loan-to-value, principal and interest, and total monthly housing payment for a US home loan.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="../style.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"What is PMI?","acceptedAnswer":{"@type":"Answer","text":"Private mortgage insurance, or PMI, is commonly required on conventional mortgages when the borrower's equity is below a lender's required threshold."}},
-{"@type":"Question","name":"How is PMI calculated?","acceptedAnswer":{"@type":"Answer","text":"PMI can be estimated by multiplying the mortgage balance by an annual PMI rate and dividing by 12. Actual pricing varies by borrower, loan, insurer and lender."}},
-{"@type":"Question","name":"When is PMI required?","acceptedAnswer":{"@type":"Answer","text":"On many conventional loans, PMI may be required when the down payment is less than 20 percent, although lender requirements and loan programs vary."}},
-{"@type":"Question","name":"Can I avoid PMI with a 20 percent down payment?","acceptedAnswer":{"@type":"Answer","text":"A 20 percent down payment can often avoid borrower-paid PMI on a conventional mortgage, but specific lender and loan requirements can differ."}},
-{"@type":"Question","name":"Can PMI be removed?","acceptedAnswer":{"@type":"Answer","text":"For eligible conventional mortgages, PMI may be cancellable when the loan reaches certain equity or principal-balance conditions. Servicer rules and federal requirements apply."}},
-{"@type":"Question","name":"Does FHA insurance work the same as PMI?","acceptedAnswer":{"@type":"Answer","text":"No. FHA loans use mortgage insurance under FHA program rules, while PMI is generally associated with conventional mortgages."}}
-]}
-</script>
 <style>
 .calculator{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field label{display:block;font-weight:700;margin-bottom:7px}
@@ -41,8 +31,8 @@
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>PMI Calculator</span></nav>
 <section class="hero-text">
 <p class="eyebrow">US MORTGAGE PLANNING</p>
-<h1>PMI Calculator</h1>
-<p>Estimate private mortgage insurance costs for a conventional mortgage and see how your down payment affects loan-to-value.</p>
+<h1>US PMI Calculator</h1>
+<p>Estimate private mortgage insurance for a conventional mortgage, calculate starting loan-to-value, and compare your estimated monthly housing payment.</p>
 </section>
 
 <section class="card">
@@ -67,24 +57,28 @@
 </section>
 
 <section class="card">
-<h2>How PMI works</h2>
-<p>Private mortgage insurance is commonly associated with conventional mortgages when the borrower's equity is below a lender's required level. PMI protects the lender against certain losses; it does not protect the homeowner from missed payments.</p>
-<h3>PMI estimate</h3>
-<p>This calculator estimates annual PMI by multiplying the mortgage balance by your entered annual PMI rate. It then divides that estimate by 12 for an estimated monthly PMI cost.</p>
-<h3>Why your down payment matters</h3>
-<p>A larger down payment reduces the mortgage balance and lowers the starting LTV. On conventional loans, reaching 20% equity can often eliminate the need for borrower-paid PMI at origination, subject to lender and loan rules.</p>
+<h2>How this US PMI calculator works</h2>
+<p>Private mortgage insurance (PMI) is generally associated with conventional mortgages when the down payment is below 20%. PMI protects the lender rather than the homeowner. The exact premium depends on the loan and borrower, so this calculator asks you to enter an estimated annual PMI rate instead of assuming one universal rate. citeturn0search0turn0search13</p>
+<h3>PMI calculation methodology</h3>
+<p>The calculator first subtracts your down payment from the home price to estimate the mortgage balance. Starting LTV is then calculated as mortgage balance divided by home price. For the PMI estimate, the mortgage balance is multiplied by your entered annual PMI rate and divided by 12:</p>
+<p><strong>Estimated monthly PMI = loan amount × annual PMI rate ÷ 12</strong></p>
+<p>The page also calculates principal and interest using the entered rate and term, then adds estimated monthly PMI to show a combined principal-and-interest-plus-PMI figure. Property taxes, homeowners insurance, HOA dues, and other housing costs are not included in that result.</p>
+<h3>Why the PMI rate is an input</h3>
+<p>PMI pricing is not a single fixed percentage. It can vary with factors such as down payment, credit score, loan amount, and mortgage type. Fannie Mae notes that PMI is commonly priced as a percentage of the mortgage amount. citeturn0search13</p>
+<h3>When PMI may end</h3>
+<p>For many eligible conventional mortgages covered by the federal PMI rules, a borrower can request cancellation when the principal balance reaches 80% of the home's original value, subject to applicable conditions. In general, automatic termination occurs when the scheduled balance reaches 78% of original value if the borrower is current. FHA and VA mortgage-insurance rules are different. citeturn0search1</p>
 <h3>PMI is not the same as FHA mortgage insurance</h3>
-<p>Conventional PMI and FHA mortgage insurance operate under different program rules. If you are comparing loan programs, review the specific insurance, upfront costs and ongoing requirements that apply to each loan.</p>
+<p>Conventional PMI and government-loan mortgage insurance follow different program rules. FHA loans have their own mortgage-insurance requirements, while VA loans have different fee and insurance structures. Use the dedicated FHA and VA calculators when comparing those programs.</p>
 </section>
 
 <section class="card">
-<h2>PMI FAQs</h2>
-<h3>What is PMI?</h3><p>PMI is private mortgage insurance commonly used with conventional mortgages when required by the loan structure.</p>
-<h3>How is PMI estimated?</h3><p>A simple estimate is mortgage balance × annual PMI rate ÷ 12.</p>
-<h3>When is PMI required?</h3><p>Many conventional loans require PMI when the down payment is below 20%, but requirements vary.</p>
-<h3>Can I avoid PMI with 20% down?</h3><p>A 20% down payment can often avoid borrower-paid PMI on a conventional mortgage, subject to loan and lender rules.</p>
-<h3>Can PMI be removed?</h3><p>Eligible conventional borrowers may have rights to request or obtain cancellation when certain equity conditions are met.</p>
-<h3>Is this a PMI quote?</h3><p>No. It is an estimate based on the inputs you provide.</p>
+<h2>PMI calculator FAQs</h2>
+<h3>What is PMI?</h3><p>PMI is private mortgage insurance that is commonly required on conventional mortgages with smaller down payments. It protects the lender, not the borrower. citeturn0search0</p>
+<h3>How much does PMI cost?</h3><p>There is no universal PMI rate. The premium can vary based on factors including down payment, credit profile, loan amount, and mortgage type. Enter an estimated annual rate to model your own scenario. citeturn0search13</p>
+<h3>Can I avoid PMI with 20% down?</h3><p>For a conventional mortgage, a 20% down payment generally means borrower-paid PMI is not required at origination, although specific loan and lender terms apply. citeturn0search0</p>
+<h3>When can PMI be canceled?</h3><p>For many eligible conventional mortgages, you can request cancellation when the principal balance is scheduled to reach 80% of the home's original value if the applicable requirements are met. Automatic termination generally occurs at 78% when the borrower is current. citeturn0search1</p>
+<h3>Does FHA use PMI?</h3><p>No. FHA uses its own mortgage-insurance rules. This calculator is designed for an estimated conventional PMI scenario, not an FHA mortgage-insurance calculation. citeturn0search2</p>
+<h3>Is this a PMI quote?</h3><p>No. It is a mathematical estimate using your home price, down payment, mortgage rate, term, and assumed PMI rate. A lender or mortgage insurer may quote a different premium.</p>
 </section>
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Estimate private mortgage insurance and housing payments with related mortgage tools.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../mortgage-affordability-calculator/">Mortgage Affordability Calculator</a></li><li><a href="../down-payment-calculator/">Down Payment Calculator</a></li></ul></div></section>
 </main>
@@ -115,7 +109,7 @@ document.getElementById('monthlyPmi').textContent=money(monthlyPmi);
 document.getElementById('annualPmi').textContent=money(annualPmi);
 document.getElementById('payment').textContent=money(payment);
 document.getElementById('total').textContent=money(total);
-document.getElementById('summary').textContent='With a '+(down/price*100||0).toFixed(1)+'% down payment, your estimated starting LTV is '+ltv.toFixed(1)+'%. At an assumed PMI rate of '+(pmiRate*100).toFixed(2)+'%, estimated PMI is '+money(monthlyPmi)+' per month.';
+document.getElementById('summary').textContent='With a '+(price>0?(down/price*100).toFixed(1):'0.0')+'% down payment, your estimated starting LTV is '+ltv.toFixed(1)+'%. At an assumed PMI rate of '+(pmiRate*100).toFixed(2)+'%, estimated PMI is '+money(monthlyPmi)+' per month.';
 }
 calculate();
 </script>
