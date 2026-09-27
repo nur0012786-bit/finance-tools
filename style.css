@@ -435,3 +435,143 @@ footer{background:#092b53!important;color:#c7d7ea!important;border-top:0!importa
   main.container.narrow{padding-top:48px}
   main.container.narrow>.hero-text h1{font-size:44px!important}
 }
+
+
+/* =========================================================
+   DESIGN 3.1 — DISTINCT CALCULATOR THEMES
+   Every calculator gets its own visual identity while sharing
+   the same professional Finance Tools design language.
+   ========================================================= */
+[class*="theme-"]{
+  --accent:var(--blue);
+  --accent-2:var(--navy);
+  --accent-soft:#eaf3ff;
+  --hero-bg:#f7faff;
+  --glow:rgba(23,105,209,.14);
+}
+[class*="theme-"] .hero{
+  background:
+    radial-gradient(circle at 88% 14%,var(--accent-soft) 0 175px,transparent 176px),
+    linear-gradient(135deg,#fff 0%,var(--hero-bg) 100%);
+}
+[class*="theme-"] .eyebrow{color:var(--accent-2)}
+[class*="theme-"] .button{
+  background:linear-gradient(135deg,var(--accent-2),var(--accent));
+  border-color:var(--accent);
+}
+[class*="theme-"] .button:hover{filter:brightness(1.05)}
+[class*="theme-"] .calculator-card,
+[class*="theme-"] .calc-box,
+[class*="theme-"] .result-card{
+  border-top:4px solid var(--accent)!important;
+}
+[class*="theme-"] input:focus,
+[class*="theme-"] select:focus{
+  border-color:var(--accent)!important;
+  box-shadow:0 0 0 4px var(--glow),0 5px 15px rgba(8,43,87,.06)!important;
+}
+[class*="theme-"] .result:first-child,
+[class*="theme-"] .results>div:first-child{
+  background:linear-gradient(135deg,var(--accent-soft),#fff)!important;
+  border-color:color-mix(in srgb,var(--accent) 28%,#fff)!important;
+}
+[class*="theme-"] .result:first-child strong,
+[class*="theme-"] .results>div:first-child strong{color:var(--accent-2)!important}
+[class*="theme-"] .hero-card{
+  background:linear-gradient(145deg,#fff,var(--accent-soft));
+  border-color:color-mix(in srgb,var(--accent) 22%,#d9e2ee);
+}
+[class*="theme-"] .hero-icon{background:var(--accent-soft);color:var(--accent-2)}
+[class*="theme-"] .feature-icon{background:var(--accent-soft);color:var(--accent-2)}
+[class*="theme-"] .card:hover{border-color:color-mix(in srgb,var(--accent) 38%,#fff)}
+[class*="theme-"] .text-link{color:var(--accent-2);font-weight:800}
+
+/* 01 Loan — executive blue */
+.theme-loan{--accent:#1769d1;--accent-2:#082b57;--accent-soft:#e8f2ff;--hero-bg:#f2f7ff;--glow:rgba(23,105,209,.18)}
+/* 02 Mortgage — premium navy/cyan */
+.theme-mortgage{--accent:#1769d1;--accent-2:#062b55;--accent-soft:#e6f4ff;--hero-bg:#f5f9fd}
+/* 03 Auto — graphite + electric blue */
+.theme-auto{--accent:#087e9b;--accent-2:#10283d;--accent-soft:#e7f7fa;--hero-bg:#f4f9fb}
+.theme-auto .hero:after{background:rgba(8,126,155,.11)}
+/* 04 Compound interest — emerald wealth */
+.theme-compound{--accent:#16855b;--accent-2:#064a35;--accent-soft:#e7f8f0;--hero-bg:#f3faf7}
+.theme-compound .eyebrow{color:#0c7250}
+/* 05 Savings — teal */
+.theme-savings{--accent:#078b8b;--accent-2:#07545a;--accent-soft:#e5f8f8;--hero-bg:#f2fbfb}
+/* 06 Retirement — deep violet */
+.theme-retirement{--accent:#6845c5;--accent-2:#32205f;--accent-soft:#f0ebff;--hero-bg:#f8f6ff}
+.theme-retirement .hero:after{background:rgba(104,69,197,.11)}
+/* 07 Debt payoff — warm coral */
+.theme-debt{--accent:#dc5a43;--accent-2:#7e2d21;--accent-soft:#fff0ed;--hero-bg:#fff8f6}
+/* 08 Credit card payoff — indigo */
+.theme-cardpay{--accent:#4d5bd4;--accent-2:#202b78;--accent-soft:#eef0ff;--hero-bg:#f7f8ff}
+/* 09 Minimum payment — amber */
+.theme-minpay{--accent:#c98516;--accent-2:#704707;--accent-soft:#fff5df;--hero-bg:#fffbf3}
+/* 10 Personal loan — slate blue */
+.theme-personal{--accent:#3975b8;--accent-2:#173b63;--accent-soft:#eaf3fc;--hero-bg:#f5f9fd}
+/* 11 Affordability — royal blue */
+.theme-afford{--accent:#315fcf;--accent-2:#122e73;--accent-soft:#e9efff;--hero-bg:#f5f8ff}
+/* 12 Refinance — plum */
+.theme-refi{--accent:#8154a8;--accent-2:#45245f;--accent-soft:#f4ecfa;--hero-bg:#fbf7fd}
+/* 13 HELOC — ocean */
+.theme-heloc{--accent:#0a83b5;--accent-2:#063d58;--accent-soft:#e5f5fb;--hero-bg:#f3faff}
+/* 14 Home equity — forest */
+.theme-equity{--accent:#2b8063;--accent-2:#154e3c;--accent-soft:#e8f5ef;--hero-bg:#f4faf7}
+/* 15 PMI — indigo/ice */
+.theme-pmi{--accent:#4668d8;--accent-2:#1d3479;--accent-soft:#eaf0ff;--hero-bg:#f5f8ff}
+/* 16 FHA — HUD-inspired blue + orange */
+.theme-fha{--accent:#d66b17;--accent-2:#123e70;--accent-soft:#fff0e3;--hero-bg:#f7f9fc}
+.theme-fha .hero{background:radial-gradient(circle at 90% 12%,#fff0df 0 180px,transparent 181px),linear-gradient(135deg,#fff,#f5f8fc)}
+/* 17 VA — patriotic navy + muted red */
+.theme-va{--accent:#b84b55;--accent-2:#0c345c;--accent-soft:#f9e9eb;--hero-bg:#f6f9fc}
+/* 18 USDA — rural green */
+.theme-usda{--accent:#5a8a3a;--accent-2:#315725;--accent-soft:#edf6e7;--hero-bg:#f7faf4}
+/* 19 Mortgage payoff — dark premium */
+.theme-payoff{--accent:#2c7be5;--accent-2:#071a32;--accent-soft:#e8f2ff;--hero-bg:#f4f8fc}
+.theme-payoff .hero{background:linear-gradient(135deg,#fff 0%,#eef5fd 100%)}
+.theme-payoff .result-card{background:linear-gradient(145deg,#071a32,#103d6d)!important;color:#fff}
+.theme-payoff .result-card h2,.theme-payoff .result-card .eyebrow{color:#fff}
+/* 20 Closing costs — champagne/gold */
+.theme-closing{--accent:#b38327;--accent-2:#4d3a13;--accent-soft:#fbf3df;--hero-bg:#fcfaf5}
+/* 21 Down payment — sky blue */
+.theme-down{--accent:#2787d8;--accent-2:#0b426f;--accent-soft:#e7f4ff;--hero-bg:#f3faff}
+/* 22 Property tax — burgundy */
+.theme-tax{--accent:#a44855;--accent-2:#5d2430;--accent-soft:#faebee;--hero-bg:#fdf7f8}
+/* 23 Rent vs buy — split teal/purple */
+.theme-rentbuy{--accent:#6d5acb;--accent-2:#263d75;--accent-soft:#eeecff;--hero-bg:#f8f7ff}
+.theme-rentbuy .result-card{border-left:5px solid #0b8f88!important}
+/* 24 Cash-out refinance — turquoise */
+.theme-cashout{--accent:#079c9a;--accent-2:#07555a;--accent-soft:#e4f8f7;--hero-bg:#f2fbfb}
+/* 25 Mortgage points — copper */
+.theme-points{--accent:#c56b2c;--accent-2:#63300f;--accent-soft:#fff0e6;--hero-bg:#fff9f5}
+
+[class*="theme-"] .results .result,
+[class*="theme-"] .result-card .results>div{
+  transition:transform .18s,box-shadow .18s,border-color .18s;
+}
+[class*="theme-"] .results .result:hover,
+[class*="theme-"] .result-card .results>div:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(8,43,87,.08);
+}
+[class*="theme-"] .section.light{
+  background:linear-gradient(180deg,var(--hero-bg),#fff);
+}
+
+/* Distinctive layout treatments */
+.theme-auto .calculator-card,.theme-auto .calc-box{border-radius:18px!important}
+.theme-compound .calculator-card,.theme-compound .calc-box{border-radius:34px!important}
+.theme-retirement .calculator-card,.theme-retirement .calc-box{border-radius:30px 12px 30px 12px!important}
+.theme-debt .calculator-card,.theme-debt .calc-box{border-radius:12px 28px 12px 28px!important}
+.theme-cardpay .calculator-card,.theme-cardpay .calc-box{border-radius:28px!important}
+.theme-minpay .calculator-card,.theme-minpay .calc-box{border-radius:12px!important}
+.theme-fha .calculator-card,.theme-fha .calc-box{border-radius:18px 34px 18px 34px!important}
+.theme-va .calculator-card,.theme-va .calc-box{border-radius:34px 16px 34px 16px!important}
+.theme-usda .calculator-card,.theme-usda .calc-box{border-radius:26px 8px 26px 8px!important}
+.theme-closing .calculator-card,.theme-closing .calc-box{border-radius:8px 28px 8px 28px!important}
+.theme-tax .calculator-card,.theme-tax .calc-box{border-radius:14px 14px 30px 30px!important}
+.theme-points .calculator-card,.theme-points .calc-box{border-radius:30px 10px 30px 10px!important}
+
+@media(max-width:650px){
+  [class*="theme-"] .hero h1{font-size:44px}
+}
