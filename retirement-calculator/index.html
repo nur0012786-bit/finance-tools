@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estimate retirement savings growth from your current balance, monthly contributions, expected return and years until retirement.">
+<meta name="description" content="Use this US retirement calculator to estimate retirement savings growth from your current balance, monthly contributions, expected return and years to retirement.">
 <meta name="robots" content="index, follow">
-<title>Retirement Calculator | Savings Growth Projection</title>
+<title>US Retirement Calculator | Savings Growth Projection</title>
 <link rel="stylesheet" href="../style.css">
 <style>
 .calculator-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(15,23,42,.08)}
@@ -125,7 +125,22 @@
 
     <div class="content-section">
       <h2>Frequently asked questions</h2>
-      <div class="faq"><h3>What does a retirement calculator estimate?</h3><p>It estimates a possible future retirement balance using current savings, regular contributions, an assumed annual return and the number of years until retirement.</p></div>
+      <section class="guide">
+<p class="eyebrow">US RETIREMENT PLANNING</p>
+<h2>How this retirement calculator works</h2>
+<p>This calculator projects a retirement account balance from your current savings, recurring monthly contributions, an assumed annual rate of return and the number of years until your target date. It separates the projected balance into your contributions and estimated investment growth.</p>
+<p>Long-term investing can benefit from compound growth, but investment returns are not fixed or guaranteed. Investor.gov notes that investing involves risk and that markets fluctuate over time. </p>
+<h2>Why time and regular contributions matter</h2>
+<p>Starting earlier gives contributions more time to potentially compound. Regular contributions also add new money throughout the saving period. Investor.gov describes long-term retirement saving as a process built over working years and notes that workplace plans such as 401(k), 403(b) and 457(b) plans may provide tax advantages and employer matching. </p>
+<h2>Worked example</h2>
+<p>For example, enter <strong>$50,000</strong> as current savings, contribute <strong>$500 per month</strong>, assume a <strong>7%</strong> annual return and use a <strong>20-year</strong> period. The calculator estimates the ending balance and shows the portion represented by your contributions versus projected growth.</p>
+<h2>Return assumptions are not guarantees</h2>
+<p>A projected annual return is an assumption for a planning scenario, not a promise of future performance. Actual returns can vary substantially from year to year, and fees, taxes, inflation, withdrawals and changes in contributions can materially affect retirement savings.</p>
+<h2>Retirement accounts and Social Security</h2>
+<p>This calculator is a general growth projection. It does not calculate IRA or 401(k) contribution limits, employer matching, income taxes, required minimum distributions or Social Security benefits. Investor.gov provides separate retirement and Social Security planning tools for those topics. </p>
+</section>
+
+<div class="faq"><h3>What does a retirement calculator estimate?</h3><p>It estimates a possible future retirement balance using current savings, regular contributions, an assumed annual return and the number of years until retirement.</p></div>
       <div class="faq"><h3>Are the investment returns guaranteed?</h3><p>No. The annual return is only an assumption used for the projection. Actual investment performance can be higher or lower.</p></div>
       <div class="faq"><h3>Does this calculator include inflation?</h3><p>No. The displayed future balance is a nominal projection and does not adjust for inflation.</p></div>
       <div class="faq"><h3>Does it include employer matching?</h3><p>No. Employer contributions are not included. You can adjust your own monthly contribution to model a different total contribution assumption.</p></div>
@@ -179,19 +194,6 @@ function calculate(){
 calculate();
 </script>
 
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a retirement calculator estimate?","acceptedAnswer":{"@type":"Answer","text":"It estimates a possible future retirement balance using current savings, regular contributions, an assumed annual return and the number of years until retirement."}},
-    {"@type":"Question","name":"Are the investment returns guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. The annual return is only an assumption used for the projection. Actual investment performance can be higher or lower."}},
-    {"@type":"Question","name":"Does this calculator include inflation?","acceptedAnswer":{"@type":"Answer","text":"No. The displayed future balance is a nominal projection and does not adjust for inflation."}},
-    {"@type":"Question","name":"Does it include employer matching?","acceptedAnswer":{"@type":"Answer","text":"No. Employer contributions are not included. You can adjust your own monthly contribution to model a different total contribution assumption."}},
-    {"@type":"Question","name":"Does it account for taxes and fees?","acceptedAnswer":{"@type":"Answer","text":"No. Taxes and investment or account fees can reduce actual results and should be considered separately."}},
-    {"@type":"Question","name":"Can I use this for a 401(k) or IRA estimate?","acceptedAnswer":{"@type":"Answer","text":"Yes, as a general growth illustration. Account-specific contribution limits, tax rules, withdrawals and employer benefits are not modeled."}}
-  ]
-}
-</script>
+
 </body>
 </html>
