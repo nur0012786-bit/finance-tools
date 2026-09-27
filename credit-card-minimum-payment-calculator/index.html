@@ -78,7 +78,7 @@
       <input id="higherPayment" type="number" min="0" step="0.01" value="200">
     </div>
     <div class="full">
-      <button class="button" type="button" onclick="calculate()">Calculate</button>
+      <button type="button" class="button" type="button" onclick="calculate()">Calculate</button>
     </div>
   </div>
 
@@ -86,7 +86,7 @@
   <div id="message" class="note" style="display:none"></div>
 
   <div class="result-grid">
-    <div class="result"><small>Estimated minimum payment</small><strong id="minimumPayment">—</strong></div>
+    <div class="result"><small>Estimated minimum payment</small><strong id="minimumPayment" aria-live="polite">—</strong></div>
     <div class="result"><small>Payoff time at minimum</small><strong id="minimumTime">—</strong></div>
     <div class="result"><small>Interest at minimum</small><strong id="minimumInterest">—</strong></div>
     <div class="result"><small>Payoff time at higher payment</small><strong id="higherTime">—</strong></div>
