@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estimate future savings from your current balance, monthly deposits, interest rate and savings period.">
+<meta name="description" content="Use this US savings calculator to estimate future savings, deposits and interest growth from your current balance, monthly contributions, interest rate and time period.">
 <meta name="robots" content="index, follow">
-<title>Savings Calculator | Future Savings & Interest Growth</title>
+<title>US Savings Calculator | Future Savings & Interest Growth</title>
 <link rel="stylesheet" href="../style.css">
 <style>
 .calculator-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(15,23,42,.08)}
@@ -134,7 +134,22 @@
 
     <div class="content-section">
       <h2>Frequently asked questions</h2>
-      <div class="faq"><h3>What does a savings calculator calculate?</h3><p>It estimates a future savings balance using your starting balance, regular deposits, interest rate, compounding frequency and time period.</p></div>
+      <section class="guide">
+<p class="eyebrow">US SAVINGS GUIDE</p>
+<h2>How this savings calculator works</h2>
+<p>This calculator estimates how a savings balance could grow from your current savings, recurring monthly deposits, an assumed annual interest rate, a compounding frequency and a selected time period. It separates the projected ending balance into money you contribute and estimated interest.</p>
+<p>Compound interest means earning interest on your savings and on interest already earned. The Consumer Financial Protection Bureau explains that the rate, compounding frequency and additional deposits can affect how quickly savings grows. </p>
+<h2>Interest rate vs. APY</h2>
+<p>For U.S. deposit accounts, an interest rate does not include the effect of compounding, while APY reflects the total interest paid based on the interest rate and compounding frequency. When comparing actual savings accounts, APY can therefore be more useful than looking at the stated interest rate alone. </p>
+<h2>Worked example</h2>
+<p>Suppose you start with <strong>$5,000</strong>, add <strong>$300 per month</strong>, assume a <strong>4.5%</strong> annual rate and save for <strong>5 years</strong>. The calculator estimates the future balance and shows how much comes from your deposits versus interest under the selected compounding assumption.</p>
+<h2>What can make actual savings growth different?</h2>
+<p>Real savings accounts may have changing rates, minimum-balance requirements, fees, promotional terms or different interest-crediting practices. Federal rules allow institutions to use different compounding and crediting frequencies, so your account agreement and disclosures control the actual calculation. </p>
+<h2>What this calculator does not include</h2>
+<p>This tool does not model taxes, withdrawals, changing interest rates, account fees, promotional bonuses or account-specific minimum-balance rules. Use the result as a planning estimate rather than a guaranteed future balance.</p>
+</section>
+
+<div class="faq"><h3>What does a savings calculator calculate?</h3><p>It estimates a future savings balance using your starting balance, regular deposits, interest rate, compounding frequency and time period.</p></div>
       <div class="faq"><h3>Does this calculator include monthly deposits?</h3><p>Yes. Enter the amount you plan to deposit each month to include regular contributions in the estimate.</p></div>
       <div class="faq"><h3>Is the calculated interest guaranteed?</h3><p>No. The result is an estimate based on the rate you enter. Savings account rates can change and account terms vary.</p></div>
       <div class="faq"><h3>Does the calculator include bank fees?</h3><p>No. Monthly fees, account fees, taxes and other charges are not included.</p></div>
@@ -189,19 +204,6 @@ function calculate(){
 calculate();
 </script>
 
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a savings calculator calculate?","acceptedAnswer":{"@type":"Answer","text":"It estimates a future savings balance using your starting balance, regular deposits, interest rate, compounding frequency and time period."}},
-    {"@type":"Question","name":"Does this calculator include monthly deposits?","acceptedAnswer":{"@type":"Answer","text":"Yes. Enter the amount you plan to deposit each month to include regular contributions in the estimate."}},
-    {"@type":"Question","name":"Is the calculated interest guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. The result is an estimate based on the rate you enter. Savings account rates can change and account terms vary."}},
-    {"@type":"Question","name":"Does the calculator include bank fees?","acceptedAnswer":{"@type":"Answer","text":"No. Monthly fees, account fees, taxes and other charges are not included."}},
-    {"@type":"Question","name":"What happens if I increase my monthly savings?","acceptedAnswer":{"@type":"Answer","text":"A higher monthly deposit generally increases the projected future balance because more money is added to the account."}},
-    {"@type":"Question","name":"Can I use this for an emergency fund?","acceptedAnswer":{"@type":"Answer","text":"Yes, it can help illustrate how regular deposits could build an emergency fund, but your target should reflect your own expenses and circumstances."}}
-  ]
-}
-</script>
+
 </body>
 </html>
