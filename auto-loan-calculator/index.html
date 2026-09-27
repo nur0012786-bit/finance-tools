@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free auto loan calculator to estimate monthly car payments, total interest and total loan cost. Simple calculation with clear explanations.">
+<title>Auto Loan Calculator — Monthly Car Payment & Interest</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
+<main>
+<section class="section"><div class="container calc-wrap">
+<p class="eyebrow">AUTO LOAN CALCULATOR</p>
+<h1>Estimate your monthly car payment</h1>
+<p class="hero-text">Enter the vehicle price, down payment, trade-in value, interest rate and loan term to estimate your auto loan payment and total interest.</p>
+<div class="calc-box">
+<div class="form-grid">
+<div><label for="price">Vehicle price ($)</label><input id="price" type="number" min="0" value="30000"></div>
+<div><label for="down">Down payment ($)</label><input id="down" type="number" min="0" value="5000"></div>
+<div><label for="trade">Trade-in value ($)</label><input id="trade" type="number" min="0" value="0"></div>
+<div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="7"></div>
+<div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="5"></div>
+<div><label for="tax">Sales tax (%)</label><input id="tax" type="number" min="0" step="0.01" value="0"></div>
+</div>
+<button class="button calc-button" onclick="calculateAutoLoan()">Calculate auto loan</button>
+<div class="results">
+<div class="result"><small>Estimated loan amount</small><strong id="loanAmount">$0.00</strong></div>
+<div class="result"><small>Monthly payment</small><strong id="monthly">$0.00</strong></div>
+<div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
+<div class="result"><small>Total payments</small><strong id="total">$0.00</strong></div>
+<div class="result"><small>Estimated sales tax</small><strong id="taxAmount">$0.00</strong></div>
+<div class="result"><small>Upfront down payment</small><strong id="downResult">$0.00</strong></div>
+</div>
+<p class="note">Estimate only. This tool does not include registration, title fees, dealer fees, insurance, maintenance, warranties or lender-specific charges. Trade-in tax treatment can vary by location.</p>
+</div>
+</div></section>
+
+<section class="section light"><div class="container narrow">
+<p class="eyebrow">AUTO LOAN GUIDE</p>
+<h2>How does an auto loan calculator work?</h2>
+<p>An auto loan calculator estimates the monthly payment from the amount financed, annual interest rate and repayment term. This version also lets you account for a down payment, trade-in value and an optional sales-tax estimate.</p>
+<h2>How does a down payment affect a car loan?</h2>
+<p>A down payment reduces the amount you need to finance. Borrowing less can reduce the monthly payment and the total interest paid, assuming the interest rate and term stay the same.</p>
+<h2>Why include trade-in value?</h2>
+<p>A trade-in can reduce the amount that needs to be financed, depending on the vehicle's value, any remaining loan balance and applicable local rules.</p>
+<h2>Auto loan example</h2>
+<p>Try a $30,000 vehicle with a $5,000 down payment, a 7% annual interest rate and a 5-year term. You can also add a trade-in value and sales tax to compare scenarios.</p>
+
+<div class="faq">
+<p class="eyebrow">FAQ</p><h2>Frequently asked questions</h2>
+<div class="faq-item"><h3>What does an auto loan calculator calculate?</h3><p>It estimates the amount financed, monthly payment, total interest and total scheduled payments using the values you enter.</p></div>
+<div class="faq-item"><h3>Does a larger down payment lower the monthly car payment?</h3><p>Generally, yes. A larger down payment means a smaller amount is financed, which can reduce the scheduled monthly payment and interest for the same rate and term.</p></div>
+<div class="faq-item"><h3>Does this calculator include sales tax?</h3><p>Yes. You can enter an estimated sales-tax percentage. The result is a simple estimate; actual tax treatment varies by location and transaction.</p></div>
+<div class="faq-item"><h3>Does trade-in value reduce the loan amount?</h3><p>The calculator subtracts the entered trade-in value from the vehicle price for an estimate. Actual financing can differ if there is a remaining balance on the trade-in or other transaction costs.</p></div>
+<div class="faq-item"><h3>Does the calculator include insurance and registration?</h3><p>No. Insurance, registration, title fees, dealer fees and other ownership costs are not included in the monthly payment estimate.</p></div>
+</div>
+</div></section>
+</main>
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<script>
+function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
+function calculateAutoLoan(){
+ const price=Number(document.getElementById("price").value),down=Number(document.getElementById("down").value),trade=Number(document.getElementById("trade").value),annual=Number(document.getElementById("rate").value),years=Number(document.getElementById("years").value),tax=Number(document.getElementById("tax").value);
+ if(!price||price<=0||down<0||trade<0||annual<0||!years||years<=0||tax<0){alert("Please enter valid values.");return}
+ const taxAmount=price*tax/100;
+ const P=Math.max(0,price+taxAmount-down-trade),n=Math.round(years*12),r=annual/100/12;
+ const payment=P===0?0:(r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1));
+ const total=payment*n,interest=Math.max(0,total-P);
+ document.getElementById("loanAmount").textContent=money(P);
+ document.getElementById("monthly").textContent=money(payment);
+ document.getElementById("interest").textContent=money(interest);
+ document.getElementById("total").textContent=money(total);
+ document.getElementById("taxAmount").textContent=money(taxAmount);
+ document.getElementById("downResult").textContent=money(down);
+}
+calculateAutoLoan();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does an auto loan calculator calculate?","acceptedAnswer":{"@type":"Answer","text":"It estimates the amount financed, monthly payment, total interest and total scheduled payments using the values you enter."}},
+{"@type":"Question","name":"Does a larger down payment lower the monthly car payment?","acceptedAnswer":{"@type":"Answer","text":"Generally, yes. A larger down payment means a smaller amount is financed, which can reduce the scheduled monthly payment and interest for the same rate and term."}},
+{"@type":"Question","name":"Does this calculator include sales tax?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can enter an estimated sales-tax percentage. The result is a simple estimate; actual tax treatment varies by location and transaction."}},
+{"@type":"Question","name":"Does trade-in value reduce the loan amount?","acceptedAnswer":{"@type":"Answer","text":"The calculator subtracts the entered trade-in value from the vehicle price for an estimate. Actual financing can differ if there is a remaining balance on the trade-in or other transaction costs."}},
+{"@type":"Question","name":"Does the calculator include insurance and registration?","acceptedAnswer":{"@type":"Answer","text":"No. Insurance, registration, title fees, dealer fees and other ownership costs are not included in the monthly payment estimate."}}
+]}
+</script>
+</body>
+</html>
