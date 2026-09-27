@@ -38,11 +38,11 @@
 <div class="field"><label for="newTerm">New loan term (years)</label><input id="newTerm" type="number" value="25" min="1" max="50"></div>
 <div class="field"><label for="closingCosts">Estimated refinance closing costs ($)</label><input id="closingCosts" type="number" value="6000" min="0" step="250"></div>
 </div>
-<button class="button" style="margin-top:20px" onclick="calculate()">Calculate Refinance</button>
+<button type="button" class="button" style="margin-top:20px" onclick="calculate()">Calculate Refinance</button>
 
 <div class="results">
 <div class="result"><span>Current monthly P&amp;I</span><strong id="currentPayment">$0</strong></div>
-<div class="result"><span>New monthly P&amp;I</span><strong id="newPayment">$0</strong></div>
+<div class="result"><span>New monthly P&amp;I</span><strong id="newPayment" aria-live="polite">$0</strong></div>
 <div class="result"><span>Monthly payment change</span><strong id="monthlySavings">$0</strong></div>
 <div class="result"><span>Simple break-even</span><strong id="breakEven">—</strong></div>
 <div class="result"><span>Current remaining interest</span><strong id="currentInterest">$0</strong></div>
