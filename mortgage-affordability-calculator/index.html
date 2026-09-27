@@ -49,10 +49,10 @@
 <div class="field"><label for="housingDti">Max housing DTI (%)</label><input id="housingDti" type="number" value="28" min="1" max="100" step="0.5"></div>
 <div class="field"><label for="totalDti">Max total DTI (%)</label><input id="totalDti" type="number" value="36" min="1" max="100" step="0.5"></div>
 </div>
-<button class="button" style="margin-top:20px" onclick="calculate()">Calculate Affordability</button>
+<button type="button" class="button" style="margin-top:20px" onclick="calculate()">Calculate Affordability</button>
 
 <div class="results">
-<div class="result"><span>Estimated maximum home price</span><strong id="homePrice">$0</strong></div>
+<div class="result"><span>Estimated maximum home price</span><strong id="homePrice" aria-live="polite">$0</strong></div>
 <div class="result"><span>Estimated mortgage amount</span><strong id="loan">$0</strong></div>
 <div class="result"><span>Monthly housing budget</span><strong id="housingBudget">$0</strong></div>
 <div class="result"><span>Monthly principal & interest</span><strong id="pi">$0</strong></div>
