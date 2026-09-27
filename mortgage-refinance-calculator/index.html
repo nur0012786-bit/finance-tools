@@ -4,34 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mortgage Refinance Calculator | Payment & Break-Even</title>
-<meta name="description" content="Compare a current mortgage with a refinanced loan, including payment change, interest, closing costs and estimated break-even time.">
+<meta name="description" content="Compare a current mortgage with a new refinance loan, including payment change, interest, closing costs and a simple break-even estimate.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="../style.css">
 <style>
-.calculator{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.field label{display:block;font-weight:700;margin-bottom:7px}
-.field input{width:100%;padding:12px;border:1px solid #d8dee8;border-radius:10px;font-size:16px;box-sizing:border-box}
-.results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
-.result{background:#f7f9fc;border:1px solid #e1e6ef;border-radius:12px;padding:15px}
-.result span{display:block;color:#667085;font-size:13px;margin-bottom:5px}.result strong{font-size:21px}
-.note,.warning{margin-top:18px;padding:14px;border-radius:10px}.note{background:#eef7ff}.warning{background:#fff8e6}
-.table-wrap{overflow-x:auto;margin-top:20px}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left}
-@media(max-width:650px){.calculator,.results{grid-template-columns:1fr}}
+.calculator{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field label{display:block;font-weight:700;margin-bottom:7px}.field input{width:100%;padding:12px;border:1px solid #d8dee8;border-radius:10px;font-size:16px;box-sizing:border-box}.results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}.result{background:#f7f9fc;border:1px solid #e1e6ef;border-radius:12px;padding:15px}.result span{display:block;color:#667085;font-size:13px;margin-bottom:5px}.result strong{font-size:21px}.note,.warning{margin-top:18px;padding:14px;border-radius:10px}.note{background:#eef7ff}.warning{background:#fff8e6}.table-wrap{overflow-x:auto;margin-top:20px}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left}@media(max-width:650px){.calculator,.results{grid-template-columns:1fr}}
 </style>
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"FAQPage",
- "mainEntity":[
-  {"@type":"Question","name":"What is mortgage refinancing?","acceptedAnswer":{"@type":"Answer","text":"Mortgage refinancing replaces an existing mortgage with a new loan, usually to change the interest rate, payment, term, or other loan features."}},
-  {"@type":"Question","name":"How is the refinance break-even point calculated?","acceptedAnswer":{"@type":"Answer","text":"The simple break-even period divides estimated refinance closing costs by the monthly payment reduction. It does not account for every tax, fee, or opportunity cost."}},
-  {"@type":"Question","name":"Can refinancing lower my monthly payment?","acceptedAnswer":{"@type":"Answer","text":"A lower interest rate, longer new term, or both can reduce the monthly principal and interest payment. A longer term can increase total interest even when the monthly payment falls."}},
-  {"@type":"Question","name":"Does refinancing always save money?","acceptedAnswer":{"@type":"Answer","text":"No. Savings depend on the new rate, remaining balance, remaining term, closing costs, loan term, and how long you keep the refinanced mortgage."}},
-  {"@type":"Question","name":"Should closing costs be included?","acceptedAnswer":{"@type":"Answer","text":"Yes. Including estimated refinance costs gives a more useful break-even estimate. Actual lender and third-party costs vary."}},
-  {"@type":"Question","name":"Does this calculator include taxes and insurance?","acceptedAnswer":{"@type":"Answer","text":"No. This calculator compares principal and interest only. Property taxes, insurance, mortgage insurance, and other escrow items may not change with the refinance or may change separately."}}
- ]
-}
-</script>
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/mortgage-refinance-calculator/">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -41,14 +19,14 @@
 </script>
 </head>
 <body class="design-refinance">
-<header class="site-header"><div class="container nav"><a class="brand" href="../">FinanceTools</a><nav><a href="../">Calculators</a><a href="../#about">About</a></nav></div></header>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
 
 <main class="container narrow">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>Mortgage Refinance Calculator</span></nav>
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>Mortgage Refinance Calculator</span></nav>
 <section class="hero-text">
-<p class="eyebrow">Mortgage Planning</p>
-<h1>Mortgage Refinance Calculator</h1>
-<p>Compare your current mortgage with a new refinance loan and estimate payment changes, interest savings, refinance costs, and the simple break-even period.</p>
+<p class="eyebrow">US MORTGAGE REFINANCE CALCULATOR</p>
+<h1>US Mortgage Refinance Calculator</h1>
+<p>Compare your current mortgage with a new refinance loan and estimate the change in principal-and-interest payments, remaining interest, refinance costs and simple break-even time.</p>
 </section>
 
 <section class="card">
@@ -63,92 +41,99 @@
 <button class="button" style="margin-top:20px" onclick="calculate()">Calculate Refinance</button>
 
 <div class="results">
-<div class="result"><span>Current monthly P&I</span><strong id="currentPayment">$0</strong></div>
-<div class="result"><span>New monthly P&I</span><strong id="newPayment">$0</strong></div>
+<div class="result"><span>Current monthly P&amp;I</span><strong id="currentPayment">$0</strong></div>
+<div class="result"><span>New monthly P&amp;I</span><strong id="newPayment">$0</strong></div>
 <div class="result"><span>Monthly payment change</span><strong id="monthlySavings">$0</strong></div>
 <div class="result"><span>Simple break-even</span><strong id="breakEven">—</strong></div>
 <div class="result"><span>Current remaining interest</span><strong id="currentInterest">$0</strong></div>
 <div class="result"><span>New loan interest</span><strong id="newInterest">$0</strong></div>
-<div class="result"><span>Interest savings before costs</span><strong id="interestSavings">$0</strong></div>
-<div class="result"><span>Estimated net benefit after costs</span><strong id="netBenefit">$0</strong></div>
+<div class="result"><span>Interest difference before costs</span><strong id="interestSavings">$0</strong></div>
+<div class="result"><span>Interest difference after costs</span><strong id="netBenefit">$0</strong></div>
 </div>
 
 <div class="note" id="summary"></div>
-<div class="warning">This is an educational estimate. It does not include every refinance cost, taxes, insurance, mortgage insurance, points, prepayment penalties, escrow changes, or lender-specific terms.</div>
+<div class="warning">Educational estimate only. This calculator does not include every refinance cost, taxes, insurance, mortgage insurance, discount points, lender credits, prepayment penalties, escrow changes, cash-out proceeds, or lender-specific terms.</div>
 </section>
 
 <section class="card">
-<h2>How mortgage refinancing works</h2>
-<p>Refinancing replaces your existing mortgage with a new mortgage. Borrowers may refinance to seek a lower interest rate, change the loan term, change the monthly payment, or use other loan features.</p>
-<p>This calculator compares principal and interest on the existing balance with a new fixed-rate loan. It also subtracts estimated closing costs when showing the simple net benefit.</p>
-<h3>Understanding break-even</h3>
-<p>The simple break-even period is estimated by dividing refinance closing costs by the monthly payment reduction. For example, $6,000 of costs divided by $200 of monthly savings gives a 30-month break-even period.</p>
-<h3>Why a lower payment may not mean lower total interest</h3>
-<p>If you refinance into a longer term, the monthly payment can fall while the new loan remains outstanding for more years. Compare both monthly payment and total interest before making a decision.</p>
-<h3>Example</h3>
-<p>Suppose a borrower has a $300,000 balance at 7% with 25 years remaining and can refinance at 6% for another 25 years. Entering estimated closing costs allows the calculator to show the payment difference and a simple break-even estimate.</p>
+<h2>How this mortgage refinance calculator works</h2>
+<p>Refinancing replaces an existing mortgage with a new mortgage that pays off the old loan. This calculator keeps the current balance as the principal of the new loan and compares two fixed-rate principal-and-interest schedules.</p>
+<p><strong>Current payment:</strong> calculated from the current balance, current annual rate and remaining term. <strong>New payment:</strong> calculated from the same balance, new rate and new term.</p>
+<p><strong>Simple break-even:</strong> estimated refinance closing costs ÷ monthly principal-and-interest savings. If the new payment is not lower, this calculator reports that the simple break-even is not reached.</p>
+<p><strong>Interest comparison:</strong> remaining interest on the current loan is compared with interest over the full new loan term. Closing costs are then subtracted from the interest difference for the displayed after-cost figure.</p>
+
+<h2>Why the loan term matters</h2>
+<p>A refinance can lower the monthly payment partly because the new loan has a longer repayment period. For example, replacing a mortgage with 20 years remaining with a new 30-year mortgage can reduce the payment while extending the time the balance is outstanding. CFPB guidance specifically notes that borrowers should understand how much of a payment reduction comes from a lower rate versus a longer term. citeturn0search2</p>
+
+<h2>Refinance closing costs</h2>
+<p>Refinancing generally involves closing costs and fees. Freddie Mac says refinance costs vary by lender, credit profile and location and may include items such as origination, appraisal, credit report, title and government recording costs. Its current consumer guidance gives a broad planning range of about 3%–6% of loan principal, but your actual transaction can be outside that range. citeturn0search1</p>
+<p>A “no-cost” refinance does not necessarily mean the transaction has no economic cost. CFPB explains that a lender may cover costs through a higher interest rate or by adding costs to the loan amount. citeturn0search0</p>
+
+<h2>Worked example</h2>
+<p>Using the default inputs, a borrower has a $300,000 balance at 7% with 25 years remaining and considers a new 25-year loan at 6%, with $6,000 of estimated refinance costs. The calculator estimates both monthly principal-and-interest payments, compares the remaining interest on each schedule, and divides the $6,000 cost by the monthly payment reduction to produce a simple break-even estimate.</p>
+<p>This example is intentionally a calculation illustration rather than a recommendation. Actual refinance pricing, fees, eligibility and the borrower's expected time in the home can materially change the comparison.</p>
+
+<h2>What to compare with a lender</h2>
+<p>Use the calculator as a screening tool, then compare the actual Loan Estimate and closing documents. CFPB guidance recommends reviewing the interest rate, monthly payment, upfront loan costs, lender credits and cash to close when comparing mortgage offers. citeturn0search15</p>
 </section>
 
 <section class="card">
-<h2>Mortgage refinance FAQs</h2>
-<h3>What is mortgage refinancing?</h3><p>It replaces an existing mortgage with a new loan, often to change the rate, payment, term, or loan features.</p>
-<h3>How is break-even calculated?</h3><p>This calculator divides estimated closing costs by monthly principal-and-interest savings. It is a simplified estimate.</p>
-<h3>Can refinancing lower my payment?</h3><p>Yes, depending on the new rate and term. A longer term can lower payments but may increase total interest.</p>
-<h3>Does refinancing always save money?</h3><p>No. Results depend on rates, balance, remaining term, closing costs, and how long you keep the new loan.</p>
-<h3>Should closing costs be included?</h3><p>Including them provides a more realistic break-even estimate, although actual costs vary by lender and transaction.</p>
-<h3>Are taxes and insurance included?</h3><p>No. The comparison focuses on principal and interest. Escrow costs can behave differently after refinancing.</p>
+<h2>US mortgage refinance FAQs</h2>
+<h3>What is mortgage refinancing?</h3><p>Refinancing replaces an existing mortgage with a new loan. Common goals include changing the interest rate, monthly payment, repayment term or other loan features. citeturn0search2</p>
+<h3>How is the refinance break-even point calculated?</h3><p>This calculator divides estimated closing costs by the monthly principal-and-interest payment reduction. It is a simplified calculation and does not capture every cost or benefit.</p>
+<h3>Can refinancing lower my monthly payment?</h3><p>It can, depending on the new rate, loan term and balance. A longer new term can reduce the monthly payment while increasing the total number of years you make payments.</p>
+<h3>Does refinancing always save money?</h3><p>No. The comparison depends on the new rate and term, remaining balance, refinance costs and how long the new mortgage remains in place. A lower payment by itself does not establish an overall saving.</p>
+<h3>What refinance costs should I enter?</h3><p>Use your best estimate of the costs you expect to pay for the new mortgage. Actual costs can include lender charges, appraisal, credit, title, government and other transaction-specific fees.</p>
+<h3>What if the lender gives me credits or rolls costs into the new loan?</h3><p>Those structures change the economics of the refinance. Lender credits can reduce upfront costs while being associated with a higher rate, while financing costs increases the new loan balance. CFPB describes these tradeoffs in its mortgage guidance. citeturn0search4turn0search0</p>
+<h3>Does this calculator include taxes, insurance or mortgage insurance?</h3><p>No. It compares principal and interest only. Property taxes, homeowners insurance, mortgage insurance and escrow deposits can change separately from the loan's principal-and-interest payment.</p>
+<h3>Does this calculator evaluate cash-out refinancing?</h3><p>No. It assumes the current balance is the principal of the new loan. A cash-out refinance can have a larger loan balance and different payment, costs and objectives; use the Cash-Out Refinance Calculator for that scenario.</p>
 </section>
-<section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Compare refinance payments and break-even timing with related mortgage tools.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../cash-out-refinance-calculator/">Cash-Out Refinance Calculator</a></li><li><a href="../mortgage-payoff-calculator/">Mortgage Payoff Calculator</a></li></ul></div></section>
+
+<section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Compare refinance costs with other US mortgage planning tools.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../mortgage-points-calculator/">Mortgage Points Calculator</a></li><li><a href="../cash-out-refinance-calculator/">Cash-Out Refinance Calculator</a></li><li><a href="../mortgage-payoff-calculator/">Mortgage Payoff Calculator</a></li><li><a href="../closing-costs-calculator/">Closing Costs Calculator</a></li></ul></div></section>
 </main>
 
-<section class="section light related-tools"><div class="container narrow"><p class="eyebrow">RELATED TOOLS</p><h2>Explore more financial calculators</h2><p><a href="../mortgage-calculator/">Mortgage Calculator</a> · <a href="../mortgage-affordability-calculator/">Mortgage Affordability</a> · <a href="../loan-calculator/">Loan Calculator</a> · <a href="../savings-calculator/">Savings Calculator</a> · <a href="../retirement-calculator/">Retirement Calculator</a> · <a href="../debt-payoff-calculator/">Debt Payoff</a></p></div></section>
 <footer class="site-footer"><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 
 <script>
 function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
-function payment(principal, annualRate, years){
-  const n=Math.max(1,Math.round(years*12));
-  const r=annualRate/100/12;
-  if(principal<=0)return 0;
-  if(r===0)return principal/n;
-  return principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+function payment(principal,annualRate,years){
+ const n=Math.max(1,Math.round(years*12)),r=annualRate/100/12;
+ if(principal<=0)return 0;
+ if(r===0)return principal/n;
+ return principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
 }
-function totalInterest(principal, annualRate, years){
-  const n=Math.max(1,Math.round(years*12));
-  return Math.max(0,payment(principal,annualRate,years)*n-principal);
+function totalInterest(principal,annualRate,years){
+ const n=Math.max(1,Math.round(years*12));
+ return Math.max(0,payment(principal,annualRate,years)*n-principal);
 }
 function calculate(){
-  const balance=Math.max(0,Number(document.getElementById('balance').value)||0);
-  const currentRate=Math.max(0,Number(document.getElementById('currentRate').value)||0);
-  const remainingYears=Math.max(1,Number(document.getElementById('remainingYears').value)||1);
-  const newRate=Math.max(0,Number(document.getElementById('newRate').value)||0);
-  const newTerm=Math.max(1,Number(document.getElementById('newTerm').value)||1);
-  const costs=Math.max(0,Number(document.getElementById('closingCosts').value)||0);
-
-  const currentPayment=payment(balance,currentRate,remainingYears);
-  const newPayment=payment(balance,newRate,newTerm);
-  const currentInterest=totalInterest(balance,currentRate,remainingYears);
-  const newInterest=totalInterest(balance,newRate,newTerm);
-  const monthlySavings=currentPayment-newPayment;
-  const interestSavings=currentInterest-newInterest;
-  const netBenefit=interestSavings-costs;
-  const breakEven=monthlySavings>0?costs/monthlySavings:Infinity;
-
-  document.getElementById('currentPayment').textContent=money(currentPayment);
-  document.getElementById('newPayment').textContent=money(newPayment);
-  document.getElementById('monthlySavings').textContent=(monthlySavings>=0?'+':'-')+money(Math.abs(monthlySavings));
-  document.getElementById('currentInterest').textContent=money(currentInterest);
-  document.getElementById('newInterest').textContent=money(newInterest);
-  document.getElementById('interestSavings').textContent=(interestSavings>=0?'+':'-')+money(Math.abs(interestSavings));
-  document.getElementById('netBenefit').textContent=(netBenefit>=0?'+':'-')+money(Math.abs(netBenefit));
-
-  document.getElementById('breakEven').textContent=Number.isFinite(breakEven)?(breakEven<12?breakEven.toFixed(1)+' months':(breakEven/12).toFixed(1)+' years'):'Not reached';
-
-  let text='The new loan changes your estimated principal-and-interest payment by '+money(Math.abs(monthlySavings))+' per month.';
-  if(monthlySavings>0) text+=' Based on the entered costs, the simple break-even period is '+(Number.isFinite(breakEven)?(breakEven<12?breakEven.toFixed(1)+' months':(breakEven/12).toFixed(1)+' years'):'not reached')+'.';
-  else if(monthlySavings<0) text+=' The new loan has a higher estimated monthly principal-and-interest payment.';
-  else text+=' The estimated monthly principal-and-interest payment is unchanged.';
-  document.getElementById('summary').textContent=text;
+ const balance=Math.max(0,Number(document.getElementById('balance').value)||0);
+ const currentRate=Math.max(0,Number(document.getElementById('currentRate').value)||0);
+ const remainingYears=Math.max(1,Number(document.getElementById('remainingYears').value)||1);
+ const newRate=Math.max(0,Number(document.getElementById('newRate').value)||0);
+ const newTerm=Math.max(1,Number(document.getElementById('newTerm').value)||1);
+ const costs=Math.max(0,Number(document.getElementById('closingCosts').value)||0);
+ const currentPayment=payment(balance,currentRate,remainingYears);
+ const newPayment=payment(balance,newRate,newTerm);
+ const currentInterest=totalInterest(balance,currentRate,remainingYears);
+ const newInterest=totalInterest(balance,newRate,newTerm);
+ const monthlySavings=currentPayment-newPayment;
+ const interestSavings=currentInterest-newInterest;
+ const netBenefit=interestSavings-costs;
+ const breakEven=monthlySavings>0?costs/monthlySavings:Infinity;
+ document.getElementById('currentPayment').textContent=money(currentPayment);
+ document.getElementById('newPayment').textContent=money(newPayment);
+ document.getElementById('monthlySavings').textContent=(monthlySavings>=0?'+':'-')+money(Math.abs(monthlySavings));
+ document.getElementById('currentInterest').textContent=money(currentInterest);
+ document.getElementById('newInterest').textContent=money(newInterest);
+ document.getElementById('interestSavings').textContent=(interestSavings>=0?'+':'-')+money(Math.abs(interestSavings));
+ document.getElementById('netBenefit').textContent=(netBenefit>=0?'+':'-')+money(Math.abs(netBenefit));
+ document.getElementById('breakEven').textContent=Number.isFinite(breakEven)?(breakEven<12?breakEven.toFixed(1)+' months':(breakEven/12).toFixed(1)+' years'):'Not reached';
+ let text='The new loan changes your estimated principal-and-interest payment by '+money(Math.abs(monthlySavings))+' per month.';
+ if(monthlySavings>0)text+=' Based on the entered costs, the simple break-even period is '+(Number.isFinite(breakEven)?(breakEven<12?breakEven.toFixed(1)+' months':(breakEven/12).toFixed(1)+' years'):'not reached')+'.';
+ else if(monthlySavings<0)text+=' The new loan has a higher estimated monthly principal-and-interest payment.';
+ else text+=' The estimated monthly principal-and-interest payment is unchanged.';
+ document.getElementById('summary').textContent=text;
 }
 calculate();
 </script>
