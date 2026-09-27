@@ -79,12 +79,12 @@
       <input id="extra" type="number" min="0" step="0.01" value="0">
     </div>
     <div class="full">
-      <button class="button" type="button" onclick="calculate()">Calculate loan</button>
+      <button type="button" class="button" type="button" onclick="calculate()">Calculate loan</button>
     </div>
   </div>
 
   <div class="result-grid">
-    <div class="result"><small>Monthly payment</small><strong id="payment">—</strong></div>
+    <div class="result"><small>Monthly payment</small><strong id="payment" aria-live="polite">—</strong></div>
     <div class="result"><small>Total interest</small><strong id="interest">—</strong></div>
     <div class="result"><small>Total repayment</small><strong id="total">—</strong></div>
     <div class="result"><small>Payment with extra</small><strong id="extraPayment">—</strong></div>
