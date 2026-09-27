@@ -32,7 +32,7 @@
 <label>Available cash for closing ($)<input id="cash" type="number" min="0" step="1000" value="100000"></label>
 <label>Estimated closing costs ($)<input id="closing" type="number" min="0" step="100" value="12000"></label>
 <label>Earnest money already paid ($)<input id="earnest" type="number" min="0" step="100" value="5000"></label>
-</div><button class="button" id="calculate">Calculate Down Payment</button>
+</div><button type="button" class="button" id="calculate">Calculate Down Payment</button>
 <p class="small-note">Use your actual lender and transaction estimates when available. This tool is for planning and does not determine loan eligibility.</p></div>
 
 <div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Your down payment plan</h2><div class="results">
@@ -40,7 +40,7 @@
 <div><span>Down payment percentage</span><strong id="pctOut">0%</strong></div>
 <div><span>Estimated mortgage amount</span><strong id="loanOut">$0</strong></div>
 <div><span>Closing costs</span><strong id="closingOut">$0</strong></div>
-<div><span>Cash needed before deposit</span><strong id="neededOut">$0</strong></div>
+<div><span>Cash needed before deposit</span><strong id="neededOut" aria-live="polite">$0</strong></div>
 <div><span>Earnest money applied</span><strong id="earnestOut">$0</strong></div>
 <div><span>Estimated cash still needed</span><strong id="remainingOut">$0</strong></div>
 <div><span>Cash remaining after closing</span><strong id="leftOut">$0</strong></div>
