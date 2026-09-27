@@ -43,9 +43,9 @@
 <div class="field"><label for="repay">Repayment period (years)</label><input id="repay" type="number" value="20" min="1" max="30"></div>
 <div class="field"><label for="paymentType">Payment estimate</label><select id="paymentType"><option value="interest">Interest-only</option><option value="principal">Principal + interest</option></select></div>
 </div>
-<button class="button" onclick="calculate()">Calculate HELOC Payment</button>
+<button type="button" class="button" onclick="calculate()">Calculate HELOC Payment</button>
 <div class="results">
-<div class="result"><span>Estimated monthly payment</span><strong id="payment">$0</strong></div>
+<div class="result"><span>Estimated monthly payment</span><strong id="payment" aria-live="polite">$0</strong></div>
 <div class="result"><span>Monthly interest at current balance</span><strong id="interest">$0</strong></div>
 <div class="result"><span>Estimated total interest</span><strong id="totalInterest">$0</strong></div>
 <div class="result"><span>Balance used</span><strong id="balanceOut">$0</strong></div>
