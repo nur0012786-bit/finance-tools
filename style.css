@@ -575,3 +575,628 @@ footer{background:#092b53!important;color:#c7d7ea!important;border-top:0!importa
 @media(max-width:650px){
   [class*="theme-"] .hero h1{font-size:44px}
 }
+
+
+/* =========================================================
+   DESIGN 3.1 — DISTINCT CALCULATOR THEMES
+   Each calculator gets its own visual identity while sharing
+   the same professional Finance Tools foundation.
+   ========================================================= */
+
+body.design-mortgage{--theme:#0b2b55;--theme2:#1769d1;--themeSoft:#eaf3ff;--themeDark:#082448;background:linear-gradient(180deg,#eaf3ff 0%,#fff 34%,#f7faff 100%);}
+body.design-mortgage .site-header{border-bottom-color:#0b2b5522}
+body.design-mortgage .brand span,body.design-mortgage .eyebrow{color:#0b2b55}
+body.design-mortgage .hero{background:linear-gradient(135deg,#fff 0%,#eaf3ff 58%,#fff 100%);border-bottom-color:#0b2b5522}
+body.design-mortgage .hero:after{background:#1769d122}
+body.design-mortgage .hero h1{font-family:"Manrope",sans-serif;color:#082448;}
+body.design-mortgage .hero-card{border-color:#0b2b5535;box-shadow:0 24px 70px #0b2b5518;}
+body.design-mortgage .hero-icon{background:#eaf3ff;color:#082448;box-shadow:inset 0 0 0 1px #0b2b5530}
+body.design-mortgage .button{background:linear-gradient(135deg,#0b2b55,#1769d1);border-color:#0b2b55;box-shadow:0 13px 30px #0b2b552e}
+body.design-mortgage .button:hover{box-shadow:0 18px 38px #0b2b553d}
+body.design-mortgage .calculator-card,body.design-mortgage .calc-box,body.design-mortgage main.container.narrow>.card{border-color:#0b2b552b!important;box-shadow:0 24px 65px #0b2b5514!important;}
+body.design-mortgage .input-grid input:focus,body.design-mortgage .form-grid input:focus,body.design-mortgage .field input:focus,body.design-mortgage .calc-box input:focus{border-color:#0b2b55;box-shadow:0 0 0 4px #0b2b551c,0 6px 15px #0b2b5510}
+body.design-mortgage .result:first-child,body.design-mortgage .result-card .results>div:first-child{background:linear-gradient(135deg,#eaf3ff,#fff);border-color:#0b2b5538}
+body.design-mortgage .result:first-child strong,body.design-mortgage .result-card .results>div:first-child strong{color:#0b2b55}
+body.design-mortgage .result-card{background:radial-gradient(circle at 100% 0%,#1769d11f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#eaf3ff)!important;border-color:#0b2b552e!important}
+body.design-mortgage .text-link{color:#0b2b55}
+body.design-mortgage .faq-item{border-bottom-color:#0b2b5520!important}
+body.design-mortgage footer{background:#082448!important}
+
+
+body.design-fha{--theme:#3347a8;--theme2:#5b6ee1;--themeSoft:#eef0ff;--themeDark:#202d78;background:linear-gradient(180deg,#eef0ff 0%,#fff 34%,#f7faff 100%);}
+body.design-fha .site-header{border-bottom-color:#3347a822}
+body.design-fha .brand span,body.design-fha .eyebrow{color:#3347a8}
+body.design-fha .hero{background:linear-gradient(135deg,#fff 0%,#eef0ff 58%,#fff 100%);border-bottom-color:#3347a822}
+body.design-fha .hero:after{background:#5b6ee122}
+body.design-fha .hero h1{font-family:"Manrope",sans-serif;color:#202d78;}
+body.design-fha .hero-card{border-color:#3347a835;box-shadow:0 24px 70px #3347a818;}
+body.design-fha .hero-icon{background:#eef0ff;color:#202d78;box-shadow:inset 0 0 0 1px #3347a830}
+body.design-fha .button{background:linear-gradient(135deg,#3347a8,#5b6ee1);border-color:#3347a8;box-shadow:0 13px 30px #3347a82e}
+body.design-fha .button:hover{box-shadow:0 18px 38px #3347a83d}
+body.design-fha .calculator-card,body.design-fha .calc-box,body.design-fha main.container.narrow>.card{border-color:#3347a82b!important;box-shadow:0 24px 65px #3347a814!important;}
+body.design-fha .input-grid input:focus,body.design-fha .form-grid input:focus,body.design-fha .field input:focus,body.design-fha .calc-box input:focus{border-color:#3347a8;box-shadow:0 0 0 4px #3347a81c,0 6px 15px #3347a810}
+body.design-fha .result:first-child,body.design-fha .result-card .results>div:first-child{background:linear-gradient(135deg,#eef0ff,#fff);border-color:#3347a838}
+body.design-fha .result:first-child strong,body.design-fha .result-card .results>div:first-child strong{color:#3347a8}
+body.design-fha .result-card{background:radial-gradient(circle at 100% 0%,#5b6ee11f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#eef0ff)!important;border-color:#3347a82e!important}
+body.design-fha .text-link{color:#3347a8}
+body.design-fha .faq-item{border-bottom-color:#3347a820!important}
+body.design-fha footer{background:#202d78!important}
+
+
+body.design-va{--theme:#0757b8;--theme2:#1687e8;--themeSoft:#e8f5ff;--themeDark:#06366e;background:linear-gradient(180deg,#e8f5ff 0%,#fff 34%,#f7faff 100%);}
+body.design-va .site-header{border-bottom-color:#0757b822}
+body.design-va .brand span,body.design-va .eyebrow{color:#0757b8}
+body.design-va .hero{background:linear-gradient(135deg,#fff 0%,#e8f5ff 58%,#fff 100%);border-bottom-color:#0757b822}
+body.design-va .hero:after{background:#1687e822}
+body.design-va .hero h1{font-family:"Manrope",sans-serif;color:#06366e;}
+body.design-va .hero-card{border-color:#0757b835;box-shadow:0 24px 70px #0757b818;}
+body.design-va .hero-icon{background:#e8f5ff;color:#06366e;box-shadow:inset 0 0 0 1px #0757b830}
+body.design-va .button{background:linear-gradient(135deg,#0757b8,#1687e8);border-color:#0757b8;box-shadow:0 13px 30px #0757b82e}
+body.design-va .button:hover{box-shadow:0 18px 38px #0757b83d}
+body.design-va .calculator-card,body.design-va .calc-box,body.design-va main.container.narrow>.card{border-color:#0757b82b!important;box-shadow:0 24px 65px #0757b814!important;}
+body.design-va .input-grid input:focus,body.design-va .form-grid input:focus,body.design-va .field input:focus,body.design-va .calc-box input:focus{border-color:#0757b8;box-shadow:0 0 0 4px #0757b81c,0 6px 15px #0757b810}
+body.design-va .result:first-child,body.design-va .result-card .results>div:first-child{background:linear-gradient(135deg,#e8f5ff,#fff);border-color:#0757b838}
+body.design-va .result:first-child strong,body.design-va .result-card .results>div:first-child strong{color:#0757b8}
+body.design-va .result-card{background:radial-gradient(circle at 100% 0%,#1687e81f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#e8f5ff)!important;border-color:#0757b82e!important}
+body.design-va .text-link{color:#0757b8}
+body.design-va .faq-item{border-bottom-color:#0757b820!important}
+body.design-va footer{background:#06366e!important}
+
+
+body.design-usda{--theme:#1c6b4a;--theme2:#37a66d;--themeSoft:#eaf8f1;--themeDark:#12452f;background:linear-gradient(180deg,#eaf8f1 0%,#fff 34%,#f7faff 100%);}
+body.design-usda .site-header{border-bottom-color:#1c6b4a22}
+body.design-usda .brand span,body.design-usda .eyebrow{color:#1c6b4a}
+body.design-usda .hero{background:linear-gradient(135deg,#fff 0%,#eaf8f1 58%,#fff 100%);border-bottom-color:#1c6b4a22}
+body.design-usda .hero:after{background:#37a66d22}
+body.design-usda .hero h1{font-family:"Manrope",sans-serif;color:#12452f;}
+body.design-usda .hero-card{border-color:#1c6b4a35;box-shadow:0 24px 70px #1c6b4a18;}
+body.design-usda .hero-icon{background:#eaf8f1;color:#12452f;box-shadow:inset 0 0 0 1px #1c6b4a30}
+body.design-usda .button{background:linear-gradient(135deg,#1c6b4a,#37a66d);border-color:#1c6b4a;box-shadow:0 13px 30px #1c6b4a2e}
+body.design-usda .button:hover{box-shadow:0 18px 38px #1c6b4a3d}
+body.design-usda .calculator-card,body.design-usda .calc-box,body.design-usda main.container.narrow>.card{border-color:#1c6b4a2b!important;box-shadow:0 24px 65px #1c6b4a14!important;}
+body.design-usda .input-grid input:focus,body.design-usda .form-grid input:focus,body.design-usda .field input:focus,body.design-usda .calc-box input:focus{border-color:#1c6b4a;box-shadow:0 0 0 4px #1c6b4a1c,0 6px 15px #1c6b4a10}
+body.design-usda .result:first-child,body.design-usda .result-card .results>div:first-child{background:linear-gradient(135deg,#eaf8f1,#fff);border-color:#1c6b4a38}
+body.design-usda .result:first-child strong,body.design-usda .result-card .results>div:first-child strong{color:#1c6b4a}
+body.design-usda .result-card{background:radial-gradient(circle at 100% 0%,#37a66d1f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#eaf8f1)!important;border-color:#1c6b4a2e!important}
+body.design-usda .text-link{color:#1c6b4a}
+body.design-usda .faq-item{border-bottom-color:#1c6b4a20!important}
+body.design-usda footer{background:#12452f!important}
+
+
+body.design-affordability{--theme:#087f83;--theme2:#16a8a4;--themeSoft:#e8f8f8;--themeDark:#07565a;background:linear-gradient(180deg,#e8f8f8 0%,#fff 34%,#f7faff 100%);}
+body.design-affordability .site-header{border-bottom-color:#087f8322}
+body.design-affordability .brand span,body.design-affordability .eyebrow{color:#087f83}
+body.design-affordability .hero{background:linear-gradient(135deg,#fff 0%,#e8f8f8 58%,#fff 100%);border-bottom-color:#087f8322}
+body.design-affordability .hero:after{background:#16a8a422}
+body.design-affordability .hero h1{font-family:"Manrope",sans-serif;color:#07565a;}
+body.design-affordability .hero-card{border-color:#087f8335;box-shadow:0 24px 70px #087f8318;}
+body.design-affordability .hero-icon{background:#e8f8f8;color:#07565a;box-shadow:inset 0 0 0 1px #087f8330}
+body.design-affordability .button{background:linear-gradient(135deg,#087f83,#16a8a4);border-color:#087f83;box-shadow:0 13px 30px #087f832e}
+body.design-affordability .button:hover{box-shadow:0 18px 38px #087f833d}
+body.design-affordability .calculator-card,body.design-affordability .calc-box,body.design-affordability main.container.narrow>.card{border-color:#087f832b!important;box-shadow:0 24px 65px #087f8314!important;}
+body.design-affordability .input-grid input:focus,body.design-affordability .form-grid input:focus,body.design-affordability .field input:focus,body.design-affordability .calc-box input:focus{border-color:#087f83;box-shadow:0 0 0 4px #087f831c,0 6px 15px #087f8310}
+body.design-affordability .result:first-child,body.design-affordability .result-card .results>div:first-child{background:linear-gradient(135deg,#e8f8f8,#fff);border-color:#087f8338}
+body.design-affordability .result:first-child strong,body.design-affordability .result-card .results>div:first-child strong{color:#087f83}
+body.design-affordability .result-card{background:radial-gradient(circle at 100% 0%,#16a8a41f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#e8f8f8)!important;border-color:#087f832e!important}
+body.design-affordability .text-link{color:#087f83}
+body.design-affordability .faq-item{border-bottom-color:#087f8320!important}
+body.design-affordability footer{background:#07565a!important}
+
+
+body.design-pmi{--theme:#067aa5;--theme2:#15a9d1;--themeSoft:#e7f8fc;--themeDark:#04536f;background:linear-gradient(180deg,#e7f8fc 0%,#fff 34%,#f7faff 100%);}
+body.design-pmi .site-header{border-bottom-color:#067aa522}
+body.design-pmi .brand span,body.design-pmi .eyebrow{color:#067aa5}
+body.design-pmi .hero{background:linear-gradient(135deg,#fff 0%,#e7f8fc 58%,#fff 100%);border-bottom-color:#067aa522}
+body.design-pmi .hero:after{background:#15a9d122}
+body.design-pmi .hero h1{font-family:"Manrope",sans-serif;color:#04536f;}
+body.design-pmi .hero-card{border-color:#067aa535;box-shadow:0 24px 70px #067aa518;}
+body.design-pmi .hero-icon{background:#e7f8fc;color:#04536f;box-shadow:inset 0 0 0 1px #067aa530}
+body.design-pmi .button{background:linear-gradient(135deg,#067aa5,#15a9d1);border-color:#067aa5;box-shadow:0 13px 30px #067aa52e}
+body.design-pmi .button:hover{box-shadow:0 18px 38px #067aa53d}
+body.design-pmi .calculator-card,body.design-pmi .calc-box,body.design-pmi main.container.narrow>.card{border-color:#067aa52b!important;box-shadow:0 24px 65px #067aa514!important;}
+body.design-pmi .input-grid input:focus,body.design-pmi .form-grid input:focus,body.design-pmi .field input:focus,body.design-pmi .calc-box input:focus{border-color:#067aa5;box-shadow:0 0 0 4px #067aa51c,0 6px 15px #067aa510}
+body.design-pmi .result:first-child,body.design-pmi .result-card .results>div:first-child{background:linear-gradient(135deg,#e7f8fc,#fff);border-color:#067aa538}
+body.design-pmi .result:first-child strong,body.design-pmi .result-card .results>div:first-child strong{color:#067aa5}
+body.design-pmi .result-card{background:radial-gradient(circle at 100% 0%,#15a9d11f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#e7f8fc)!important;border-color:#067aa52e!important}
+body.design-pmi .text-link{color:#067aa5}
+body.design-pmi .faq-item{border-bottom-color:#067aa520!important}
+body.design-pmi footer{background:#04536f!important}
+
+
+body.design-refinance{--theme:#6746c7;--theme2:#8b6be8;--themeSoft:#f0edff;--themeDark:#46308e;background:linear-gradient(180deg,#f0edff 0%,#fff 34%,#f7faff 100%);}
+body.design-refinance .site-header{border-bottom-color:#6746c722}
+body.design-refinance .brand span,body.design-refinance .eyebrow{color:#6746c7}
+body.design-refinance .hero{background:linear-gradient(135deg,#fff 0%,#f0edff 58%,#fff 100%);border-bottom-color:#6746c722}
+body.design-refinance .hero:after{background:#8b6be822}
+body.design-refinance .hero h1{font-family:"Manrope",sans-serif;color:#46308e;}
+body.design-refinance .hero-card{border-color:#6746c735;box-shadow:0 24px 70px #6746c718;}
+body.design-refinance .hero-icon{background:#f0edff;color:#46308e;box-shadow:inset 0 0 0 1px #6746c730}
+body.design-refinance .button{background:linear-gradient(135deg,#6746c7,#8b6be8);border-color:#6746c7;box-shadow:0 13px 30px #6746c72e}
+body.design-refinance .button:hover{box-shadow:0 18px 38px #6746c73d}
+body.design-refinance .calculator-card,body.design-refinance .calc-box,body.design-refinance main.container.narrow>.card{border-color:#6746c72b!important;box-shadow:0 24px 65px #6746c714!important;}
+body.design-refinance .input-grid input:focus,body.design-refinance .form-grid input:focus,body.design-refinance .field input:focus,body.design-refinance .calc-box input:focus{border-color:#6746c7;box-shadow:0 0 0 4px #6746c71c,0 6px 15px #6746c710}
+body.design-refinance .result:first-child,body.design-refinance .result-card .results>div:first-child{background:linear-gradient(135deg,#f0edff,#fff);border-color:#6746c738}
+body.design-refinance .result:first-child strong,body.design-refinance .result-card .results>div:first-child strong{color:#6746c7}
+body.design-refinance .result-card{background:radial-gradient(circle at 100% 0%,#8b6be81f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#f0edff)!important;border-color:#6746c72e!important}
+body.design-refinance .text-link{color:#6746c7}
+body.design-refinance .faq-item{border-bottom-color:#6746c720!important}
+body.design-refinance footer{background:#46308e!important}
+
+
+body.design-equity{--theme:#087f5b;--theme2:#18a878;--themeSoft:#e9f9f3;--themeDark:#07553f;background:linear-gradient(180deg,#e9f9f3 0%,#fff 34%,#f7faff 100%);}
+body.design-equity .site-header{border-bottom-color:#087f5b22}
+body.design-equity .brand span,body.design-equity .eyebrow{color:#087f5b}
+body.design-equity .hero{background:linear-gradient(135deg,#fff 0%,#e9f9f3 58%,#fff 100%);border-bottom-color:#087f5b22}
+body.design-equity .hero:after{background:#18a87822}
+body.design-equity .hero h1{font-family:"Manrope",sans-serif;color:#07553f;}
+body.design-equity .hero-card{border-color:#087f5b35;box-shadow:0 24px 70px #087f5b18;}
+body.design-equity .hero-icon{background:#e9f9f3;color:#07553f;box-shadow:inset 0 0 0 1px #087f5b30}
+body.design-equity .button{background:linear-gradient(135deg,#087f5b,#18a878);border-color:#087f5b;box-shadow:0 13px 30px #087f5b2e}
+body.design-equity .button:hover{box-shadow:0 18px 38px #087f5b3d}
+body.design-equity .calculator-card,body.design-equity .calc-box,body.design-equity main.container.narrow>.card{border-color:#087f5b2b!important;box-shadow:0 24px 65px #087f5b14!important;}
+body.design-equity .input-grid input:focus,body.design-equity .form-grid input:focus,body.design-equity .field input:focus,body.design-equity .calc-box input:focus{border-color:#087f5b;box-shadow:0 0 0 4px #087f5b1c,0 6px 15px #087f5b10}
+body.design-equity .result:first-child,body.design-equity .result-card .results>div:first-child{background:linear-gradient(135deg,#e9f9f3,#fff);border-color:#087f5b38}
+body.design-equity .result:first-child strong,body.design-equity .result-card .results>div:first-child strong{color:#087f5b}
+body.design-equity .result-card{background:radial-gradient(circle at 100% 0%,#18a8781f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#e9f9f3)!important;border-color:#087f5b2e!important}
+body.design-equity .text-link{color:#087f5b}
+body.design-equity .faq-item{border-bottom-color:#087f5b20!important}
+body.design-equity footer{background:#07553f!important}
+
+
+body.design-heloc{--theme:#007c91;--theme2:#11b5c5;--themeSoft:#e7f9fb;--themeDark:#075361;background:linear-gradient(180deg,#e7f9fb 0%,#fff 34%,#f7faff 100%);}
+body.design-heloc .site-header{border-bottom-color:#007c9122}
+body.design-heloc .brand span,body.design-heloc .eyebrow{color:#007c91}
+body.design-heloc .hero{background:linear-gradient(135deg,#fff 0%,#e7f9fb 58%,#fff 100%);border-bottom-color:#007c9122}
+body.design-heloc .hero:after{background:#11b5c522}
+body.design-heloc .hero h1{font-family:"Manrope",sans-serif;color:#075361;}
+body.design-heloc .hero-card{border-color:#007c9135;box-shadow:0 24px 70px #007c9118;}
+body.design-heloc .hero-icon{background:#e7f9fb;color:#075361;box-shadow:inset 0 0 0 1px #007c9130}
+body.design-heloc .button{background:linear-gradient(135deg,#007c91,#11b5c5);border-color:#007c91;box-shadow:0 13px 30px #007c912e}
+body.design-heloc .button:hover{box-shadow:0 18px 38px #007c913d}
+body.design-heloc .calculator-card,body.design-heloc .calc-box,body.design-heloc main.container.narrow>.card{border-color:#007c912b!important;box-shadow:0 24px 65px #007c9114!important;}
+body.design-heloc .input-grid input:focus,body.design-heloc .form-grid input:focus,body.design-heloc .field input:focus,body.design-heloc .calc-box input:focus{border-color:#007c91;box-shadow:0 0 0 4px #007c911c,0 6px 15px #007c9110}
+body.design-heloc .result:first-child,body.design-heloc .result-card .results>div:first-child{background:linear-gradient(135deg,#e7f9fb,#fff);border-color:#007c9138}
+body.design-heloc .result:first-child strong,body.design-heloc .result-card .results>div:first-child strong{color:#007c91}
+body.design-heloc .result-card{background:radial-gradient(circle at 100% 0%,#11b5c51f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#e7f9fb)!important;border-color:#007c912e!important}
+body.design-heloc .text-link{color:#007c91}
+body.design-heloc .faq-item{border-bottom-color:#007c9120!important}
+body.design-heloc footer{background:#075361!important}
+
+
+body.design-payoff{--theme:#334155;--theme2:#64748b;--themeSoft:#f0f4f8;--themeDark:#1e293b;background:linear-gradient(180deg,#f0f4f8 0%,#fff 34%,#f7faff 100%);}
+body.design-payoff .site-header{border-bottom-color:#33415522}
+body.design-payoff .brand span,body.design-payoff .eyebrow{color:#334155}
+body.design-payoff .hero{background:linear-gradient(135deg,#fff 0%,#f0f4f8 58%,#fff 100%);border-bottom-color:#33415522}
+body.design-payoff .hero:after{background:#64748b22}
+body.design-payoff .hero h1{font-family:"Manrope",sans-serif;color:#1e293b;}
+body.design-payoff .hero-card{border-color:#33415535;box-shadow:0 24px 70px #33415518;}
+body.design-payoff .hero-icon{background:#f0f4f8;color:#1e293b;box-shadow:inset 0 0 0 1px #33415530}
+body.design-payoff .button{background:linear-gradient(135deg,#334155,#64748b);border-color:#334155;box-shadow:0 13px 30px #3341552e}
+body.design-payoff .button:hover{box-shadow:0 18px 38px #3341553d}
+body.design-payoff .calculator-card,body.design-payoff .calc-box,body.design-payoff main.container.narrow>.card{border-color:#3341552b!important;box-shadow:0 24px 65px #33415514!important;}
+body.design-payoff .input-grid input:focus,body.design-payoff .form-grid input:focus,body.design-payoff .field input:focus,body.design-payoff .calc-box input:focus{border-color:#334155;box-shadow:0 0 0 4px #3341551c,0 6px 15px #33415510}
+body.design-payoff .result:first-child,body.design-payoff .result-card .results>div:first-child{background:linear-gradient(135deg,#f0f4f8,#fff);border-color:#33415538}
+body.design-payoff .result:first-child strong,body.design-payoff .result-card .results>div:first-child strong{color:#334155}
+body.design-payoff .result-card{background:radial-gradient(circle at 100% 0%,#64748b1f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#f0f4f8)!important;border-color:#3341552e!important}
+body.design-payoff .text-link{color:#334155}
+body.design-payoff .faq-item{border-bottom-color:#33415520!important}
+body.design-payoff footer{background:#1e293b!important}
+
+
+body.design-closing{--theme:#a75b00;--theme2:#df8b15;--themeSoft:#fff5e3;--themeDark:#713d00;background:linear-gradient(180deg,#fff5e3 0%,#fff 34%,#f7faff 100%);}
+body.design-closing .site-header{border-bottom-color:#a75b0022}
+body.design-closing .brand span,body.design-closing .eyebrow{color:#a75b00}
+body.design-closing .hero{background:linear-gradient(135deg,#fff 0%,#fff5e3 58%,#fff 100%);border-bottom-color:#a75b0022}
+body.design-closing .hero:after{background:#df8b1522}
+body.design-closing .hero h1{font-family:"Manrope",sans-serif;color:#713d00;}
+body.design-closing .hero-card{border-color:#a75b0035;box-shadow:0 24px 70px #a75b0018;}
+body.design-closing .hero-icon{background:#fff5e3;color:#713d00;box-shadow:inset 0 0 0 1px #a75b0030}
+body.design-closing .button{background:linear-gradient(135deg,#a75b00,#df8b15);border-color:#a75b00;box-shadow:0 13px 30px #a75b002e}
+body.design-closing .button:hover{box-shadow:0 18px 38px #a75b003d}
+body.design-closing .calculator-card,body.design-closing .calc-box,body.design-closing main.container.narrow>.card{border-color:#a75b002b!important;box-shadow:0 24px 65px #a75b0014!important;}
+body.design-closing .input-grid input:focus,body.design-closing .form-grid input:focus,body.design-closing .field input:focus,body.design-closing .calc-box input:focus{border-color:#a75b00;box-shadow:0 0 0 4px #a75b001c,0 6px 15px #a75b0010}
+body.design-closing .result:first-child,body.design-closing .result-card .results>div:first-child{background:linear-gradient(135deg,#fff5e3,#fff);border-color:#a75b0038}
+body.design-closing .result:first-child strong,body.design-closing .result-card .results>div:first-child strong{color:#a75b00}
+body.design-closing .result-card{background:radial-gradient(circle at 100% 0%,#df8b151f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#fff5e3)!important;border-color:#a75b002e!important}
+body.design-closing .text-link{color:#a75b00}
+body.design-closing .faq-item{border-bottom-color:#a75b0020!important}
+body.design-closing footer{background:#713d00!important}
+
+
+body.design-down{--theme:#1769c2;--theme2:#48a5e8;--themeSoft:#eaf5ff;--themeDark:#0d477f;background:linear-gradient(180deg,#eaf5ff 0%,#fff 34%,#f7faff 100%);}
+body.design-down .site-header{border-bottom-color:#1769c222}
+body.design-down .brand span,body.design-down .eyebrow{color:#1769c2}
+body.design-down .hero{background:linear-gradient(135deg,#fff 0%,#eaf5ff 58%,#fff 100%);border-bottom-color:#1769c222}
+body.design-down .hero:after{background:#48a5e822}
+body.design-down .hero h1{font-family:"Manrope",sans-serif;color:#0d477f;}
+body.design-down .hero-card{border-color:#1769c235;box-shadow:0 24px 70px #1769c218;}
+body.design-down .hero-icon{background:#eaf5ff;color:#0d477f;box-shadow:inset 0 0 0 1px #1769c230}
+body.design-down .button{background:linear-gradient(135deg,#1769c2,#48a5e8);border-color:#1769c2;box-shadow:0 13px 30px #1769c22e}
+body.design-down .button:hover{box-shadow:0 18px 38px #1769c23d}
+body.design-down .calculator-card,body.design-down .calc-box,body.design-down main.container.narrow>.card{border-color:#1769c22b!important;box-shadow:0 24px 65px #1769c214!important;}
+body.design-down .input-grid input:focus,body.design-down .form-grid input:focus,body.design-down .field input:focus,body.design-down .calc-box input:focus{border-color:#1769c2;box-shadow:0 0 0 4px #1769c21c,0 6px 15px #1769c210}
+body.design-down .result:first-child,body.design-down .result-card .results>div:first-child{background:linear-gradient(135deg,#eaf5ff,#fff);border-color:#1769c238}
+body.design-down .result:first-child strong,body.design-down .result-card .results>div:first-child strong{color:#1769c2}
+body.design-down .result-card{background:radial-gradient(circle at 100% 0%,#48a5e81f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#eaf5ff)!important;border-color:#1769c22e!important}
+body.design-down .text-link{color:#1769c2}
+body.design-down .faq-item{border-bottom-color:#1769c220!important}
+body.design-down footer{background:#0d477f!important}
+
+
+body.design-tax{--theme:#1556b8;--theme2:#2878df;--themeSoft:#eaf2ff;--themeDark:#0b3978;background:linear-gradient(180deg,#eaf2ff 0%,#fff 34%,#f7faff 100%);}
+body.design-tax .site-header{border-bottom-color:#1556b822}
+body.design-tax .brand span,body.design-tax .eyebrow{color:#1556b8}
+body.design-tax .hero{background:linear-gradient(135deg,#fff 0%,#eaf2ff 58%,#fff 100%);border-bottom-color:#1556b822}
+body.design-tax .hero:after{background:#2878df22}
+body.design-tax .hero h1{font-family:"Manrope",sans-serif;color:#0b3978;}
+body.design-tax .hero-card{border-color:#1556b835;box-shadow:0 24px 70px #1556b818;}
+body.design-tax .hero-icon{background:#eaf2ff;color:#0b3978;box-shadow:inset 0 0 0 1px #1556b830}
+body.design-tax .button{background:linear-gradient(135deg,#1556b8,#2878df);border-color:#1556b8;box-shadow:0 13px 30px #1556b82e}
+body.design-tax .button:hover{box-shadow:0 18px 38px #1556b83d}
+body.design-tax .calculator-card,body.design-tax .calc-box,body.design-tax main.container.narrow>.card{border-color:#1556b82b!important;box-shadow:0 24px 65px #1556b814!important;}
+body.design-tax .input-grid input:focus,body.design-tax .form-grid input:focus,body.design-tax .field input:focus,body.design-tax .calc-box input:focus{border-color:#1556b8;box-shadow:0 0 0 4px #1556b81c,0 6px 15px #1556b810}
+body.design-tax .result:first-child,body.design-tax .result-card .results>div:first-child{background:linear-gradient(135deg,#eaf2ff,#fff);border-color:#1556b838}
+body.design-tax .result:first-child strong,body.design-tax .result-card .results>div:first-child strong{color:#1556b8}
+body.design-tax .result-card{background:radial-gradient(circle at 100% 0%,#2878df1f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#eaf2ff)!important;border-color:#1556b82e!important}
+body.design-tax .text-link{color:#1556b8}
+body.design-tax .faq-item{border-bottom-color:#1556b820!important}
+body.design-tax footer{background:#0b3978!important}
+
+
+body.design-rent{--theme:#b74b4b;--theme2:#e36d62;--themeSoft:#fff0ed;--themeDark:#762d32;background:linear-gradient(180deg,#fff0ed 0%,#fff 34%,#f7faff 100%);}
+body.design-rent .site-header{border-bottom-color:#b74b4b22}
+body.design-rent .brand span,body.design-rent .eyebrow{color:#b74b4b}
+body.design-rent .hero{background:linear-gradient(135deg,#fff 0%,#fff0ed 58%,#fff 100%);border-bottom-color:#b74b4b22}
+body.design-rent .hero:after{background:#e36d6222}
+body.design-rent .hero h1{font-family:"Manrope",sans-serif;color:#762d32;}
+body.design-rent .hero-card{border-color:#b74b4b35;box-shadow:0 24px 70px #b74b4b18;}
+body.design-rent .hero-icon{background:#fff0ed;color:#762d32;box-shadow:inset 0 0 0 1px #b74b4b30}
+body.design-rent .button{background:linear-gradient(135deg,#b74b4b,#e36d62);border-color:#b74b4b;box-shadow:0 13px 30px #b74b4b2e}
+body.design-rent .button:hover{box-shadow:0 18px 38px #b74b4b3d}
+body.design-rent .calculator-card,body.design-rent .calc-box,body.design-rent main.container.narrow>.card{border-color:#b74b4b2b!important;box-shadow:0 24px 65px #b74b4b14!important;}
+body.design-rent .input-grid input:focus,body.design-rent .form-grid input:focus,body.design-rent .field input:focus,body.design-rent .calc-box input:focus{border-color:#b74b4b;box-shadow:0 0 0 4px #b74b4b1c,0 6px 15px #b74b4b10}
+body.design-rent .result:first-child,body.design-rent .result-card .results>div:first-child{background:linear-gradient(135deg,#fff0ed,#fff);border-color:#b74b4b38}
+body.design-rent .result:first-child strong,body.design-rent .result-card .results>div:first-child strong{color:#b74b4b}
+body.design-rent .result-card{background:radial-gradient(circle at 100% 0%,#e36d621f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#fff0ed)!important;border-color:#b74b4b2e!important}
+body.design-rent .text-link{color:#b74b4b}
+body.design-rent .faq-item{border-bottom-color:#b74b4b20!important}
+body.design-rent footer{background:#762d32!important}
+
+
+body.design-cashout{--theme:#70408f;--theme2:#9c62bd;--themeSoft:#f5edfa;--themeDark:#4b2a62;background:linear-gradient(180deg,#f5edfa 0%,#fff 34%,#f7faff 100%);}
+body.design-cashout .site-header{border-bottom-color:#70408f22}
+body.design-cashout .brand span,body.design-cashout .eyebrow{color:#70408f}
+body.design-cashout .hero{background:linear-gradient(135deg,#fff 0%,#f5edfa 58%,#fff 100%);border-bottom-color:#70408f22}
+body.design-cashout .hero:after{background:#9c62bd22}
+body.design-cashout .hero h1{font-family:"Manrope",sans-serif;color:#4b2a62;}
+body.design-cashout .hero-card{border-color:#70408f35;box-shadow:0 24px 70px #70408f18;}
+body.design-cashout .hero-icon{background:#f5edfa;color:#4b2a62;box-shadow:inset 0 0 0 1px #70408f30}
+body.design-cashout .button{background:linear-gradient(135deg,#70408f,#9c62bd);border-color:#70408f;box-shadow:0 13px 30px #70408f2e}
+body.design-cashout .button:hover{box-shadow:0 18px 38px #70408f3d}
+body.design-cashout .calculator-card,body.design-cashout .calc-box,body.design-cashout main.container.narrow>.card{border-color:#70408f2b!important;box-shadow:0 24px 65px #70408f14!important;}
+body.design-cashout .input-grid input:focus,body.design-cashout .form-grid input:focus,body.design-cashout .field input:focus,body.design-cashout .calc-box input:focus{border-color:#70408f;box-shadow:0 0 0 4px #70408f1c,0 6px 15px #70408f10}
+body.design-cashout .result:first-child,body.design-cashout .result-card .results>div:first-child{background:linear-gradient(135deg,#f5edfa,#fff);border-color:#70408f38}
+body.design-cashout .result:first-child strong,body.design-cashout .result-card .results>div:first-child strong{color:#70408f}
+body.design-cashout .result-card{background:radial-gradient(circle at 100% 0%,#9c62bd1f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#f5edfa)!important;border-color:#70408f2e!important}
+body.design-cashout .text-link{color:#70408f}
+body.design-cashout .faq-item{border-bottom-color:#70408f20!important}
+body.design-cashout footer{background:#4b2a62!important}
+
+
+body.design-points{--theme:#9a6100;--theme2:#d39420;--themeSoft:#fff6df;--themeDark:#633f00;background:linear-gradient(180deg,#fff6df 0%,#fff 34%,#f7faff 100%);}
+body.design-points .site-header{border-bottom-color:#9a610022}
+body.design-points .brand span,body.design-points .eyebrow{color:#9a6100}
+body.design-points .hero{background:linear-gradient(135deg,#fff 0%,#fff6df 58%,#fff 100%);border-bottom-color:#9a610022}
+body.design-points .hero:after{background:#d3942022}
+body.design-points .hero h1{font-family:"Manrope",sans-serif;color:#633f00;}
+body.design-points .hero-card{border-color:#9a610035;box-shadow:0 24px 70px #9a610018;}
+body.design-points .hero-icon{background:#fff6df;color:#633f00;box-shadow:inset 0 0 0 1px #9a610030}
+body.design-points .button{background:linear-gradient(135deg,#9a6100,#d39420);border-color:#9a6100;box-shadow:0 13px 30px #9a61002e}
+body.design-points .button:hover{box-shadow:0 18px 38px #9a61003d}
+body.design-points .calculator-card,body.design-points .calc-box,body.design-points main.container.narrow>.card{border-color:#9a61002b!important;box-shadow:0 24px 65px #9a610014!important;}
+body.design-points .input-grid input:focus,body.design-points .form-grid input:focus,body.design-points .field input:focus,body.design-points .calc-box input:focus{border-color:#9a6100;box-shadow:0 0 0 4px #9a61001c,0 6px 15px #9a610010}
+body.design-points .result:first-child,body.design-points .result-card .results>div:first-child{background:linear-gradient(135deg,#fff6df,#fff);border-color:#9a610038}
+body.design-points .result:first-child strong,body.design-points .result-card .results>div:first-child strong{color:#9a6100}
+body.design-points .result-card{background:radial-gradient(circle at 100% 0%,#d394201f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#fff6df)!important;border-color:#9a61002e!important}
+body.design-points .text-link{color:#9a6100}
+body.design-points .faq-item{border-bottom-color:#9a610020!important}
+body.design-points footer{background:#633f00!important}
+
+
+body.design-loan{--theme:#1262c4;--theme2:#3188e7;--themeSoft:#eaf4ff;--themeDark:#0b3e7b;background:linear-gradient(180deg,#eaf4ff 0%,#fff 34%,#f7faff 100%);}
+body.design-loan .site-header{border-bottom-color:#1262c422}
+body.design-loan .brand span,body.design-loan .eyebrow{color:#1262c4}
+body.design-loan .hero{background:linear-gradient(135deg,#fff 0%,#eaf4ff 58%,#fff 100%);border-bottom-color:#1262c422}
+body.design-loan .hero:after{background:#3188e722}
+body.design-loan .hero h1{font-family:"Manrope",sans-serif;color:#0b3e7b;}
+body.design-loan .hero-card{border-color:#1262c435;box-shadow:0 24px 70px #1262c418;}
+body.design-loan .hero-icon{background:#eaf4ff;color:#0b3e7b;box-shadow:inset 0 0 0 1px #1262c430}
+body.design-loan .button{background:linear-gradient(135deg,#1262c4,#3188e7);border-color:#1262c4;box-shadow:0 13px 30px #1262c42e}
+body.design-loan .button:hover{box-shadow:0 18px 38px #1262c43d}
+body.design-loan .calculator-card,body.design-loan .calc-box,body.design-loan main.container.narrow>.card{border-color:#1262c42b!important;box-shadow:0 24px 65px #1262c414!important;}
+body.design-loan .input-grid input:focus,body.design-loan .form-grid input:focus,body.design-loan .field input:focus,body.design-loan .calc-box input:focus{border-color:#1262c4;box-shadow:0 0 0 4px #1262c41c,0 6px 15px #1262c410}
+body.design-loan .result:first-child,body.design-loan .result-card .results>div:first-child{background:linear-gradient(135deg,#eaf4ff,#fff);border-color:#1262c438}
+body.design-loan .result:first-child strong,body.design-loan .result-card .results>div:first-child strong{color:#1262c4}
+body.design-loan .result-card{background:radial-gradient(circle at 100% 0%,#3188e71f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#eaf4ff)!important;border-color:#1262c42e!important}
+body.design-loan .text-link{color:#1262c4}
+body.design-loan .faq-item{border-bottom-color:#1262c420!important}
+body.design-loan footer{background:#0b3e7b!important}
+
+
+body.design-personal{--theme:#116b8f;--theme2:#28a4c7;--themeSoft:#e8f7fb;--themeDark:#08445d;background:linear-gradient(180deg,#e8f7fb 0%,#fff 34%,#f7faff 100%);}
+body.design-personal .site-header{border-bottom-color:#116b8f22}
+body.design-personal .brand span,body.design-personal .eyebrow{color:#116b8f}
+body.design-personal .hero{background:linear-gradient(135deg,#fff 0%,#e8f7fb 58%,#fff 100%);border-bottom-color:#116b8f22}
+body.design-personal .hero:after{background:#28a4c722}
+body.design-personal .hero h1{font-family:"Manrope",sans-serif;color:#08445d;}
+body.design-personal .hero-card{border-color:#116b8f35;box-shadow:0 24px 70px #116b8f18;}
+body.design-personal .hero-icon{background:#e8f7fb;color:#08445d;box-shadow:inset 0 0 0 1px #116b8f30}
+body.design-personal .button{background:linear-gradient(135deg,#116b8f,#28a4c7);border-color:#116b8f;box-shadow:0 13px 30px #116b8f2e}
+body.design-personal .button:hover{box-shadow:0 18px 38px #116b8f3d}
+body.design-personal .calculator-card,body.design-personal .calc-box,body.design-personal main.container.narrow>.card{border-color:#116b8f2b!important;box-shadow:0 24px 65px #116b8f14!important;}
+body.design-personal .input-grid input:focus,body.design-personal .form-grid input:focus,body.design-personal .field input:focus,body.design-personal .calc-box input:focus{border-color:#116b8f;box-shadow:0 0 0 4px #116b8f1c,0 6px 15px #116b8f10}
+body.design-personal .result:first-child,body.design-personal .result-card .results>div:first-child{background:linear-gradient(135deg,#e8f7fb,#fff);border-color:#116b8f38}
+body.design-personal .result:first-child strong,body.design-personal .result-card .results>div:first-child strong{color:#116b8f}
+body.design-personal .result-card{background:radial-gradient(circle at 100% 0%,#28a4c71f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#e8f7fb)!important;border-color:#116b8f2e!important}
+body.design-personal .text-link{color:#116b8f}
+body.design-personal .faq-item{border-bottom-color:#116b8f20!important}
+body.design-personal footer{background:#08445d!important}
+
+
+body.design-auto{--theme:#a93135;--theme2:#df5c61;--themeSoft:#fff0f0;--themeDark:#722328;background:linear-gradient(180deg,#fff0f0 0%,#fff 34%,#f7faff 100%);}
+body.design-auto .site-header{border-bottom-color:#a9313522}
+body.design-auto .brand span,body.design-auto .eyebrow{color:#a93135}
+body.design-auto .hero{background:linear-gradient(135deg,#fff 0%,#fff0f0 58%,#fff 100%);border-bottom-color:#a9313522}
+body.design-auto .hero:after{background:#df5c6122}
+body.design-auto .hero h1{font-family:"Manrope",sans-serif;color:#722328;}
+body.design-auto .hero-card{border-color:#a9313535;box-shadow:0 24px 70px #a9313518;}
+body.design-auto .hero-icon{background:#fff0f0;color:#722328;box-shadow:inset 0 0 0 1px #a9313530}
+body.design-auto .button{background:linear-gradient(135deg,#a93135,#df5c61);border-color:#a93135;box-shadow:0 13px 30px #a931352e}
+body.design-auto .button:hover{box-shadow:0 18px 38px #a931353d}
+body.design-auto .calculator-card,body.design-auto .calc-box,body.design-auto main.container.narrow>.card{border-color:#a931352b!important;box-shadow:0 24px 65px #a9313514!important;}
+body.design-auto .input-grid input:focus,body.design-auto .form-grid input:focus,body.design-auto .field input:focus,body.design-auto .calc-box input:focus{border-color:#a93135;box-shadow:0 0 0 4px #a931351c,0 6px 15px #a9313510}
+body.design-auto .result:first-child,body.design-auto .result-card .results>div:first-child{background:linear-gradient(135deg,#fff0f0,#fff);border-color:#a9313538}
+body.design-auto .result:first-child strong,body.design-auto .result-card .results>div:first-child strong{color:#a93135}
+body.design-auto .result-card{background:radial-gradient(circle at 100% 0%,#df5c611f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#fff0f0)!important;border-color:#a931352e!important}
+body.design-auto .text-link{color:#a93135}
+body.design-auto .faq-item{border-bottom-color:#a9313520!important}
+body.design-auto footer{background:#722328!important}
+
+
+body.design-debt{--theme:#b85b13;--theme2:#e48732;--themeSoft:#fff2e6;--themeDark:#783a0c;background:linear-gradient(180deg,#fff2e6 0%,#fff 34%,#f7faff 100%);}
+body.design-debt .site-header{border-bottom-color:#b85b1322}
+body.design-debt .brand span,body.design-debt .eyebrow{color:#b85b13}
+body.design-debt .hero{background:linear-gradient(135deg,#fff 0%,#fff2e6 58%,#fff 100%);border-bottom-color:#b85b1322}
+body.design-debt .hero:after{background:#e4873222}
+body.design-debt .hero h1{font-family:"Manrope",sans-serif;color:#783a0c;}
+body.design-debt .hero-card{border-color:#b85b1335;box-shadow:0 24px 70px #b85b1318;}
+body.design-debt .hero-icon{background:#fff2e6;color:#783a0c;box-shadow:inset 0 0 0 1px #b85b1330}
+body.design-debt .button{background:linear-gradient(135deg,#b85b13,#e48732);border-color:#b85b13;box-shadow:0 13px 30px #b85b132e}
+body.design-debt .button:hover{box-shadow:0 18px 38px #b85b133d}
+body.design-debt .calculator-card,body.design-debt .calc-box,body.design-debt main.container.narrow>.card{border-color:#b85b132b!important;box-shadow:0 24px 65px #b85b1314!important;}
+body.design-debt .input-grid input:focus,body.design-debt .form-grid input:focus,body.design-debt .field input:focus,body.design-debt .calc-box input:focus{border-color:#b85b13;box-shadow:0 0 0 4px #b85b131c,0 6px 15px #b85b1310}
+body.design-debt .result:first-child,body.design-debt .result-card .results>div:first-child{background:linear-gradient(135deg,#fff2e6,#fff);border-color:#b85b1338}
+body.design-debt .result:first-child strong,body.design-debt .result-card .results>div:first-child strong{color:#b85b13}
+body.design-debt .result-card{background:radial-gradient(circle at 100% 0%,#e487321f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#fff2e6)!important;border-color:#b85b132e!important}
+body.design-debt .text-link{color:#b85b13}
+body.design-debt .faq-item{border-bottom-color:#b85b1320!important}
+body.design-debt footer{background:#783a0c!important}
+
+
+body.design-ccpay{--theme:#a43b82;--theme2:#d65aae;--themeSoft:#fff0fa;--themeDark:#6c2355;background:linear-gradient(180deg,#fff0fa 0%,#fff 34%,#f7faff 100%);}
+body.design-ccpay .site-header{border-bottom-color:#a43b8222}
+body.design-ccpay .brand span,body.design-ccpay .eyebrow{color:#a43b82}
+body.design-ccpay .hero{background:linear-gradient(135deg,#fff 0%,#fff0fa 58%,#fff 100%);border-bottom-color:#a43b8222}
+body.design-ccpay .hero:after{background:#d65aae22}
+body.design-ccpay .hero h1{font-family:"Manrope",sans-serif;color:#6c2355;}
+body.design-ccpay .hero-card{border-color:#a43b8235;box-shadow:0 24px 70px #a43b8218;}
+body.design-ccpay .hero-icon{background:#fff0fa;color:#6c2355;box-shadow:inset 0 0 0 1px #a43b8230}
+body.design-ccpay .button{background:linear-gradient(135deg,#a43b82,#d65aae);border-color:#a43b82;box-shadow:0 13px 30px #a43b822e}
+body.design-ccpay .button:hover{box-shadow:0 18px 38px #a43b823d}
+body.design-ccpay .calculator-card,body.design-ccpay .calc-box,body.design-ccpay main.container.narrow>.card{border-color:#a43b822b!important;box-shadow:0 24px 65px #a43b8214!important;}
+body.design-ccpay .input-grid input:focus,body.design-ccpay .form-grid input:focus,body.design-ccpay .field input:focus,body.design-ccpay .calc-box input:focus{border-color:#a43b82;box-shadow:0 0 0 4px #a43b821c,0 6px 15px #a43b8210}
+body.design-ccpay .result:first-child,body.design-ccpay .result-card .results>div:first-child{background:linear-gradient(135deg,#fff0fa,#fff);border-color:#a43b8238}
+body.design-ccpay .result:first-child strong,body.design-ccpay .result-card .results>div:first-child strong{color:#a43b82}
+body.design-ccpay .result-card{background:radial-gradient(circle at 100% 0%,#d65aae1f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#fff0fa)!important;border-color:#a43b822e!important}
+body.design-ccpay .text-link{color:#a43b82}
+body.design-ccpay .faq-item{border-bottom-color:#a43b8220!important}
+body.design-ccpay footer{background:#6c2355!important}
+
+
+body.design-ccmin{--theme:#5d3eb1;--theme2:#8062d4;--themeSoft:#f0ecff;--themeDark:#3c2878;background:linear-gradient(180deg,#f0ecff 0%,#fff 34%,#f7faff 100%);}
+body.design-ccmin .site-header{border-bottom-color:#5d3eb122}
+body.design-ccmin .brand span,body.design-ccmin .eyebrow{color:#5d3eb1}
+body.design-ccmin .hero{background:linear-gradient(135deg,#fff 0%,#f0ecff 58%,#fff 100%);border-bottom-color:#5d3eb122}
+body.design-ccmin .hero:after{background:#8062d422}
+body.design-ccmin .hero h1{font-family:"Manrope",sans-serif;color:#3c2878;}
+body.design-ccmin .hero-card{border-color:#5d3eb135;box-shadow:0 24px 70px #5d3eb118;}
+body.design-ccmin .hero-icon{background:#f0ecff;color:#3c2878;box-shadow:inset 0 0 0 1px #5d3eb130}
+body.design-ccmin .button{background:linear-gradient(135deg,#5d3eb1,#8062d4);border-color:#5d3eb1;box-shadow:0 13px 30px #5d3eb12e}
+body.design-ccmin .button:hover{box-shadow:0 18px 38px #5d3eb13d}
+body.design-ccmin .calculator-card,body.design-ccmin .calc-box,body.design-ccmin main.container.narrow>.card{border-color:#5d3eb12b!important;box-shadow:0 24px 65px #5d3eb114!important;}
+body.design-ccmin .input-grid input:focus,body.design-ccmin .form-grid input:focus,body.design-ccmin .field input:focus,body.design-ccmin .calc-box input:focus{border-color:#5d3eb1;box-shadow:0 0 0 4px #5d3eb11c,0 6px 15px #5d3eb110}
+body.design-ccmin .result:first-child,body.design-ccmin .result-card .results>div:first-child{background:linear-gradient(135deg,#f0ecff,#fff);border-color:#5d3eb138}
+body.design-ccmin .result:first-child strong,body.design-ccmin .result-card .results>div:first-child strong{color:#5d3eb1}
+body.design-ccmin .result-card{background:radial-gradient(circle at 100% 0%,#8062d41f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#f0ecff)!important;border-color:#5d3eb12e!important}
+body.design-ccmin .text-link{color:#5d3eb1}
+body.design-ccmin .faq-item{border-bottom-color:#5d3eb120!important}
+body.design-ccmin footer{background:#3c2878!important}
+
+
+body.design-compound{--theme:#287a45;--theme2:#50aa67;--themeSoft:#edf9ef;--themeDark:#174f2b;background:linear-gradient(180deg,#edf9ef 0%,#fff 34%,#f7faff 100%);}
+body.design-compound .site-header{border-bottom-color:#287a4522}
+body.design-compound .brand span,body.design-compound .eyebrow{color:#287a45}
+body.design-compound .hero{background:linear-gradient(135deg,#fff 0%,#edf9ef 58%,#fff 100%);border-bottom-color:#287a4522}
+body.design-compound .hero:after{background:#50aa6722}
+body.design-compound .hero h1{font-family:"Manrope",sans-serif;color:#174f2b;}
+body.design-compound .hero-card{border-color:#287a4535;box-shadow:0 24px 70px #287a4518;}
+body.design-compound .hero-icon{background:#edf9ef;color:#174f2b;box-shadow:inset 0 0 0 1px #287a4530}
+body.design-compound .button{background:linear-gradient(135deg,#287a45,#50aa67);border-color:#287a45;box-shadow:0 13px 30px #287a452e}
+body.design-compound .button:hover{box-shadow:0 18px 38px #287a453d}
+body.design-compound .calculator-card,body.design-compound .calc-box,body.design-compound main.container.narrow>.card{border-color:#287a452b!important;box-shadow:0 24px 65px #287a4514!important;}
+body.design-compound .input-grid input:focus,body.design-compound .form-grid input:focus,body.design-compound .field input:focus,body.design-compound .calc-box input:focus{border-color:#287a45;box-shadow:0 0 0 4px #287a451c,0 6px 15px #287a4510}
+body.design-compound .result:first-child,body.design-compound .result-card .results>div:first-child{background:linear-gradient(135deg,#edf9ef,#fff);border-color:#287a4538}
+body.design-compound .result:first-child strong,body.design-compound .result-card .results>div:first-child strong{color:#287a45}
+body.design-compound .result-card{background:radial-gradient(circle at 100% 0%,#50aa671f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#edf9ef)!important;border-color:#287a452e!important}
+body.design-compound .text-link{color:#287a45}
+body.design-compound .faq-item{border-bottom-color:#287a4520!important}
+body.design-compound footer{background:#174f2b!important}
+
+
+body.design-savings{--theme:#16806d;--theme2:#35ad92;--themeSoft:#e9f9f5;--themeDark:#0d574b;background:linear-gradient(180deg,#e9f9f5 0%,#fff 34%,#f7faff 100%);}
+body.design-savings .site-header{border-bottom-color:#16806d22}
+body.design-savings .brand span,body.design-savings .eyebrow{color:#16806d}
+body.design-savings .hero{background:linear-gradient(135deg,#fff 0%,#e9f9f5 58%,#fff 100%);border-bottom-color:#16806d22}
+body.design-savings .hero:after{background:#35ad9222}
+body.design-savings .hero h1{font-family:"Manrope",sans-serif;color:#0d574b;}
+body.design-savings .hero-card{border-color:#16806d35;box-shadow:0 24px 70px #16806d18;}
+body.design-savings .hero-icon{background:#e9f9f5;color:#0d574b;box-shadow:inset 0 0 0 1px #16806d30}
+body.design-savings .button{background:linear-gradient(135deg,#16806d,#35ad92);border-color:#16806d;box-shadow:0 13px 30px #16806d2e}
+body.design-savings .button:hover{box-shadow:0 18px 38px #16806d3d}
+body.design-savings .calculator-card,body.design-savings .calc-box,body.design-savings main.container.narrow>.card{border-color:#16806d2b!important;box-shadow:0 24px 65px #16806d14!important;}
+body.design-savings .input-grid input:focus,body.design-savings .form-grid input:focus,body.design-savings .field input:focus,body.design-savings .calc-box input:focus{border-color:#16806d;box-shadow:0 0 0 4px #16806d1c,0 6px 15px #16806d10}
+body.design-savings .result:first-child,body.design-savings .result-card .results>div:first-child{background:linear-gradient(135deg,#e9f9f5,#fff);border-color:#16806d38}
+body.design-savings .result:first-child strong,body.design-savings .result-card .results>div:first-child strong{color:#16806d}
+body.design-savings .result-card{background:radial-gradient(circle at 100% 0%,#35ad921f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#e9f9f5)!important;border-color:#16806d2e!important}
+body.design-savings .text-link{color:#16806d}
+body.design-savings .faq-item{border-bottom-color:#16806d20!important}
+body.design-savings footer{background:#0d574b!important}
+
+
+body.design-retirement{--theme:#163f73;--theme2:#2e74c6;--themeSoft:#eaf2fb;--themeDark:#0c294d;background:linear-gradient(180deg,#eaf2fb 0%,#fff 34%,#f7faff 100%);}
+body.design-retirement .site-header{border-bottom-color:#163f7322}
+body.design-retirement .brand span,body.design-retirement .eyebrow{color:#163f73}
+body.design-retirement .hero{background:linear-gradient(135deg,#fff 0%,#eaf2fb 58%,#fff 100%);border-bottom-color:#163f7322}
+body.design-retirement .hero:after{background:#2e74c622}
+body.design-retirement .hero h1{font-family:"Manrope",sans-serif;color:#0c294d;}
+body.design-retirement .hero-card{border-color:#163f7335;box-shadow:0 24px 70px #163f7318;}
+body.design-retirement .hero-icon{background:#eaf2fb;color:#0c294d;box-shadow:inset 0 0 0 1px #163f7330}
+body.design-retirement .button{background:linear-gradient(135deg,#163f73,#2e74c6);border-color:#163f73;box-shadow:0 13px 30px #163f732e}
+body.design-retirement .button:hover{box-shadow:0 18px 38px #163f733d}
+body.design-retirement .calculator-card,body.design-retirement .calc-box,body.design-retirement main.container.narrow>.card{border-color:#163f732b!important;box-shadow:0 24px 65px #163f7314!important;}
+body.design-retirement .input-grid input:focus,body.design-retirement .form-grid input:focus,body.design-retirement .field input:focus,body.design-retirement .calc-box input:focus{border-color:#163f73;box-shadow:0 0 0 4px #163f731c,0 6px 15px #163f7310}
+body.design-retirement .result:first-child,body.design-retirement .result-card .results>div:first-child{background:linear-gradient(135deg,#eaf2fb,#fff);border-color:#163f7338}
+body.design-retirement .result:first-child strong,body.design-retirement .result-card .results>div:first-child strong{color:#163f73}
+body.design-retirement .result-card{background:radial-gradient(circle at 100% 0%,#2e74c61f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#eaf2fb)!important;border-color:#163f732e!important}
+body.design-retirement .text-link{color:#163f73}
+body.design-retirement .faq-item{border-bottom-color:#163f7320!important}
+body.design-retirement footer{background:#0c294d!important}
+
+
+/* Editorial / hero-first */
+body.design-mortgage .hero{padding-bottom:78px}
+body.design-mortgage .calc-box{border-radius:30px!important}
+body.design-mortgage .calculator-grid{gap:34px}
+
+/* Soft government/program look */
+body.design-fha .calculator-card,body.design-fha .calc-box{border-radius:18px!important}
+body.design-fha .input-grid input,body.design-fha .form-grid input{border-radius:9px}
+body.design-fha .button{border-radius:9px}
+
+/* VA split-panel */
+body.design-va .calculator-grid{grid-template-columns:1fr 1fr}
+body.design-va .calculator-card{background:linear-gradient(180deg,#fff,#f4f8ff)!important}
+body.design-va .result-card{border-radius:34px!important}
+
+/* USDA organic */
+body.design-usda .hero{background:linear-gradient(120deg,#fff,#edf9f1 55%,#f7fcf9)}
+body.design-usda .calculator-card,body.design-usda .calc-box{border-radius:34px!important}
+body.design-usda .result{border-radius:20px!important}
+
+/* Affordability dashboard */
+body.design-affordability .calculator-card,body.design-affordability .calc-box{border-radius:14px!important}
+body.design-affordability .result{border-radius:10px!important}
+body.design-affordability .results{gap:10px}
+
+/* PMI minimal */
+body.design-pmi .hero{background:#fff}
+body.design-pmi .hero-card{box-shadow:none;border:2px solid #d9eef5}
+body.design-pmi .calculator-card,body.design-pmi .calc-box{box-shadow:0 12px 35px rgba(6,122,165,.08)!important}
+
+/* Refinance gradient */
+body.design-refinance .hero{background:linear-gradient(135deg,#f7f4ff,#fff 48%,#f0edff)}
+body.design-refinance .hero-card{background:linear-gradient(145deg,#fff,#f4f0ff)}
+body.design-refinance .calculator-card,body.design-refinance .calc-box{background:linear-gradient(145deg,#fff,#faf8ff)!important}
+
+/* Home equity */
+body.design-equity .calculator-card,body.design-equity .calc-box{border-left:7px solid var(--theme)!important}
+body.design-equity .result:first-child{border-left:5px solid var(--theme)}
+
+/* HELOC glass */
+body.design-heloc .hero-card,body.design-heloc .calculator-card,body.design-heloc .calc-box{background:rgba(255,255,255,.75)!important;backdrop-filter:blur(14px);border:1px solid #fff!important}
+body.design-heloc .hero{background:linear-gradient(135deg,#e9fbfd,#f7ffff,#e7f9fb)}
+
+/* Payoff timeline */
+body.design-payoff .result-card,body.design-payoff .calculator-card,body.design-payoff .calc-box{border-radius:12px!important}
+body.design-payoff .result{border-left:4px solid var(--theme)}
+
+/* Closing costs invoice */
+body.design-closing .calculator-card,body.design-closing .calc-box{border-radius:8px!important}
+body.design-closing .result{border-radius:8px!important}
+body.design-closing .button{border-radius:8px}
+
+/* Down payment split */
+body.design-down .calculator-grid{gap:32px}
+body.design-down .calculator-card{border-radius:32px 12px 32px 12px!important}
+body.design-down .result-card{border-radius:12px 32px 12px 32px!important}
+
+/* Property tax data */
+body.design-tax .result{border-radius:6px!important}
+body.design-tax .calculator-card,body.design-tax .calc-box{border-radius:12px!important}
+
+/* Rent vs buy comparison */
+body.design-rent .calculator-card,body.design-rent .calc-box{border-radius:26px 8px 26px 8px!important}
+body.design-rent .result-card{background:linear-gradient(145deg,#fff,#fff4f1)!important}
+
+/* Cash-out premium */
+body.design-cashout .hero-card{background:linear-gradient(145deg,#fff,#f7effa)}
+body.design-cashout .calculator-card,body.design-cashout .calc-box{border-radius:30px!important;box-shadow:0 25px 70px rgba(112,64,143,.14)!important}
+
+/* Mortgage points */
+body.design-points .hero{background:radial-gradient(circle at 90% 0%,#ffe8a6 0 190px,transparent 191px),linear-gradient(135deg,#fffaf0,#fff 62%)}
+body.design-points .calculator-card,body.design-points .calc-box{border-top:5px solid var(--theme)!important}
+body.design-points .result:first-child{background:linear-gradient(135deg,#fff3cc,#fffaf0)}
+
+/* Loan classic */
+body.design-loan .calculator-card,body.design-loan .calc-box{border-radius:18px!important}
+body.design-loan .hero{background:linear-gradient(135deg,#eef6ff,#fff 58%,#e9f2ff)}
+
+/* Personal loan clean */
+body.design-personal .calculator-card,body.design-personal .calc-box{box-shadow:0 14px 42px rgba(17,107,143,.08)!important}
+body.design-personal .result{background:#f7fcfe}
+
+/* Auto loan automotive */
+body.design-auto .hero{background:linear-gradient(135deg,#fff,#fff0f0,#f7fbff)}
+body.design-auto .calculator-card,body.design-auto .calc-box{border-top:6px solid var(--theme)!important}
+body.design-auto .button{font-weight:900;letter-spacing:.04em}
+
+/* Debt progress */
+body.design-debt .result-card{border-left:8px solid var(--theme)!important}
+body.design-debt .result{border-radius:10px!important}
+
+/* Credit card */
+body.design-ccpay .calculator-card,body.design-ccpay .calc-box{border-radius:22px 22px 32px 32px!important}
+body.design-ccpay .result{border-radius:22px!important}
+
+/* Credit minimum warning */
+body.design-ccmin .hero{background:linear-gradient(135deg,#fff,#f7f1ff,#fff)}
+body.design-ccmin .calculator-card,body.design-ccmin .calc-box{border-left:6px solid var(--theme)!important}
+
+/* Compound growth */
+body.design-compound .hero{background:radial-gradient(circle at 92% 15%,#dff5e4 0 180px,transparent 181px),linear-gradient(135deg,#f5fbf6,#fff)}
+body.design-compound .result:first-child{background:linear-gradient(135deg,#e7f7ea,#fff)}
+body.design-compound .calculator-card,body.design-compound .calc-box{border-radius:32px!important}
+
+/* Savings goal */
+body.design-savings .hero{background:linear-gradient(135deg,#edfbf8,#fff 60%,#e7f8f3)}
+body.design-savings .calculator-card,body.design-savings .calc-box{border-radius:38px!important}
+body.design-savings .result{border-radius:20px!important}
+
+/* Retirement future */
+body.design-retirement .hero{background:linear-gradient(135deg,#edf3fb,#fff 55%,#e9f0f9)}
+body.design-retirement .calculator-card,body.design-retirement .calc-box{border-radius:20px 42px 20px 42px!important}
+body.design-retirement .result-card{border-radius:42px 20px 42px 20px!important}
+
+@media(max-width:800px){
+  body.design-va .calculator-grid{grid-template-columns:1fr}
+}
