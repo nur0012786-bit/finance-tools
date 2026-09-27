@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free retirement calculator to estimate your retirement savings, future contributions, investment growth and potential retirement balance.">
+<meta name="robots" content="index, follow">
+<title>Retirement Calculator — Estimate Your Retirement Savings</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.calculator-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(15,23,42,.08)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.field label{display:block;font-weight:700;margin-bottom:8px;color:#172033}
+.field input{width:100%;padding:13px 14px;border:1px solid #d7dce5;border-radius:10px;font:inherit;box-sizing:border-box}
+.field input:focus{outline:2px solid rgba(37,99,235,.15);border-color:#2563eb}
+.full{grid-column:1/-1}
+.calculate-row{margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.result{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:18px}
+.result small{display:block;color:#667085;margin-bottom:7px}
+.result strong{font-size:1.35rem;color:#111827}
+.table-wrap{overflow-x:auto;margin-top:24px}
+.retirement-table{width:100%;border-collapse:collapse;min-width:620px}
+.retirement-table th,.retirement-table td{padding:11px 12px;border-bottom:1px solid #e5e7eb;text-align:right}
+.retirement-table th:first-child,.retirement-table td:first-child{text-align:left}
+.retirement-table th{background:#f8fafc}
+.info-box{margin-top:24px;padding:18px 20px;background:#eff6ff;border-left:4px solid #2563eb;border-radius:10px}
+.content-section{margin-top:38px}
+.faq{border-top:1px solid #e5e7eb;padding:18px 0}
+.faq h3{font-size:1rem;margin-bottom:7px}
+@media(max-width:800px){.results{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.form-grid{grid-template-columns:1fr}.results{grid-template-columns:1fr 1fr}.calculator-card{padding:20px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../index.html">Finance<span>Tools</span></a>
+    <nav><a href="../index.html#calculators">Calculators</a><a href="../index.html#about">About</a></nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container narrow">
+    <p class="eyebrow">RETIREMENT CALCULATOR</p>
+    <h1>Estimate how your retirement savings could grow.</h1>
+    <p class="hero-text">Project a future retirement balance using your current savings, monthly contributions, expected return and years until retirement.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <div class="calculator-card">
+      <div class="form-grid">
+        <div class="field">
+          <label for="current">Current retirement savings ($)</label>
+          <input id="current" type="number" min="0" step="500" value="25000">
+        </div>
+        <div class="field">
+          <label for="monthly">Monthly contribution ($)</label>
+          <input id="monthly" type="number" min="0" step="25" value="500">
+        </div>
+        <div class="field">
+          <label for="returnRate">Expected annual return (%)</label>
+          <input id="returnRate" type="number" min="0" step="0.1" value="7">
+        </div>
+        <div class="field">
+          <label for="years">Years until retirement</label>
+          <input id="years" type="number" min="1" step="1" value="25">
+        </div>
+      </div>
+
+      <div class="calculate-row">
+        <button class="button" type="button" onclick="calculate()">Calculate retirement savings</button>
+        <span id="message" aria-live="polite"></span>
+      </div>
+
+      <div class="results" aria-live="polite">
+        <div class="result"><small>Estimated balance</small><strong id="future">$0</strong></div>
+        <div class="result"><small>Current savings</small><strong id="starting">$0</strong></div>
+        <div class="result"><small>Total contributions</small><strong id="contributions">$0</strong></div>
+        <div class="result"><small>Estimated growth</small><strong id="growth">$0</strong></div>
+      </div>
+
+      <div class="table-wrap">
+        <h2>Year-by-year projection</h2>
+        <table class="retirement-table">
+          <thead><tr><th>Year</th><th>Contributions</th><th>Estimated growth</th><th>Ending balance</th></tr></thead>
+          <tbody id="growthBody"></tbody>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <strong>Important:</strong> This calculator is a projection, not a guarantee. Investment returns can vary substantially. It does not account for inflation, taxes, fees, employer matches, withdrawals, Social Security or other retirement income sources.
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>How a retirement calculator works</h2>
+      <p>A retirement calculator estimates how a retirement account may grow when your existing savings and regular contributions are invested for a period of time. The result depends heavily on the return assumption, contribution amount and number of years.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Why time matters for retirement savings</h2>
+      <p>Longer investment periods can give contributions and accumulated investment growth more time to compound. Starting earlier can therefore change the amount that needs to be contributed later, although investment returns are never guaranteed.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Example retirement projection</h2>
+      <p>If you begin with $25,000, contribute $500 each month and assume a 7% annual return for 25 years, this calculator estimates the potential account value under those assumptions. A real portfolio can perform differently from year to year.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Frequently asked questions</h2>
+      <div class="faq"><h3>What does a retirement calculator estimate?</h3><p>It estimates a possible future retirement balance using current savings, regular contributions, an assumed annual return and the number of years until retirement.</p></div>
+      <div class="faq"><h3>Are the investment returns guaranteed?</h3><p>No. The annual return is only an assumption used for the projection. Actual investment performance can be higher or lower.</p></div>
+      <div class="faq"><h3>Does this calculator include inflation?</h3><p>No. The displayed future balance is a nominal projection and does not adjust for inflation.</p></div>
+      <div class="faq"><h3>Does it include employer matching?</h3><p>No. Employer contributions are not included. You can adjust your own monthly contribution to model a different total contribution assumption.</p></div>
+      <div class="faq"><h3>Does it account for taxes and fees?</h3><p>No. Taxes and investment or account fees can reduce actual results and should be considered separately.</p></div>
+      <div class="faq"><h3>Can I use this for a 401(k) or IRA estimate?</h3><p>Yes, as a general growth illustration. Account-specific contribution limits, tax rules, withdrawals and employer benefits are not modeled.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+
+<script>
+function money(value){
+  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(value);
+}
+
+function calculate(){
+  const current=Math.max(0,Number(document.getElementById('current').value)||0);
+  const monthly=Math.max(0,Number(document.getElementById('monthly').value)||0);
+  const annualRate=Math.max(0,Number(document.getElementById('returnRate').value)||0)/100;
+  const years=Math.max(1,Math.floor(Number(document.getElementById('years').value)||1));
+  const months=years*12;
+  const monthlyRate=Math.pow(1+annualRate,1/12)-1;
+
+  let balance=current;
+  let contributions=current;
+  const body=document.getElementById('growthBody');
+  body.innerHTML='';
+
+  for(let month=1;month<=months;month++){
+    balance += balance*monthlyRate;
+    balance += monthly;
+    contributions += monthly;
+
+    if(month%12===0 || month===months){
+      const row=document.createElement('tr');
+      row.innerHTML='<td>'+Math.ceil(month/12)+'</td><td>'+money(contributions)+'</td><td>'+money(Math.max(0,balance-contributions))+'</td><td>'+money(balance)+'</td>';
+      body.appendChild(row);
+    }
+  }
+
+  document.getElementById('future').textContent=money(balance);
+  document.getElementById('starting').textContent=money(current);
+  document.getElementById('contributions').textContent=money(contributions);
+  document.getElementById('growth').textContent=money(Math.max(0,balance-contributions));
+  document.getElementById('message').textContent='Projection updated.';
+}
+
+calculate();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What does a retirement calculator estimate?","acceptedAnswer":{"@type":"Answer","text":"It estimates a possible future retirement balance using current savings, regular contributions, an assumed annual return and the number of years until retirement."}},
+    {"@type":"Question","name":"Are the investment returns guaranteed?","acceptedAnswer":{"@type":"Answer","text":"No. The annual return is only an assumption used for the projection. Actual investment performance can be higher or lower."}},
+    {"@type":"Question","name":"Does this calculator include inflation?","acceptedAnswer":{"@type":"Answer","text":"No. The displayed future balance is a nominal projection and does not adjust for inflation."}},
+    {"@type":"Question","name":"Does it include employer matching?","acceptedAnswer":{"@type":"Answer","text":"No. Employer contributions are not included. You can adjust your own monthly contribution to model a different total contribution assumption."}},
+    {"@type":"Question","name":"Does it account for taxes and fees?","acceptedAnswer":{"@type":"Answer","text":"No. Taxes and investment or account fees can reduce actual results and should be considered separately."}},
+    {"@type":"Question","name":"Can I use this for a 401(k) or IRA estimate?","acceptedAnswer":{"@type":"Answer","text":"Yes, as a general growth illustration. Account-specific contribution limits, tax rules, withdrawals and employer benefits are not modeled."}}
+  ]
+}
+</script>
+</body>
+</html>
