@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free mortgage payoff calculator for US homeowners. Estimate payoff time, interest, extra-payment savings and the effect of making additional monthly or one-time payments.">
+<title>Mortgage Payoff Calculator — Free US Mortgage Payoff Tool</title><link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a mortgage payoff calculator?","acceptedAnswer":{"@type":"Answer","text":"A mortgage payoff calculator estimates how long it may take to pay off a mortgage and how much interest could be saved by making extra payments."}},
+{"@type":"Question","name":"Does paying extra on a mortgage save interest?","acceptedAnswer":{"@type":"Answer","text":"Generally, additional principal payments reduce the outstanding balance sooner, which can reduce future interest on a typical fixed-rate mortgage."}},
+{"@type":"Question","name":"Can I make extra mortgage payments every month?","acceptedAnswer":{"@type":"Answer","text":"Many mortgages allow additional principal payments, but borrowers should review their loan documents and lender rules for any restrictions or prepayment provisions."}},
+{"@type":"Question","name":"Does this calculator include taxes and insurance?","acceptedAnswer":{"@type":"Answer","text":"No. The payoff calculation focuses on mortgage principal and interest. Property taxes, homeowners insurance, HOA dues and other housing costs are excluded."}},
+{"@type":"Question","name":"What if I make a one-time extra payment?","acceptedAnswer":{"@type":"Answer","text":"A one-time principal payment can reduce the balance and potentially shorten the payoff period. This calculator lets you estimate that effect."}},
+{"@type":"Question","name":"Is this an exact lender payoff quote?","acceptedAnswer":{"@type":"Answer","text":"No. A lender payoff quote can include accrued interest, fees and other charges. This tool is an educational estimate."}}
+]}</script></head>
+<body><header class="site-header"><div class="container nav"><a class="brand" href="../index.html">Finance<span>Tools</span></a><nav><a href="../index.html#calculators">Calculators</a><a href="../index.html#about">About</a></nav></div></header>
+<main><section class="hero"><div class="container hero-grid"><div><p class="eyebrow">US MORTGAGE PAYOFF CALCULATOR</p><h1>Mortgage Payoff Calculator</h1><p class="hero-text">See how extra monthly or one-time principal payments could shorten your mortgage and reduce estimated interest.</p></div>
+<div class="hero-card"><div class="hero-icon">$</div><h2>Pay off your mortgage faster</h2><p>Compare your regular schedule with an accelerated payoff plan using additional principal payments.</p><a class="text-link" href="../mortgage-calculator/">Compare with Mortgage Calculator →</a></div></div></section>
+<section class="section"><div class="container"><div class="calculator-grid"><div class="calculator-card"><h2>Enter your mortgage details</h2><div class="input-grid">
+<label>Current mortgage balance ($)<input id="balance" type="number" min="1" step="1000" value="300000"></label>
+<label>Interest rate (%)<input id="rate" type="number" min="0" step="0.01" value="6.25"></label>
+<label>Remaining term (years)<input id="years" type="number" min="1" max="50" step="1" value="25"></label>
+<label>Extra monthly payment ($)<input id="extra" type="number" min="0" step="25" value="300"></label>
+<label>One-time extra payment ($)<input id="lump" type="number" min="0" step="100" value="0"></label>
+</div><button class="button" id="calculate">Calculate Payoff</button><p class="small-note">This assumes a fixed-rate mortgage and applies extra payments directly to principal.</p></div>
+<div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Your payoff comparison</h2><div class="results">
+<div><span>Regular monthly payment</span><strong id="payment">$0</strong></div>
+<div><span>Regular payoff time</span><strong id="regularTime">0</strong></div>
+<div><span>Regular total interest</span><strong id="regularInterest">$0</strong></div>
+<div><span>Accelerated payoff time</span><strong id="newTime">0</strong></div>
+<div><span>Accelerated total interest</span><strong id="newInterest">$0</strong></div>
+<div><span>Months saved</span><strong id="monthsSaved">0</strong></div>
+<div><span>Estimated interest saved</span><strong id="interestSaved">$0</strong></div>
+<div><span>New monthly payment</span><strong id="newPayment">$0</strong></div>
+</div></div></div></div></section>
+<section class="section light"><div class="container narrow"><p class="eyebrow">HOW IT WORKS</p><h2>How the mortgage payoff calculator works</h2><p>The calculator first estimates the normal fixed-rate mortgage payment from your current balance, interest rate and remaining term. It then simulates monthly interest and principal payments while applying your extra monthly amount and optional one-time payment.</p><p>The accelerated scenario shows the estimated payoff time and interest under those assumptions. Actual results can differ because mortgage servicing, payment timing, escrow, fees and lender-specific rules vary.</p></div></section>
+<section class="section"><div class="container narrow"><p class="eyebrow">EXAMPLE</p><h2>Example mortgage payoff strategy</h2><p>Suppose your remaining balance is $300,000 at 6.25% with 25 years left. Adding $300 per month toward principal can shorten the modeled payoff period and reduce modeled interest compared with making only the scheduled payment.</p><p>The calculator lets you test different extra-payment amounts so you can compare scenarios before discussing a strategy with your lender.</p></div></section>
+<section class="section light"><div class="container narrow"><p class="eyebrow">FAQ</p><h2>Mortgage payoff calculator FAQs</h2>
+<h3>Does extra principal reduce interest?</h3><p>On a typical fixed-rate mortgage, reducing principal sooner generally reduces the balance on which future interest is calculated.</p>
+<h3>Can I make extra monthly payments?</h3><p>Many mortgages permit additional principal payments, but check your mortgage documents and lender for applicable rules.</p>
+<h3>What about a one-time payment?</h3><p>A lump-sum principal payment can reduce the balance immediately and may shorten the modeled payoff period.</p>
+<h3>Does this include escrow?</h3><p>No. Taxes, insurance and HOA costs are excluded because they do not directly determine mortgage principal-and-interest payoff.</p>
+<h3>Is this a lender payoff quote?</h3><p>No. A lender's payoff quote may include accrued interest, fees and other charges that this calculator does not model.</p>
+<h3>Can I use this for any mortgage?</h3><p>It is designed for a simplified fixed-rate amortization model. Adjustable-rate mortgages and unusual loan structures may require a different calculation.</p></div></section>
+<section class="section"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This calculator is for planning only. It does not provide a lender payoff quote or financial advice. Check your loan documents and lender terms before making additional principal payments.</div></div></section>
+</main><footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<script>
+function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);}
+function monthlyPayment(p,rate,months){const r=rate/100/12;if(r===0)return p/months;return p*r/(1-Math.pow(1+r,-months));}
+function sim(balance,rate,payment,extra,lump){let b=Math.max(0,balance-lump),interest=0,months=0;const r=rate/100/12;while(b>0.005&&months<1200){const i=b*r;let principal=payment+extra-i;if(principal<=0)return {months:1200,interest:Infinity};if(principal>b)principal=b;interest+=i;b-=principal;months++;}return {months,interest};}
+function fmtTime(m){const y=Math.floor(m/12),mo=m%12;return y+' yr'+(y===1?'':'s')+(mo?' '+mo+' mo':'');}
+function calc(){const b=+document.getElementById('balance').value||0,r=+document.getElementById('rate').value||0,y=Math.max(1,+document.getElementById('years').value||1),e=Math.max(0,+document.getElementById('extra').value||0),l=Math.max(0,+document.getElementById('lump').value||0),n=y*12,p=monthlyPayment(b,r,n),regular=sim(b,r,p,0,0),fast=sim(b,r,p,e,l);document.getElementById('payment').textContent=money(p);document.getElementById('regularTime').textContent=fmtTime(regular.months);document.getElementById('regularInterest').textContent=money(regular.interest);document.getElementById('newTime').textContent=fmtTime(fast.months);document.getElementById('newInterest').textContent=money(fast.interest);document.getElementById('monthsSaved').textContent=Math.max(0,regular.months-fast.months)+' months';document.getElementById('interestSaved').textContent=money(Math.max(0,regular.interest-fast.interest));document.getElementById('newPayment').textContent=money(p+e);}
+document.getElementById('calculate').addEventListener('click',calc);document.querySelectorAll('input').forEach(x=>x.addEventListener('input',calc));calc();
+</script></body></html>
