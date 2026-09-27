@@ -43,7 +43,7 @@
 <div class="field"><label for="other">Other property-secured debt ($)</label><input id="other" type="number" value="0" min="0" step="1000"></div>
 <div class="field"><label for="maxCltv">Target maximum combined LTV (%)</label><input id="maxCltv" type="number" value="80" min="1" max="100" step="1"></div>
 </div>
-<button class="button" style="margin-top:20px" onclick="calculate()">Calculate Home Equity</button>
+<button type="button" class="button" style="margin-top:20px" onclick="calculate()">Calculate Home Equity</button>
 
 <div class="results">
 <div class="result"><span>Estimated home equity</span><strong id="equity">$0</strong></div>
@@ -51,7 +51,7 @@
 <div class="result"><span>Total secured debt</span><strong id="debt">$0</strong></div>
 <div class="result"><span>Equity percentage</span><strong id="equityPct">0%</strong></div>
 <div class="result"><span>Target total debt limit</span><strong id="limit">$0</strong></div>
-<div class="result"><span>Estimated additional borrowing room</span><strong id="available">$0</strong></div>
+<div class="result"><span>Estimated additional borrowing room</span><strong id="available" aria-live="polite">$0</strong></div>
 </div>
 
 <div class="note" id="summary"></div>
