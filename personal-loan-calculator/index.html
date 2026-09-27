@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Loan Calculator | FinanceTools</title>
+<meta name="description" content="Use this personal loan calculator to estimate monthly payments, total interest, total repayment and an amortization schedule for a fixed-rate personal loan.">
+<link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/personal-loan-calculator/">
+<link rel="stylesheet" href="../style.css">
+<style>
+.calculator-box{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:24px;box-shadow:0 10px 30px rgba(15,23,42,.06)}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.field label{display:block;font-weight:700;margin-bottom:7px}
+.field input{width:100%;box-sizing:border-box;padding:12px 13px;border:1px solid #d1d5db;border-radius:10px;font:inherit}
+.full{grid-column:1/-1}
+.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.result{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:15px}
+.result small{display:block;color:#64748b;margin-bottom:5px}
+.result strong{font-size:1.15rem}
+.note{margin-top:16px;padding:14px;border-radius:12px;background:#f8fafc;color:#475569}
+.schedule{margin-top:22px;overflow:auto;max-height:420px}
+.schedule table{width:100%;border-collapse:collapse;min-width:620px}
+.schedule th,.schedule td{padding:9px;border-bottom:1px solid #e5e7eb;text-align:right}
+.schedule th:first-child,.schedule td:first-child{text-align:left}
+.content-section{margin-top:34px}
+.faq{border-top:1px solid #e5e7eb;padding:17px 0}
+.faq h3{margin:0 0 7px}
+@media(max-width:650px){
+.form-grid,.result-grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+.calculator-box{padding:18px}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What is a personal loan calculator?","acceptedAnswer":{"@type":"Answer","text":"A personal loan calculator estimates the monthly payment, total interest and total repayment for a fixed-rate installment loan."}},
+    {"@type":"Question","name":"How is a personal loan payment calculated?","acceptedAnswer":{"@type":"Answer","text":"For a standard fixed-rate loan, the monthly payment is based on the principal, monthly interest rate and number of monthly payments."}},
+    {"@type":"Question","name":"Does a personal loan calculator include fees?","acceptedAnswer":{"@type":"Answer","text":"This calculator focuses on principal and interest. Origination fees, late fees, optional insurance and other lender charges are not included unless reflected in the loan amount."}},
+    {"@type":"Question","name":"Can I make extra payments on a personal loan?","acceptedAnswer":{"@type":"Answer","text":"Many loans allow extra principal payments, but terms vary by lender. Check your loan agreement for prepayment rules or fees."}},
+    {"@type":"Question","name":"Does a lower interest rate reduce my payment?","acceptedAnswer":{"@type":"Answer","text":"For the same loan amount and term, a lower interest rate generally produces a lower monthly principal-and-interest payment and less total interest."}},
+    {"@type":"Question","name":"Is this personal loan calculator exact?","acceptedAnswer":{"@type":"Answer","text":"It is an estimate based on the values entered. Actual lender calculations can differ because of fees, payment timing, rounding and loan-specific terms."}}
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="../">FinanceTools</a>
+    <nav><a href="../">Calculators</a><a href="../#about">About</a></nav>
+  </div>
+</header>
+
+<main>
+<section class="hero narrow">
+  <p class="eyebrow">PERSONAL FINANCE</p>
+  <h1>Personal Loan Calculator</h1>
+  <p class="hero-text">Estimate the monthly payment, total interest, total repayment and amortization schedule for a fixed-rate personal loan.</p>
+</section>
+
+<section class="container narrow">
+<div class="calculator-box">
+  <div class="form-grid">
+    <div class="field">
+      <label for="amount">Loan amount ($)</label>
+      <input id="amount" type="number" min="0" step="0.01" value="10000">
+    </div>
+    <div class="field">
+      <label for="rate">Annual interest rate (%)</label>
+      <input id="rate" type="number" min="0" step="0.01" value="12">
+    </div>
+    <div class="field">
+      <label for="term">Loan term (years)</label>
+      <input id="term" type="number" min="1" step="1" value="5">
+    </div>
+    <div class="field">
+      <label for="extra">Extra monthly payment ($)</label>
+      <input id="extra" type="number" min="0" step="0.01" value="0">
+    </div>
+    <div class="full">
+      <button class="button" type="button" onclick="calculate()">Calculate loan</button>
+    </div>
+  </div>
+
+  <div class="result-grid">
+    <div class="result"><small>Monthly payment</small><strong id="payment">—</strong></div>
+    <div class="result"><small>Total interest</small><strong id="interest">—</strong></div>
+    <div class="result"><small>Total repayment</small><strong id="total">—</strong></div>
+    <div class="result"><small>Payment with extra</small><strong id="extraPayment">—</strong></div>
+    <div class="result"><small>Interest with extra</small><strong id="extraInterest">—</strong></div>
+    <div class="result"><small>Interest saved</small><strong id="savedInterest">—</strong></div>
+  </div>
+
+  <p id="message" class="note" style="display:none"></p>
+
+  <div class="schedule">
+    <h2>Amortization Schedule</h2>
+    <table>
+      <thead><tr><th>Month</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Remaining balance</th></tr></thead>
+      <tbody id="scheduleBody"></tbody>
+    </table>
+  </div>
+
+  <p class="note">Estimate only. This calculator models a standard fixed-rate installment loan and does not include lender-specific fees, taxes, insurance, optional products or other charges.</p>
+</div>
+
+<div class="content-section">
+<h2>How the Personal Loan Calculator Works</h2>
+<p>Enter the amount you want to borrow, the annual interest rate and the repayment term. The calculator uses a standard fixed-rate installment-loan formula to estimate the monthly principal-and-interest payment.</p>
+
+<h2>Personal Loan Payment Formula</h2>
+<p>For a fixed-rate loan, the payment depends on the loan principal, monthly interest rate and number of payments. When the interest rate is zero, the principal is divided evenly across the scheduled payments.</p>
+
+<h2>Example</h2>
+<p>For a $10,000 personal loan at 12% annual interest over five years, the calculator estimates a monthly principal-and-interest payment and shows how much interest would be paid over the scheduled term. Adding an extra monthly amount can reduce the modeled interest and payoff time.</p>
+
+<h2>What Can Affect Your Actual Personal Loan Cost?</h2>
+<ul>
+<li>Origination or administrative fees.</li>
+<li>Loan term and interest rate offered by the lender.</li>
+<li>Payment timing and rounding rules.</li>
+<li>Late fees or other contractual charges.</li>
+<li>Optional insurance or other products.</li>
+<li>Prepayment terms, if applicable.</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+<div class="faq"><h3>What is a personal loan calculator?</h3><p>It estimates monthly payments, total interest and total repayment for a fixed-rate installment loan.</p></div>
+<div class="faq"><h3>How is a personal loan payment calculated?</h3><p>The standard calculation uses the principal, monthly interest rate and number of monthly payments.</p></div>
+<div class="faq"><h3>Does it include loan fees?</h3><p>No. The main calculation covers principal and interest; lender-specific fees are not included.</p></div>
+<div class="faq"><h3>Can I make extra payments?</h3><p>Many lenders allow extra principal payments, but you should check your loan agreement for applicable terms.</p></div>
+<div class="faq"><h3>Does a lower interest rate reduce the payment?</h3><p>For the same amount and term, a lower rate generally lowers the principal-and-interest payment and total interest.</p></div>
+<div class="faq"><h3>Is the result exact?</h3><p>No. It is an estimate based on the inputs and a standard fixed-rate loan model.</p></div>
+</div>
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="container">© 2026 Finance Tools. For educational purposes only.</div>
+</footer>
+
+<script>
+function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);}
+function monthsText(m){if(m<=0)return '0 months';const y=Math.floor(m/12),mo=m%12;return y?y+' yr'+(y===1?'':'s')+(mo?' '+mo+' mo':''):mo+' mo';}
+function fixedPayment(principal,rate,months){
+  if(months<=0)return 0;
+  const r=rate/100/12;
+  if(r===0)return principal/months;
+  return principal*r/(1-Math.pow(1+r,-months));
+}
+function simulate(principal,rate,payment,maxMonths){
+  const r=rate/100/12;
+  let b=principal,interest=0,total=0,months=0,schedule=[];
+  if(b<=0)return {months:0,interest:0,total:0,schedule:[]};
+  if(r>0 && payment<=b*r)return null;
+  while(b>0.005&&months<maxMonths){
+    months++;
+    const i=b*r;
+    const p=Math.min(payment-i,b);
+    const actual=i+p;
+    b=Math.max(0,b-p);
+    interest+=i;
+    total+=actual;
+    schedule.push({month:months,payment:actual,interest:i,principal:p,balance:b});
+  }
+  if(b>0.005)return null;
+  return {months,interest,total,schedule};
+}
+function calculate(){
+  const amount=Math.max(0,parseFloat(document.getElementById('amount').value)||0);
+  const rate=Math.max(0,parseFloat(document.getElementById('rate').value)||0);
+  const years=Math.max(1,parseFloat(document.getElementById('term').value)||1);
+  const extra=Math.max(0,parseFloat(document.getElementById('extra').value)||0);
+  const msg=document.getElementById('message');
+  msg.style.display='none';
+
+  if(amount===0){msg.textContent='Enter a loan amount greater than $0.';msg.style.display='block';return;}
+
+  const months=Math.round(years*12);
+  const payment=fixedPayment(amount,rate,months);
+  const regular=simulate(amount,rate,payment,1200);
+  const accelerated=simulate(amount,rate,payment+extra,1200);
+
+  if(!regular||!accelerated){msg.textContent='Please check the loan amount, interest rate and payment values.';msg.style.display='block';return;}
+
+  document.getElementById('payment').textContent=money(payment);
+  document.getElementById('interest').textContent=money(regular.interest);
+  document.getElementById('total').textContent=money(regular.total);
+  document.getElementById('extraPayment').textContent=money(payment+extra);
+  document.getElementById('extraInterest').textContent=money(accelerated.interest);
+  document.getElementById('savedInterest').textContent=money(Math.max(0,regular.interest-accelerated.interest));
+
+  document.getElementById('scheduleBody').innerHTML=accelerated.schedule.map(r =>
+    '<tr><td>'+r.month+'</td><td>'+money(r.payment)+'</td><td>'+money(r.interest)+'</td><td>'+money(r.principal)+'</td><td>'+money(r.balance)+'</td></tr>'
+  ).join('');
+}
+calculate();
+</script>
+</body>
+</html>
