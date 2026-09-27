@@ -43,11 +43,11 @@
 <div class="field"><label for="term">Loan term (years)</label><input id="term" type="number" value="30" min="1" max="50" step="1"></div>
 <div class="field"><label for="pmiRate">Estimated annual PMI rate (%)</label><input id="pmiRate" type="number" value="0.7" min="0" step="0.01"></div>
 </div>
-<button class="button" style="margin-top:20px" onclick="calculate()">Calculate PMI</button>
+<button type="button" class="button" style="margin-top:20px" onclick="calculate()">Calculate PMI</button>
 <div class="results">
 <div class="result"><span>Estimated loan amount</span><strong id="loan">$0</strong></div>
 <div class="result"><span>Loan-to-value (LTV)</span><strong id="ltv">0%</strong></div>
-<div class="result"><span>Estimated monthly PMI</span><strong id="monthlyPmi">$0</strong></div>
+<div class="result"><span>Estimated monthly PMI</span><strong id="monthlyPmi" aria-live="polite">$0</strong></div>
 <div class="result"><span>Estimated annual PMI</span><strong id="annualPmi">$0</strong></div>
 <div class="result"><span>Estimated monthly principal & interest</span><strong id="payment">$0</strong></div>
 <div class="result"><span>Estimated monthly housing payment</span><strong id="total">$0</strong></div>
