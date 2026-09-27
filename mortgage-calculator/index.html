@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free mortgage calculator to estimate monthly principal and interest payments, total interest and total loan cost.">
+<title>Mortgage Calculator — Monthly Payment & Interest</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
+<main>
+<section class="section"><div class="container calc-wrap">
+<p class="eyebrow">MORTGAGE CALCULATOR</p>
+<h1>Estimate your monthly mortgage payment</h1>
+<p class="hero-text">Enter the home price, down payment, interest rate and loan term to estimate principal and interest payments.</p>
+<div class="calc-box">
+<div class="form-grid">
+<div><label for="price">Home price ($)</label><input id="price" type="number" min="0" value="350000"></div>
+<div><label for="down">Down payment ($)</label><input id="down" type="number" min="0" value="70000"></div>
+<div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="6.5"></div>
+<div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="30"></div>
+</div>
+<button class="button calc-button" onclick="calculateMortgage()">Calculate mortgage</button>
+<div class="results">
+<div class="result"><small>Loan amount</small><strong id="loanAmount">$0.00</strong></div>
+<div class="result"><small>Monthly principal & interest</small><strong id="monthly">$0.00</strong></div>
+<div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
+<div class="result"><small>Total payments</small><strong id="total">$0.00</strong></div>
+<div class="result"><small>Down payment</small><strong id="downResult">$0.00</strong></div>
+<div class="result"><small>Loan term</small><strong id="termResult">0 years</strong></div>
+</div>
+<p class="note">Estimate only. This calculator does not include property taxes, homeowners insurance, HOA fees, mortgage insurance, closing costs or lender-specific charges.</p>
+</div>
+</div></section>
+
+<section class="section light"><div class="container narrow">
+<p class="eyebrow">MORTGAGE GUIDE</p>
+<h2>How does a mortgage calculator work?</h2>
+<p>A mortgage calculator estimates the principal and interest portion of a home-loan payment from the loan amount, annual interest rate and repayment term. The down payment reduces the amount borrowed from the lender.</p>
+<h2>What is included in this estimate?</h2>
+<p>This calculator estimates principal and interest only. A real monthly housing payment can also include property taxes, homeowners insurance, mortgage insurance and other costs depending on the loan and property.</p>
+<h2>Mortgage example</h2>
+<p>Try a $350,000 home with a $70,000 down payment, a 6.5% annual interest rate and a 30-year term to see an estimated principal-and-interest payment.</p>
+
+<div class="faq">
+<p class="eyebrow">FAQ</p><h2>Frequently asked questions</h2>
+<div class="faq-item"><h3>How much should I enter for the down payment?</h3><p>Enter the amount you expect to pay upfront toward the home's purchase price. The calculator subtracts it from the home price to estimate the loan amount.</p></div>
+<div class="faq-item"><h3>Does this mortgage calculator include property taxes?</h3><p>No. The estimate covers principal and interest only. Property taxes, homeowners insurance, mortgage insurance and HOA fees are not included.</p></div>
+<div class="faq-item"><h3>What happens if I change the interest rate?</h3><p>A higher interest rate generally increases the estimated monthly principal-and-interest payment and total interest for the same loan amount and term.</p></div>
+<div class="faq-item"><h3>What does a 30-year mortgage term mean?</h3><p>A 30-year term means the scheduled loan repayment period is 30 years, or 360 monthly payments under a standard monthly amortization schedule.</p></div>
+<div class="faq-item"><h3>Is this mortgage calculator financial advice?</h3><p>No. It is an educational estimate. Actual loan terms and housing costs vary by lender, borrower, property and loan program.</p></div>
+</div>
+</div></section>
+</main>
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<script>
+function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
+function calculateMortgage(){
+ const price=Number(document.getElementById("price").value);
+ const down=Number(document.getElementById("down").value);
+ const annual=Number(document.getElementById("rate").value);
+ const years=Number(document.getElementById("years").value);
+ if(!price||price<=0||down<0||down>price||annual<0||!years||years<=0){alert("Please enter valid values. Down payment cannot exceed the home price.");return}
+ const P=price-down,n=Math.round(years*12),r=annual/100/12;
+ const payment=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+ const total=payment*n,interest=total-P;
+ document.getElementById("loanAmount").textContent=money(P);
+ document.getElementById("monthly").textContent=money(payment);
+ document.getElementById("interest").textContent=money(interest);
+ document.getElementById("total").textContent=money(total);
+ document.getElementById("downResult").textContent=money(down);
+ document.getElementById("termResult").textContent=years+" year"+(years===1?"":"s");
+}
+calculateMortgage();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much should I enter for the down payment?","acceptedAnswer":{"@type":"Answer","text":"Enter the amount you expect to pay upfront toward the home's purchase price. The calculator subtracts it from the home price to estimate the loan amount."}},
+{"@type":"Question","name":"Does this mortgage calculator include property taxes?","acceptedAnswer":{"@type":"Answer","text":"No. The estimate covers principal and interest only. Property taxes, homeowners insurance, mortgage insurance and HOA fees are not included."}},
+{"@type":"Question","name":"What happens if I change the interest rate?","acceptedAnswer":{"@type":"Answer","text":"A higher interest rate generally increases the estimated monthly principal-and-interest payment and total interest for the same loan amount and term."}},
+{"@type":"Question","name":"What does a 30-year mortgage term mean?","acceptedAnswer":{"@type":"Answer","text":"A 30-year term means the scheduled loan repayment period is 30 years, or 360 monthly payments under a standard monthly amortization schedule."}},
+{"@type":"Question","name":"Is this mortgage calculator financial advice?","acceptedAnswer":{"@type":"Answer","text":"No. It is an educational estimate. Actual loan terms and housing costs vary by lender, borrower, property and loan program."}}
+]}
+</script>
+</body>
+</html>
