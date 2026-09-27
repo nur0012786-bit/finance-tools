@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../style.css">
 <style>
 .calc-wrap{max-width:850px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}}
+.schedule-wrap{margin-top:35px}.schedule-wrap h2{font-size:25px;margin-bottom:5px}.schedule-wrap p{color:#647286;margin-top:0}.table-scroll{overflow:auto;max-height:520px;border:1px solid #e1e8f0;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;background:#fff}th,td{padding:12px 14px;border-bottom:1px solid #edf1f5;text-align:right;font-size:14px}th:first-child,td:first-child{text-align:center}th{position:sticky;top:0;background:#f5f8fc;color:#526174;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
 </style>
 </head>
 <body>
@@ -28,6 +29,11 @@
 <div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
 <div class="result"><small>Total repayment</small><strong id="total">$0.00</strong></div>
 </div>
+<div class="schedule-wrap">
+<h2>Amortization schedule</h2>
+<p>See how each monthly payment is split between interest and principal.</p>
+<div class="table-scroll"><table><thead><tr><th>Payment</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody id="schedule"></tbody></table></div>
+</div>
 <p class="note">Estimate only. Actual payments may differ because of fees, taxes, insurance, lender terms and other charges.</p>
 </div>
 </div></section>
@@ -47,6 +53,16 @@ function calculateLoan(){
  document.getElementById("monthly").textContent=money(payment);
  document.getElementById("interest").textContent=money(interest);
  document.getElementById("total").textContent=money(total);
+ const schedule=document.getElementById("schedule"); schedule.innerHTML="";
+ let balance=P;
+ for(let i=1;i<=n;i++){
+   const interestPart=balance*r;
+   const principalPart=Math.min(payment-interestPart,balance);
+   balance=Math.max(0,balance-principalPart);
+   const row=document.createElement("tr");
+   row.innerHTML="<td>"+i+"</td><td>"+money(i===n?principalPart+interestPart:payment)+"</td><td>"+money(principalPart)+"</td><td>"+money(interestPart)+"</td><td>"+money(balance)+"</td>";
+   schedule.appendChild(row);
+ }
 }
 calculateLoan();
 </script>
