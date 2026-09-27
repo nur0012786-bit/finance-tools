@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free US cash-out refinance calculator. Estimate a new mortgage payment, cash available from home equity, closing costs, loan-to-value and total interest.">
+<title>Cash-Out Refinance Calculator — Estimate Cash & New Payment</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
+<main>
+<section class="section"><div class="container calc-wrap">
+<p class="eyebrow">CASH-OUT REFINANCE CALCULATOR</p>
+<h1>Estimate cash available from a mortgage refinance</h1>
+<p class="hero-text">Estimate a new mortgage amount, potential cash-out, monthly principal-and-interest payment, loan-to-value and refinance interest using your home value and current mortgage balance.</p>
+<div class="calc-box">
+<div class="form-grid">
+<div><label for="value">Current home value ($)</label><input id="value" type="number" min="0" value="450000"></div>
+<div><label for="balance">Current mortgage balance ($)</label><input id="balance" type="number" min="0" value="260000"></div>
+<div><label for="maxLtv">Target maximum LTV (%)</label><input id="maxLtv" type="number" min="0" max="100" step="0.1" value="80"></div>
+<div><label for="cash">Cash-out amount requested ($)</label><input id="cash" type="number" min="0" value="50000"></div>
+<div><label for="rate">New mortgage interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="6.5"></div>
+<div><label for="term">New loan term (years)</label><input id="term" type="number" min="1" value="30"></div>
+<div><label for="closing">Refinance closing costs ($)</label><input id="closing" type="number" min="0" value="8000"></div>
+<div><label for="otherDebt">Other liens/debt paid from refinance ($)</label><input id="otherDebt" type="number" min="0" value="0"></div>
+</div>
+<button class="button calc-button" onclick="calculateCashOut()">Calculate cash-out refinance</button>
+<div class="results">
+<div class="result"><small>Maximum estimated new loan</small><strong id="maxLoan">$0.00</strong></div>
+<div class="result"><small>Requested new loan</small><strong id="newLoan">$0.00</strong></div>
+<div class="result"><small>Estimated cash to borrower</small><strong id="cashResult">$0.00</strong></div>
+<div class="result"><small>New monthly principal & interest</small><strong id="monthly">$0.00</strong></div>
+<div class="result"><small>New loan-to-value</small><strong id="ltv">0.00%</strong></div>
+<div class="result"><small>Estimated total interest</small><strong id="interest">$0.00</strong></div>
+</div>
+<p class="note">Estimate only. A lender may use different LTV limits, underwriting rules, appraisal values, pricing and eligible costs. This calculator does not determine qualification or a lender's actual cash-out amount.</p>
+</div>
+</div></section>
+
+<section class="section light"><div class="container narrow">
+<p class="eyebrow">CASH-OUT REFINANCE GUIDE</p>
+<h2>How does a cash-out refinance work?</h2>
+<p>A cash-out refinance replaces an existing mortgage with a larger mortgage and gives the borrower the difference in cash, after accounting for the existing mortgage and eligible transaction costs. citeturn0search1turn0search0</p>
+<h2>How much equity can you access?</h2>
+<p>This calculator uses a target maximum loan-to-value assumption. The mathematical maximum is the home value multiplied by your target LTV, but actual lender limits and underwriting requirements vary by loan type, borrower and property.</p>
+<h2>Why closing costs matter</h2>
+<p>Refinancing involves costs and fees. Some costs may be paid upfront, while other structures can finance costs into the new loan. Financing closing costs increases the loan balance and can reduce equity. citeturn0search2turn0search3</p>
+<h2>Cash-out refinance example</h2>
+<p>Try a $450,000 home value, a $260,000 current mortgage balance, an 80% target LTV and $50,000 requested cash-out. Add estimated closing costs to see how they affect the requested new loan and estimated cash available.</p>
+<div class="faq"><p class="eyebrow">FAQ</p><h2>Frequently asked questions</h2>
+<div class="faq-item"><h3>What is a cash-out refinance?</h3><p>It is a refinance in which the new mortgage is larger than the existing mortgage balance and the borrower receives cash from the equity being accessed, subject to the loan's terms and costs. citeturn0search0turn0search1</p></div>
+<div class="faq-item"><h3>Does this calculator guarantee how much cash I can get?</h3><p>No. It provides a mathematical estimate based on the assumptions you enter. Lenders can apply different LTV limits, credit and income requirements, property rules, pricing and eligible-cost rules.</p></div>
+<div class="faq-item"><h3>Should closing costs be included in the new loan?</h3><p>They can sometimes be financed, depending on the loan structure and lender. Financing them increases the loan balance, which can increase payments and reduce equity. citeturn0search2</p></div>
+<div class="faq-item"><h3>Can cash-out refinancing be used to pay other debt?</h3><p>Cash-out proceeds can be used for purposes such as debt consolidation or home improvements, depending on the loan and borrower. Turning other debt into mortgage debt also puts the home-secured loan in a different risk position, so the total cost and repayment risk should be considered. citeturn0search4turn0search7</p></div>
+<div class="faq-item"><h3>Why might the new payment be higher?</h3><p>The new loan may have a larger principal balance, a different interest rate or a different term. The monthly payment can therefore increase even if some of the cash-out proceeds are used for other purposes.</p></div>
+<div class="faq-item"><h3>Is this a lender quote?</h3><p>No. It is an educational estimate and does not account for every lender fee, prepaid item, mortgage insurance rule, tax effect or underwriting requirement.</p></div>
+</div>
+</div></section>
+</main>
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<script>
+function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
+function payment(P,annual,months){const r=annual/100/12;return r===0?P/months:P*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1)}
+function calculateCashOut(){
+ const value=Number(document.getElementById("value").value),balance=Number(document.getElementById("balance").value),maxLtv=Number(document.getElementById("maxLtv").value),cash=Number(document.getElementById("cash").value),rate=Number(document.getElementById("rate").value),term=Number(document.getElementById("term").value),closing=Number(document.getElementById("closing").value),other=Number(document.getElementById("otherDebt").value);
+ if([value,balance,maxLtv,cash,rate,term,closing,other].some(x=>!Number.isFinite(x)||x<0)||value<=0||balance>value||maxLtv>100||term<=0){alert("Please enter valid values. Mortgage balance cannot exceed home value.");return}
+ const maxLoan=value*maxLtv/100;
+ const requested=balance+cash+closing+other;
+ const months=Math.round(term*12);
+ const monthly=payment(requested,rate,months);
+ const totalInterest=monthly*months-requested;
+ const ltv=requested/value*100;
+ const available=Math.max(0,maxLoan-balance-closing-other);
+ const cashAvailable=Math.max(0,maxLoan-balance-closing-other);
+ document.getElementById("maxLoan").textContent=money(maxLoan);
+ document.getElementById("newLoan").textContent=money(requested);
+ document.getElementById("cashResult").textContent=money(Math.min(cash,cashAvailable));
+ document.getElementById("monthly").textContent=money(monthly);
+ document.getElementById("ltv").textContent=ltv.toFixed(2)+"%";
+ document.getElementById("interest").textContent=money(totalInterest);
+}
+calculateCashOut();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a cash-out refinance?","acceptedAnswer":{"@type":"Answer","text":"It is a refinance in which the new mortgage is larger than the existing mortgage balance and the borrower receives cash from home equity, subject to the loan's terms and costs."}},
+{"@type":"Question","name":"Does this calculator guarantee how much cash I can get?","acceptedAnswer":{"@type":"Answer","text":"No. It provides a mathematical estimate based on the assumptions entered. Lenders can apply different LTV limits, credit and income requirements, property rules, pricing and eligible-cost rules."}},
+{"@type":"Question","name":"Should closing costs be included in the new loan?","acceptedAnswer":{"@type":"Answer","text":"They can sometimes be financed, depending on the loan structure and lender. Financing them increases the loan balance, which can increase payments and reduce equity."}},
+{"@type":"Question","name":"Can cash-out refinancing be used to pay other debt?","acceptedAnswer":{"@type":"Answer","text":"Cash-out proceeds can be used for purposes such as debt consolidation or home improvements, depending on the loan and borrower. Turning other debt into mortgage debt changes the risk because the home secures the mortgage."}},
+{"@type":"Question","name":"Why might the new payment be higher?","acceptedAnswer":{"@type":"Answer","text":"The new loan may have a larger principal balance, a different interest rate or a different term. The monthly payment can therefore increase."}},
+{"@type":"Question","name":"Is this a lender quote?","acceptedAnswer":{"@type":"Answer","text":"No. It is an educational estimate and does not account for every lender fee, prepaid item, mortgage insurance rule, tax effect or underwriting requirement."}}
+]}
+</script>
+</body></html>
