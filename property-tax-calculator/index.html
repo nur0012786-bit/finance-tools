@@ -36,9 +36,9 @@
 <div><label for="rate">Property tax rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="1.2"></div>
 <div><label for="exemption">Annual exemption ($)</label><input id="exemption" type="number" min="0" value="0"></div>
 </div>
-<button class="button calc-button" onclick="calculateTax()">Calculate property tax</button>
+<button type="button" class="button calc-button" onclick="calculateTax()">Calculate property tax</button>
 <div class="results">
-<div class="result"><small>Estimated annual property tax</small><strong id="annualTax">$0.00</strong></div>
+<div class="result"><small>Estimated annual property tax</small><strong id="annualTax" aria-live="polite">$0.00</strong></div>
 <div class="result"><small>Estimated monthly property tax</small><strong id="monthlyTax">$0.00</strong></div>
 <div class="result"><small>Taxable assessed value</small><strong id="taxableValue">$0.00</strong></div>
 <div class="result"><small>Effective tax rate on property value</small><strong id="effectiveRate">0.00%</strong></div>
