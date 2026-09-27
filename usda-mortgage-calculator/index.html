@@ -10,9 +10,16 @@
 {"@type":"Question","name":"Are USDA loans only for first-time buyers?","acceptedAnswer":{"@type":"Answer","text":"No. USDA materials state that the program is not limited to first-time home buyers, although eligibility requirements apply."}},
 {"@type":"Question","name":"Does this calculator determine USDA eligibility?","acceptedAnswer":{"@type":"Answer","text":"No. USDA eligibility depends on factors including the property location, household income, occupancy, citizenship or eligible status, credit and lender underwriting."}}
 ]}</script><link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/usda-mortgage-calculator/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Finance Tools","item":"https://nur0012786-bit.github.io/finance-tools/"},
+{"@type":"ListItem","position":2,"name":"USDA Mortgage Calculator","item":"https://nur0012786-bit.github.io/finance-tools/usda-mortgage-calculator/"}
+]}
+</script>
 </head>
 <body class="design-usda"><header class="site-header"><div class="container nav"><a class="brand" href="../index.html">Finance<span>Tools</span></a><nav><a href="../index.html#calculators">Calculators</a><a href="../index.html#about">About</a></nav></div></header>
-<main><section class="hero"><div class="container hero-grid"><div><p class="eyebrow">US USDA MORTGAGE CALCULATOR</p><h1>USDA Mortgage Calculator</h1><p class="hero-text">Estimate a USDA home loan payment, upfront guarantee fee, annual fee, property taxes and homeowners insurance.</p></div>
+<main>
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>USDA Mortgage Calculator</span></nav><section class="hero"><div class="container hero-grid"><div><p class="eyebrow">US USDA MORTGAGE CALCULATOR</p><h1>USDA Mortgage Calculator</h1><p class="hero-text">Estimate a USDA home loan payment, upfront guarantee fee, annual fee, property taxes and homeowners insurance.</p></div>
 <div class="hero-card"><div class="hero-icon">$</div><h2>USDA 0% down</h2><p>USDA Rural Development says eligible Section 502 Guaranteed Loan borrowers can receive 100% financing, subject to program and lender requirements.</p><a class="text-link" href="https://www.rd.usda.gov/programs-services/single-family-housing-programs/single-family-housing-guaranteed-loan-program">Verify USDA requirements →</a></div></div></section>
 <section class="section"><div class="container"><div class="calculator-grid"><div class="calculator-card"><h2>Enter your USDA loan details</h2><div class="input-grid">
 <label>Home price ($)<input id="price" type="number" min="1" step="1000" value="300000"></label>
@@ -36,7 +43,8 @@
 <h3>Are USDA loans only for first-time buyers?</h3><p>No. USDA materials state the program is not limited to first-time home buyers.</p>
 <h3>Does this calculator check eligibility?</h3><p>No. Eligibility includes property location, household income, occupancy and other USDA and lender requirements.</p></div></section>
 <section class="section"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This calculator is for planning only. USDA fees, eligibility requirements, lender terms, taxes and insurance costs can change. Verify current requirements with USDA Rural Development and an approved lender.</div></div></section>
-</main><footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+</main><section class="section light related-tools"><div class="container narrow"><p class="eyebrow">RELATED TOOLS</p><h2>Explore more financial calculators</h2><p><a href="../mortgage-calculator/">Mortgage Calculator</a> · <a href="../mortgage-affordability-calculator/">Mortgage Affordability</a> · <a href="../loan-calculator/">Loan Calculator</a> · <a href="../savings-calculator/">Savings Calculator</a> · <a href="../retirement-calculator/">Retirement Calculator</a> · <a href="../debt-payoff-calculator/">Debt Payoff</a></p></div></section>
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
 function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);}
 function pay(p,r,n){if(!n)return 0;const x=r/100/12;if(x===0)return p/n;return p*x/(1-Math.pow(1+x,-n));}
