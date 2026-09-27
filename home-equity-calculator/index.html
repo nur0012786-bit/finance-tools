@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Equity Calculator | Estimate Your Home Equity</title>
+<meta name="description" content="Estimate your home equity, loan-to-value ratio, and potential available equity based on your home value and mortgage balance.">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../style.css">
+<style>
+.calculator{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field label{display:block;font-weight:700;margin-bottom:7px}
+.field input{width:100%;padding:12px;border:1px solid #d8dee8;border-radius:10px;font-size:16px;box-sizing:border-box}
+.results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.result{background:#f7f9fc;border:1px solid #e1e6ef;border-radius:12px;padding:15px}
+.result span{display:block;color:#667085;font-size:13px;margin-bottom:5px}.result strong{font-size:21px}
+.note,.warning{margin-top:18px;padding:14px;border-radius:10px}.note{background:#eef7ff}.warning{background:#fff8e6}
+@media(max-width:650px){.calculator,.results{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is home equity?","acceptedAnswer":{"@type":"Answer","text":"Home equity is the difference between the estimated market value of a home and the amount owed on mortgages and other liens secured by the property."}},
+{"@type":"Question","name":"How is home equity calculated?","acceptedAnswer":{"@type":"Answer","text":"Home equity is estimated by subtracting the outstanding mortgage and other property-secured debt from the home's estimated value."}},
+{"@type":"Question","name":"What is loan-to-value ratio?","acceptedAnswer":{"@type":"Answer","text":"Loan-to-value, or LTV, compares the outstanding mortgage balance with the home's value. A lower LTV generally means more equity relative to the property value."}},
+{"@type":"Question","name":"Can I borrow all of my home equity?","acceptedAnswer":{"@type":"Answer","text":"Usually not. Lenders may limit borrowing based on combined loan-to-value, credit, income, debt, property value, and other requirements."}},
+{"@type":"Question","name":"Does home value affect equity?","acceptedAnswer":{"@type":"Answer","text":"Yes. If the home's market value changes while the mortgage balance stays the same, estimated equity changes as well."}},
+{"@type":"Question","name":"Is this a home equity loan approval calculator?","acceptedAnswer":{"@type":"Answer","text":"No. It provides an estimate of equity and potential borrowing room based on the information entered. Actual lender eligibility and limits vary."}}
+]}
+</script>
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">FinanceTools</a><nav><a href="../">Calculators</a><a href="../#about">About</a></nav></div></header>
+
+<main class="container narrow">
+<section class="hero-text">
+<p class="eyebrow">Home Equity Planning</p>
+<h1>Home Equity Calculator</h1>
+<p>Estimate your current home equity, loan-to-value ratio, and potential borrowing room based on your home's value and outstanding mortgage debt.</p>
+</section>
+
+<section class="card">
+<div class="calculator">
+<div class="field"><label for="value">Estimated home value ($)</label><input id="value" type="number" value="400000" min="0" step="1000"></div>
+<div class="field"><label for="mortgage">Current mortgage balance ($)</label><input id="mortgage" type="number" value="250000" min="0" step="1000"></div>
+<div class="field"><label for="other">Other property-secured debt ($)</label><input id="other" type="number" value="0" min="0" step="1000"></div>
+<div class="field"><label for="maxCltv">Target maximum combined LTV (%)</label><input id="maxCltv" type="number" value="80" min="1" max="100" step="1"></div>
+</div>
+<button class="button" style="margin-top:20px" onclick="calculate()">Calculate Home Equity</button>
+
+<div class="results">
+<div class="result"><span>Estimated home equity</span><strong id="equity">$0</strong></div>
+<div class="result"><span>Current loan-to-value</span><strong id="ltv">0%</strong></div>
+<div class="result"><span>Total secured debt</span><strong id="debt">$0</strong></div>
+<div class="result"><span>Equity percentage</span><strong id="equityPct">0%</strong></div>
+<div class="result"><span>Target total debt limit</span><strong id="limit">$0</strong></div>
+<div class="result"><span>Estimated additional borrowing room</span><strong id="available">$0</strong></div>
+</div>
+
+<div class="note" id="summary"></div>
+<div class="warning">The additional borrowing figure is a mathematical estimate based only on the target combined LTV you enter. It is not an offer of credit or a lender qualification result.</div>
+</section>
+
+<section class="card">
+<h2>How home equity is calculated</h2>
+<p>Home equity is the portion of your home's value that is not covered by mortgage and other property-secured debt. The basic calculation is home value minus secured debt.</p>
+<p>For example, if a home is worth $400,000 and the mortgage balance is $250,000, estimated equity is $150,000. That equals 37.5% of the home's estimated value.</p>
+<h3>Understanding LTV</h3>
+<p>Loan-to-value ratio compares secured debt with the property's estimated value. If a home is worth $400,000 and total secured debt is $250,000, the LTV is 62.5%.</p>
+<h3>Potential borrowing room</h3>
+<p>A lender may use a maximum combined LTV when evaluating a home equity loan or HELOC. This calculator applies the target percentage you enter, but actual limits vary by lender and borrower.</p>
+<h3>What can change your equity?</h3>
+<p>Mortgage principal payments can increase equity, while a lower home value can reduce it. Additional borrowing against the property also reduces available equity.</p>
+</section>
+
+<section class="card">
+<h2>Home equity FAQs</h2>
+<h3>What is home equity?</h3><p>It is the estimated home value minus mortgages and other liens secured by the property.</p>
+<h3>How is equity calculated?</h3><p>Subtract total property-secured debt from the estimated market value of the home.</p>
+<h3>What is LTV?</h3><p>LTV is secured debt divided by home value, expressed as a percentage.</p>
+<h3>Can I borrow all my equity?</h3><p>Usually a lender will apply a maximum LTV or combined LTV and other qualification requirements.</p>
+<h3>Does home value affect equity?</h3><p>Yes. Changes in estimated property value can change your equity even if the mortgage balance does not change.</p>
+<h3>Is this an approval calculator?</h3><p>No. It provides an educational estimate and does not determine lender approval or an actual credit limit.</p>
+</section>
+</main>
+
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<script>
+function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+function calculate(){
+const value=Math.max(0,Number(document.getElementById('value').value)||0);
+const mortgage=Math.max(0,Number(document.getElementById('mortgage').value)||0);
+const other=Math.max(0,Number(document.getElementById('other').value)||0);
+const maxCltv=Math.max(0,Number(document.getElementById('maxCltv').value)||0)/100;
+const debt=mortgage+other;
+const equity=value-debt;
+const ltv=value>0?debt/value*100:0;
+const equityPct=value>0?equity/value*100:0;
+const limit=value*maxCltv;
+const available=Math.max(0,limit-debt);
+document.getElementById('equity').textContent=money(equity);
+document.getElementById('ltv').textContent=ltv.toFixed(1)+'%';
+document.getElementById('debt').textContent=money(debt);
+document.getElementById('equityPct').textContent=equityPct.toFixed(1)+'%';
+document.getElementById('limit').textContent=money(limit);
+document.getElementById('available').textContent=money(available);
+document.getElementById('summary').textContent='Based on the entered home value and secured debt, your estimated equity is '+money(equity)+' and your current LTV is '+ltv.toFixed(1)+'%. At the target '+(maxCltv*100).toFixed(0)+'% combined LTV, the mathematical borrowing room is '+money(available)+'.';
+}
+calculate();
+</script>
+</body>
+</html>
