@@ -15,8 +15,8 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff;line-height:1.7;-webkit-font-smoothing:antialiased}
-h1,h2,h3,.brand{font-family:"Manrope","DM Sans",system-ui,sans-serif}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.brand{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 h1,h2,h3{color:var(--ink)}
 a{transition:color .18s ease,background .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease}
 .container{width:min(1160px,92%);margin:auto}
@@ -74,7 +74,7 @@ main.container.narrow .button{margin-top:22px;padding:13px 22px;font-size:15px}
 main.container.narrow .results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}
 main.container.narrow .result{background:#f7f9fc;border:1px solid #e3e8f0;border-radius:14px;padding:16px 17px}
 main.container.narrow .result span{display:block;color:#667085;font-size:12px;font-weight:700;margin-bottom:5px}
-main.container.narrow .result strong{display:block;color:var(--ink);font-family:"Manrope",sans-serif;font-size:21px;line-height:1.25}
+main.container.narrow .result strong{display:block;color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:21px;line-height:1.25}
 main.container.narrow .result:first-child{background:var(--blue-soft);border-color:#cfe0ff}
 main.container.narrow .result:first-child strong{color:var(--blue-dark);font-size:26px}
 
@@ -147,7 +147,7 @@ body{
     var(--page);
   font-size:16px;
 }
-h1,h2,h3,.brand{font-family:"Manrope","DM Sans",sans-serif;color:var(--ink)}
+h1,h2,h3,.brand{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink)}
 .site-header{
   background:rgba(255,255,255,.88);
   border-bottom:1px solid rgba(198,212,229,.75);
@@ -1211,3 +1211,13 @@ body.design-home .card:hover{border-color:#8db7e5}
 body.design-home .section h2{font-size:46px}
 body.design-home .eyebrow{color:#9a6100}
 @media(max-width:650px){body.design-home .hero h1{font-size:48px}body.design-home .hero-card{padding:28px}body.design-home .section h2{font-size:35px}}
+
+
+/* Performance baseline: keep the calculator UI usable without third-party font requests. */
+html{font-display:swap}
+img,svg{max-width:100%;height:auto}
+button,input,select,textarea{font:inherit}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
