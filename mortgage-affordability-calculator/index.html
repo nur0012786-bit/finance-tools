@@ -18,20 +18,6 @@
 .table-wrap{overflow-x:auto;margin-top:20px}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left}
 @media(max-width:650px){.calculator,.results{grid-template-columns:1fr}}
 </style>
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"FAQPage",
- "mainEntity":[
-  {"@type":"Question","name":"How much house can I afford?","acceptedAnswer":{"@type":"Answer","text":"Your affordable home price depends on income, monthly debts, down payment, mortgage rate, property taxes, homeowners insurance, and the debt-to-income limits used by a lender."}},
-  {"@type":"Question","name":"What is a housing debt-to-income ratio?","acceptedAnswer":{"@type":"Answer","text":"A housing debt-to-income ratio compares your monthly housing costs with gross monthly income. A common planning assumption is 28%, but lenders and loan programs can use different standards."}},
-  {"@type":"Question","name":"What is total debt-to-income ratio?","acceptedAnswer":{"@type":"Answer","text":"Total DTI compares monthly housing costs plus other recurring debt payments with gross monthly income. The acceptable limit varies by lender and loan program."}},
-  {"@type":"Question","name":"Does a down payment increase affordability?","acceptedAnswer":{"@type":"Answer","text":"A larger down payment can reduce the mortgage amount needed for a given home price and may also reduce borrowing costs. Other requirements can still apply."}},
-  {"@type":"Question","name":"Does this calculator provide mortgage preapproval?","acceptedAnswer":{"@type":"Answer","text":"No. This calculator provides an educational estimate. Actual qualification can depend on credit, employment, assets, reserves, loan type, lender rules, and other factors."}},
-  {"@type":"Question","name":"Are property taxes and insurance included?","acceptedAnswer":{"@type":"Answer","text":"Yes. The estimate uses the property tax rate and annual homeowners insurance you enter. Actual costs vary by property and location."}}
- ]
-}
-</script>
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/mortgage-affordability-calculator/">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -47,8 +33,8 @@
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>Mortgage Affordability Calculator</span></nav>
 <section class="hero-text">
 <p class="eyebrow">Mortgage Planning</p>
-<h1>Mortgage Affordability Calculator</h1>
-<p>Estimate how much home you may be able to afford using your income, existing debt, down payment, mortgage rate, property taxes, insurance, and DTI assumptions.</p>
+<h1>US Mortgage Affordability Calculator</h1>
+<p>Estimate a potential home-price range from your gross income, existing monthly debt, down payment, mortgage rate, property taxes, homeowners insurance, and debt-to-income assumptions.</p>
 </section>
 
 <section class="card">
@@ -76,27 +62,29 @@
 <div class="result"><span>Total DTI used</span><strong id="totalUsed">0%</strong></div>
 </div>
 <div class="note" id="constraint"></div>
-<div class="warning">This is an educational estimate, not a mortgage preapproval or lending decision. It does not include every possible cost, such as PMI, HOA dues, closing costs, maintenance, or lender-specific fees.</div>
+<div class="warning"><strong>Important:</strong> This is an educational estimate, not a mortgage preapproval or lending decision. It does not include every possible cost, such as PMI, HOA dues, closing costs, maintenance, or lender-specific fees. DTI limits are user-entered planning assumptions and are not universal lending rules.</div>
 </section>
 
 <section class="card">
-<h2>How this mortgage affordability calculator works</h2>
-<p>The calculator first estimates your gross monthly income and two debt limits. The housing limit uses the housing DTI assumption, while the total debt limit accounts for your existing monthly debt payments.</p>
-<p>It then estimates the highest home price that can fit within those limits while accounting for principal and interest, property taxes, homeowners insurance, and your down payment.</p>
-<h3>Example</h3>
-<p>If you earn $90,000 per year, have $500 in monthly debt payments, put $30,000 down, and use a 6.5% mortgage rate, the result provides a planning estimate based on the DTI and cost assumptions you enter.</p>
-<h3>Why the estimate can differ from a lender</h3>
-<p>Lenders may consider credit history, employment and income documentation, assets and reserves, loan program rules, mortgage insurance, property characteristics, and other recurring obligations. Rates and qualifying standards can also vary.</p>
+<h2>How this US mortgage affordability calculator works</h2>
+<p>This calculator converts annual gross income to a monthly figure, then applies two planning limits: a <strong>housing DTI</strong> limit and a <strong>total DTI</strong> limit. The total-DTI calculation subtracts the monthly debt payments you enter before determining the amount available for housing.</p>
+<p>For each possible home price, the calculator estimates principal and interest on the mortgage amount after your down payment, adds estimated property tax and homeowners insurance, and checks that the result stays within the lower of those two monthly housing limits. It then searches for the highest price that fits those assumptions.</p>
+<h3>What the result means</h3>
+<p>The estimated maximum home price is a mathematical planning result, not an approval amount. It reflects only the inputs on this page. A lender may use different DTI limits, qualifying income, tax and insurance figures, mortgage insurance, loan-program rules, or underwriting requirements.</p>
+<h3>Worked example</h3>
+<p>With $90,000 of annual gross income, $500 of existing monthly debt, a $30,000 down payment, a 6.5% rate, a 30-year term, 1.2% annual property tax, and $1,800 annual homeowners insurance, the default assumptions produce an estimated home price of about <strong>$292,271</strong>. That corresponds to an estimated $262,271 mortgage, about $1,658 of monthly principal and interest, about $292 of monthly property tax, and $150 of monthly insurance. The example uses the calculator's default 28% housing DTI and 36% total DTI assumptions.</p>
+<h3>Costs not modeled</h3>
+<p>This estimate does not add PMI, FHA/VA/USDA mortgage-insurance or guarantee fees, HOA dues, maintenance, utilities, closing costs, lender fees, or other property-specific expenses. If any of these materially affect your budget, use a separate calculator or adjust your planning assumptions.</p>
 </section>
 
 <section class="card">
 <h2>Mortgage affordability FAQs</h2>
-<h3>How much house can I afford?</h3><p>Your affordable home price depends on income, debt, down payment, rate, taxes, insurance, and lender qualification rules.</p>
-<h3>What is housing DTI?</h3><p>Housing DTI compares monthly housing costs with gross monthly income. 28% is a common planning assumption, but actual limits vary.</p>
-<h3>What is total DTI?</h3><p>Total DTI includes housing costs plus other recurring debt payments divided by gross monthly income.</p>
-<h3>Does a larger down payment help?</h3><p>It reduces the mortgage needed for a given home price and can reduce borrowing costs, although other qualification rules still apply.</p>
-<h3>Does this calculator provide preapproval?</h3><p>No. It is a planning estimate and does not replace a lender's underwriting or preapproval process.</p>
-<h3>Are taxes and insurance included?</h3><p>Yes. The estimate uses the tax rate and annual insurance amount you enter. Actual costs vary by location and property.</p>
+<h3>How much house can I afford?</h3><p>This calculator estimates a maximum home price from the income, debts, down payment, rate, taxes, insurance, and DTI limits you enter. A lender's qualifying amount can be different.</p>
+<h3>What is housing DTI?</h3><p>Housing DTI is monthly housing expense divided by gross monthly income. Here it is used as a planning cap for principal, interest, property tax, and homeowners insurance.</p>
+<h3>What is total DTI?</h3><p>Total DTI includes the estimated housing payment plus the recurring monthly debt payments entered on the form, divided by gross monthly income.</p>
+<h3>Why can a larger down payment change the result?</h3><p>A larger down payment reduces the mortgage needed for a given home price. That can reduce principal-and-interest expense and therefore allow a higher home price under the same monthly housing limit.</p>
+<h3>Does this calculator include PMI?</h3><p>No. PMI is not modeled in this calculation. Conventional borrowers who put less than 20% down may have mortgage insurance, depending on the loan and lender.</p>
+<h3>Does this calculator provide mortgage preapproval?</h3><p>No. It is an educational planning estimate and does not evaluate credit, employment, assets, reserves, property eligibility, or lender-specific underwriting.</p>
 </section>
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Estimate home-price affordability with related mortgage planning tools.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../down-payment-calculator/">Down Payment Calculator</a></li><li><a href="../property-tax-calculator/">Property Tax Calculator</a></li></ul></div></section>
 </main>
