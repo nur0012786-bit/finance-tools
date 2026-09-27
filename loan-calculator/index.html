@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Use our free loan calculator to estimate monthly payments, total interest and total repayment.">
+<title>Loan Calculator — Monthly Payment & Interest</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.calc-wrap{max-width:850px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
+<main>
+<section class="section"><div class="container calc-wrap">
+<p class="eyebrow">LOAN CALCULATOR</p><h1>Estimate your monthly loan payment</h1>
+<p class="hero-text">Enter the loan amount, annual interest rate and loan term to estimate your payment and total interest.</p>
+<div class="calc-box">
+<div class="form-grid">
+<div><label for="amount">Loan amount ($)</label><input id="amount" type="number" min="0" value="25000"></div>
+<div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="7"></div>
+<div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="5"></div>
+</div>
+<button class="button calc-button" onclick="calculateLoan()">Calculate loan</button>
+<div class="results">
+<div class="result"><small>Monthly payment</small><strong id="monthly">$0.00</strong></div>
+<div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
+<div class="result"><small>Total repayment</small><strong id="total">$0.00</strong></div>
+</div>
+<p class="note">Estimate only. Actual payments may differ because of fees, taxes, insurance, lender terms and other charges.</p>
+</div>
+</div></section>
+<section class="section light"><div class="container narrow"><p class="eyebrow">HOW IT WORKS</p><h2>Loan payment formula</h2><p>For a standard fixed-rate amortizing loan, the monthly payment is calculated from the principal, monthly interest rate and number of monthly payments. The calculator converts the annual rate to a monthly rate and applies the standard amortization formula.</p><h2>Example</h2><p>A $25,000 loan at 7% annual interest over 5 years produces an estimated monthly payment based on the assumptions entered above.</p></div></section>
+</main>
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+<script>
+function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
+function calculateLoan(){
+ const P=Number(document.getElementById("amount").value);
+ const annual=Number(document.getElementById("rate").value);
+ const years=Number(document.getElementById("years").value);
+ if(!P||P<0||annual<0||!years||years<=0){alert("Please enter valid values.");return}
+ const n=years*12,r=annual/100/12;
+ const payment=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+ const total=payment*n,interest=total-P;
+ document.getElementById("monthly").textContent=money(payment);
+ document.getElementById("interest").textContent=money(interest);
+ document.getElementById("total").textContent=money(total);
+}
+calculateLoan();
+</script>
+</body>
+</html>
