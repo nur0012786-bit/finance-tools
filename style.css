@@ -410,7 +410,7 @@ main.container.narrow .result:first-child strong{font-size:29px;color:#0d5fbb}
 .faq-item h3{font-size:19px!important;color:var(--ink)}
 .narrow p{color:#607086;line-height:1.78}
 .narrow h2{margin-top:38px}
-footer{background:#092b53!important;color:#c7d7ea!important;border-top:0!important}\nfooter a{color:#ffffff!important;text-decoration:underline}\nfooter a:hover{color:#dbeafe!important}
+footer{background:#092b53!important;color:#c7d7ea!important;border-top:0!important}\nfooter a,footer a:visited{color:#ffffff!important;text-decoration:underline!important;font-weight:700!important}\nfooter a:hover,footer a:focus-visible{color:#ffffff!important;background:rgba(255,255,255,.14)!important;text-decoration:underline!important}\nfooter a:focus-visible{outline:3px solid #ffffff!important;outline-offset:3px!important}
 
 /* Mobile */
 @media(max-width:900px){
