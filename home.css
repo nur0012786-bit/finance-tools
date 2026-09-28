@@ -86,3 +86,23 @@ footer a:focus-visible{outline:3px solid #fff!important;outline-offset:3px!impor
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+/* Accessibility contrast hardening */
+.card span,
+.card span:visited{
+  color:#003b7a!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+footer,
+footer .container,
+footer .container>span,
+footer .container>span{
+  color:#fff!important;
+}
+footer a,
+footer a:visited,
+footer a:hover,
+footer a:focus-visible{
+  color:#fff!important;
+  opacity:1!important;
+}
