@@ -410,7 +410,7 @@ main.container.narrow .result:first-child strong{font-size:29px;color:#0d5fbb}
 .faq-item h3{font-size:19px!important;color:var(--ink)}
 .narrow p{color:#607086;line-height:1.78}
 .narrow h2{margin-top:38px}
-footer{background:#092b53!important;color:#c7d7ea!important;border-top:0!important}
+footer{background:#092b53!important;color:#c7d7ea!important;border-top:0!important}\nfooter a{color:#ffffff!important;text-decoration:underline}\nfooter a:hover{color:#dbeafe!important}
 
 /* Mobile */
 @media(max-width:900px){
