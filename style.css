@@ -1276,3 +1276,12 @@ footer a:focus-visible{
   footer .container > span{gap:10px;}
   footer a,footer a:visited{font-size:14px!important;min-height:40px;padding:8px 13px;}
 }
+
+
+/* Performance: defer rendering of below-the-fold homepage sections */
+#calculators,
+body.design-home .section.light,
+body.design-home #about{
+  content-visibility:auto;
+  contain-intrinsic-size:900px;
+}
