@@ -1,151 +1,327 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8VNZEWGEQR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8VNZEWGEQR');
-</script>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estimate a US mortgage payment with home price, down payment, interest rate and loan term. Calculate principal and interest for your home loan.">
-<title>US Mortgage Calculator | Monthly Payment & Home Loan Estimate</title>
-<link rel="stylesheet" href="../style.css">
-<style>
-.mortgage-page .hero{padding-bottom:58px}
-.mortgage-page .hero-grid{align-items:end}
-.mortgage-page .hero-card{min-height:280px}
-.mortgage-page .feature-strip{display:grid;grid-template-columns:repeat(4,1fr);margin-top:-10px;position:relative;z-index:2;background:#fff;border:1px solid var(--line-strong);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
-.mortgage-page .feature{padding:25px 20px;text-align:center;border-right:1px solid #e1e8f1}
-.mortgage-page .feature:last-child{border-right:0}
-.mortgage-page .feature-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;background:#eaf3ff;color:#1258a4;font-weight:900;font-size:20px}
-.mortgage-page .feature strong{display:block;color:var(--navy);font-family:"Manrope";font-size:14px;margin-bottom:5px}
-.mortgage-page .feature span{display:block;color:#718096;font-size:12px;line-height:1.45}
-.mortgage-page .mortgage-results{display:grid;grid-template-columns:1.05fr 1fr;gap:24px;margin-top:25px}
-.mortgage-page .primary-result{border-radius:21px;padding:27px;background:linear-gradient(145deg,#082b57,#104f91);color:#fff;box-shadow:0 18px 40px rgba(8,43,87,.2)}
-.mortgage-page .primary-result small{display:block;text-transform:uppercase;letter-spacing:.14em;font-weight:800;font-size:11px;opacity:.78}
-.mortgage-page .primary-result strong{display:block;font-family:"Manrope";font-size:clamp(42px,5vw,62px);line-height:1;margin:14px 0 7px;letter-spacing:-.055em}
-.mortgage-page .primary-result span{font-size:14px;color:#d9e9fb}
-.mortgage-page .secondary-results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.mortgage-page .secondary-results .result{padding:18px;background:#fff}
-.mortgage-page .breakdown{margin-top:18px;padding:22px;border:1px solid var(--line);border-radius:18px;background:#f8fbff}
-.mortgage-page .bar{height:13px;border-radius:99px;overflow:hidden;background:#e4edf7;display:flex;margin:15px 0}
-.mortgage-page .bar .principal{background:#1769d1}.mortgage-page .bar .interest{background:#62aee0}
-.mortgage-page .legend{display:flex;justify-content:space-between;font-size:12px;color:#65758a}
-@media(max-width:800px){.mortgage-page .feature-strip{grid-template-columns:repeat(2,1fr)}.mortgage-page .feature:nth-child(2){border-right:0}.mortgage-page .feature:nth-child(-n+2){border-bottom:1px solid #e1e8f1}.mortgage-page .mortgage-results{grid-template-columns:1fr}}
-@media(max-width:600px){.mortgage-page .feature-strip{grid-template-columns:1fr}.mortgage-page .feature{border-right:0!important;border-bottom:1px solid #e1e8f1!important}.mortgage-page .feature:last-child{border-bottom:0!important}.mortgage-page .secondary-results{grid-template-columns:1fr}}
-</style>
-<link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/mortgage-calculator/">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"Finance Tools","item":"https://nur0012786-bit.github.io/finance-tools/"},
-{"@type":"ListItem","position":2,"name":"Mortgage Calculator","item":"https://nur0012786-bit.github.io/finance-tools/mortgage-calculator/"}
-]}
-</script>
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8VNZEWGEQR"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());gtag('config','G-8VNZEWGEQR');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Free US mortgage calculator with principal, interest, property taxes, homeowners insurance, PMI, HOA, total monthly payment, total interest and amortization estimates.">
+  <meta name="robots" content="index,follow">
+  <title>Mortgage Calculator | Monthly Payment, Taxes, Insurance & PMI</title>
+  <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/mortgage-calculator/">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .mc-wrap{max-width:1180px;margin:auto;padding:0 4%}
+    .mc-hero{padding:72px 0 48px;background:linear-gradient(135deg,#fff,#eef6ff);border-bottom:1px solid #dce8f5}
+    .mc-hero h1{font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-.06em;margin:0 0 20px;color:#082b57}
+    .mc-hero p{max-width:760px;color:#5d6d81;font-size:19px;line-height:1.65;margin:0}
+    .mc-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+    .mc-badge{padding:8px 12px;border:1px solid #cbdced;border-radius:999px;background:#fff;color:#38506d;font-size:12px;font-weight:800}
+    .mc-grid{display:grid;grid-template-columns:430px minmax(0,1fr);gap:24px;align-items:start;margin:34px 0 70px}
+    .mc-card{background:#fff;border:1px solid #cbd8e7;border-radius:24px;box-shadow:0 18px 50px rgba(8,43,87,.09);padding:28px}
+    .mc-card h2{font-size:25px;letter-spacing:-.035em;margin:0 0 20px;color:#0b1930}
+    .mc-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .mc-field.full{grid-column:1/-1}
+    .mc-field label{display:block;font-size:12px;font-weight:850;color:#344b67;margin-bottom:7px}
+    .mc-field input,.mc-field select{width:100%;min-height:50px;border:1px solid #c9d6e5;border-radius:11px;padding:11px 13px;font-size:16px;font-weight:650;color:#10233e;background:#fff;outline:none}
+    .mc-field input:focus,.mc-field select:focus{border-color:#1769d1;box-shadow:0 0 0 4px rgba(23,105,209,.11)}
+    .mc-help{font-size:11px;color:#748397;margin-top:5px;line-height:1.4}
+    .mc-button{width:100%;border:0;border-radius:12px;background:linear-gradient(135deg,#1769d1,#0b4f9c);color:#fff;font-size:16px;font-weight:850;padding:15px 18px;margin-top:20px;cursor:pointer;box-shadow:0 10px 24px rgba(23,105,209,.2)}
+    .mc-button:hover{filter:brightness(1.05)}
+    .mc-result-top{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+    .mc-primary{padding:25px;border-radius:20px;background:linear-gradient(145deg,#082b57,#125b9f);color:#fff}
+    .mc-primary small{display:block;text-transform:uppercase;letter-spacing:.15em;font-weight:850;font-size:10px;opacity:.8}
+    .mc-primary strong{display:block;font-size:45px;letter-spacing:-.05em;line-height:1.05;margin:12px 0 6px}
+    .mc-primary span{font-size:13px;color:#d7e8f8}
+    .mc-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mc-stat{padding:17px;border:1px solid #dbe4ef;border-radius:15px;background:#f8fbff}
+    .mc-stat span{display:block;font-size:11px;color:#6a7a90;font-weight:750;margin-bottom:5px}
+    .mc-stat strong{display:block;color:#102b4d;font-size:19px;line-height:1.2}
+    .mc-breakdown{margin-top:14px;border:1px solid #dbe4ef;border-radius:18px;padding:20px;background:#fbfdff}
+    .mc-breakdown h3{font-size:16px;margin:0 0 12px}
+    .mc-bar{height:16px;border-radius:99px;overflow:hidden;display:flex;background:#e8eef6}
+    .mc-bar span{display:block;height:100%}
+    .mc-bar .pi{background:#1769d1}.mc-bar .tax{background:#58a9df}.mc-bar .ins{background:#7f8fc2}.mc-bar .pmi{background:#d99b37}.mc-bar .hoa{background:#58a77e}
+    .mc-legend{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px;font-size:12px;color:#5d6d81}
+    .mc-legend b{color:#152d4c}
+    .mc-legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;background:#1769d1}
+    .mc-note{padding:14px 16px;border-radius:13px;background:#eef7ff;border:1px solid #d2e7fa;color:#31516e;font-size:13px;line-height:1.55;margin-top:15px}
+    .mc-warning{padding:14px 16px;border-radius:13px;background:#fff8e7;border:1px solid #f0dda9;color:#6f561e;font-size:13px;line-height:1.55;margin-top:12px;display:none}
+    .mc-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .mc-actions button{border:1px solid #c8d7e8;background:#fff;color:#174c80;border-radius:10px;padding:10px 13px;font-weight:800;cursor:pointer}
+    .mc-actions button:hover{background:#f1f7fd}
+    .mc-section{padding:70px 0;border-top:1px solid #e1eaf3}
+    .mc-section h2{font-size:36px;letter-spacing:-.045em;color:#0b1930;margin:0 0 18px}
+    .mc-section p{color:#5f6f83;line-height:1.8}
+    .mc-content{max-width:850px}
+    .mc-ad{min-height:90px;border:1px dashed #b8c8da;background:#f8fbfe;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#8a98aa;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:22px 0}
+    .mc-table-wrap{overflow:auto;border:1px solid #dbe4ef;border-radius:16px;background:#fff}
+    .mc-table{width:100%;border-collapse:collapse;font-size:13px}
+    .mc-table th,.mc-table td{padding:11px 12px;border-bottom:1px solid #e8edf3;text-align:right;white-space:nowrap}
+    .mc-table th:first-child,.mc-table td:first-child{text-align:left}
+    .mc-table th{background:#f2f7fc;color:#1c4168;font-weight:850}
+    .mc-table tr:last-child td{border-bottom:0}
+    .mc-compare{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    .mc-compare .box{border:1px solid #dbe4ef;border-radius:16px;padding:18px;background:#fff}
+    .mc-compare h3{margin:0 0 10px;font-size:17px}
+    .mc-faq details{border-bottom:1px solid #dbe4ef;padding:18px 0}
+    .mc-faq summary{cursor:pointer;font-weight:850;color:#173656}
+    .mc-faq p{margin:10px 0 0}
+    @media(max-width:950px){.mc-grid{grid-template-columns:1fr}.mc-result-top{grid-template-columns:1fr}.mc-grid{margin-bottom:45px}}
+    @media(max-width:600px){.mc-fields,.mc-stat-grid,.mc-compare{grid-template-columns:1fr}.mc-field.full{grid-column:auto}.mc-primary strong{font-size:38px}.mc-section{padding:55px 0}.mc-section h2{font-size:31px}}
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"US Mortgage Calculator",
+    "url":"https://nur0012786-bit.github.io/finance-tools/mortgage-calculator/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"Any",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "description":"Educational US mortgage payment calculator with taxes, insurance, PMI, HOA and amortization estimates."
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Finance Tools","item":"https://nur0012786-bit.github.io/finance-tools/"},
+    {"@type":"ListItem","position":2,"name":"Mortgage Calculator","item":"https://nur0012786-bit.github.io/finance-tools/mortgage-calculator/"}
+  ]}
+  </script>
 </head>
-<body class="design-mortgage">
-<header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>Mortgage Calculator</span></nav>
-<main class="mortgage-page">
-<section class="hero"><div class="container hero-grid"><div>
-<p class="eyebrow">US MORTGAGE CALCULATOR</p>
-<h1>US Mortgage Calculator</h1>
-<p class="hero-text">Estimate your monthly mortgage payment, total interest and full principal-and-interest cost with a clear US home-loan calculation.</p>
-</div>
-<div class="hero-card"><div class="hero-icon">$</div><h2>Plan your home loan with confidence</h2><p>Adjust price, down payment, rate and term to see how each choice changes your estimated payment and total borrowing cost.</p><a class="text-link" href="../mortgage-affordability-calculator/">Check Mortgage Affordability →</a></div></div></section>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../">Finance<span>Tools</span></a>
+    <nav><a href="../#calculators">Calculators</a><a href="../guides/">Guides</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav>
+  </div>
+</header>
 
-<section class="section" style="padding-top:0"><div class="container">
-<div class="feature-strip">
-<div class="feature"><div class="feature-icon" aria-hidden="true">◎</div><strong>Accurate Estimates</strong><span>Standard fixed-rate amortization math.</span></div>
-<div class="feature"><div class="feature-icon">✓</div><strong>Plan Confidently</strong><span>See payment and total cost before you commit.</span></div>
-<div class="feature"><div class="feature-icon">▥</div><strong>Compare Scenarios</strong><span>Test rates, terms and down payments.</span></div>
-<div class="feature"><div class="feature-icon">⌂</div><strong>US-Focused</strong><span>Built around common US mortgage inputs.</span></div>
-</div>
-
-<div class="calc-box" style="margin-top:24px">
-<div class="calculator-grid">
-<div>
-<p class="eyebrow">LOAN INPUTS</p><h2>Build your mortgage scenario</h2>
-<div class="form-grid">
-<div><label for="price">Home price ($)</label><input id="price" type="number" min="0" value="400000"></div>
-<div><label for="down">Down payment ($)</label><input id="down" type="number" min="0" value="80000"></div>
-<div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="6.5"></div>
-<div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="30"></div>
-</div>
-<button type="button" class="button calc-button" onclick="calculateMortgage()">Calculate Mortgage</button>
-<p class="note">Principal and interest estimate only. Taxes, insurance, PMI, HOA dues and closing costs are separate.</p>
-</div>
-
-<div>
-<p class="eyebrow">YOUR ESTIMATE</p><h2>Monthly payment & total cost</h2>
-<div class="mortgage-results">
-<div class="primary-result" aria-live="polite"><small>Estimated monthly payment</small><strong id="monthly">$0.00</strong><span>Principal + interest · fixed rate · monthly payments</span></div>
-<div class="secondary-results">
-<div class="result"><small>Loan amount</small><strong id="loanAmount">$0.00</strong></div>
-<div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
-<div class="result"><small>Total payments</small><strong id="total">$0.00</strong></div>
-<div class="result"><small>Down payment</small><strong id="downResult">$0.00</strong></div>
-</div></div>
-<div class="breakdown"><strong>Principal vs. interest</strong><div class="bar"><span class="principal" id="principalBar" style="width:50%"></span><span class="interest" id="interestBar" style="width:50%"></span></div><div class="legend"><span id="principalLegend">Principal</span><span id="interestLegend">Interest</span></div></div>
-</div></div></div></div>
+<main>
+<section class="mc-hero">
+  <div class="mc-wrap">
+    <p class="eyebrow">US HOME LOAN PLANNING</p>
+    <h1>Mortgage Calculator</h1>
+    <p>Estimate your total monthly housing payment—not just principal and interest. Add property taxes, homeowners insurance, PMI, HOA dues and extra payments to test realistic scenarios.</p>
+    <div class="mc-badges">
+      <span class="mc-badge">Principal + interest</span><span class="mc-badge">Taxes & insurance</span><span class="mc-badge">PMI & HOA</span><span class="mc-badge">Amortization</span><span class="mc-badge">No signup required</span>
+    </div>
+  </div>
 </section>
 
-<section class="section light"><div class="container narrow">
-<p class="eyebrow">MORTGAGE GUIDE</p>
-<h2>How does a mortgage calculator work?</h2>
-<p>A mortgage calculator estimates the principal-and-interest portion of a fixed-rate home loan from the amount borrowed, annual interest rate and repayment term. The down payment reduces the amount financed from the home price.</p>
-<h2>How is the monthly mortgage payment calculated?</h2>
-<p>For a standard fixed-rate mortgage, the monthly principal-and-interest payment is calculated from the loan amount, monthly interest rate and total number of monthly payments. Each scheduled payment includes interest on the remaining balance and a portion that reduces principal.</p>
-<p>For example, a $350,000 home with a $70,000 down payment leaves a $280,000 loan. At 6.5% interest over 30 years, the estimated principal-and-interest payment is about $1,770 per month. This example excludes taxes, insurance, PMI, HOA dues and closing costs.</p>
-<h2>What is included in this estimate?</h2>
-<p>This calculator estimates principal and interest only. It uses the home price, down payment, annual interest rate and loan term to calculate the financed amount and scheduled payment.</p>
-<h2>What is not included?</h2>
-<p>The estimate does not include property taxes, homeowners insurance, PMI, HOA dues, lender fees, prepaid costs or closing costs. These expenses can materially change the amount a homeowner actually pays each month or at closing.</p>
-<h2>Mortgage example</h2>
-<p>Try a $350,000 home with a $70,000 down payment, a 6.5% annual interest rate and a 30-year term to see an estimated principal-and-interest payment.</p>
+<section class="mc-wrap">
+  <div class="mc-grid">
+    <div class="mc-card">
+      <h2>Enter your loan details</h2>
+      <div class="mc-fields">
+        <div class="mc-field full"><label for="price">Home price ($)</label><input id="price" type="number" min="0" step="1000" value="400000"></div>
+        <div class="mc-field"><label for="down">Down payment ($)</label><input id="down" type="number" min="0" step="1000" value="80000"></div>
+        <div class="mc-field"><label for="rate">Interest rate (%)</label><input id="rate" type="number" min="0" step="0.001" value="6.50"></div>
+        <div class="mc-field"><label for="term">Loan term</label><select id="term"><option value="30">30 years</option><option value="20">20 years</option><option value="15">15 years</option><option value="10">10 years</option></select></div>
+        <div class="mc-field"><label for="tax">Property tax (%/yr)</label><input id="tax" type="number" min="0" step="0.01" value="1.10"><div class="mc-help">Enter a local annual tax rate or your known annual tax as a percentage of home value.</div></div>
+        <div class="mc-field"><label for="insurance">Home insurance ($/yr)</label><input id="insurance" type="number" min="0" step="50" value="1800"></div>
+        <div class="mc-field"><label for="pmi">PMI (%/yr)</label><input id="pmi" type="number" min="0" step="0.01" value="0.50"><div class="mc-help">Set to 0 if PMI does not apply.</div></div>
+        <div class="mc-field"><label for="hoa">HOA ($/month)</label><input id="hoa" type="number" min="0" step="10" value="0"></div>
+        <div class="mc-field"><label for="closing">Closing costs (% of price)</label><input id="closing" type="number" min="0" step="0.1" value="3.0"></div>
+        <div class="mc-field"><label for="extra">Extra payment ($/month)</label><input id="extra" type="number" min="0" step="25" value="0"></div>
+      </div>
+      <button class="mc-button" type="button" onclick="calculateMortgage()">Calculate payment</button>
+      <div id="warning" class="mc-warning" role="alert"></div>
+      <div class="mc-note"><strong>Important:</strong> This is an educational estimate, not a loan offer. Actual taxes, insurance, PMI, HOA fees, lender costs and rates vary by borrower, property, lender and location.</div>
+    </div>
 
-<div class="faq">
-<p class="eyebrow">FAQ</p><h2>Frequently asked questions</h2>
-<div class="faq-item"><h3>How much should I enter for the down payment?</h3><p>Enter the amount you expect to pay upfront toward the home's purchase price. The calculator subtracts it from the home price to estimate the loan amount.</p></div>
-<div class="faq-item"><h3>Does this mortgage calculator include property taxes?</h3><p>No. The estimate covers principal and interest only. Property taxes, homeowners insurance, mortgage insurance and HOA fees are not included.</p></div>
-<div class="faq-item"><h3>What happens if I change the interest rate?</h3><p>A higher interest rate generally increases the estimated monthly principal-and-interest payment and total interest for the same loan amount and term.</p></div>
-<div class="faq-item"><h3>What does a 30-year mortgage term mean?</h3><p>A 30-year term means the scheduled loan repayment period is 30 years, or 360 monthly payments under a standard monthly amortization schedule.</p></div>
-<div class="faq-item"><h3>Is this mortgage calculator financial advice?</h3><p>No. It is an educational estimate. Actual loan terms and housing costs vary by lender, borrower, property and loan program.</p></div>
-</div>
-</div></section>
-<section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Explore home-loan estimates with related mortgage planning calculators.</p><ul><li><a href="../mortgage-affordability-calculator/">Mortgage Affordability Calculator</a></li><li><a href="../mortgage-refinance-calculator/">Mortgage Refinance Calculator</a></li><li><a href="../mortgage-payoff-calculator/">Mortgage Payoff Calculator</a></li></ul></div></section>
+    <div class="mc-card" id="results">
+      <h2>Your estimated monthly payment</h2>
+      <div class="mc-result-top">
+        <div class="mc-primary"><small>Total estimated housing payment</small><strong id="monthly">$0</strong><span>Principal + interest + taxes + insurance + PMI + HOA</span></div>
+        <div class="mc-stat-grid">
+          <div class="mc-stat"><span>Loan amount</span><strong id="loan">$0</strong></div>
+          <div class="mc-stat"><span>Down payment</span><strong id="downOut">$0</strong></div>
+          <div class="mc-stat"><span>Total interest</span><strong id="interest">$0</strong></div>
+          <div class="mc-stat"><span>Cash to close*</span><strong id="cash">$0</strong></div>
+        </div>
+      </div>
+      <div class="mc-breakdown">
+        <h3>Monthly payment breakdown</h3>
+        <div class="mc-bar" aria-label="Monthly payment breakdown">
+          <span class="pi" id="barPI"></span><span class="tax" id="barTax"></span><span class="ins" id="barIns"></span><span class="pmi" id="barPMI"></span><span class="hoa" id="barHOA"></span>
+        </div>
+        <div class="mc-legend">
+          <div><i class="pi"></i><b>P&I</b> <span id="vPI">$0</span></div>
+          <div><i class="tax"></i><b>Tax</b> <span id="vTax">$0</span></div>
+          <div><i class="ins"></i><b>Insurance</b> <span id="vIns">$0</span></div>
+          <div><i class="pmi"></i><b>PMI</b> <span id="vPMI">$0</span></div>
+          <div><i class="hoa"></i><b>HOA</b> <span id="vHOA">$0</span></div>
+        </div>
+      </div>
+      <div class="mc-actions">
+        <button type="button" onclick="showAmortization()">Show amortization</button>
+        <button type="button" onclick="window.print()">Print / save PDF</button>
+        <button type="button" onclick="copyScenario()">Copy scenario</button>
+      </div>
+      <p class="mc-note"><strong>*Cash to close</strong> is a simple planning estimate of down payment + estimated closing costs. It does not include all prepaid items, credits, deposits or lender-specific charges.</p>
+    </div>
+  </div>
+
+  <div class="mc-ad" aria-label="Advertisement">Advertisement space — add your approved ad code here after monetization approval</div>
+</section>
+
+<section class="mc-section">
+  <div class="mc-wrap mc-content">
+    <p class="eyebrow">UNDERSTAND THE NUMBER</p>
+    <h2>What a mortgage payment really includes</h2>
+    <p>A mortgage payment is often discussed as principal and interest, but a homeowner's monthly housing cost can be larger. This calculator separates principal and interest from estimated property taxes, homeowners insurance, PMI and HOA dues so you can test a more realistic budget.</p>
+    <p>Fannie Mae's mortgage calculator similarly explains that mortgage costs can include principal, interest, property taxes, mortgage insurance, homeowners insurance and HOA or condo fees. citeturn0search0</p>
+    <p>The CFPB also cautions that affordability is not the same as the amount a lender may be willing to approve, and recommends considering taxes, insurance, PMI and the rest of your household budget. citeturn0search17turn0search5</p>
+  </div>
+</section>
+
+<section class="mc-section" id="amortization">
+  <div class="mc-wrap">
+    <p class="eyebrow">AMORTIZATION</p>
+    <h2>Mortgage amortization</h2>
+    <p class="mc-content">Use the button above to generate the first 12 months plus annual summaries. Extra monthly payments are applied against the loan balance in this educational model and can shorten the estimated payoff period.</p>
+    <div id="amortizationOutput" class="mc-table-wrap"><p style="padding:22px;color:#6b7b90">Run the calculator to generate an amortization table.</p></div>
+  </div>
+</section>
+
+<section class="mc-section">
+  <div class="mc-wrap">
+    <p class="eyebrow">COMPARE SCENARIOS</p>
+    <h2>Why rate and term matter</h2>
+    <div class="mc-compare">
+      <div class="box"><h3>30-year loan</h3><p>Usually produces a lower scheduled principal-and-interest payment than a shorter term, but the borrower generally pays interest over more years.</p></div>
+      <div class="box"><h3>15-year loan</h3><p>Usually produces a higher scheduled payment but can reduce the repayment period and total interest when compared with the same loan amount and rate.</p></div>
+    </div>
+    <p>The CFPB explains that an APR is broader than the interest rate because it can include points, broker fees and other charges. When comparing real offers, review the Loan Estimate rather than treating the calculator's interest-rate input as an actual loan quote. citeturn0search4turn0search6</p>
+  </div>
+</section>
+
+<section class="mc-section">
+  <div class="mc-wrap mc-content">
+    <p class="eyebrow">MORTGAGE RESEARCH</p>
+    <h2>Use official documents for final decisions</h2>
+    <p>A calculator is useful for scenario planning; it is not a substitute for a lender's disclosures. A Loan Estimate provides the actual quoted loan terms, estimated monthly payment and closing costs for a mortgage application. The CFPB recommends comparing Loan Estimates from different lenders. citeturn0search2turn0search13</p>
+    <p>For current rate research, use dated rate sources and record the date, loan type, term and assumptions. Do not hard-code a "today's rate" into a static calculator page unless you have a reliable data source and a process for updating it.</p>
+  </div>
+</section>
+
+<section class="mc-section mc-faq">
+  <div class="mc-wrap mc-content">
+    <p class="eyebrow">FAQ</p>
+    <h2>Mortgage calculator questions</h2>
+    <details><summary>Does this calculator include property taxes?</summary><p>Yes. Enter an estimated annual property-tax rate. The calculator converts it to a monthly estimate based on the home price.</p></details>
+    <details><summary>Does it include homeowners insurance?</summary><p>Yes. Enter your estimated annual premium and the calculator divides it by 12.</p></details>
+    <details><summary>Does PMI automatically apply?</summary><p>No. PMI is an assumption you control with the PMI field. Set it to 0 when it does not apply. Actual PMI pricing and cancellation rules depend on the loan and borrower.</p></details>
+    <details><summary>Is the result a mortgage offer?</summary><p>No. It is an educational estimate. Actual loan terms depend on the lender, borrower, property, loan program and other underwriting factors.</p></details>
+    <details><summary>Should I use the calculator to decide how much I can afford?</summary><p>Use it to test scenarios, not to establish a safe personal budget by itself. The CFPB distinguishes lender qualification from affordability and recommends considering the rest of your household finances. citeturn0search17</p></details>
+  </div>
+</section>
+
+<section class="mc-section">
+  <div class="mc-wrap">
+    <p class="eyebrow">NEXT TOOLS</p>
+    <h2>Continue your mortgage research</h2>
+    <div class="cards">
+      <a class="card" href="../mortgage-affordability-calculator/"><span>01</span><h3>Mortgage Affordability</h3><p>Test income, debts and housing-cost assumptions.</p></a>
+      <a class="card" href="../pmi-calculator/"><span>02</span><h3>PMI Calculator</h3><p>Explore how PMI assumptions affect monthly costs.</p></a>
+      <a class="card" href="../mortgage-refinance-calculator/"><span>03</span><h3>Refinance Calculator</h3><p>Compare a new loan with an existing mortgage.</p></a>
+      <a class="card" href="../mortgage-payoff-calculator/"><span>04</span><h3>Mortgage Payoff</h3><p>Explore extra-payment and payoff scenarios.</p></a>
+      <a class="card" href="../closing-costs-calculator/"><span>05</span><h3>Closing Costs</h3><p>Estimate additional cash needed for closing.</p></a>
+      <a class="card" href="../mortgage-payment-guide/"><span>06</span><h3>Mortgage Payment Guide</h3><p>Learn the components behind a monthly mortgage payment.</p></a>
+    </div>
+  </div>
+</section>
 </main>
-<section class="section light related-tools"><div class="container narrow"><p class="eyebrow">RELATED TOOLS</p><h2>Explore more financial calculators</h2><p><a href="../mortgage-calculator/">Mortgage Calculator</a> · <a href="../mortgage-affordability-calculator/">Mortgage Affordability</a> · <a href="../loan-calculator/">Loan Calculator</a> · <a href="../savings-calculator/">Savings Calculator</a> · <a href="../retirement-calculator/">Retirement Calculator</a> · <a href="../debt-payoff-calculator/">Debt Payoff</a></p></div></section>
-<footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
+
+<footer><div class="container">© 2026 Finance Tools. For educational purposes only. <span style="float:right"><a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../financial-disclaimer.html">Disclaimer</a> · <a href="../contact.html">Contact</a></span></div></footer>
+
 <script>
-function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
+function money(n){return Number(n||0).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+function num(id){return Math.max(0,Number(document.getElementById(id).value)||0);}
+let lastScenario=null;
+
+function monthlyPI(P,annualRate,months){
+  const r=annualRate/100/12;
+  if(months<=0)return 0;
+  return r===0?P/months:P*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1);
+}
+
 function calculateMortgage(){
- const price=Number(document.getElementById("price").value);
- const down=Number(document.getElementById("down").value);
- const annual=Number(document.getElementById("rate").value);
- const years=Number(document.getElementById("years").value);
- if(!price||price<=0||down<0||down>price||annual<0||!years||years<=0){alert("Please enter valid values. Down payment cannot exceed the home price.");return}
- const P=price-down,n=Math.round(years*12),r=annual/100/12;
- const payment=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
- const total=payment*n,interest=total-P;
- document.getElementById("loanAmount").textContent=money(P);
- document.getElementById("monthly").textContent=money(payment);
- document.getElementById("interest").textContent=money(interest);
- document.getElementById("total").textContent=money(total);
- document.getElementById("downResult").textContent=money(down);
- const principalPct=total>0?(P/total)*100:100, interestPct=100-principalPct;
- document.getElementById("principalBar").style.width=principalPct+"%";
- document.getElementById("interestBar").style.width=interestPct+"%";
- document.getElementById("principalLegend").textContent="Principal "+money(P)+" · "+principalPct.toFixed(1)+"%";
- document.getElementById("interestLegend").textContent="Interest "+money(interest)+" · "+interestPct.toFixed(1)+"%";
+  const price=num('price'),down=num('down'),annual=num('rate'),years=Number(document.getElementById('term').value);
+  const tax=num('tax'),insurance=num('insurance'),pmiRate=num('pmi'),hoa=num('hoa'),closing=num('closing'),extra=num('extra');
+  const warning=document.getElementById('warning');
+  warning.style.display='none'; warning.textContent='';
+  if(price<=0 || down>price || annual<0 || years<=0){warning.textContent='Please enter valid values. Down payment cannot exceed the home price.';warning.style.display='block';return;}
+  const P=price-down, months=years*12, pi=monthlyPI(P,annual,months);
+  const taxM=price*(tax/100)/12, insM=insurance/12, pmiM=P*(pmiRate/100)/12, base=pi+taxM+insM+pmiM+hoa;
+  let balance=P, totalInterest=0, payoffMonths=months, month=0;
+  const annualRows=[], monthlyRows=[];
+  while(balance>0.005 && month<months){
+    month++;
+    const r=annual/100/12, interest=r===0?0:balance*r;
+    let principal=(pi+extra)-interest;
+    if(principal<=0){payoffMonths=Infinity;break;}
+    if(principal>balance)principal=balance;
+    balance-=principal; totalInterest+=interest;
+    if(month<=12)monthlyRows.push({month,interest,principal,balance});
+    if(month%12===0 || balance<=0.005)annualRows.push({year:Math.ceil(month/12),paid:pi*12+extra*12,interest:0,balance});
+  }
+  // Rebuild annual interest accurately from monthly amortization without storing every month.
+  balance=P; totalInterest=0; annualRows.length=0; let yInterest=0,yPaid=0;
+  for(let m=1;m<=months && balance>0.005;m++){
+    const r=annual/100/12, interest=r===0?0:balance*r;
+    let payment=pi+extra, principal=payment-interest;
+    if(principal<=0){break;}
+    if(principal>balance){principal=balance;payment=interest+principal;}
+    balance-=principal; totalInterest+=interest; yInterest+=interest; yPaid+=payment;
+    if(m%12===0 || balance<=0.005){annualRows.push({year:Math.ceil(m/12),paid:yPaid,interest:yInterest,balance:Math.max(0,balance)});yInterest=0;yPaid=0;}
+    payoffMonths=m;
+  }
+  const cash=down+price*(closing/100);
+  const values={pi,taxM,insM,pmiM,hoa,base,P,down,totalInterest,cash,payoffMonths,annualRows,monthlyRows,price,annual,years,extra};
+  lastScenario=values;
+  document.getElementById('monthly').textContent=money(base);
+  document.getElementById('loan').textContent=money(P);
+  document.getElementById('downOut').textContent=money(down);
+  document.getElementById('interest').textContent=money(totalInterest);
+  document.getElementById('cash').textContent=money(cash);
+  document.getElementById('vPI').textContent=money(pi);
+  document.getElementById('vTax').textContent=money(taxM);
+  document.getElementById('vIns').textContent=money(insM);
+  document.getElementById('vPMI').textContent=money(pmiM);
+  document.getElementById('vHOA').textContent=money(hoa);
+  const parts=[pi,taxM,insM,pmiM,hoa];
+  ['barPI','barTax','barIns','barPMI','barHOA'].forEach((id,i)=>document.getElementById(id).style.width=(base?parts[i]/base*100:0)+'%');
+  if(extra>0 && isFinite(payoffMonths)) warning.textContent='With the extra monthly payment entered, the modeled loan pays off in approximately '+Math.ceil(payoffMonths/12*10)/10+' years instead of '+years+' years.';
+  if(extra>0){warning.style.display='block';}
+  document.getElementById('amortizationOutput').innerHTML='<p style="padding:22px;color:#6b7b90">Click “Show amortization” to generate the schedule.</p>';
+}
+
+function showAmortization(){
+  if(!lastScenario){calculateMortgage();}
+  const s=lastScenario;if(!s)return;
+  let html='<table class="mc-table"><thead><tr><th>Period</th><th>Paid</th><th>Interest</th><th>Principal</th><th>Ending balance</th></tr></thead><tbody>';
+  s.monthlyRows.forEach(x=>html+='<tr><td>Month '+x.month+'</td><td>'+money(x.interest+x.principal)+'</td><td>'+money(x.interest)+'</td><td>'+money(x.principal)+'</td><td>'+money(x.balance)+'</td></tr>');
+  s.annualRows.forEach(x=>html+='<tr><td>Year '+x.year+'</td><td>'+money(x.paid)+'</td><td>'+money(x.interest)+'</td><td>—</td><td>'+money(x.balance)+'</td></tr>');
+  html+='</tbody></table>';
+  document.getElementById('amortizationOutput').innerHTML=html;
+  document.getElementById('amortization').scrollIntoView({behavior:'smooth'});
+}
+
+function copyScenario(){
+  if(!lastScenario)calculateMortgage();
+  const s=lastScenario;if(!s)return;
+  const text='Mortgage scenario: '+money(s.price)+' home, '+money(s.down)+' down, '+s.annual.toFixed(3)+'% rate, '+s.years+' years. Estimated total monthly payment: '+money(s.base)+'.';
+  if(navigator.clipboard)navigator.clipboard.writeText(text);
+  alert('Scenario copied.');
 }
 calculateMortgage();
 </script>
-
 </body>
 </html>
