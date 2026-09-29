@@ -286,6 +286,7 @@ function calculateMortgage(){
   const cash=down+price*(closing/100);
   const values={pi,taxM,insM,pmiM,hoa,base,P,down,totalInterest,cash,payoffMonths,annualRows,monthlyRows,price,annual,years,extra};
   lastScenario=values;
+  if(typeof gtag==='function'){gtag('event','mortgage_calculation',{home_price:Math.round(price),loan_term_years:years,interest_rate:annual,extra_payment:Math.round(extra)});}
   document.getElementById('monthly').textContent=money(base);
   document.getElementById('loan').textContent=money(P);
   document.getElementById('downOut').textContent=money(down);
@@ -311,6 +312,7 @@ function showAmortization(){
   s.annualRows.forEach(x=>html+='<tr><td>Year '+x.year+'</td><td>'+money(x.paid)+'</td><td>'+money(x.interest)+'</td><td>—</td><td>'+money(x.balance)+'</td></tr>');
   html+='</tbody></table>';
   document.getElementById('amortizationOutput').innerHTML=html;
+  if(typeof gtag==='function')gtag('event','mortgage_amortization_view',{loan_term_years:s.years,extra_payment:Math.round(s.extra)});
   document.getElementById('amortization').scrollIntoView({behavior:'smooth'});
 }
 
@@ -319,6 +321,7 @@ function copyScenario(){
   const s=lastScenario;if(!s)return;
   const text='Mortgage scenario: '+money(s.price)+' home, '+money(s.down)+' down, '+s.annual.toFixed(3)+'% rate, '+s.years+' years. Estimated total monthly payment: '+money(s.base)+'.';
   if(navigator.clipboard)navigator.clipboard.writeText(text);
+  if(typeof gtag==='function')gtag('event','mortgage_scenario_copy');
   alert('Scenario copied.');
 }
 calculateMortgage();
