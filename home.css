@@ -106,3 +106,30 @@ footer a:focus-visible{
   color:#fff!important;
   opacity:1!important;
 }
+
+/* Mobile layout refinement: prevent header clipping and reduce excess vertical space */
+@media(max-width:650px){
+  .container{width:min(100% - 32px,1160px)}
+  .nav{min-height:64px;gap:12px;align-items:center;flex-wrap:wrap;padding:10px 0}
+  .nav nav{display:flex;flex:1 1 100%;gap:0;justify-content:space-between;flex-wrap:wrap;padding:0 0 8px}
+  .nav nav a{font-size:12px;line-height:1.5;padding:5px 2px;white-space:nowrap}
+  .hero{padding:48px 0 42px}
+  .hero-grid{gap:28px}
+  .hero h1{font-size:clamp(38px,9vw,46px);line-height:1.08;letter-spacing:-.045em;margin-bottom:18px}
+  .hero-text{font-size:17px;line-height:1.6;margin-bottom:24px}
+  .button{min-height:54px;padding:13px 20px}
+  .hero-card{padding:22px;border-radius:26px}
+  .section{padding:48px 0}
+  .section h2{font-size:clamp(27px,7vw,32px);line-height:1.2;margin-bottom:22px}
+  .cards{gap:16px}
+  .card{padding:22px;border-radius:22px;min-height:0}
+  .card h3{font-size:21px;margin:13px 0 7px}
+  .card p{font-size:16px;line-height:1.55;margin-bottom:0}
+  footer .container{gap:14px}
+}
+@media(max-width:380px){
+  .brand{font-size:20px}
+  .nav nav a{font-size:11px}
+  .hero h1{font-size:37px}
+  .card{padding:20px}
+}
