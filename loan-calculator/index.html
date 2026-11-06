@@ -13,12 +13,12 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Use this US loan calculator to estimate monthly payments, total interest, payoff time and extra-payment savings for an amortizing installment loan.">
-<title>US Loan Calculator | Payment, Interest & Extra Payment Savings</title>
+<meta name="description" content="Use this US loan payment calculator to estimate a fixed-rate monthly payment, total interest, payoff schedule and potential savings from extra principal payments.">
+<title>US Loan Payment Calculator | Monthly Payment & Interest</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/loan-calculator/">
 <style>
-.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.savings{margin-top:25px;padding:22px;border-radius:15px;background:#eef8f1;border:1px solid #cfe8d6}.savings h2{margin:0 0 6px}.savings p{margin:0 0 18px;color:#526174}.savings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.saving-item{background:#fff;border-radius:10px;padding:15px}.saving-item small{display:block;color:#647286;margin-bottom:5px}.saving-item strong{font-size:20px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}.schedule-wrap{margin-top:35px}.schedule-wrap h2{font-size:25px;margin-bottom:5px}.schedule-wrap p{color:#647286;margin-top:0}.table-scroll{overflow:auto;max-height:520px;border:1px solid #e1e8f0;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;background:#fff}th,td{padding:12px 14px;border-bottom:1px solid #edf1f5;text-align:right;font-size:14px}th:first-child,td:first-child{text-align:center}th{position:sticky;top:0;background:#f5f8fc;color:#526174;font-size:12px;text-transform:uppercase;letter-spacing:.04em}@media(max-width:650px){.form-grid,.results,.savings-grid{grid-template-columns:1fr}}
+.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.savings{margin-top:25px;padding:22px;border-radius:15px;background:#eef8f1;border:1px solid #cfe8d6}.savings h2{margin:0 0 6px}.savings p{margin:0 0 18px;color:#526174}.savings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.saving-item{background:#fff;border-radius:10px;padding:15px}.saving-item small{display:block;color:#647286;margin-bottom:5px}.saving-item strong{font-size:20px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}.input-error{margin:14px 0 0;padding:12px 14px;border-radius:10px;background:#fff1f0;border:1px solid #f3c5c2;color:#9d2520;font-size:14px;line-height:1.5}.input-error[hidden]{display:none}.schedule-wrap{margin-top:35px}.schedule-wrap h2{font-size:25px;margin-bottom:5px}.schedule-wrap p{color:#647286;margin-top:0}.table-scroll{overflow:auto;max-height:520px;border:1px solid #e1e8f0;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;background:#fff}th,td{padding:12px 14px;border-bottom:1px solid #edf1f5;text-align:right;font-size:14px}th:first-child,td:first-child{text-align:center}th{position:sticky;top:0;background:#f5f8fc;color:#526174;font-size:12px;text-transform:uppercase;letter-spacing:.04em}@media(max-width:650px){.form-grid,.results,.savings-grid{grid-template-columns:1fr}}
 </style>
 <script type="application/ld+json">
 {
@@ -37,16 +37,17 @@
 <section class="section"><div class="container calc-wrap">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>Loan Calculator</span></nav>
 <p class="eyebrow">US INSTALLMENT LOAN CALCULATOR</p>
-<h1>US Loan Calculator</h1>
-<p class="hero-text">Estimate a monthly installment-loan payment, total interest, payoff time and the potential effect of an extra monthly payment. Enter the loan amount, annual interest rate and term to calculate a standard amortization scenario.</p>
+<h1>US Loan Payment Calculator</h1>
+<p class="hero-text">Estimate the monthly payment on a fixed-rate installment loan, see how much interest you may pay over time, and compare an accelerated payoff using extra monthly principal payments. This calculator shows the payment schedule and remaining balance for the assumptions you enter.</p>
 <div class="calc-box">
 <div class="form-grid">
-<div><label for="amount">Loan amount ($)</label><input id="amount" type="number" min="0" value="25000"></div>
-<div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="7"></div>
-<div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="5"></div>
-<div><label for="extra">Extra monthly payment ($)</label><input id="extra" type="number" min="0" step="1" value="100"></div>
+<div><label for="amount">Amount borrowed ($)</label><input id="amount" type="number" min="1" max="1000000000" step="0.01" value="25000" inputmode="decimal"></div>
+<div><label for="rate">Annual interest rate (%) — not APR</label><input id="rate" type="number" min="0" max="100" step="0.01" value="7" inputmode="decimal"></div>
+<div><label for="years">Repayment term (years)</label><input id="years" type="number" min="1" max="50" step="1" value="5" inputmode="numeric"></div>
+<div><label for="extra">Extra monthly principal payment ($)</label><input id="extra" type="number" min="0" max="1000000000" step="0.01" value="100" inputmode="decimal"></div>
 </div>
-<button type="button" class="button calc-button" onclick="calculateLoan()">Calculate loan</button>
+<button type="button" class="button calc-button" id="calculateButton" onclick="calculateLoan()">Calculate monthly payment</button>
+<p id="inputError" class="input-error" role="alert" hidden></p>
 
 <div class="results">
 <div class="result"><small>Regular monthly payment</small><strong id="monthly" aria-live="polite">$0.00</strong></div>
@@ -72,53 +73,84 @@
 <p>See how each payment reduces principal and interest. The extra amount is included in the payment shown.</p>
 <div class="table-scroll"><table><thead><tr><th>#</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody id="schedule"></tbody></table></div>
 </div>
-<p class="note">Estimate only. Actual payments may differ because of fees, taxes, insurance, lender terms and other charges. Extra-payment savings assume the extra amount is applied directly to principal each month.</p>
+<p class="note">Estimate only. This calculator models a fixed-rate installment loan with equal monthly payments. It does not calculate APR, add lender fees, taxes or insurance, or model variable rates, revolving credit, interest-only periods or balloon payments. Extra-payment savings assume each additional amount is applied to principal monthly, without a prepayment penalty. Check your loan agreement and payment instructions.</p>
 </div>
 </div></section>
 
 <section class="section light"><div class="container narrow">
-<p class="eyebrow">LOAN CALCULATOR GUIDE</p>
-<h2>How this US loan calculator works</h2>
-<p>The calculator uses standard amortization mathematics for a fixed-rate installment loan. It uses the loan amount, monthly interest rate and number of scheduled monthly payments to estimate the regular payment. Total interest is calculated from the interest accrued as the balance declines.</p>
-<p>The model assumes a constant rate and regular monthly payments. It does not include lender-specific fees, insurance, taxes or other charges unless they are already reflected in the amount you enter.</p>
+<p class="eyebrow">LOAN PAYMENT GUIDE</p>
+<h2>How to use this US loan payment calculator</h2>
+<p>Enter the amount borrowed, annual interest rate and repayment term. The calculator estimates the regular monthly principal-and-interest payment for a fixed-rate installment loan. It then shows the total interest and total of the scheduled payments over the term.</p>
+<p>Enter an optional extra monthly principal payment to compare the regular schedule with an accelerated payoff. The amortization table shows how each payment is divided between principal and interest and how the balance changes after each month.</p>
+
+<h2>How a fixed-rate loan payment is calculated</h2>
+<p>For a loan with equal monthly payments, the standard amortization formula is:</p>
+<p><strong>Monthly payment = P × r ÷ [1 − (1 + r)<sup>−n</sup>]</strong></p>
+<ul>
+<li><strong>P</strong> is the starting principal, or amount borrowed.</li>
+<li><strong>r</strong> is the monthly interest rate, calculated as the annual interest rate divided by 12 and then by 100.</li>
+<li><strong>n</strong> is the total number of monthly payments (loan term in years × 12).</li>
+</ul>
+<p>When the interest rate is 0%, the payment is the principal divided evenly by the number of payments. For a loan with interest, each scheduled payment covers the interest accrued for that period and reduces some principal. As the outstanding balance declines, the interest portion generally gets smaller.</p>
+
+<h2>Worked example: $25,000 loan at 7% for five years</h2>
+<p>Assume you borrow $25,000 at a fixed 7% annual interest rate and repay it in 60 equal monthly payments. With no additional fees, the estimated monthly principal-and-interest payment is $495.03.</p>
+<table>
+<thead><tr><th scope="col">Standard repayment estimate</th><th scope="col">Amount</th></tr></thead>
+<tbody>
+<tr><td>Amount borrowed</td><td>$25,000.00</td></tr>
+<tr><td>Annual interest rate</td><td>7.00%</td></tr>
+<tr><td>Repayment term</td><td>60 months</td></tr>
+<tr><td>Estimated monthly payment</td><td><strong>$495.03</strong></td></tr>
+<tr><td>Total of scheduled payments</td><td>$29,701.80</td></tr>
+<tr><td>Total interest</td><td>$4,701.80</td></tr>
+</tbody>
+</table>
+<p>Now suppose you pay an additional $100 toward principal every month. Under the calculator's assumptions, the loan would be paid off in about 49 months rather than 60, and modeled interest would fall to about $3,762.80. That is an estimated 11 months sooner and about $939.00 less interest. Actual results depend on payment dates, rounding and how your lender applies extra payments.</p>
+
+<h2>What an amortization schedule shows</h2>
+<p>An amortization schedule breaks each payment into interest and principal. Early in the term, more of a fixed payment typically goes toward interest because the balance is higher. As principal is repaid, the interest portion declines and more of each scheduled payment reduces the balance. The remaining-balance column shows the modeled amount still owed after each payment.</p>
 
 <h2>Interest rate vs. APR</h2>
-<p>The interest rate measures the cost of borrowing. APR can include the interest rate plus certain fees, so it can provide a broader measure when comparing credit offers. The CFPB explains that an interest rate and APR are different measures.</p>
+<p>The interest rate measures the cost of borrowing the principal. APR is a broader measure that can include the interest rate and certain loan fees. This calculator uses the interest rate for the monthly amortization formula; it does not calculate APR or add origination and other lender charges. When comparing offers, review both the rate and APR and compare fees using the lender's written disclosures. Read the <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-loan-interest-rate-and-the-apr-en-733/">Consumer Financial Protection Bureau's explanation of interest rate vs. APR</a>.</p>
 
-<h2>How extra payments change the schedule</h2>
-<p>If an extra payment is applied to principal, the balance can decline faster. That can reduce future interest and shorten the payoff period. This calculator assumes the extra amount is applied directly to principal each month; your lender or loan agreement determines how additional payments are actually applied.</p>
+<h2>How extra payments can reduce interest</h2>
+<p>Interest on a typical amortizing loan is calculated using the outstanding principal balance. An additional payment applied to principal can reduce that balance earlier, which may lower future interest and shorten the payoff period. The savings estimate here assumes the extra amount is paid every month and applied directly to principal. Some lenders require a particular instruction or payment channel for extra principal payments. Check your agreement for payment-allocation rules and prepayment terms.</p>
 
-<h2>Loan payment example</h2>
-<p>For example, enter a <strong>$25,000</strong> loan at <strong>7%</strong> annual interest for <strong>5 years</strong>. Then enter <strong>$100</strong> as the extra monthly payment. The calculator will compare the standard schedule with the accelerated schedule and show estimated time and interest savings.</p>
+<h2>Fees and the full cost of borrowing</h2>
+<p>A principal-and-interest calculation is not necessarily the full cost of a loan. Depending on the loan product and lender, charges may include origination or documentation fees, optional credit insurance, late fees or other costs. Fees may be paid upfront, deducted from proceeds or included in the amount financed. Review the loan disclosure and agreement rather than comparing monthly payments alone. The CFPB explains common <a href="https://www.consumerfinance.gov/ask-cfpb/do-personal-installment-loans-have-fees-en-2120/">fees on personal installment loans</a>.</p>
+<p>Compare loan offers using the same amount and term. Review the APR, payment, total of payments, fees, repayment flexibility and whether a rate is fixed or variable. A longer term may lower the required payment while increasing the total interest paid.</p>
 
-<h2>Fees can change the true borrowing cost</h2>
-<p>A payment calculation based only on principal, interest and term does not necessarily represent the full cost of borrowing. Depending on the loan, lenders may charge origination, documentation, late or other fees. Review the lender disclosure and loan agreement before comparing offers.</p>
+<h2>What this calculator does not model</h2>
+<p>This tool is designed for a standard fixed-rate installment loan with regular monthly payments. It is not a universal calculator for every borrowing product. It does not model a variable-rate loan, revolving credit-card balance, interest-only period, balloon payment, mortgage escrow, lender-specific daily-interest convention or loan fees and insurance. Use a product-specific calculator for mortgages, auto loans or credit-card balances.</p>
 
+<h2>Loan payment calculator FAQs</h2>
 <div class="faq">
-<p class="eyebrow">FAQ</p>
-<h2>Frequently asked questions</h2>
-
-<div class="faq-item"><h3>What information do I need to calculate a loan payment?</h3><p>You generally need the principal or loan amount, annual interest rate and repayment term. This calculator also lets you enter an optional extra monthly payment.</p></div>
-
-<div class="faq-item"><h3>What is the difference between interest rate and APR?</h3><p>The interest rate measures borrowing cost, while APR can incorporate the interest rate plus certain fees. They should not be treated as interchangeable when comparing loan offers.</p></div>
-
-<div class="faq-item"><h3>Does paying extra every month save interest?</h3><p>It can. When an extra payment is applied to principal, the balance falls faster, which can reduce the amount of interest charged over time. Your lender's payment rules and any prepayment terms should be checked first.</p></div>
-
-<div class="faq-item"><h3>What is an amortization schedule?</h3><p>An amortization schedule shows each payment and how it is divided between interest and principal, along with the remaining loan balance after the payment.</p></div>
-
-<div class="faq-item"><h3>Is the loan calculator accurate?</h3><p>It provides an estimate based on the values you enter and standard amortization mathematics. Real loan payments may also include fees, taxes, insurance or other charges that are not included here.</p></div>
-
-<div class="faq-item"><h3>Can I use this calculator for different loan amounts?</h3><p>Yes. Enter the amount, interest rate, term and optional extra payment, then select Calculate loan to generate a new estimate and amortization schedule.</p></div>
-
-<div class="faq-item"><h3>Can an extra payment shorten the loan term?</h3><p>Yes, if the additional amount is applied to principal, it can reduce the remaining balance faster and potentially shorten the repayment period.</p></div>
+<div class="faq-item"><h3>What information do I need to calculate a loan payment?</h3><p>You need the amount borrowed, annual interest rate and repayment term. You can also enter an optional extra monthly principal payment to see an accelerated payoff estimate.</p></div>
+<div class="faq-item"><h3>Does this calculator use APR or the interest rate?</h3><p>It uses the annual interest rate as the input to the amortization formula. It does not calculate APR or include lender fees. Use the APR and written disclosures when comparing credit offers.</p></div>
+<div class="faq-item"><h3>Does paying extra every month save interest?</h3><p>It can when the lender applies the extra amount to principal. A lower balance can reduce future interest and shorten the payoff period. Check the contract for payment-allocation instructions and prepayment terms.</p></div>
+<div class="faq-item"><h3>What is an amortization schedule?</h3><p>It is a month-by-month breakdown of the payment, principal repaid, interest charged and remaining loan balance.</p></div>
+<div class="faq-item"><h3>Why does a longer loan term usually cost more?</h3><p>A longer term spreads repayment over more months. The required monthly payment is often lower, but interest can accumulate for longer, increasing the total borrowing cost.</p></div>
+<div class="faq-item"><h3>Does this estimate include origination fees or taxes?</h3><p>No. The calculation models principal and interest only. Any lender fees, taxes, insurance or other charges need to be reviewed separately in the loan documents.</p></div>
+<div class="faq-item"><h3>Can I use this for a mortgage or car loan?</h3><p>The formula is a simplified fixed-rate amortization model, but mortgages and auto loans can have product-specific fees, taxes, insurance and other rules. Use the dedicated <a href="../mortgage-calculator/">Mortgage Calculator</a> or <a href="../auto-loan-calculator/">Auto Loan Calculator</a> for those estimates.</p></div>
 </div>
+
+<h2>Consumer resources</h2>
+<p>For information about credit costs and loan disclosures, consult these independent consumer resources:</p>
+<ul>
+<li><a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-loan-interest-rate-and-the-apr-en-733/">CFPB: What is the difference between a loan interest rate and APR?</a></li>
+<li><a href="https://www.consumerfinance.gov/ask-cfpb/do-personal-installment-loans-have-fees-en-2120/">CFPB: Do personal installment loans have fees?</a></li>
+<li><a href="https://consumer.ftc.gov/articles/what-know-about-advance-fee-loans">FTC: Warning signs of advance-fee loan scams</a></li>
+</ul>
+<p class="note">Content reviewed November 6, 2026. This page provides educational estimates, not financial, legal or lending advice. A lender's contract and disclosures control the actual loan terms and amount due.</p>
 </div></section>
+</section>
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Compare payment, interest and extra-payment savings with related borrowing tools.</p><ul><li><a href="../personal-loan-calculator/">Personal Loan Calculator</a></li><li><a href="../auto-loan-calculator/">Auto Loan Calculator</a></li><li><a href="../debt-payoff-calculator/">Debt Payoff Calculator</a></li></ul></div></section>
 </main>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 
 <script>
-function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
+function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2,maximumFractionDigits:2})}
 function baseLoan(P,r,n){
  const payment=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
  let balance=P,totalInterest=0,months=0;
@@ -145,10 +177,38 @@ function extraLoan(P,r,plannedPayment,extra){
  }
  return {payment,months,totalInterest,total:P+totalInterest,rows};
 }
+function showInputError(message){
+ const error=document.getElementById("inputError");
+ error.textContent=message;
+ error.hidden=false;
+}
+function getLoanNumber(id){
+ const input=document.getElementById(id);
+ if(!input || input.value.trim()==="")return NaN;
+ return Number(input.value);
+}
 function calculateLoan(){
- const P=Number(document.getElementById("amount").value),annual=Number(document.getElementById("rate").value),years=Number(document.getElementById("years").value),extra=Math.max(0,Number(document.getElementById("extra").value)||0);
- if(!P||P<0||annual<0||!years||years<=0){alert("Please enter valid values.");return}
- const n=Math.round(years*12),r=annual/100/12,base=baseLoan(P,r,n),accelerated=extraLoan(P,r,base.payment,extra);
+ const P=getLoanNumber("amount");
+ const annual=getLoanNumber("rate");
+ const years=getLoanNumber("years");
+ const extra=getLoanNumber("extra");
+ const error=document.getElementById("inputError");
+ error.hidden=true;
+
+ if(!Number.isFinite(P)||P<=0||P>1000000000){showInputError("Enter a loan amount greater than $0 and no more than $1 billion.");return;}
+ if(!Number.isFinite(annual)||annual<0||annual>100){showInputError("Enter an annual interest rate between 0% and 100%.");return;}
+ if(!Number.isFinite(years)||years<1||years>50){showInputError("Enter a loan term between 1 and 50 years.");return;}
+ if(!Number.isFinite(extra)||extra<0||extra>1000000000){showInputError("Enter an extra monthly principal payment of $0 or more, up to $1 billion.");return;}
+
+ const n=Math.round(years*12);
+ const r=annual/100/12;
+ const base=baseLoan(P,r,n);
+ const accelerated=extraLoan(P,r,base.payment,extra);
+ if(!Number.isFinite(base.payment)||!Number.isFinite(base.totalInterest)||!Number.isFinite(accelerated.totalInterest)||accelerated.months>=1200&&accelerated.rows[accelerated.rows.length-1].balance>0.005){
+   showInputError("These values produce a schedule that cannot be calculated. Check the loan amount, rate and extra payment.");
+   return;
+ }
+
  document.getElementById("monthly").textContent=money(base.payment);
  document.getElementById("interest").textContent=money(base.totalInterest);
  document.getElementById("total").textContent=money(base.total);
@@ -159,9 +219,23 @@ function calculateLoan(){
  document.getElementById("interestSaved").textContent=money(Math.max(0,base.totalInterest-accelerated.totalInterest));
  document.getElementById("paymentWithExtra").textContent=money(accelerated.payment);
  document.getElementById("totalWithExtra").textContent=money(accelerated.total);
- const schedule=document.getElementById("schedule");schedule.innerHTML="";
- accelerated.rows.forEach(row=>{const tr=document.createElement("tr");tr.innerHTML="<td>"+row.month+"</td><td>"+money(row.payment)+"</td><td>"+money(row.principal)+"</td><td>"+money(row.interest)+"</td><td>"+money(row.balance)+"</td>";schedule.appendChild(tr)});
+ const schedule=document.getElementById("schedule");
+ schedule.replaceChildren();
+ accelerated.rows.forEach(row=>{
+   const tr=document.createElement("tr");
+   const values=[row.month,money(row.payment),money(row.principal),money(row.interest),money(row.balance)];
+   values.forEach((value,index)=>{
+     const cell=document.createElement("td");
+     cell.textContent=value;
+     tr.appendChild(cell);
+   });
+   schedule.appendChild(tr);
+ });
 }
+document.getElementById("calculateButton").addEventListener("click",calculateLoan);
+document.querySelectorAll(".form-grid input").forEach(input=>input.addEventListener("keydown",event=>{
+ if(event.key==="Enter"){event.preventDefault();calculateLoan();}
+}));
 calculateLoan();
 </script>
 
