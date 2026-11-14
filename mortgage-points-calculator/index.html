@@ -43,7 +43,7 @@
 <label>Interest rate with points (%)<input id="rate1" type="number" min="0" max="30" step="0.001" value="6.25" required></label>
 <label>Loan term (years)<input id="years" type="number" min="1" max="50" step="1" value="30" required></label>
 <label>Expected time you will keep this loan (years)<input id="holdingYears" type="number" min="1" max="50" step="1" value="5" required></label>
-</div><button type="button" class="button" id="calculate">Calculate Points</button><p class="small-note">One discount point generally costs 1% of the loan amount. The interest-rate reduction per point is not fixed and varies by lender, loan type and market conditions.</p></div>
+</div><button type="button" class="button" id="calculate">Calculate Points</button><p class="small-note">One discount point generally costs 1% of the loan amount. The interest-rate reduction per point is not fixed. Compare rates for the same loan type, amount, term and lender where possible.</p><div class="note" id="pointsValidation" aria-live="polite"></div></div>
 <div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Points comparison</h2><div class="results">
 <div><span>Upfront cost of points</span><strong id="cost">$0</strong></div>
 <div><span>Payment without points</span><strong id="p0">$0</strong></div>
@@ -85,14 +85,15 @@
 <p>It also does not determine whether points are deductible for your particular tax situation. For tax questions, use current IRS guidance or consult a qualified tax professional.</p></div></section>
 
 <section class="section"><div class="container narrow"><p class="eyebrow">FAQ</p><h2>US mortgage points calculator FAQs</h2>
-<h3>What are mortgage discount points?</h3><p>Discount points are upfront charges paid to a lender to obtain a lower interest rate than the rate available without the points.</p>
-<h3>How much does one mortgage point cost?</h3><p>One discount point generally equals 1% of the mortgage loan amount. On a $300,000 loan, one point is $3,000.</p>
-<h3>Does one point always reduce the rate by 0.25%?</h3><p>No. There is no universal rate reduction per point. The reduction varies with the lender, loan type and market conditions.</p>
-<h3>How is the simple break-even period calculated?</h3><p>The calculator divides the upfront points cost by the monthly principal-and-interest payment savings. It reports how long those savings would take to equal the upfront cost.</p>
-<h3>Why does the calculator ask for two interest rates?</h3><p>Because the rate reduction associated with points is not fixed. Using the actual rates from a lender's offers produces a more useful comparison than assuming a standard reduction.</p>
-<h3>Should I compare total interest or break-even time?</h3><p>Both can provide useful information, but they answer different questions. Break-even focuses on recovering the upfront cost through monthly savings, while full-term interest assumes the loan remains outstanding through maturity.</p>
-<h3>Are taxes and insurance included?</h3><p>No. The calculator compares principal and interest only. Property taxes, homeowners insurance, mortgage insurance and other housing costs are excluded.</p>
-<h3>Can points be used when refinancing?</h3><p>Discount points can be part of refinance pricing as well as purchase-loan pricing. Use the actual refinance Loan Estimate and include the points in your comparison of upfront costs and interest rates.</p>
+<h3>What are mortgage discount points?</h3><p>Discount points are upfront charges paid to a lender in exchange for a lower interest rate than the zero-point option offered for the same type of loan.</p>
+<h3>How much does one mortgage point cost?</h3><p>One discount point generally equals 1% of the mortgage loan amount. On a $300,000 loan, one point is $3,000. You can enter fractional points too.</p>
+<h3>Does one point always reduce the rate by 0.25%?</h3><p>No. There is no universal rate reduction per point. The rate change depends on the lender, loan type and mortgage market. Enter the actual rates from comparable lender offers.</p>
+<h3>What is the simple break-even?</h3><p>It is the upfront points cost divided by monthly principal-and-interest savings. It is easy to understand, but does not account for the difference in remaining loan balances.</p>
+<h3>What is economic break-even in this calculator?</h3><p>It is the first modeled month when cumulative principal-and-interest payments plus the remaining loan balance, including the upfront points charge, are lower with points than without points. It is still a simplified nominal-dollar comparison.</p>
+<h3>Why does the calculator ask how long I expect to keep the loan?</h3><p>Points are paid upfront to reduce the rate over time. If you sell or refinance sooner than expected, you may not recover the initial cost. Compare your likely timeframe with shorter and longer scenarios.</p>
+<h3>Should I compare total interest or holding-period cost?</h3><p>Both answer different questions. Full-term interest assumes you keep the loan to maturity. Holding-period cost considers the payments made and the balance that would still be owed when you sell or refinance at your selected timeframe.</p>
+<h3>Are taxes and insurance included?</h3><p>No. This tool compares principal and interest only. Property taxes, homeowners insurance, mortgage insurance and other housing expenses are excluded.</p>
+<h3>Can I use this calculator for a refinance?</h3><p>Yes, as a basic comparison if both offers have the same starting loan amount and term. Add any refinance-specific fees separately when comparing actual offers; this calculator does not model them automatically.</p>
 </div></section>
 
 <section class="section"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This calculator is for planning and comparison only. It is not a loan offer or personalized financial or tax advice. Compare actual Loan Estimates, including rates, points, lender credits and other loan costs.</div></div></section>
