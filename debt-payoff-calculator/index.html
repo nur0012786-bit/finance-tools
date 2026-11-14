@@ -13,13 +13,23 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Use this US debt payoff calculator to estimate payoff time, total interest, debt-free date and savings from making extra monthly payments.">
+<meta name="description" content="Compare debt avalanche and snowball strategies across multiple debts. Estimate payoff time, total interest, monthly budget and debt-free date.">
 <meta name="robots" content="index, follow">
 <title>US Debt Payoff Calculator | Payoff Time & Interest Savings</title>
 <link rel="stylesheet" href="../style.css">
 <style>
 .calculator-card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 12px 35px rgba(15,23,42,.08)}
-.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.debt-inputs{display:grid;gap:14px;margin-top:16px}
+.debt-entry{border:1px solid #e5e7eb;border-radius:14px;padding:16px;background:#fbfcfe}
+.debt-entry-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.debt-entry-title{color:#172033}
+.debt-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field-help{color:#667085;font-size:.93rem;line-height:1.55}
+.remove-debt{border:1px solid #d1d5db;background:#fff;border-radius:8px;padding:7px 11px;cursor:pointer;font:inherit}
+.remove-debt:disabled{opacity:.45;cursor:not-allowed}
+.extra-budget{margin-top:22px}
+.calculate-row button:disabled{opacity:.5;cursor:not-allowed}
 .field label{display:block;font-weight:700;margin-bottom:8px;color:#172033}
 .field input{width:100%;padding:13px 14px;border:1px solid #d7dce5;border-radius:10px;font:inherit;box-sizing:border-box}
 .field input:focus{outline:2px solid rgba(37,99,235,.15);border-color:#2563eb}
@@ -43,7 +53,7 @@
 .faq{border-top:1px solid #e5e7eb;padding:18px 0}
 .faq h3{font-size:1rem;margin-bottom:7px}
 @media(max-width:800px){.results{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:650px){.form-grid,.compare{grid-template-columns:1fr}.results{grid-template-columns:1fr 1fr}.calculator-card{padding:20px}}
+@media(max-width:650px){.form-grid,.compare,.debt-fields{grid-template-columns:1fr}.results{grid-template-columns:1fr 1fr}.calculator-card{padding:20px}}
 </style>
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/debt-payoff-calculator/">
 <script type="application/ld+json">
@@ -71,118 +81,151 @@
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>Debt Payoff Calculator</span></nav>
 <p class="eyebrow">US DEBT PAYOFF CALCULATOR</p>
 <h1>US Debt Payoff Calculator</h1>
-<p class="hero-text">Estimate how long it may take to repay an amortizing debt, how much interest you could pay, and how an extra monthly payment may change the payoff schedule.</p>
+<p class="hero-text">Compare debt avalanche and snowball strategies across credit cards, personal loans and other debts. Estimate payoff time, interest and the effect of rolling payments forward.</p>
   </div>
 </section>
 
 <section class="section">
-  <div class="container narrow">
-    <div class="calculator-card">
-      <div class="form-grid">
-        <div class="field">
-          <label for="balance">Current debt balance ($)</label>
-          <input id="balance" type="number" min="0" step="100" value="10000">
-        </div>
-        <div class="field">
-          <label for="rate">Annual interest rate (%)</label>
-          <input id="rate" type="number" min="0" step="0.1" value="18">
-        </div>
-        <div class="field">
-          <label for="payment">Current monthly payment ($)</label>
-          <input id="payment" type="number" min="0" step="10" value="300">
-        </div>
-        <div class="field">
-          <label for="extra">Extra monthly payment ($)</label>
-          <input id="extra" type="number" min="0" step="10" value="100">
-        </div>
-      </div>
+<div class="container narrow">
+<div class="calculator-card">
+<p>Enter each debt separately. The calculator compares the <strong>debt avalanche</strong> (highest APR first) with the <strong>debt snowball</strong> (smallest balance first). Keep paying each debt's planned monthly amount; add an extra monthly budget and the calculator rolls payments from debts that are cleared into the next target.</p>
 
-      <div class="calculate-row">
-        <button class="button" type="button" onclick="calculate()">Calculate payoff</button>
-        <span id="message" aria-live="polite"></span>
-      </div>
+<h2>Your debts</h2>
+<p class="field-help">Example debts are prefilled to demonstrate the calculator. Replace them with your own balances, APRs and monthly payments. You can enter up to eight debts.</p>
+<div id="debtInputs" class="debt-inputs" aria-label="Debt entries"></div>
+<div class="calculate-row">
+  <button id="addDebt" class="button button-secondary" type="button">Add another debt</button>
+  <span id="debtCount" class="field-help">3 of 8 debts</span>
+</div>
 
-      <div class="results" aria-live="polite">
-        <div class="result"><small>Payoff time</small><strong id="payoffTime">—</strong></div>
-        <div class="result"><small>Total interest</small><strong id="totalInterest">$0</strong></div>
-        <div class="result"><small>Total paid</small><strong id="totalPaid">$0</strong></div>
-        <div class="result"><small>Debt-free date</small><strong id="debtFree">—</strong></div>
-      </div>
-
-      <div class="compare">
-        <div class="compare-card">
-          <h3>Without extra payment</h3>
-          <p>Payoff time: <strong id="baseTime">—</strong></p>
-          <p>Interest: <strong id="baseInterest">$0</strong></p>
-        </div>
-        <div class="compare-card">
-          <h3>With extra payment</h3>
-          <p>Payoff time: <strong id="extraTime">—</strong></p>
-          <p>Interest: <strong id="extraInterest">$0</strong></p>
-        </div>
-      </div>
-
-      <div class="results">
-        <div class="result"><small>Months saved</small><strong id="monthsSaved">0</strong></div>
-        <div class="result"><small>Interest saved</small><strong id="interestSaved">$0</strong></div>
-        <div class="result"><small>Monthly payment used</small><strong id="usedPayment">$0</strong></div>
-        <div class="result"><small>Starting debt</small><strong id="startingDebt">$0</strong></div>
-      </div>
-
-      <div class="table-wrap">
-        <h2>Payoff schedule with extra payment</h2>
-        <table class="debt-table">
-          <thead><tr><th>Month</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Remaining balance</th></tr></thead>
-          <tbody id="scheduleBody"></tbody>
-        </table>
-      </div>
-
-      <div class="info-box">
-        <strong>Important:</strong> This calculator assumes a fixed interest rate and a consistent monthly payment. Real credit cards and loans may have changing rates, fees, minimum-payment rules or other charges that can affect the payoff timeline.
-      </div>
-      <div class="warning" id="warning" hidden></div>
-    </div>
-
-    <div class="content-section">
-      <h2>How a debt payoff calculator works</h2>
-      <p>The calculator applies monthly interest to the outstanding balance and then subtracts your monthly payment. It repeats this process until the balance reaches zero. An extra payment is added to your regular monthly payment to show its potential effect.</p>
-    </div>
-
-    <div class="content-section">
-      <h2>Why extra payments can reduce interest</h2>
-      <p>Interest is often calculated from the amount of debt still outstanding. Paying additional principal can reduce the balance faster, which may reduce the amount of future interest charged when the interest rate and payment rules remain constant.</p>
-    </div>
-
-    <div class="content-section">
-      <h2>Debt payoff example</h2>
-      <p>Suppose you have a $10,000 balance at an 18% annual interest rate and pay $300 per month. Adding another $100 per month can change both the payoff timeline and the total interest in the calculator's fixed-rate model.</p>
-    </div>
-
-    <div class="content-section">
-      <h2>Frequently asked questions</h2>
-      <section class="guide">
-<p class="eyebrow">DEBT PAYOFF GUIDE</p>
-<h2>How this US debt payoff calculator works</h2>
-<p>The calculator models a fixed-rate amortizing debt using the current balance, annual interest rate and planned monthly payment. Each simulated payment first accounts for monthly interest, with the remaining amount reducing principal. This continues until the balance reaches zero.</p>
-<p>The model is intended for debts with a predictable interest rate and payment structure. Variable-rate loans, fees, penalties, irregular payments and payment rules that differ from this model can produce different results.</p>
-<h2>Why extra payments can reduce interest</h2>
-<p>When an additional payment reduces principal, future interest is calculated on a smaller balance. That can shorten the repayment period and reduce total interest. The CFPB explains that paying down principal faster can reduce interest costs, but borrowers should check how their servicer applies extra payments. </p>
-<h2>Debt payoff example</h2>
-<p>For example, enter a <strong>$10,000</strong> balance at <strong>12%</strong> APR with a <strong>$250</strong> monthly payment. Then test an additional <strong>$50</strong> monthly payment to compare the estimated payoff period and interest.</p>
-<h2>Payoff amount vs. account balance</h2>
-<p>The amount shown on an account statement may not always be identical to the exact amount required to satisfy a debt on a particular date. For loans such as mortgages, a lender or servicer may provide a formal payoff amount that accounts for interest through a specified date and possible fees. </p>
-<h2>Debt reduction methods</h2>
-<p>If you have several debts, common approaches include directing extra money toward the highest-interest debt or toward the smallest balance. The CFPB describes both approaches; this calculator models one debt at a time rather than comparing multiple debts simultaneously. </p>
-</section>
-
-<div class="faq"><h3>What does a debt payoff calculator show?</h3><p>It estimates the number of monthly payments, total interest and total amount paid needed to eliminate a debt balance under the assumptions you enter.</p></div>
-      <div class="faq"><h3>Does an extra payment reduce interest?</h3><p>An extra payment can reduce interest in a fixed-rate model because more money goes toward reducing the outstanding principal sooner.</p></div>
-      <div class="faq"><h3>What if my monthly payment is too low?</h3><p>If the payment does not cover the first month's interest, the balance will not decline under the calculator's model. You should review the debt terms with your lender or card issuer.</p></div>
-      <div class="faq"><h3>Does this include late fees?</h3><p>No. Late fees, annual fees, penalty rates and other charges are not included.</p></div>
-      <div class="faq"><h3>Can I use this for credit card debt?</h3><p>Yes, as a simplified estimate when you know the balance, APR and intended monthly payment. Actual credit card rules can differ.</p></div>
-      <div class="faq"><h3>Can I use it for a personal loan?</h3><p>Yes. For a fixed-rate personal loan, the calculator can provide a useful payoff estimate based on the entered balance, rate and payment.</p></div>
-    </div>
+<div class="form-grid extra-budget">
+  <div class="field">
+    <label for="extraBudget">Extra monthly debt budget ($)</label>
+    <input id="extraBudget" type="number" min="0" step="0.01" value="100" inputmode="decimal">
   </div>
+  <div class="field">
+    <label for="scheduleStrategy">Show monthly schedule for</label>
+    <select id="scheduleStrategy">
+      <option value="avalanche">Debt avalanche</option>
+      <option value="snowball">Debt snowball</option>
+    </select>
+  </div>
+</div>
+<p class="field-help">The monthly budget is the sum of the planned payments entered above, plus this extra amount. It stays constant as debts are paid off. Unused payments roll over to the next target debt.</p>
+
+<div class="calculate-row">
+  <button id="calculateButton" class="button" type="button">Compare payoff strategies</button>
+  <span id="message" role="status" aria-live="polite"></span>
+</div>
+<div id="warning" class="warning" role="alert" hidden></div>
+
+<div class="results" aria-live="polite">
+  <div class="result"><small>Total starting debt</small><strong id="startingDebt">—</strong></div>
+  <div class="result"><small>Total monthly budget</small><strong id="monthlyBudget">—</strong></div>
+  <div class="result"><small>Lower-interest strategy</small><strong id="lowerCostMethod">—</strong></div>
+  <div class="result"><small>Estimated debt-free date</small><strong id="debtFree">—</strong></div>
+</div>
+
+<div class="compare">
+  <div class="compare-card">
+    <h3>Debt avalanche</h3>
+    <p>Targets the highest APR first.</p>
+    <p>Payoff time: <strong id="avalancheTime">—</strong></p>
+    <p>Total interest: <strong id="avalancheInterest">—</strong></p>
+    <p>Total paid: <strong id="avalancheTotal">—</strong></p>
+  </div>
+  <div class="compare-card">
+    <h3>Debt snowball</h3>
+    <p>Targets the smallest balance first.</p>
+    <p>Payoff time: <strong id="snowballTime">—</strong></p>
+    <p>Total interest: <strong id="snowballInterest">—</strong></p>
+    <p>Total paid: <strong id="snowballTotal">—</strong></p>
+  </div>
+</div>
+
+<div class="results">
+  <div class="result"><small>Interest difference</small><strong id="interestDifference">—</strong></div>
+  <div class="result"><small>Payoff-time difference</small><strong id="timeDifference">—</strong></div>
+  <div class="result"><small>Number of debts</small><strong id="debtCountResult">—</strong></div>
+  <div class="result"><small>Extra monthly amount</small><strong id="extraShown">—</strong></div>
+</div>
+
+<div class="table-wrap">
+  <h2 id="scheduleTitle">Debt avalanche payoff schedule</h2>
+  <p class="field-help">Monthly totals for the selected strategy. The table shows the first 12 months, each year-end, and the final payment month.</p>
+  <table class="debt-table">
+    <thead><tr><th>Month</th><th>Payment</th><th>Interest</th><th>Remaining debt</th><th>Next target</th></tr></thead>
+    <tbody id="scheduleBody"></tbody>
+  </table>
+</div>
+
+<div class="info-box">
+  <strong>Model assumptions:</strong> This planner applies monthly interest (APR ÷ 12), holds each entered monthly payment and the total monthly budget constant, and assumes no new borrowing or added fees. It is a planning estimate, not a lender payoff quote or an exact credit-card statement calculation.
+</div>
+
+<div class="content-section">
+<h2>How to use this debt payoff calculator</h2>
+<p>Add each credit card, personal loan or other debt as a separate entry. For each one, enter a recognizable name, current balance, annual interest rate and the monthly payment you plan to make. For revolving accounts, use the current required minimum as the starting planned payment; actual minimums can change, so update the figure when your statement changes.</p>
+<p>Enter the extra amount you can consistently devote to debt each month. The calculator adds that to the sum of all entered monthly payments. Compare avalanche and snowball, then choose which strategy's monthly schedule to inspect. The results assume that your overall monthly debt budget remains the same as each debt is cleared.</p>
+
+<h2>Debt avalanche: highest interest rate first</h2>
+<p>The avalanche method directs extra money to the debt with the highest APR while continuing the planned payment on every other debt. Once a debt is paid off, its unused payment amount rolls into the next highest-rate debt. This approach generally reduces interest cost when balances, rates and payment assumptions are otherwise comparable.</p>
+
+<h2>Debt snowball: smallest balance first</h2>
+<p>The snowball method directs extra money to the smallest outstanding balance, regardless of APR. When that debt is cleared, its payment rolls into the next-smallest balance. Clearing accounts sooner can create visible progress and help some people stay motivated, but it may cost more interest if higher-rate debts remain outstanding longer.</p>
+
+<h2>Worked example: choose an order</h2>
+<p>Imagine three debts: a $4,000 credit card at 27% APR with a $150 monthly payment, a $2,000 credit card at 21% APR with an $80 monthly payment, and a $6,000 personal loan at 12% APR with a $250 monthly payment. Add $100 in extra monthly budget.</p>
+<ul>
+<li><strong>Avalanche order:</strong> the 27% card, then the 21% card, then the 12% loan.</li>
+<li><strong>Snowball order:</strong> the $2,000 card, then the $4,000 card, then the $6,000 loan.</li>
+<li><strong>Total monthly budget:</strong> $150 + $80 + $250 + $100 = $580.</li>
+</ul>
+<p>The calculator simulates each method using the same $580 total monthly budget. The result is an illustration based on the entered APRs and payments, not a prediction of an issuer's changing minimum payments, daily interest or fees.</p>
+
+<h2>How the calculator rolls payments forward</h2>
+<p>At the start of each modeled month, the calculator adds one month's interest to each remaining balance. It then applies the planned payment entered for each debt. Any part of the total budget that is not needed to satisfy those payments is directed to the next target in the selected strategy. If a debt is paid in full before its planned payment is used, the unused portion is also available for the target debt.</p>
+<p>This keeps the total monthly budget constant and models the common “rollover” approach. Real creditors set their own minimum payments, due dates, posting rules and interest calculations. Your required payment may change as a balance falls, so replace the entered payment amounts with current statement values when planning.</p>
+
+<h2>Important limits of this estimate</h2>
+<ul>
+<li>It applies monthly interest as APR divided by 12, rather than calculating daily interest from transaction dates.</li>
+<li>It treats each APR as fixed for the simulation and does not model variable-rate changes or promotional expirations.</li>
+<li>It does not add new purchases, borrowing, late fees, annual fees, transfer fees or other charges.</li>
+<li>It uses the entered monthly payment as a fixed planned amount. Credit card minimums can change from statement to statement.</li>
+<li>It does not model every lender's allocation rules for different APR balances within one credit card account.</li>
+<li>It assumes the same total monthly budget is available throughout the payoff period.</li>
+</ul>
+
+<h2>Credit card payment allocation is not the same as choosing which account to pay</h2>
+<p>This calculator chooses which separate debt account receives extra money. Federal credit card rules also govern how a card issuer allocates a payment across different APR balances within one credit card account. Generally, the amount paid above that account's required minimum must go first to its highest-APR balance. A special rule applies during the two billing cycles immediately before certain deferred-interest promotions expire. See <a href="https://www.consumerfinance.gov/rules-policy/regulations/1026/53/">Regulation Z, § 1026.53</a> and check your card agreement.</p>
+
+<h2>Build a realistic monthly debt budget</h2>
+<p>Choose an extra amount that remains affordable after essential expenses, housing, utilities, food, transportation, insurance and other required obligations. Avoid setting a target so high that you need to borrow again to pay everyday costs. If your income or expenses change, revise the budget and rerun the estimate.</p>
+<p>If you cannot make a required payment, contact the creditor before missing it and ask whether a hardship arrangement is available. Get the payment amount, interest rate, fees, duration and consequences in writing. Be cautious of debt-relief companies that guarantee they can erase debts, demand upfront fees or tell you to stop communicating with creditors. The FTC explains how to <a href="https://consumer.ftc.gov/consumer-alerts/2026/03/looking-debt-relief-heres-how-avoid-scam">recognize debt-relief scams</a>.</p>
+
+<h2>Related calculators and guides</h2>
+<ul>
+<li><a href="../credit-card-payoff-calculator/">Credit Card Payoff Calculator</a> — model one card balance and a higher fixed monthly payment.</li>
+<li><a href="../credit-card-minimum-payment-calculator/">Credit Card Minimum Payment Calculator</a> — explore how minimum-payment assumptions affect repayment.</li>
+<li><a href="../debt-payoff-methods-guide/">Debt Payoff Methods Guide</a> — compare avalanche and snowball strategies.</li>
+<li><a href="../emergency-fund-guide/">Emergency Fund Guide</a> — consider cash reserves while planning debt payments.</li>
+</ul>
+
+<h2>Frequently asked questions</h2>
+<div class="faq"><h3>Which debt payoff strategy saves the most interest?</h3><p>The avalanche method generally saves more interest when it targets the highest-rate debt first and other assumptions are comparable. The exact difference depends on balances, APRs, fees and payments.</p></div>
+<div class="faq"><h3>Is the snowball method a bad choice?</h3><p>No. It prioritizes smaller balances and can provide quicker account-level progress. Some people find those milestones easier to maintain, even if the method may cost more interest.</p></div>
+<div class="faq"><h3>Should I keep paying the other debts while targeting one?</h3><p>Yes. Continue paying at least the required amount on every account. Direct the extra budget to the current target while keeping the other accounts current.</p></div>
+<div class="faq"><h3>Can I include credit cards and personal loans together?</h3><p>Yes. Enter each account separately with its own balance, APR and planned monthly payment. The model applies the same monthly-interest assumptions to every debt, so actual terms may differ.</p></div>
+<div class="faq"><h3>Why does a credit card minimum payment change?</h3><p>Issuer formulas can use a percentage of the balance, interest, fees or past-due amounts. The amount can therefore change between statements. Update the planned payment in the calculator using your current statement.</p></div>
+<div class="faq"><h3>What if my total payment budget does not cover all monthly interest?</h3><p>The calculator may not be able to pay off the debts within its 100-year simulation limit. Increase the planned payment or extra budget where affordable, or contact creditors about hardship options. Do not rely on a payoff estimate that does not reach zero.</p></div>
+<div class="faq"><h3>Does this calculator include late fees or new charges?</h3><p>No. It assumes no new borrowing or additional fees. Add those costs to your own planning separately and avoid adding new balances while trying to repay debt.</p></div>
+<div class="faq"><h3>Will the results match my creditor's payoff amount?</h3><p>No. The estimate uses monthly interest and fixed payments. A creditor's payoff amount may include interest through a specific date, fees or other account-specific items. Request an official payoff figure when you need an exact amount.</p></div>
+
+<h2>Educational disclaimer</h2>
+<p>This tool and guide provide general educational estimates, not individualized financial, legal, tax or credit advice. Results depend on the balances, APRs, monthly payments and assumptions entered. They do not replace current statements, creditor agreements or official payoff quotes. Verify required payments, fees, interest calculations and account-specific terms with each creditor.</p>
+</div>
+</div>
 </section>
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Compare payoff timing and interest with related credit and loan calculators.</p><ul><li><a href="../credit-card-payoff-calculator/">Credit Card Payoff Calculator</a></li><li><a href="../credit-card-minimum-payment-calculator/">Credit Card Minimum Payment Calculator</a></li><li><a href="../loan-calculator/">Loan Calculator</a></li></ul></div></section>
 </main>
@@ -190,95 +233,316 @@
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 
 <script>
+const MAX_DEBTS=8;
+const DEFAULT_DEBTS=[
+  {name:'Credit card A',balance:4000,apr:27,payment:150},
+  {name:'Credit card B',balance:2000,apr:21,payment:80},
+  {name:'Personal loan',balance:6000,apr:12,payment:250}
+];
+
+function roundCents(value){
+  return Math.round((value+Number.EPSILON)*100)/100;
+}
 function money(value){
-  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(value);
+  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(value);
 }
-
-function simulate(balance, rate, payment){
-  const monthlyRate=rate/100/12;
-  let current=balance;
-  let interest=0;
-  let months=0;
-  const schedule=[];
-
-  if(current<=0) return {months:0,interest:0,totalPaid:0,schedule:[]};
-
-  if(monthlyRate>0 && payment<=current*monthlyRate){
-    return {error:'Your payment is not high enough to cover the first month of interest. Increase the monthly payment.'};
-  }
-
-  while(current>0.005 && months<1200){
-    months++;
-    const monthInterest=current*monthlyRate;
-    const actualPayment=Math.min(payment,current+monthInterest);
-    const principal=Math.max(0,actualPayment-monthInterest);
-    current=Math.max(0,current-principal);
-    interest+=monthInterest;
-    schedule.push({month:months,payment:actualPayment,principal:principal,interest:monthInterest,balance:current});
-  }
-
-  return {months,interest,totalPaid:balance+interest,schedule};
-}
-
 function formatTime(months){
-  if(!months) return '0 months';
+  if(months===0)return 'Paid off';
   const years=Math.floor(months/12);
   const remaining=months%12;
-  if(years===0) return months+' month'+(months===1?'':'s');
-  if(remaining===0) return years+' year'+(years===1?'':'s');
-  return years+'y '+remaining+'m';
+  if(years===0)return months+' month'+(months===1?'':'s');
+  if(remaining===0)return years+' year'+(years===1?'':'s');
+  return years+' yr '+remaining+' mo';
 }
-
-function calculate(){
-  const balance=Math.max(0,Number(document.getElementById('balance').value)||0);
-  const rate=Math.max(0,Number(document.getElementById('rate').value)||0);
-  const payment=Math.max(0,Number(document.getElementById('payment').value)||0);
-  const extra=Math.max(0,Number(document.getElementById('extra').value)||0);
-  const warning=document.getElementById('warning');
-  warning.hidden=true;
-  warning.textContent='';
-
-  const base=simulate(balance,rate,payment);
-  const boosted=simulate(balance,rate,payment+extra);
-
-  if(base.error || boosted.error){
-    warning.textContent=base.error || boosted.error;
-    warning.hidden=false;
-    document.getElementById('message').textContent='Please adjust the payment.';
+function addMonthsDate(months){
+  const now=new Date();
+  const day=now.getDate();
+  const first=new Date(now.getFullYear(),now.getMonth()+months,1);
+  const lastDay=new Date(first.getFullYear(),first.getMonth()+1,0).getDate();
+  first.setDate(Math.min(day,lastDay));
+  return first.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+}
+function setMessage(message){
+  document.getElementById('message').textContent=message||'';
+}
+function showWarning(message){
+  const box=document.getElementById('warning');
+  box.textContent=message||'';
+  box.hidden=!message;
+}
+function makeField(labelText,field,value,min,step){
+  const wrap=document.createElement('div');
+  wrap.className='field';
+  const id=field+'-'+Math.random().toString(36).slice(2,9);
+  const label=document.createElement('label');
+  label.htmlFor=id;
+  label.textContent=labelText;
+  const input=document.createElement('input');
+  input.id=id;
+  input.type='number';
+  input.min=String(min);
+  input.step=String(step);
+  input.inputMode='decimal';
+  input.dataset.field=field;
+  input.value=String(value);
+  input.required=true;
+  wrap.append(label,input);
+  return wrap;
+}
+function addDebtRow(debt={name:'',balance:'',apr:'',payment:''}){
+  const container=document.getElementById('debtInputs');
+  const count=container.querySelectorAll('.debt-entry').length;
+  if(count>=MAX_DEBTS){
+    setMessage('You can enter up to '+MAX_DEBTS+' debts.');
     return;
   }
+  const row=document.createElement('div');
+  row.className='debt-entry';
+  const heading=document.createElement('div');
+  heading.className='debt-entry-heading';
+  const title=document.createElement('strong');
+  title.className='debt-entry-title';
+  title.textContent='Debt '+(count+1);
+  const remove=document.createElement('button');
+  remove.type='button';
+  remove.className='remove-debt';
+  remove.textContent='Remove';
+  remove.setAttribute('aria-label','Remove debt '+(count+1));
+  remove.addEventListener('click',()=>{
+    row.remove();
+    renumberRows();
+    updateAddButton();
+    clearResults();
+    setMessage('Debt removed. Compare the updated list when ready.');
+  });
+  heading.append(title,remove);
 
-  document.getElementById('baseTime').textContent=formatTime(base.months);
-  document.getElementById('baseInterest').textContent=money(base.interest);
-  document.getElementById('extraTime').textContent=formatTime(boosted.months);
-  document.getElementById('extraInterest').textContent=money(boosted.interest);
+  const fields=document.createElement('div');
+  fields.className='debt-fields';
+  fields.append(
+    makeField('Debt name','name',debt.name,0,1),
+    makeField('Current balance ($)','balance',debt.balance,0,0.01),
+    makeField('Annual interest rate (%)','apr',debt.apr,0,0.01),
+    makeField('Planned monthly payment ($)','payment',debt.payment,0,0.01)
+  );
+  row.append(heading,fields);
+  container.appendChild(row);
+  renumberRows();
+  updateAddButton();
+  clearResults();
+}
+function renumberRows(){
+  document.querySelectorAll('.debt-entry').forEach((row,index)=>{
+    row.querySelector('.debt-entry-title').textContent='Debt '+(index+1);
+    row.querySelector('.remove-debt').setAttribute('aria-label','Remove debt '+(index+1));
+  });
+}
+function updateAddButton(){
+  const count=document.querySelectorAll('.debt-entry').length;
+  document.getElementById('debtCount').textContent=count+' of '+MAX_DEBTS+' debts';
+  document.getElementById('addDebt').disabled=count>=MAX_DEBTS;
+  document.querySelectorAll('.remove-debt').forEach(button=>{
+    button.disabled=count===1;
+  });
+}
+function readDebts(){
+  const rows=[...document.querySelectorAll('.debt-entry')];
+  if(rows.length===0)return {error:'Add at least one debt.'};
+  const debts=[];
+  for(let index=0;index<rows.length;index++){
+    const row=rows[index];
+    const read=field=>row.querySelector('[data-field="'+field+'"]').value.trim();
+    const name=read('name');
+    const balanceText=read('balance');
+    const aprText=read('apr');
+    const paymentText=read('payment');
+    if(!name||balanceText===''||aprText===''||paymentText===''){
+      return {error:'Complete the name, balance, APR and monthly payment for Debt '+(index+1)+'.'};
+    }
+    const balance=roundCents(Number(balanceText));
+    const apr=Number(aprText);
+    const payment=roundCents(Number(paymentText));
+    if(![balance,apr,payment].every(Number.isFinite)||balance<=0||apr<0||payment<0){
+      return {error:'Enter a positive balance and non-negative APR and payment for Debt '+(index+1)+'.'};
+    }
+    debts.push({name:name.slice(0,50),balance,apr,payment});
+  }
+  return {debts};
+}
+function simulateStrategy(inputDebts,extraBudget,strategy){
+  const debts=inputDebts.map((debt,index)=>({...debt,index,balance:roundCents(debt.balance)}));
+  const monthlyBudget=roundCents(debts.reduce((sum,debt)=>sum+debt.payment,0)+extraBudget);
+  const startingDebt=roundCents(debts.reduce((sum,debt)=>sum+debt.balance,0));
+  let totalInterest=0,totalPaid=0;
+  const schedule=[];
+  if(monthlyBudget<=0)return {paidOff:false,error:'Your total monthly payment budget must be greater than $0.'};
 
-  document.getElementById('payoffTime').textContent=formatTime(boosted.months);
-  document.getElementById('totalInterest').textContent=money(boosted.interest);
-  document.getElementById('totalPaid').textContent=money(boosted.totalPaid);
-  document.getElementById('monthsSaved').textContent=Math.max(0,base.months-boosted.months);
-  document.getElementById('interestSaved').textContent=money(Math.max(0,base.interest-boosted.interest));
-  document.getElementById('usedPayment').textContent=money(payment+extra);
-  document.getElementById('startingDebt').textContent=money(balance);
+  for(let month=1;month<=1200;month++){
+    let monthInterest=0;
+    debts.forEach(debt=>{
+      if(debt.balance<=0)return;
+      const interest=roundCents(debt.balance*debt.apr/1200);
+      debt.balance=roundCents(debt.balance+interest);
+      debt.monthInterest=interest;
+      monthInterest=roundCents(monthInterest+interest);
+    });
 
-  const date=new Date();
-  date.setMonth(date.getMonth()+boosted.months);
-  document.getElementById('debtFree').textContent=boosted.months ? date.toLocaleDateString('en-US',{month:'short',year:'numeric'}) : 'Now';
+    let remainingBudget=monthlyBudget;
+    let monthPaid=0;
 
+    // Apply each debt's planned base payment first.
+    debts.forEach(debt=>{
+      if(debt.balance<=0||remainingBudget<=0)return;
+      const amount=Math.min(debt.payment,remainingBudget,debt.balance);
+      const actual=roundCents(amount);
+      debt.balance=roundCents(Math.max(0,debt.balance-actual));
+      remainingBudget=roundCents(Math.max(0,remainingBudget-actual));
+      monthPaid=roundCents(monthPaid+actual);
+    });
+
+    // Roll unused payments and the extra budget to the strategy's current target.
+    const openDebts=debts.filter(debt=>debt.balance>0);
+    openDebts.sort((a,b)=>{
+      if(strategy==='avalanche'){
+        return (b.apr-a.apr)||(a.index-b.index);
+      }
+      return (a.balance-b.balance)||(a.index-b.index);
+    });
+    const targetName=openDebts.length?openDebts[0].name:'All debts paid';
+    for(const debt of openDebts){
+      if(remainingBudget<=0)break;
+      const actual=roundCents(Math.min(remainingBudget,debt.balance));
+      debt.balance=roundCents(Math.max(0,debt.balance-actual));
+      remainingBudget=roundCents(Math.max(0,remainingBudget-actual));
+      monthPaid=roundCents(monthPaid+actual);
+    }
+
+    totalInterest=roundCents(totalInterest+monthInterest);
+    totalPaid=roundCents(totalPaid+monthPaid);
+    const remainingDebt=roundCents(debts.reduce((sum,debt)=>sum+debt.balance,0));
+    schedule.push({
+      month,
+      payment:monthPaid,
+      interest:monthInterest,
+      remainingDebt,
+      target:targetName
+    });
+    if(remainingDebt<=0){
+      return {
+        paidOff:true,
+        months:month,
+        interest:totalInterest,
+        totalPaid,
+        startingDebt,
+        monthlyBudget,
+        schedule
+      };
+    }
+    if(monthPaid<=0||(!Number.isFinite(remainingDebt)))break;
+  }
+  return {paidOff:false,startingDebt,monthlyBudget,schedule};
+}
+function clearResults(){
+  const ids=['startingDebt','monthlyBudget','lowerCostMethod','debtFree','avalancheTime','avalancheInterest','avalancheTotal','snowballTime','snowballInterest','snowballTotal','interestDifference','timeDifference','debtCountResult','extraShown'];
+  ids.forEach(id=>document.getElementById(id).textContent='—');
+  document.getElementById('scheduleBody').replaceChildren();
+  document.getElementById('scheduleTitle').textContent='Debt payoff schedule';
+}
+function renderSchedule(result,strategy){
   const body=document.getElementById('scheduleBody');
-  body.innerHTML='';
-  const rows=boosted.schedule;
-  rows.forEach((item,index)=>{
-    if(index<12 || (index+1)%12===0 || index===rows.length-1){
+  body.replaceChildren();
+  const fragment=document.createDocumentFragment();
+  result.schedule.forEach((entry,index)=>{
+    if(index<12||(index+1)%12===0||index===result.schedule.length-1){
       const row=document.createElement('tr');
-      row.innerHTML='<td>'+item.month+'</td><td>'+money(item.payment)+'</td><td>'+money(item.principal)+'</td><td>'+money(item.interest)+'</td><td>'+money(item.balance)+'</td>';
-      body.appendChild(row);
+      [entry.month,money(entry.payment),money(entry.interest),money(entry.remainingDebt),entry.target].forEach(value=>{
+        const cell=document.createElement('td');
+        cell.textContent=String(value);
+        row.appendChild(cell);
+      });
+      fragment.appendChild(row);
     }
   });
-
-  document.getElementById('message').textContent='Payoff estimate updated.';
+  body.appendChild(fragment);
+  document.getElementById('scheduleTitle').textContent=(strategy==='avalanche'?'Debt avalanche':'Debt snowball')+' payoff schedule';
 }
+function calculate(){
+  clearResults();
+  showWarning('');
+  setMessage('');
+  const input=readDebts();
+  if(input.error){
+    showWarning(input.error);
+    setMessage('Check the debt entries.');
+    return;
+  }
+  const extraText=document.getElementById('extraBudget').value.trim();
+  const extra=Number(extraText);
+  if(extraText===''||!Number.isFinite(extra)||extra<0){
+    showWarning('Enter an extra monthly budget of $0 or more.');
+    setMessage('Check the extra payment amount.');
+    return;
+  }
+  const debts=input.debts;
+  const startingDebt=roundCents(debts.reduce((sum,debt)=>sum+debt.balance,0));
+  const monthlyBase=roundCents(debts.reduce((sum,debt)=>sum+debt.payment,0));
+  const monthlyBudget=roundCents(monthlyBase+extra);
+  if(monthlyBudget<=0){
+    showWarning('Enter a planned payment or extra monthly amount greater than $0.');
+    return;
+  }
+  const avalanche=simulateStrategy(debts,extra,'avalanche');
+  const snowball=simulateStrategy(debts,extra,'snowball');
+  document.getElementById('startingDebt').textContent=money(startingDebt);
+  document.getElementById('monthlyBudget').textContent=money(monthlyBudget);
+  document.getElementById('debtCountResult').textContent=String(debts.length);
+  document.getElementById('extraShown').textContent=money(extra);
 
+  document.getElementById('avalancheTime').textContent=avalanche.paidOff?formatTime(avalanche.months):'Not paid off';
+  document.getElementById('avalancheInterest').textContent=avalanche.paidOff?money(avalanche.interest):'—';
+  document.getElementById('avalancheTotal').textContent=avalanche.paidOff?money(avalanche.totalPaid):'—';
+  document.getElementById('snowballTime').textContent=snowball.paidOff?formatTime(snowball.months):'Not paid off';
+  document.getElementById('snowballInterest').textContent=snowball.paidOff?money(snowball.interest):'—';
+  document.getElementById('snowballTotal').textContent=snowball.paidOff?money(snowball.totalPaid):'—';
+
+  if(!avalanche.paidOff&&!snowball.paidOff){
+    showWarning('Neither strategy pays off all balances within the 100-year simulation limit. Review the monthly payment amounts and APRs, or contact creditors about payment assistance.');
+    setMessage('No complete payoff estimate is available.');
+    return;
+  }
+  let lowerCost;
+  if(avalanche.paidOff&&snowball.paidOff){
+    const difference=roundCents(snowball.interest-avalanche.interest);
+    lowerCost=difference>0?'Avalanche':difference<0?'Snowball':'Tie';
+    document.getElementById('interestDifference').textContent=money(Math.abs(difference));
+    const monthGap=Math.abs(avalanche.months-snowball.months);
+    document.getElementById('timeDifference').textContent=formatTime(monthGap);
+  }else{
+    lowerCost=avalanche.paidOff?'Avalanche':'Snowball';
+    document.getElementById('interestDifference').textContent='One strategy only';
+    document.getElementById('timeDifference').textContent='—';
+  }
+  document.getElementById('lowerCostMethod').textContent=lowerCost;
+  const selected=document.getElementById('scheduleStrategy').value;
+  const chosen=selected==='avalanche'?avalanche:snowball;
+  if(chosen.paidOff){
+    document.getElementById('debtFree').textContent=addMonthsDate(chosen.months);
+    renderSchedule(chosen,selected);
+  }else{
+    const fallback=selected==='avalanche'?snowball:avalanche;
+    document.getElementById('debtFree').textContent=addMonthsDate(fallback.months);
+    renderSchedule(fallback,selected==='avalanche'?'snowball':'avalanche');
+    showWarning('The selected strategy did not reach zero within the 100-year limit. The other strategy did; its payoff schedule is shown instead.');
+  }
+  setMessage('Both strategies calculated using a fixed monthly debt budget.');
+}
+document.getElementById('addDebt').addEventListener('click',()=>addDebtRow());
+document.getElementById('calculateButton').addEventListener('click',calculate);
+document.getElementById('scheduleStrategy').addEventListener('change',()=>{
+  const input=readDebts();
+  if(!input.error)calculate();
+});
+DEFAULT_DEBTS.forEach(debt=>addDebtRow(debt));
 calculate();
 </script>
 
