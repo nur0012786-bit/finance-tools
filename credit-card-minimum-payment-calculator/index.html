@@ -154,81 +154,155 @@
 </footer>
 
 <script>
-function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);}
-function monthsText(m){if(m<=0)return '0 months';const y=Math.floor(m/12),mo=m%12;return y?y+' yr'+(y===1?'':'s')+(mo?' '+mo+' mo':''):mo+' mo';}
+function money(value){
+  return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(value);
+}
+function monthsText(months){
+  if(months<=0)return "0 months";
+  const years=Math.floor(months/12);
+  const remainder=months%12;
+  if(years===0)return remainder+" months";
+  return years+" yr"+(years===1?"":"s")+(remainder?" "+remainder+" mo":"");
+}
+function numericValue(id){
+  return Number(document.getElementById(id).value);
+}
+function clearResults(){
+  ["minimumPayment","minimumTime","minimumInterest","higherPaymentResult","higherTime","higherInterest","interestDifference","threeYearPayment",
+   "minPayCell","minTimeCell","minInterestCell","minTotalCell","highPayCell","highTimeCell","highInterestCell","highTotalCell"]
+    .forEach(id=>document.getElementById(id).textContent="—");
+}
+function showError(message){
+  clearResults();
+  const box=document.getElementById("message");
+  box.textContent=message;
+  box.hidden=false;
+}
+function minimumDue(balance,interest,percent,floor,method){
+  const statementBalance=balance+interest;
+  const variableAmount=method==="plus-interest"
+    ? balance*percent/100+interest
+    : statementBalance*percent/100;
+  return Math.min(statementBalance,Math.max(floor,variableAmount));
+}
+function simulateMinimum(balance,apr,percent,floor,method){
+  const monthlyRate=apr/100/12;
+  let current=balance,totalInterest=0,totalPaid=0,months=0,firstPayment=0;
+  while(current>0.005 && months<1200){
+    months++;
+    const interest=current*monthlyRate;
+    const payment=minimumDue(current,interest,percent,floor,method);
+    if(months===1)firstPayment=payment;
+    if(payment<=interest+0.000001)return {error:"no-amortization"};
+    current=Math.max(0,current+interest-payment);
+    totalInterest+=interest;
+    totalPaid+=payment;
+  }
+  if(current>0.005)return {error:"beyond-horizon"};
+  return {months,totalInterest,totalPaid,firstPayment};
+}
 function simulateFixed(balance,apr,payment){
   const monthlyRate=apr/100/12;
-  if(balance<=0)return {months:0,interest:0,total:0};
-  if(payment<=balance*monthlyRate)return null;
-  let b=balance,interest=0,total=0,months=0;
-  while(b>0.005&&months<1200){
+  let current=balance,totalInterest=0,totalPaid=0,months=0;
+  while(current>0.005 && months<1200){
     months++;
-    const i=b*monthlyRate;
-    const p=Math.min(payment-i,b);
-    b=Math.max(0,b-p);
-    interest+=i;
-    total+=i+p;
+    const interest=current*monthlyRate;
+    const amount=Math.min(current+interest,payment);
+    if(amount<=interest+0.000001)return null;
+    current=Math.max(0,current+interest-amount);
+    totalInterest+=interest;
+    totalPaid+=amount;
   }
-  if(months>=1200&&b>0.005)return null;
-  return {months,interest,total};
+  if(current>0.005)return null;
+  return {months,totalInterest,totalPaid};
 }
-function simulateMinimum(balance,apr,percent){
-  const monthlyRate=apr/100/12;
-  if(balance<=0)return {months:0,interest:0,total:0,firstPayment:0};
-  let b=balance,interest=0,total=0,months=0,firstPayment=0;
-  while(b>0.005&&months<1200){
-    months++;
-    const i=b*monthlyRate;
-    const payment=Math.max(b*percent/100,i+0.01);
-    const p=Math.min(payment-i,b);
-    b=Math.max(0,b-p);
-    interest+=i;
-    total+=i+p;
-    if(months===1)firstPayment=i+p;
-    if(p<=0.000001)break;
+function paymentFor36Months(balance,apr){
+  const rate=apr/100/12;
+  if(rate===0)return balance/36;
+  return balance*rate/(1-Math.pow(1+rate,-36));
+}
+function updateFormulaHelp(){
+  const method=document.getElementById("minimumMethod").value;
+  const percent=numericValue("minPercent");
+  let text;
+  if(method==="plus-interest"){
+    text="Model: minimum due is the greater of the dollar floor or "+percent+"% of the starting balance plus estimated cycle interest.";
+  }else{
+    text="Model: minimum due is the greater of the dollar floor or "+percent+"% of the statement balance after estimated cycle interest.";
   }
-  if(months>=1200&&b>0.005)return null;
-  return {months,interest,total,firstPayment};
+  document.getElementById("formulaHelp").textContent=text+" The payment is capped at the modeled statement balance. Fees and past-due amounts are excluded.";
 }
 function calculate(){
-  const balance=Math.max(0,parseFloat(document.getElementById('balance').value)||0);
-  const apr=Math.max(0,parseFloat(document.getElementById('apr').value)||0);
-  const percent=Math.max(0.1,parseFloat(document.getElementById('minPercent').value)||0);
-  const higher=Math.max(0,parseFloat(document.getElementById('higherPayment').value)||0);
-  const msg=document.getElementById('message');
-  msg.style.display='none';
+  const balance=numericValue("balance");
+  const apr=numericValue("apr");
+  const percent=numericValue("minPercent");
+  const floor=numericValue("minimumFloor");
+  const higher=numericValue("higherPayment");
+  const method=document.getElementById("minimumMethod").value;
+  const inputs=[balance,apr,percent,floor,higher];
 
-  if(balance===0){
-    msg.textContent='Enter a credit card balance greater than $0.';
-    msg.style.display='block';return;
+  document.getElementById("message").hidden=true;
+  updateFormulaHelp();
+
+  if(inputs.some(value=>!Number.isFinite(value)) ||
+     balance<=0 || balance>10000000 ||
+     apr<0 || apr>100 ||
+     percent<=0 || percent>100 ||
+     floor<0 || floor>10000000 ||
+     higher<=0 || higher>10000000){
+    showError("Enter a balance above $0, an APR from 0% to 100%, a percentage above 0% and up to 100%, and non-negative dollar amounts.");
+    return;
   }
 
-  const minimum=simulateMinimum(balance,apr,percent);
-  const high=simulateFixed(balance,apr,higher);
-  if(!minimum||!high){
-    msg.textContent='The higher monthly payment is too low to cover the estimated monthly interest. Increase the payment or reduce the balance.';
-    msg.style.display='block';return;
+  const minimum=simulateMinimum(balance,apr,percent,floor,method);
+  if(minimum && minimum.error==="no-amortization"){
+    showError("Under this formula and APR assumption, the modeled minimum payment does not cover the estimated monthly interest. The balance would not decline. Check your issuer's exact formula, APR and balance categories.");
+    return;
+  }
+  if(minimum && minimum.error==="beyond-horizon"){
+    showError("The modeled minimum does not repay the balance within the calculator's 100-year limit. This can happen with a very low percentage or high APR. Check your card agreement and adjust the assumptions.");
+    return;
+  }
+  if(!minimum){
+    showError("The minimum-payment scenario could not be calculated. Check the inputs and card formula.");
+    return;
+  }
+  if(higher<=minimum.firstPayment+0.005){
+    showError("Enter a fixed comparison payment greater than the first modeled minimum payment ("+money(minimum.firstPayment)+") so the calculator can compare paying more than the minimum.");
+    return;
   }
 
-  const difference=Math.max(0,minimum.interest-high.interest);
-  const startingMinimum=Math.max(balance*percent/100, balance*(apr/100/12)+0.01);
+  const fixed=simulateFixed(balance,apr,higher);
+  if(!fixed){
+    showError("The fixed comparison payment is not enough to cover estimated monthly interest. Increase the payment amount.");
+    return;
+  }
 
-  document.getElementById('minimumPayment').textContent=money(startingMinimum);
-  document.getElementById('minimumTime').textContent=monthsText(minimum.months);
-  document.getElementById('minimumInterest').textContent=money(minimum.interest);
-  document.getElementById('higherTime').textContent=monthsText(high.months);
-  document.getElementById('higherInterest').textContent=money(high.interest);
-  document.getElementById('interestDifference').textContent=money(difference);
+  const interestSaved=Math.max(0,minimum.totalInterest-fixed.totalInterest);
+  const target36=paymentFor36Months(balance,apr);
+  document.getElementById("minimumPayment").textContent=money(minimum.firstPayment);
+  document.getElementById("minimumTime").textContent=monthsText(minimum.months);
+  document.getElementById("minimumInterest").textContent=money(minimum.totalInterest);
+  document.getElementById("higherPaymentResult").textContent=money(higher);
+  document.getElementById("higherTime").textContent=monthsText(fixed.months);
+  document.getElementById("higherInterest").textContent=money(fixed.totalInterest);
+  document.getElementById("interestDifference").textContent=money(interestSaved);
+  document.getElementById("threeYearPayment").textContent=money(target36);
 
-  document.getElementById('minPayCell').textContent=money(startingMinimum);
-  document.getElementById('minTimeCell').textContent=monthsText(minimum.months);
-  document.getElementById('minInterestCell').textContent=money(minimum.interest);
-  document.getElementById('minTotalCell').textContent=money(minimum.total);
-  document.getElementById('highPayCell').textContent=money(higher);
-  document.getElementById('highTimeCell').textContent=monthsText(high.months);
-  document.getElementById('highInterestCell').textContent=money(high.interest);
-  document.getElementById('highTotalCell').textContent=money(high.total);
+  document.getElementById("minPayCell").textContent=money(minimum.firstPayment);
+  document.getElementById("minTimeCell").textContent=monthsText(minimum.months);
+  document.getElementById("minInterestCell").textContent=money(minimum.totalInterest);
+  document.getElementById("minTotalCell").textContent=money(minimum.totalPaid);
+  document.getElementById("highPayCell").textContent=money(higher);
+  document.getElementById("highTimeCell").textContent=monthsText(fixed.months);
+  document.getElementById("highInterestCell").textContent=money(fixed.totalInterest);
+  document.getElementById("highTotalCell").textContent=money(fixed.totalPaid);
 }
+document.getElementById("calculateButton").addEventListener("click",calculate);
+["balance","apr","minPercent","minimumFloor","higherPayment"].forEach(id=>{
+  document.getElementById(id).addEventListener("input",calculate);
+});
+document.getElementById("minimumMethod").addEventListener("change",calculate);
 calculate();
 </script>
 </body>
