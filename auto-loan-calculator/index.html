@@ -124,6 +124,13 @@ function money(value){
 function getNumber(id){
   return Number(document.getElementById(id).value);
 }
+function showCalcError(message){
+  document.getElementById("calcError").textContent=message;
+  document.getElementById("calcError").hidden=false;
+  ["loanAmount","monthly","interest","total","taxAmount","tradeEquity","feesResult","downResult"]
+    .forEach(id=>document.getElementById(id).textContent="—");
+  document.getElementById("calculationSummary").textContent="";
+}
 function calculateAutoLoan(){
   const price=getNumber("price");
   const down=getNumber("down");
@@ -140,8 +147,7 @@ function calculateAutoLoan(){
   if(values.some(value=>!Number.isFinite(value)) ||
      price<=0 || down<0 || trade<0 || tradePayoff<0 || fees<0 ||
      annual<0 || annual>100 || years<0.5 || years>15 || tax<0 || tax>30){
-    error.textContent="Enter a vehicle price above zero, non-negative dollar amounts, a rate from 0% to 100%, a term from 0.5 to 15 years, and a sales-tax rate from 0% to 30%.";
-    error.hidden=false;
+    showCalcError("Enter a vehicle price above zero, non-negative dollar amounts, a rate from 0% to 100%, a term from 0.5 to 15 years, and a sales-tax rate from 0% to 30%.");
     return;
   }
 
@@ -151,8 +157,7 @@ function calculateAutoLoan(){
   const rawLoanAmount=price+taxAmount+fees-down-netTradeEquity;
 
   if(rawLoanAmount < -0.005){
-    error.textContent="Your cash down payment and net trade-in equity exceed the estimated transaction amount. Check the inputs; this calculator does not model a cash refund or cash paid back to you.";
-    error.hidden=false;
+    showCalcError("Your cash down payment and net trade-in equity exceed the estimated transaction amount. Check the inputs; this calculator does not model a cash refund or cash paid back to you.");
     return;
   }
 
