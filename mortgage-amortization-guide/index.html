@@ -14,7 +14,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mortgage Amortization Schedule Explained | Finance Tools</title>
-<meta name="description" content="Learn how a mortgage amortization schedule works, how to read principal and interest by payment, and how loan term, rate and extra payments affect the balance.">
+<meta name="description" content="Learn how mortgage amortization works with a detailed payment example, principal and interest schedule, remaining balances, and extra-payment scenarios.">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/mortgage-amortization-guide/">
 <link rel="stylesheet" href="../style.css">
 <script type="application/ld+json">
@@ -50,16 +50,36 @@
 <tr><td>Remaining balance</td><td>The mortgage balance after the scheduled principal reduction.</td></tr>
 </tbody></table>
 <p>A real lender or servicer statement can contain additional fields, especially when taxes, insurance, escrow, fees or other transactions are involved.</p>
+<p>For a fully amortizing fixed-rate mortgage, the scheduled monthly principal-and-interest payment can be calculated with:</p>
+<p><strong>M = P × [r(1 + r)<sup>n</sup>] ÷ [(1 + r)<sup>n</sup> − 1]</strong></p>
+<ul>
+<li><strong>P</strong> is the starting principal balance.</li>
+<li><strong>r</strong> is the monthly interest rate expressed as a decimal (annual note rate divided by 12).</li>
+<li><strong>n</strong> is the number of scheduled monthly payments.</li>
+<li><strong>M</strong> is the scheduled monthly principal-and-interest payment.</li>
+</ul>
+<p>For each period in a simple monthly model, interest is the beginning balance multiplied by the monthly rate. Principal is the scheduled payment minus that period's interest, and the new balance is the prior balance minus principal. Real servicers may use contractual accrual and rounding conventions that differ from a simplified monthly model.</p>
 
 <h2>Why is more interest paid early in the loan?</h2>
 <p>For a standard amortizing mortgage, periodic interest is based on the outstanding balance. At the beginning of the loan, that balance is at its highest, so the interest amount can represent a larger portion of the scheduled principal-and-interest payment.</p>
 <p>As principal is repaid, the balance becomes smaller. Future interest charges can therefore become smaller, allowing a larger share of the scheduled payment to reduce principal.</p>
 <a class="text-link" href="../mortgage-principal-vs-interest-guide/">Read the Principal vs. Interest Guide →</a>
 
-<h2>Simple example of one amortization payment</h2>
-<p>Imagine a hypothetical loan where the scheduled principal-and-interest payment is $2,000. If $1,500 is allocated to interest for one payment period, the remaining $500 would be applied to principal, assuming no other adjustments affect the payment.</p>
-<p>The following payment would be calculated using the updated balance. Over time, the interest and principal amounts change even when the scheduled principal-and-interest payment stays level on a fixed-rate mortgage.</p>
-<p>This is an illustration only. Actual mortgage calculations depend on the loan amount, rate, payment frequency, timing and contract terms.</p>
+<h2>Worked amortization example: $300,000 at 6.50%</h2>
+<p>Assume a $300,000 fully amortizing fixed-rate mortgage with a 6.50% annual interest rate and a 30-year term. The monthly principal-and-interest payment is approximately <strong>$1,896.20</strong>, or 360 scheduled payments. The monthly rate used in this illustration is 6.50% divided by 12.</p>
+<p>For the first payment, estimated interest is $1,625.00 ($300,000 × 6.50% ÷ 12). The remaining $271.20 of the $1,896.20 payment reduces principal, leaving an estimated balance of $299,728.80.</p>
+<table class="comparison-table"><thead><tr><th>Payment number</th><th>Interest</th><th>Principal</th><th>Balance after payment</th></tr></thead><tbody>
+<tr><td>1</td><td>$1,625.00</td><td>$271.20</td><td>$299,728.80</td></tr>
+<tr><td>2</td><td>$1,623.53</td><td>$272.67</td><td>$299,456.12</td></tr>
+<tr><td>12</td><td>$1,608.40</td><td>$287.81</td><td>$296,646.82</td></tr>
+<tr><td>60</td><td>$1,523.20</td><td>$373.01</td><td>$280,832.93</td></tr>
+<tr><td>120</td><td>$1,380.41</td><td>$515.80</td><td>$254,328.38</td></tr>
+<tr><td>180</td><td>$1,182.95</td><td>$713.25</td><td>$217,677.42</td></tr>
+<tr><td>240</td><td>$909.90</td><td>$986.30</td><td>$166,995.85</td></tr>
+<tr><td>300</td><td>$532.33</td><td>$1,363.87</td><td>$96,912.49</td></tr>
+</tbody></table>
+<p>The table uses unrounded amounts internally and displays rounded values. The scheduled principal-and-interest payment stays level, while the interest portion gradually falls and the principal portion rises. The final payment is adjusted for the remaining balance and rounding. Taxes, insurance, mortgage insurance and HOA charges are not included in this amortization table.</p>
+<p>This is a mathematical illustration, not a lender-provided schedule. Actual payment dates, accrual conventions, rounding, fees and loan terms can make a servicer's figures differ. See the CFPB explanation of <a href="https://www.consumerfinance.gov/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/">how mortgage amortization works</a>.</p>
 
 <h2>How loan amount affects amortization</h2>
 <p>A larger starting balance generally produces a larger principal-and-interest payment when rate and term are held constant. It also means more interest can accrue because the initial balance is larger.</p>
@@ -75,12 +95,13 @@
 <p>The total interest paid can differ substantially between terms. A longer term can have a lower scheduled payment but more time for interest to accrue.</p>
 
 <h2>What happens with extra principal payments?</h2>
-<p>An extra principal payment reduces the outstanding balance beyond the scheduled principal reduction. A lower balance can reduce future interest because future interest is calculated from a smaller balance, subject to the loan's terms.</p>
-<p>Depending on the mortgage and how the servicer applies extra payments, additional principal can also shorten the payoff period. Check your loan documents and servicer instructions before assuming how an extra payment will be applied.</p>
+<p>An extra principal payment reduces the outstanding balance beyond the scheduled principal reduction. A lower balance can reduce the interest charged in later periods and may shorten the time needed to repay the loan. The effect depends on the rate, timing, amount, payment history and how the servicer applies the extra amount.</p>
+<p>For the $300,000 example above, assume the borrower pays an additional <strong>$100 toward principal every month</strong>, on top of the scheduled $1,896.20 principal-and-interest payment. Under a monthly-payment model, the loan would be paid off in about <strong>312 months (26 years)</strong> instead of 360 months (30 years). Estimated total interest would fall from about $382,633.47 to $321,638.68, a modeled reduction of approximately <strong>$60,994.79</strong>.</p>
+<p>This comparison assumes the extra $100 is applied directly to principal each month, the interest rate remains fixed, no additional draws or fees occur, and the borrower continues the extra payments until payoff. It is not a guarantee of savings for an individual loan. Tell your servicer that an additional amount is intended for principal and check your loan terms for any prepayment provisions. The CFPB also recommends confirming how extra payments will be applied.</p>
 <a class="text-link" href="../mortgage-payoff-calculator/">Explore extra-payment scenarios →</a>
 
 <h2>Amortization vs. total monthly housing payment</h2>
-<p>A standard amortization schedule generally focuses on the mortgage principal and interest. Your total monthly housing expense can be higher because property taxes, homeowners insurance, PMI, HOA dues and other costs may be paid separately or through an escrow account.</p>
+<p>A standard amortization schedule generally focuses on the mortgage principal and interest. Your total monthly housing expense can be higher because property taxes, homeowners insurance, PMI, HOA dues and other costs may be paid separately or through an escrow account. The CFPB explains that escrow and mortgage insurance can be included in the amount collected by the servicer, while HOA charges are commonly separate.</p>
 <div class="cards">
 <a class="card" href="../property-tax-calculator/"><span>01</span><h3>Property Tax</h3><p>Estimate property-tax costs separately from principal and interest.</p></a>
 <a class="card" href="../pmi-calculator/"><span>02</span><h3>PMI</h3><p>Explore a potential private mortgage insurance estimate.</p></a>
@@ -97,9 +118,16 @@
 <li>Review the final scheduled balance and payoff date against your loan documents.</li>
 </ol>
 
-<h2>What can make a real schedule look different?</h2>
-<p>Not every mortgage follows the simplest fixed-rate example. Adjustable-rate loans, different payment frequencies, irregular payments, refinancing, deferments, fees, escrow transactions and other loan-specific events can affect statements and schedules.</p>
-<p>For a real loan, the lender or servicer's disclosures and account records are the authoritative source for the actual payment and balance information.</p>
+<h2>When a loan does not amortize like a standard fixed-rate mortgage</h2>
+<p>A standard fully amortizing mortgage is designed to repay the full principal by the end of the stated term when scheduled payments are made as agreed. Other loan structures can work differently:</p>
+<ul>
+<li><strong>Interest-only period:</strong> scheduled payments cover interest but do not reduce principal during the interest-only period.</li>
+<li><strong>Negative amortization:</strong> a payment is not large enough to cover all accrued interest, so unpaid interest is added to the amount owed and the balance grows.</li>
+<li><strong>Balloon payment:</strong> regular payments do not fully repay the loan, leaving a larger lump-sum balance due at a specified date.</li>
+<li><strong>Adjustable-rate mortgage:</strong> the rate and required payment can change when the rate adjusts, so a new payment schedule may be needed.</li>
+</ul>
+<p>Do not assume every mortgage schedule will reduce the balance every month. Ask the lender whether the loan fully amortizes, whether there is an interest-only or negative-amortization feature, and whether a balloon payment is due. The CFPB explains the risks of <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-negative-amortization-en-103/">negative amortization</a> and <a href="https://www.consumerfinance.gov/consumer-tools/mortgages/answers/key-terms/">non-fully-amortizing loans</a>.</p>
+<p>For a real loan, the note, mortgage disclosures and servicer account records are the authoritative sources for payment and balance information.</p>
 
 <h2>Use calculators to compare scenarios</h2>
 <p>The <a class="text-link" href="../mortgage-calculator/">Mortgage Calculator</a> can estimate a scheduled payment from the main loan assumptions. The <a class="text-link" href="../mortgage-payoff-calculator/">Mortgage Payoff Calculator</a> can help explore the effect of additional payments.</p>
@@ -122,6 +150,15 @@
 <h3>Where can I get the official amortization information for my mortgage?</h3>
 <p>Review your mortgage disclosures and contact your lender or servicer for the authoritative schedule and current account balance.</p>
 
+<h3>Can an amortization schedule show negative amortization?</h3>
+<p>It can, if the loan terms allow payments that are less than the interest due. Unpaid interest may be added to the principal balance, causing the amount owed to grow instead of shrink. Ask your lender whether the loan can negatively amortize.</p>
+<h3>Does an extra payment automatically reduce principal?</h3>
+<p>Do not assume so. Tell your servicer how the extra amount should be applied and review your next statement to confirm it reduced principal. Check your loan terms and whether any prepayment provisions apply.</p>
+<h3>Why does my servicer's balance differ from an online schedule?</h3>
+<p>A simple calculator may assume monthly interest, on-time payments and no fees or account adjustments. Your actual schedule can differ because of payment dates, interest accrual, rounding, fees, escrow transactions, rate changes or payment history. Your servicer's account records control the actual balance.</p>
+
+<h2>Sources and methodology</h2>
+<p>This page uses a simplified monthly amortization model for the $300,000, 6.50%, 30-year illustration. Figures are rounded to cents for display; the calculations use unrounded values. Official consumer references include the CFPB's explanations of <a href="https://www.consumerfinance.gov/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/">how mortgage amortization works</a>, <a href="https://www.consumerfinance.gov/ask-cfpb/how-do-mortgage-lenders-calculate-monthly-payments-en-1965/">how lenders calculate monthly payments</a>, <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-negative-amortization-en-103/">negative amortization</a>, and <a href="https://www.consumerfinance.gov/ask-cfpb/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment-en-1941/">P&amp;I versus total monthly payment</a>.</p>
 <h2>Educational use only</h2>
 <p>Finance Tools provides calculators and general educational information. Results are estimates and are not financial, tax, legal or lending advice. Actual mortgage schedules depend on the loan contract and payment history. Confirm real loan information with your lender or servicer.</p>
 </div></section>
