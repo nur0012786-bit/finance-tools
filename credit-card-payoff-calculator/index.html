@@ -80,28 +80,28 @@
   <div class="form-grid">
     <div class="field">
       <label for="balance">Credit card balance ($)</label>
-      <input id="balance" type="number" min="0" step="0.01" value="5000">
+      <input id="balance" type="number" min="0.01" step="0.01" value="5000" required inputmode="decimal">
     </div>
     <div class="field">
       <label for="apr">Annual percentage rate (APR)</label>
-      <input id="apr" type="number" min="0" step="0.01" value="24">
+      <input id="apr" type="number" min="0" step="0.01" value="24" required inputmode="decimal">
     </div>
     <div class="field">
       <label for="payment">Monthly payment ($)</label>
-      <input id="payment" type="number" min="0" step="0.01" value="200">
+      <input id="payment" type="number" min="0" step="0.01" value="200" required inputmode="decimal">
     </div>
     <div class="field">
       <label for="extra">Extra monthly payment ($)</label>
-      <input id="extra" type="number" min="0" step="0.01" value="50">
+      <input id="extra" type="number" min="0" step="0.01" value="50" required inputmode="decimal">
     </div>
     <div class="full">
-      <button type="button" class="button" type="button" onclick="calculate()">Calculate payoff</button>
+      <button type="button" class="button" onclick="calculate()">Calculate payoff</button>
     </div>
   </div>
 
-  <div id="message" class="note" style="display:none"></div>
+  <div id="message" class="note" style="display:none" role="status" aria-live="polite"></div>
 
-  <div class="result-grid">
+  <div class="result-grid" aria-live="polite">
     <div class="result"><small>Payoff time</small><strong id="payoff" aria-live="polite">—</strong></div>
     <div class="result"><small>Total interest</small><strong id="interest">—</strong></div>
     <div class="result"><small>Total paid</small><strong id="total">—</strong></div>
@@ -121,7 +121,7 @@
   </div>
 
   <div class="schedule">
-    <h2>Payoff schedule with extra payment</h2>
+    <h2>Estimated monthly payoff schedule with extra payment</h2>
     <table>
       <thead><tr><th>Month</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Remaining balance</th></tr></thead>
       <tbody id="scheduleBody"></tbody>
@@ -132,46 +132,74 @@
 </div>
 
 <div class="content-section">
-<h2>How the Credit Card Payoff Calculator Works</h2>
-<p>Enter your current balance, APR, regular monthly payment, and any extra amount you plan to pay. The calculator estimates the monthly interest, amount applied to principal, and the number of payments needed to reach a zero balance.</p>
-
-<h2>Why Extra Payments Matter</h2>
-<p>When your balance falls faster, future interest charges are calculated on a smaller balance in this simplified model. That can shorten the repayment period and reduce total interest. Even a modest additional payment can change the payoff timeline.</p>
-
-<h2>Example</h2>
-<p>Suppose you have a $5,000 balance at a 24% APR and pay $200 per month. Adding another $50 per month increases the modeled payment to $250 and can reduce both the repayment period and interest cost. Your actual results will depend on your card issuer's terms and how interest is calculated.</p>
-
-<h2>Important Credit Card Payoff Considerations</h2>
+<h2>How to use this credit card payoff calculator</h2>
+<p>Enter the balance you want to repay, the card's APR, the fixed amount you plan to pay each month, and any additional amount you can add. The calculator compares two scenarios: your regular payment and your regular payment plus the extra amount.</p>
 <ul>
-<li>APR is a major factor in the cost of carrying a balance.</li>
-<li>Paying more than the required minimum can reduce the balance faster.</li>
-<li>New purchases can extend the payoff period if they are added to the balance.</li>
-<li>Late fees, annual fees, balance-transfer fees, and promotional rates can change actual results.</li>
-<li>Check your card agreement or statement for the issuer's exact interest and minimum-payment rules.</li>
+<li><strong>Credit card balance:</strong> Enter the balance that is currently accruing interest.</li>
+<li><strong>APR:</strong> Enter the annual percentage rate that applies to that balance, as a percentage. For example, enter 24 for 24%.</li>
+<li><strong>Monthly payment:</strong> Enter the total fixed amount you plan to pay toward this card each month. This is not automatically the minimum payment shown on your statement.</li>
+<li><strong>Extra monthly payment:</strong> Enter an additional amount on top of the regular payment. Enter zero if you do not plan to pay extra.</li>
+</ul>
+<p>Click <strong>Calculate payoff</strong>. The results show the estimated time and interest for both payment scenarios, the difference between them, and the month-by-month schedule for the scenario with the extra payment.</p>
+
+<h2>How the payoff calculation works</h2>
+<p>This tool uses a simplified monthly-interest model. For each month, it estimates interest as the current balance multiplied by APR divided by 12, adds that interest to the balance, and applies your fixed payment. Interest and balances are rounded to cents during the simulation. The final payment is reduced to the amount still owed.</p>
+<p>The model assumes the APR and monthly payment stay constant, that no new purchases or fees are added, and that each payment is made in time for the modeled monthly cycle. It does not calculate an issuer's actual statement or minimum payment. The payoff date is a planning estimate based on the current date and the modeled number of monthly payments.</p>
+
+<h2>Example: paying an extra $50 each month</h2>
+<p>Suppose the card balance is <strong>$5,000</strong>, the APR is <strong>24%</strong>, and your regular monthly payment is <strong>$200</strong>. Under this calculator's monthly model, the regular-payment scenario takes about <strong>36 months</strong> and costs about <strong>$2,000.57</strong> in interest.</p>
+<p>Adding <strong>$50</strong> each month raises the modeled payment to $250. The estimated payoff time falls to about <strong>26 months</strong>, with about <strong>$1,449.37</strong> in interest. In this illustration, the extra $50 saves about <strong>10 months</strong> and <strong>$551.20</strong> in interest. Your own result will change with the balance, APR, payment timing and card terms.</p>
+
+<h2>Understand the results</h2>
+<ul>
+<li><strong>Payoff time:</strong> The estimated number of monthly payments until the balance reaches zero with the extra payment included.</li>
+<li><strong>Total interest:</strong> The sum of modeled monthly interest charges. It is not a quoted amount from your issuer.</li>
+<li><strong>Total paid:</strong> The modeled payments, including interest and principal, needed to clear the balance.</li>
+<li><strong>Debt-free date:</strong> An estimate based on the current date and the number of modeled months. Actual payment posting dates can move it.</li>
+<li><strong>Months and interest saved:</strong> The difference between the regular-payment scenario and the extra-payment scenario. These comparisons are shown only when both scenarios pay off within the model's limit.</li>
+<li><strong>Payoff schedule:</strong> The estimated payment, interest, principal reduction and remaining balance for each month in the extra-payment scenario.</li>
 </ul>
 
-<h2>Frequently Asked Questions</h2>
-<section class="guide">
-<p class="eyebrow">CREDIT CARD PAYOFF GUIDE</p>
-<h2>How this US credit card payoff calculator works</h2>
-<p>This calculator uses your current balance, APR, planned monthly payment and optional extra payment to simulate a simplified payoff schedule. Each month, estimated interest is added and the payment reduces the balance until it reaches zero.</p>
-<p>Actual credit-card interest is often calculated using daily balances or an average daily balance, and a card can have different APRs for purchases, balance transfers and cash advances. Therefore, this monthly model is an estimate rather than a statement-level calculation. </p>
-<h2>Why paying more than the minimum matters</h2>
-<p>Credit card statements include minimum-payment information, and paying only the minimum can take much longer and cost more interest. Paying more than the minimum generally reduces the balance faster. </p>
-<h2>Credit card payoff example</h2>
-<p>For example, enter a <strong>$5,000</strong> balance at <strong>24%</strong> APR with a <strong>$200</strong> monthly payment. Then add an extra <strong>$50</strong> per month to compare the estimated payoff period and interest.</p>
-<h2>What this calculator does not model</h2>
-<p>The model does not include new purchases, late fees, annual fees, promotional APRs, deferred-interest offers, multiple balance categories or daily transaction-level interest. If your card has multiple APRs or a promotional balance, use your statement and cardholder agreement for the applicable terms. </p>
-<h2>Payoff calculations vs. your credit card statement</h2>
-<p>Your issuer's statement is the authoritative source for the minimum payment, due date, applicable APRs and account-specific terms. This calculator is designed for planning scenarios and should not replace the payment amount required by your issuer.</p>
-</section>
+<h2>Why your credit card statement may show different interest</h2>
+<p>Many card issuers calculate interest daily using a daily periodic rate and daily or average daily balances. The daily periodic rate may be based on APR divided by 360 or 365, depending on the issuer's method. Because purchases, payments and credits can change the balance during a billing cycle, the actual interest on your statement can differ from a monthly APR-divided-by-12 estimate. Read the CFPB's explanation of <a href="https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-company-calculate-the-amount-of-interest-i-owe-en-51/">how credit card interest is calculated</a> and <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-a-daily-periodic-rate-on-a-credit-card-en-46/">daily periodic rates</a>.</p>
 
-<div class="faq"><h3>What is a credit card payoff calculator?</h3><p>It estimates payoff time, interest, and total payments from your balance, APR, and monthly payment.</p></div>
-<div class="faq"><h3>Why does credit card APR matter?</h3><p>A higher APR generally increases the interest charged on an unpaid balance.</p></div>
-<div class="faq"><h3>How much can an extra payment save?</h3><p>The calculator compares your regular payment with your regular payment plus the extra amount you enter.</p></div>
-<div class="faq"><h3>Does this match my credit card statement exactly?</h3><p>No. It is a planning estimate using monthly interest rather than your issuer's exact daily calculation and account rules.</p></div>
-<div class="faq"><h3>What if my payment is too low?</h3><p>If the modeled payment does not cover the first month's interest, the balance will not decline under this calculation.</p></div>
-<div class="faq"><h3>Can I use it for multiple cards?</h3><p>Yes. Run the calculator separately for each card and compare the balances, APRs, and payment amounts.</p></div>
+<h2>Cards with different APRs or promotional balances</h2>
+<p>This calculator models one balance at one APR. Your statement may separate purchases, balance transfers, cash advances and promotional balances because different APRs or terms can apply. To estimate one of those categories, use the balance and APR for that category rather than combining balances with different rates.</p>
+<p>When a payment is greater than the required minimum, federal rules generally require the amount above the minimum to go first to the balance with the highest APR. The issuer generally has more flexibility in allocating the minimum-payment portion. Special rules can apply to deferred-interest promotional balances. See <a href="https://www.consumerfinance.gov/rules-policy/regulations/1026/53/">Regulation Z, § 1026.53</a>. This calculator does not model that allocation across multiple balance categories.</p>
+
+<h2>What this calculator does not include</h2>
+<ul>
+<li>New purchases, cash advances, balance transfers or other transactions added after the starting balance.</li>
+<li>Late fees, annual fees, balance-transfer fees, cash-advance fees or other charges.</li>
+<li>Variable APR changes, penalty APRs, promotional-rate expiration or deferred-interest terms.</li>
+<li>Daily transaction-level interest, grace-period eligibility or an issuer's exact payment-posting rules.</li>
+<li>Issuer minimum-payment formulas, payment allocation across multiple APR categories or multiple credit cards.</li>
+</ul>
+<p>If you carry multiple cards, run a separate estimate for each one, using its own balance, APR and planned payment. Keep making at least each required minimum by its due date. If you cannot afford a minimum payment, contact the issuer promptly and ask about hardship options; the CFPB offers guidance on <a href="https://www.consumerfinance.gov/ask-cfpb/what-should-i-do-if-i-cant-pay-my-credit-card-bills-en-1697/">what to do when you cannot pay your credit card bills</a>.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="faq"><h3>Is the monthly payment field the same as my minimum payment?</h3><p>No. Enter the fixed amount you plan to pay each month. Your issuer sets the actual minimum payment, which can change from one statement to the next. Always pay at least the amount and by the due date shown on your statement.</p></div>
+<div class="faq"><h3>Does this calculator use daily credit card interest?</h3><p>No. It estimates interest monthly using APR divided by 12 and rounds interest to cents each modeled month. Many issuers calculate interest daily, so your statement can differ.</p></div>
+<div class="faq"><h3>What if my regular payment does not cover monthly interest?</h3><p>The regular-payment scenario is shown as not paying off within the model. If the extra payment is large enough to reduce the balance, the calculator can still show that separate scenario. Increase the payment amount or contact your issuer if you are struggling to keep up.</p></div>
+<div class="faq"><h3>Can I enter a 0% APR?</h3><p>Yes. The calculator can model a zero-interest balance, provided the monthly payment is greater than zero. Check whether your promotional rate has an expiration date and what APR applies afterward.</p></div>
+<div class="faq"><h3>Why does the final payment differ from my regular payment?</h3><p>The calculator caps the final payment at the remaining balance plus the modeled interest. You do not need to make a full fixed payment after the balance is paid off.</p></div>
+<div class="faq"><h3>Will the payoff date match my issuer's date?</h3><p>Not necessarily. It is estimated from the current date and the number of modeled monthly payments. Actual statement dates, payment posting, weekends, holidays and issuer processing can change the date.</p></div>
+<div class="faq"><h3>Can I use the calculator for several cards?</h3><p>Use it separately for each card, because each can have a different APR, balance and due date. This single-card calculator does not combine multiple accounts or allocate one payment across them.</p></div>
+<div class="faq"><h3>Does paying more than the minimum reduce interest?</h3><p>Paying more generally reduces the balance faster and can lower future interest. On accounts with multiple APR balances, federal payment-allocation rules generally direct the amount above the minimum to the highest-rate balance first, subject to exceptions.</p></div>
+
+<h2>Related credit card tools and guides</h2>
+<p>Use these resources to understand minimum payments, APR and repayment options:</p>
+<ul>
+<li><a href="../credit-card-minimum-payment-calculator/">Credit Card Minimum Payment Calculator</a></li>
+<li><a href="../credit-card-minimum-payment-guide/">Credit Card Minimum Payment Guide</a></li>
+<li><a href="../credit-card-apr-guide/">Credit Card APR Guide</a></li>
+<li><a href="../credit-card-payoff-guide/">Credit Card Payoff Guide</a></li>
+<li><a href="../how-credit-card-interest-works-guide/">How Credit Card Interest Works Guide</a></li>
+<li><a href="../debt-payoff-calculator/">Debt Payoff Calculator</a></li>
+</ul>
+
+<h2>Educational disclaimer</h2>
+<p>This calculator and guide provide general educational estimates, not financial, legal, tax or credit advice. The monthly-interest model is simplified and may not match your card issuer's daily-balance calculation, statement, minimum-payment formula or payment-allocation terms. Your cardholder agreement, current statement and applicable law control your actual account. Verify the required payment, APR, due date and fees with your card issuer.</p>
 </div>
 </section>
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Estimate credit-card payoff time and interest with related debt calculators.</p><ul><li><a href="../credit-card-minimum-payment-calculator/">Credit Card Minimum Payment Calculator</a></li><li><a href="../debt-payoff-calculator/">Debt Payoff Calculator</a></li><li><a href="../loan-calculator/">Loan Calculator</a></li></ul></div></section>
@@ -182,68 +210,163 @@
 </footer>
 
 <script>
-function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);}
-function monthsText(m){if(m<=0)return '0 months'; const y=Math.floor(m/12),mo=m%12; return y? y+' yr'+(y===1?'':'s')+(mo?' '+mo+' mo':'') : mo+' mo';}
-function payoffDate(months){const d=new Date(); d.setMonth(d.getMonth()+months); return d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});}
-function simulate(balance,apr,payment){
+function money(n){
+  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
+}
+function roundCents(n){
+  return Math.round((n + Number.EPSILON) * 100) / 100;
+}
+function monthsText(m){
+  if(m<=0)return '0 months';
+  const y=Math.floor(m/12),mo=m%12;
+  return y ? y+' yr'+(y===1?'':'s')+(mo?' '+mo+' mo':'') : mo+' mo';
+}
+function payoffDate(months){
+  const today=new Date();
+  const day=today.getDate();
+  const target=new Date(today.getFullYear(),today.getMonth()+months,1);
+  const lastDay=new Date(target.getFullYear(),target.getMonth()+1,0).getDate();
+  target.setDate(Math.min(day,lastDay));
+  return target.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+}
+function simulate(startingBalance,apr,monthlyPayment){
+  let balance=roundCents(startingBalance);
+  let totalInterest=0;
+  let totalPaid=0;
+  const schedule=[];
   const monthlyRate=apr/100/12;
-  if(balance<=0)return {months:0,interest:0,total:0,schedule:[]};
-  if(payment<=balance*monthlyRate) return null;
-  let b=balance, interest=0, total=0, months=0, schedule=[];
-  while(b>0.005 && months<1200){
-    months++;
-    const i=b*monthlyRate;
-    const p=Math.min(payment-i,b);
-    const actual=i+p;
-    b=Math.max(0,b-p);
-    interest+=i; total+=actual;
-    schedule.push({month:months,payment:actual,interest:i,principal:p,balance:b});
+  if(balance<=0)return {paidOff:true,months:0,interest:0,total:0,schedule:[]};
+
+  for(let month=1;month<=1200 && balance>0;month++){
+    const interest=roundCents(balance*monthlyRate);
+    if(monthlyPayment<=interest){
+      return {paidOff:false,months:null,interest:null,total:null,schedule:[]};
+    }
+    const amountDue=roundCents(balance+interest);
+    const actualPayment=Math.min(monthlyPayment,amountDue);
+    const principal=roundCents(actualPayment-interest);
+    const remaining=roundCents(Math.max(0,balance-principal));
+
+    if(principal<=0){
+      return {paidOff:false,months:null,interest:null,total:null,schedule:[]};
+    }
+    totalInterest=roundCents(totalInterest+interest);
+    totalPaid=roundCents(totalPaid+actualPayment);
+    schedule.push({
+      month,
+      payment:roundCents(actualPayment),
+      interest,
+      principal,
+      balance:remaining
+    });
+    balance=remaining;
   }
-  if(months>=1200 && b>0.005)return null;
-  return {months,interest,total,schedule};
+  if(balance>0){
+    return {paidOff:false,months:null,interest:null,total:null,schedule:[]};
+  }
+  return {
+    paidOff:true,
+    months:schedule.length,
+    interest:totalInterest,
+    total:totalPaid,
+    schedule
+  };
+}
+function clearResults(){
+  ['payoff','interest','total','date','savedMonths','savedInterest',
+   'regularPayment','regularTime','regularInterest','regularTotal',
+   'extraPayment','extraTime','extraInterest','extraTotal'].forEach(id=>{
+    document.getElementById(id).textContent='—';
+  });
+  document.getElementById('scheduleBody').replaceChildren();
+}
+function setScenario(prefix,result,payment){
+  document.getElementById(prefix+'Payment').textContent=money(payment);
+  document.getElementById(prefix+'Time').textContent=result.paidOff?monthsText(result.months):'Not paid off';
+  document.getElementById(prefix+'Interest').textContent=result.paidOff?money(result.interest):'—';
+  document.getElementById(prefix+'Total').textContent=result.paidOff?money(result.total):'—';
+}
+function renderSchedule(schedule){
+  const body=document.getElementById('scheduleBody');
+  body.replaceChildren();
+  const fragment=document.createDocumentFragment();
+  schedule.forEach(item=>{
+    const row=document.createElement('tr');
+    [item.month,money(item.payment),money(item.interest),money(item.principal),money(item.balance)].forEach(value=>{
+      const cell=document.createElement('td');
+      cell.textContent=String(value);
+      row.appendChild(cell);
+    });
+    fragment.appendChild(row);
+  });
+  body.appendChild(fragment);
 }
 function calculate(){
-  const balance=Math.max(0,parseFloat(document.getElementById('balance').value)||0);
-  const apr=Math.max(0,parseFloat(document.getElementById('apr').value)||0);
-  const payment=Math.max(0,parseFloat(document.getElementById('payment').value)||0);
-  const extra=Math.max(0,parseFloat(document.getElementById('extra').value)||0);
+  const fields={
+    balance:document.getElementById('balance').value.trim(),
+    apr:document.getElementById('apr').value.trim(),
+    payment:document.getElementById('payment').value.trim(),
+    extra:document.getElementById('extra').value.trim()
+  };
+  const balance=Number(fields.balance);
+  const apr=Number(fields.apr);
+  const payment=Number(fields.payment);
+  const extra=Number(fields.extra);
   const msg=document.getElementById('message');
-  msg.style.display='none';
 
-  if(balance===0){
-    msg.textContent='Enter a credit card balance greater than $0.';
-    msg.style.display='block'; return;
+  clearResults();
+  msg.style.display='none';
+  msg.textContent='';
+
+  if(Object.values(fields).some(value=>value==='') ||
+     ![balance,apr,payment,extra].every(Number.isFinite)){
+    msg.textContent='Enter a valid number in every field.';
+    msg.style.display='block';
+    return;
   }
-  const regular=simulate(balance,apr,payment);
-  const accelerated=simulate(balance,apr,payment+extra);
-  if(!regular || !accelerated){
-    msg.textContent='Your payment is too low to cover the estimated monthly interest. Increase the monthly payment or reduce the balance.';
+  if(balance<=0 || apr<0 || payment<0 || extra<0){
+    msg.textContent='Enter a balance greater than $0. APR, monthly payment and extra payment cannot be negative.';
+    msg.style.display='block';
+    return;
+  }
+  if(payment===0 && extra===0){
+    msg.textContent='Enter a monthly payment greater than $0, either as your regular payment or an extra payment.';
     msg.style.display='block';
     return;
   }
 
-  const savedMonths=Math.max(0,regular.months-accelerated.months);
-  const savedInterest=Math.max(0,regular.interest-accelerated.interest);
+  const regular=simulate(balance,apr,payment);
+  const accelerated=simulate(balance,apr,roundCents(payment+extra));
+  setScenario('regular',regular,payment);
+  setScenario('extra',accelerated,roundCents(payment+extra));
+
+  if(!accelerated.paidOff){
+    document.getElementById('payoff').textContent='Not paid off';
+    document.getElementById('interest').textContent='—';
+    document.getElementById('total').textContent='—';
+    document.getElementById('date').textContent='—';
+    document.getElementById('savedMonths').textContent='—';
+    document.getElementById('savedInterest').textContent='—';
+    msg.textContent='The payment with the extra amount does not reduce the balance enough to pay it off within the model. Increase the monthly payment or contact your card issuer about available assistance.';
+    msg.style.display='block';
+    return;
+  }
+
   document.getElementById('payoff').textContent=monthsText(accelerated.months);
   document.getElementById('interest').textContent=money(accelerated.interest);
   document.getElementById('total').textContent=money(accelerated.total);
   document.getElementById('date').textContent=payoffDate(accelerated.months);
-  document.getElementById('savedMonths').textContent=monthsText(savedMonths);
-  document.getElementById('savedInterest').textContent=money(savedInterest);
+  document.getElementById('savedMonths').textContent=regular.paidOff?
+    monthsText(Math.max(0,regular.months-accelerated.months)):'—';
+  document.getElementById('savedInterest').textContent=regular.paidOff?
+    money(Math.max(0,roundCents(regular.interest-accelerated.interest))):'—';
 
-  document.getElementById('regularPayment').textContent=money(payment);
-  document.getElementById('regularTime').textContent=monthsText(regular.months);
-  document.getElementById('regularInterest').textContent=money(regular.interest);
-  document.getElementById('regularTotal').textContent=money(regular.total);
+  renderSchedule(accelerated.schedule);
 
-  document.getElementById('extraPayment').textContent=money(payment+extra);
-  document.getElementById('extraTime').textContent=monthsText(accelerated.months);
-  document.getElementById('extraInterest').textContent=money(accelerated.interest);
-  document.getElementById('extraTotal').textContent=money(accelerated.total);
-
-  document.getElementById('scheduleBody').innerHTML=accelerated.schedule.map(r =>
-    '<tr><td>'+r.month+'</td><td>'+money(r.payment)+'</td><td>'+money(r.interest)+'</td><td>'+money(r.principal)+'</td><td>'+money(r.balance)+'</td></tr>'
-  ).join('');
+  if(!regular.paidOff){
+    msg.textContent='Your regular payment does not pay off the balance within the model, but the payment including your extra amount does. Savings versus the regular-payment scenario are therefore not calculated.';
+    msg.style.display='block';
+  }
 }
 calculate();
 </script>
