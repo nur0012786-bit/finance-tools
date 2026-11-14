@@ -13,8 +13,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HELOC Payment Calculator | Home Equity Line Payment</title>
-<meta name="description" content="Estimate HELOC payments and interest using your balance, interest rate, draw period and repayment period. Understand how HELOC payment assumptions affect your estimate.">
+<title>HELOC Payment Calculator | Draw & Repayment Costs</title>
+<meta name="description" content="Estimate HELOC interest-only payments during the draw period, principal-and-interest payments during repayment, total interest and the effect of a rate increase.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="../style.css">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/heloc-payment-calculator/">
@@ -34,6 +34,14 @@
 .note,.warning{margin-top:18px;padding:14px;border-radius:10px}.note{background:#eef7ff}.warning{background:#fff8e6}
 @media(max-width:650px){.calculator,.results{grid-template-columns:1fr}}
 </style>
+<style>
+.tool-intro{font-size:14px;color:#526174;line-height:1.65;margin:0 0 20px}
+.calc-error{margin:14px 0 0;padding:12px 14px;border-radius:10px;background:#fff1f0;border:1px solid #f3c5c2;color:#9d2520;font-size:14px;line-height:1.5}
+.calc-error[hidden]{display:none}
+.results-heading{margin:26px 0 6px;font-size:19px}
+.result strong{display:block;line-height:1.25}
+@media(max-width:650px){.calculator,.results{grid-template-columns:1fr}.card{padding:20px!important}}
+</style>
 </head>
 <body class="design-heloc">
 <header class="site-header"><div class="container nav"><a class="brand" href="../">Finance<span>Tools</span></a><nav><a href="../#calculators">Calculators</a><a href="../#about">About</a></nav></div></header>
@@ -41,55 +49,133 @@
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">›</span><span>HELOC Payment Calculator</span></nav>
 <section class="hero-text">
 <p class="eyebrow">US HOME EQUITY LINE OF CREDIT</p>
-<h1>US HELOC Payment Calculator</h1>
-<p>Estimate a home equity line of credit payment from your current balance, interest rate, draw period and repayment period. Compare a simplified interest-only estimate with a principal-and-interest repayment estimate.</p>
+<h1>HELOC Payment Calculator</h1>
+<p>Estimate a home equity line of credit payment during the draw period and the higher fully amortizing payment that may apply during repayment. Compare total interest under a constant-rate assumption and test a possible rate increase.</p>
 </section>
 
 <section class="card">
+<h2>Enter your HELOC assumptions</h2>
+<p class="tool-intro">Enter the amount already drawn, the current annual rate, and the remaining time in each phase. The calculator assumes no additional borrowing and no principal reduction during the illustrative interest-only draw phase.</p>
 <div class="calculator">
-<div class="field"><label for="balance">HELOC balance ($)</label><input id="balance" type="number" value="50000" min="0" step="500"></div>
-<div class="field"><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" value="8.5" min="0" step="0.01"></div>
-<div class="field"><label for="draw">Draw period (years)</label><input id="draw" type="number" value="10" min="1" max="30"></div>
-<div class="field"><label for="repay">Repayment period (years)</label><input id="repay" type="number" value="20" min="1" max="30"></div>
-<div class="field"><label for="paymentType">Payment estimate</label><select id="paymentType"><option value="interest">Interest-only</option><option value="principal">Principal + interest</option></select></div>
+<div class="field"><label for="balance">Current outstanding HELOC balance ($)</label><input id="balance" type="number" value="50000" min="1" max="100000000" step="500" inputmode="decimal"></div>
+<div class="field"><label for="rate">Current annual interest rate / APR (%)</label><input id="rate" type="number" value="8.5" min="0" max="50" step="0.01" inputmode="decimal"></div>
+<div class="field"><label for="draw">Remaining draw period (years)</label><input id="draw" type="number" value="10" min="0" max="30" step="1" inputmode="numeric"></div>
+<div class="field"><label for="repay">Repayment period (years)</label><input id="repay" type="number" value="20" min="1" max="30" step="1" inputmode="numeric"></div>
+<div class="field"><label for="rateShock">Optional rate-increase test (percentage points)</label><input id="rateShock" type="number" value="2" min="0" max="20" step="0.25" inputmode="decimal"></div>
 </div>
-<button type="button" class="button" onclick="calculate()">Calculate HELOC Payment</button>
+<button type="button" class="button" id="calculateButton">Calculate HELOC phases</button>
+<p id="inputError" class="calc-error" role="alert" hidden></p>
 <div class="results">
-<div class="result"><span>Estimated monthly payment</span><strong id="payment" aria-live="polite">$0</strong></div>
-<div class="result"><span>Monthly interest at current balance</span><strong id="interest">$0</strong></div>
-<div class="result"><span>Estimated total interest</span><strong id="totalInterest">$0</strong></div>
-<div class="result"><span>Balance used</span><strong id="balanceOut">$0</strong></div>
-<div class="result"><span>Draw period</span><strong id="drawOut">0 years</strong></div>
-<div class="result"><span>Repayment period</span><strong id="repayOut">0 years</strong></div>
+<div class="result"><span>Interest-only draw payment / month</span><strong id="drawPayment" aria-live="polite">$0.00</strong></div>
+<div class="result"><span>Balance entering repayment*</span><strong id="repayBalance">$0.00</strong></div>
+<div class="result"><span>Fully amortizing repayment P&amp;I / month</span><strong id="repayPayment">$0.00</strong></div>
+<div class="result"><span>Payment change at phase transition</span><strong id="paymentChange">$0.00</strong></div>
+<div class="result"><span>Interest over remaining draw period</span><strong id="drawInterest">$0.00</strong></div>
+<div class="result"><span>Interest over repayment period</span><strong id="repayInterest">$0.00</strong></div>
+<div class="result"><span>Total modeled interest, both phases</span><strong id="totalInterest">$0.00</strong></div>
+<div class="result"><span>Total modeled time to repay</span><strong id="totalTime">30 years</strong></div>
 </div>
-<div class="note" id="summary"></div>
-<div class="warning">HELOCs often have variable rates. This calculator holds the entered rate constant, so it does not forecast future payment changes caused by rate adjustments, additional draws or changes in the outstanding balance.</div>
+<h3 class="results-heading">Rate-increase stress test</h3>
+<p class="small-note">Illustration only: the selected rate increase is applied immediately and held constant through both phases. It is not a prediction of future index changes or a contractual rate cap.</p>
+<div class="results">
+<div class="result"><span>Tested annual rate</span><strong id="stressRate">10.50%</strong></div>
+<div class="result"><span>Draw interest-only payment at tested rate</span><strong id="stressDrawPayment">$0.00</strong></div>
+<div class="result"><span>Repayment P&amp;I at tested rate</span><strong id="stressRepayPayment">$0.00</strong></div>
+</div>
+<div class="note" id="summary" aria-live="polite"></div>
+<div class="warning">The draw-phase figure is an interest-only illustration, not necessarily your plan's minimum payment. Some HELOCs require principal plus interest during the draw period. The repayment estimate assumes the remaining balance is fully amortized over the entered repayment period; some contracts use a different payment formula or require a balloon payment.</div>
 </section>
 
 <section class="card">
-<p class="eyebrow">HOW IT WORKS</p>
-<h2>How this US HELOC payment calculator works</h2>
-<p>A home equity line of credit is a revolving line secured by your home. Unlike a home equity loan, a HELOC can generally allow repeated borrowing up to a credit limit during a draw period. After the draw period, the account normally enters a repayment period under the terms of the plan.</p>
-<p>For an <strong>interest-only estimate</strong>, this calculator multiplies the entered balance by the annual rate and divides by 12. That produces a simple monthly interest estimate and does not reduce principal.</p>
-<p>For a <strong>principal-and-interest estimate</strong>, the calculator uses the entered balance, rate and repayment period in a standard fixed-rate amortization formula. This is a planning model; the actual HELOC agreement controls how minimum payments are calculated.</p>
+<p class="eyebrow">HELOC PAYMENT METHOD</p>
+<h2>How this HELOC payment calculator works</h2>
+<p>A home equity line of credit (HELOC) is revolving credit secured by your home. During the draw period, you may generally borrow against available credit, subject to the plan's terms. When the draw period ends, additional draws usually stop and the outstanding amount enters the repayment phase. The lender's agreement determines the actual minimum payment in each phase. <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-a-home-equity-line-of-credit-heloc-en-107/">Read the CFPB's HELOC overview</a>.</p>
 
-<h2>Draw period vs. repayment period</h2>
-<p>During the draw period, you may generally be able to borrow from available credit and make payments under the plan's rules. When the draw period ends, additional borrowing may stop and repayment terms can apply. The repayment payment can be substantially higher than an earlier interest-only payment because principal must also be repaid.</p>
-<p>The Consumer Financial Protection Bureau notes that HELOCs usually have variable rates, so payments can change as the rate changes. Some plans may also provide a fixed-rate conversion option for part or all of a balance.</p>
+<h3>1. Interest-only payment during the draw period</h3>
+<p>The calculator shows a common interest-only illustration:</p>
+<p><strong>Monthly draw-period interest = current balance × annual rate ÷ 12</strong></p>
+<p>This assumes the drawn balance stays unchanged, no additional money is borrowed, and no principal is paid down during the remaining draw period. Some HELOC plans require a principal component even during the draw phase, so this result is not a universal minimum-payment formula.</p>
 
-<h2>Worked example</h2>
-<p>Suppose the outstanding HELOC balance is $50,000 and the entered annual rate is 8.5%. A simple interest-only estimate is about $354 per month ($50,000 × 8.5% ÷ 12). If the same $50,000 balance were amortized over a 20-year repayment period at a constant 8.5% rate, the principal-and-interest estimate would be higher because the payment also repays principal.</p>
-<p>The example assumes the full $50,000 balance remains unchanged. Real HELOC balances can rise or fall as you draw funds and repay principal.</p>
+<h3>2. Fully amortizing payment during repayment</h3>
+<p>For the repayment illustration, the calculator assumes the balance at the end of the draw period is repaid in equal monthly principal-and-interest payments over the repayment period. It uses the standard fixed-rate amortization formula with the entered rate held constant. It calculates repayment-phase interest from the total scheduled payments less the principal balance.</p>
+<p>Under the interest-only draw assumption, the balance entering repayment is the same as the current balance. If your plan requires principal during the draw period, the actual balance at the phase transition may be lower. Some HELOC plans use a different minimum-payment formula or require the entire outstanding amount in a balloon payment instead of a fully amortizing schedule.</p>
+
+<h3>3. Total modeled interest</h3>
+<p>The calculator adds estimated interest during the remaining interest-only draw phase to the interest expected during the fully amortizing repayment phase. This is a scenario calculation, not a lender disclosure or a prediction of the actual lifetime cost. It assumes one current balance, no further draws, no principal paydown during draw, and an unchanged interest rate.</p>
+
+<h3>4. Rate-increase stress test</h3>
+<p>Many HELOCs have variable rates. A variable rate commonly has two parts: an index and a margin. The index can change with market conditions, while the margin is added under the credit agreement. The optional rate-increase test applies the number of percentage points you enter to the current rate and recalculates both phase estimates using that higher rate. It does not model the timing of index changes, introductory rates, periodic caps, lifetime caps, or a lender's exact payment recalculation method. <a href="https://files.consumerfinance.gov/f/documents/cfpb_heloc-booklet-print.pdf_202610.pdf">Read the CFPB's guide to HELOC variable rates</a>.</p>
 </section>
 
 <section class="card">
-<p class="eyebrow">WHAT CAN CHANGE THE PAYMENT?</p>
-<h2>Why an actual HELOC payment can differ</h2>
-<p>Your actual payment depends on the HELOC contract. Important variables can include the outstanding balance, index and margin used for a variable rate, rate caps, minimum-payment formula, draw activity, repayment term and lender fees.</p>
-<p>A HELOC may also have application, appraisal, annual, closing or other charges. Those costs are not included in the calculator's payment estimate.</p>
-<p>Because a HELOC is secured by the home, failing to repay amounts owed can put the property at risk. Treat the calculator as a cost-estimation tool rather than an approval or borrowing recommendation.</p>
+<p class="eyebrow">DRAW PERIOD VS. REPAYMENT</p>
+<h2>Why a HELOC payment can rise when the draw period ends</h2>
+<p>During the draw period, a plan may allow interest-only payments, or it may require a payment that includes some principal. When repayment begins, the borrower can no longer draw on the line and must repay the outstanding balance under the contract. Because principal must then be repaid over a shorter remaining period, the payment may rise substantially.</p>
+<p>The Consumer Financial Protection Bureau notes that repayment often occurs over ten or 20 years, but some HELOC agreements may require the entire balance when the repayment period begins. A balloon payment can be large and may create refinancing or repayment risk. <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-a-home-equity-line-of-credit-heloc-en-107/">Review the CFPB's explanation of the repayment period</a>.</p>
+<p>The repayment payment shown by this calculator is a fully amortizing example. It is not a substitute for the payment formula in your HELOC agreement. Check whether your plan uses an amortization schedule, a percentage of the balance plus interest, a fixed payment, or a balloon amount.</p>
 </section>
 
+<section class="card">
+<p class="eyebrow">WORKED EXAMPLE</p>
+<h2>HELOC payment example: $50,000 balance</h2>
+<p>Assume the amount already drawn is $50,000, the current annual rate is 8.50%, ten years remain in the draw period, and the repayment period is 20 years. Assume interest-only payments during draw, no additional borrowing, no principal reduction during draw, and the same rate throughout both phases.</p>
+<table>
+<thead><tr><th scope="col">Estimate</th><th scope="col">Amount</th></tr></thead>
+<tbody>
+<tr><td>Current HELOC balance</td><td>$50,000.00</td></tr>
+<tr><td>Interest-only draw payment per month</td><td>$354.17</td></tr>
+<tr><td>Interest over 10 remaining draw years</td><td>$42,500.00</td></tr>
+<tr><td>Balance entering repayment</td><td>$50,000.00</td></tr>
+<tr><td>Fully amortizing repayment payment per month</td><td>$433.91</td></tr>
+<tr><td>Interest over 20-year repayment phase</td><td>$54,138.79</td></tr>
+<tr><td>Total modeled interest over both phases</td><td><strong>$96,638.79</strong></td></tr>
+</tbody>
+</table>
+<p>In this illustration, the fully amortizing repayment payment is about $79.74 more per month than the interest-only draw payment. The example is not a forecast or offer. A variable rate, additional draws, principal payments during draw, lender payment rules and fees can change the actual amount.</p>
+</section>
+
+<section class="card">
+<p class="eyebrow">VARIABLE RATE AND PAYMENT RISK</p>
+<h2>How a changing HELOC rate affects your payment</h2>
+<p>Many HELOCs use a variable rate based on an index plus a margin. Ask the lender which index applies, how often the rate can change, whether an introductory rate applies, and what periodic and lifetime rate caps are in the contract. A low introductory rate may increase when its introductory period ends.</p>
+<p>The calculator's baseline keeps the current rate constant for both phases. Use the rate-increase test to see how a selected increase would affect an interest-only draw payment and a fully amortizing repayment payment. This is a simple sensitivity check; it is not a model of future rate paths or the exact effect of any contractual cap.</p>
+<p>Because a HELOC is secured by your home, failure to make required payments can put the property at risk. Do not rely on a low draw-period interest-only estimate as evidence that the repayment-period payment will be affordable.</p>
+</section>
+
+<section class="card">
+<p class="eyebrow">HELOC FEES AND CONTRACT TERMS</p>
+<h2>Costs this HELOC calculator does not include</h2>
+<p>HELOCs can involve application, origination, appraisal, title, closing, annual, inactivity, cancellation or rate-conversion fees. The fee types and amounts depend on the lender and agreement. This calculator estimates interest and principal payments only; it does not add these charges. <a href="https://www.consumerfinance.gov/ask-cfpb/what-fees-can-my-lender-charge-if-i-take-out-a-heloc-en-249/">See the CFPB's list of possible HELOC fees</a>.</p>
+<p>Before opening or using a HELOC, review the account-opening disclosures for the draw period, repayment period, minimum-payment formula, variable-rate index and margin, caps, fees, conversion options and any balloon-payment terms. Regulation Z requires creditors to disclose the relevant payment terms and explain when minimum payments may not repay the full balance. <a href="https://www.consumerfinance.gov/rules-policy/regulations/1026/40/">Read Regulation Z § 1026.40</a>.</p>
+</section>
+
+<section class="card">
+<p class="eyebrow">FREQUENTLY ASKED QUESTIONS</p>
+<h2>HELOC payment calculator FAQs</h2>
+<h3>What is a HELOC?</h3><p>A home equity line of credit is revolving credit secured by your home. During the draw period, you may generally borrow up to the available credit limit, subject to the agreement.</p>
+<h3>How is an interest-only HELOC payment estimated?</h3><p>This calculator multiplies the current drawn balance by the annual rate and divides by 12. It assumes a constant balance and rate for the remaining draw period. Some plans require principal as well as interest during draw, so check your agreement's minimum-payment formula.</p>
+<h3>What happens when the draw period ends?</h3><p>Further borrowing usually stops and the outstanding balance enters the repayment period. Payments can rise because principal must be repaid. Some plans amortize the balance over a set period; others may require a balloon payment.</p>
+<h3>Does this calculator show the exact contractual minimum payment?</h3><p>No. It shows an interest-only draw illustration and a fully amortizing repayment illustration. Actual minimum payments can be based on a percentage of the balance, principal plus interest, another formula, or a balloon payment under the agreement.</p>
+<h3>Are HELOC interest rates fixed?</h3><p>Many HELOCs have variable rates, commonly based on an index plus a margin. The rate can change and affect the payment. Some plans allow a portion of the balance to be converted to a fixed rate.</p>
+<h3>What does the rate-increase test show?</h3><p>It recalculates the draw-period interest-only payment and repayment-period principal-and-interest payment using a rate that is higher than the current input by the selected number of percentage points. It is a sensitivity scenario, not a forecast.</p>
+<h3>Does the calculator include new draws or principal payments during the draw period?</h3><p>No. It assumes the current balance remains unchanged during the draw phase. Additional borrowing or principal repayment would change the balance entering repayment and the interest total.</p>
+<h3>Does the calculator include HELOC fees?</h3><p>No. Application, appraisal, origination, closing, annual, inactivity, cancellation and conversion fees are excluded. Check the lender's disclosures for fees that apply to your account.</p>
+<h3>Can the lender require a balloon payment?</h3><p>Some HELOC agreements may require the outstanding balance to be paid at the end of the draw period or at another contractual point. This calculator assumes a fully amortizing repayment phase and does not calculate a balloon amount.</p>
+<h3>Is a HELOC payment secured by my home?</h3><p>Yes. A HELOC is generally secured by the home. If you cannot repay as agreed, the lender may have rights against the property, including foreclosure under applicable law.</p>
+</section>
+
+<section class="card">
+<p class="eyebrow">OFFICIAL CONSUMER RESOURCES</p>
+<h2>HELOC payment and rate references</h2>
+<p>These consumer and regulatory resources explain HELOC phases, variable-rate features, payment disclosures and possible fees:</p>
+<ul>
+<li><a href="https://www.consumerfinance.gov/ask-cfpb/what-is-a-home-equity-line-of-credit-heloc-en-107/">CFPB: What is a HELOC?</a></li>
+<li><a href="https://files.consumerfinance.gov/f/documents/cfpb_heloc-booklet-print.pdf_202610.pdf">CFPB: What You Should Know About Home Equity Lines of Credit (2026 booklet)</a></li>
+<li><a href="https://www.consumerfinance.gov/rules-policy/regulations/1026/40/">CFPB: Regulation Z § 1026.40 — home equity plan disclosures</a></li>
+<li><a href="https://www.consumerfinance.gov/ask-cfpb/what-fees-can-my-lender-charge-if-i-take-out-a-heloc-en-249/">CFPB: Fees a lender may charge for a HELOC</a></li>
+</ul>
+<p class="note">Content and source links reviewed November 14, 2026. This independent calculator is for educational estimates, not a loan offer, lender payment quote or borrowing recommendation. The HELOC agreement and lender disclosures determine the actual payment and fees.</p>
+</section>
 <section class="card">
 <p class="eyebrow">HELOC VS. HOME EQUITY LOAN</p>
 <h2>HELOC compared with a home equity loan</h2>
@@ -124,25 +210,77 @@
 <section class="section light related-tools"><div class="container narrow"><p class="eyebrow">RELATED TOOLS</p><h2>Explore more financial calculators</h2><p><a href="../mortgage-calculator/">Mortgage Calculator</a> · <a href="../mortgage-affordability-calculator/">Mortgage Affordability</a> · <a href="../loan-calculator/">Loan Calculator</a> · <a href="../savings-calculator/">Savings Calculator</a> · <a href="../retirement-calculator/">Retirement Calculator</a> · <a href="../debt-payoff-calculator/">Debt Payoff</a></p></div></section>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
-function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
-function payment(principal,annualRate,years){const n=Math.max(1,Math.round(years*12)),r=annualRate/100/12;if(principal<=0)return 0;if(r===0)return principal/n;return principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);}
-function calculate(){
-const balance=Math.max(0,Number(document.getElementById('balance').value)||0);
-const rate=Math.max(0,Number(document.getElementById('rate').value)||0);
-const draw=Math.max(1,Number(document.getElementById('draw').value)||1);
-const repay=Math.max(1,Number(document.getElementById('repay').value)||1);
-const type=document.getElementById('paymentType').value;
-const monthlyInterest=balance*rate/100/12;
-const monthlyPayment=type==='interest'?monthlyInterest:payment(balance,rate,repay);
-const totalInterest=type==='interest'?monthlyInterest*draw*12:Math.max(0,monthlyPayment*repay*12-balance);
-document.getElementById('payment').textContent=money(monthlyPayment);
-document.getElementById('interest').textContent=money(monthlyInterest);
-document.getElementById('totalInterest').textContent=money(totalInterest);
-document.getElementById('balanceOut').textContent=money(balance);
-document.getElementById('drawOut').textContent=draw+' years';
-document.getElementById('repayOut').textContent=repay+' years';
-document.getElementById('summary').textContent=type==='interest'?'At the entered balance and rate, the interest-only estimate is '+money(monthlyPayment)+' per month. This does not reduce the principal balance.':'At the entered balance and rate, the estimated principal-and-interest payment is '+money(monthlyPayment)+' per month over '+repay+' years.';
+function money(value){
+ return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
 }
+function payment(principal,annualRate,months){
+ if(months<=0)return 0;
+ const r=annualRate/1200;
+ if(r===0)return principal/months;
+ return principal*r/(1-Math.pow(1+r,-months));
+}
+function readNumber(id){
+ const field=document.getElementById(id);
+ if(!field||field.value.trim()==='')return NaN;
+ return Number(field.value);
+}
+function showError(message){
+ const error=document.getElementById('inputError');
+ error.textContent=message;
+ error.hidden=false;
+}
+function calculate(){
+ const error=document.getElementById('inputError');
+ error.hidden=true;
+ const balance=readNumber('balance');
+ const rate=readNumber('rate');
+ const drawYears=readNumber('draw');
+ const repayYears=readNumber('repay');
+ const rateShock=readNumber('rateShock');
+
+ if(!Number.isFinite(balance)||balance<=0||balance>100000000){showError('Enter a current HELOC balance greater than $0 and no more than $100 million.');return;}
+ if(!Number.isFinite(rate)||rate<0||rate>50){showError('Enter a current annual interest rate between 0% and 50%.');return;}
+ if(!Number.isFinite(drawYears)||drawYears<0||drawYears>30){showError('Enter a remaining draw period from 0 to 30 years. Use 0 if the draw period has ended.');return;}
+ if(!Number.isFinite(repayYears)||repayYears<1||repayYears>30){showError('Enter a repayment period between 1 and 30 years.');return;}
+ if(!Number.isFinite(rateShock)||rateShock<0||rateShock>20){showError('Enter a rate-increase test between 0 and 20 percentage points.');return;}
+
+ const drawMonths=Math.round(drawYears*12);
+ const repayMonths=Math.round(repayYears*12);
+ const monthlyDrawInterest=balance*rate/1200;
+ const drawInterest=monthlyDrawInterest*drawMonths;
+ const repaymentPayment=payment(balance,rate,repayMonths);
+ const repaymentInterest=Math.max(0,repaymentPayment*repayMonths-balance);
+ const totalInterest=drawInterest+repaymentInterest;
+ const transitionChange=repaymentPayment-monthlyDrawInterest;
+ const stressRate=rate+rateShock;
+ const stressDrawPayment=balance*stressRate/1200;
+ const stressRepaymentPayment=payment(balance,stressRate,repayMonths);
+
+ const values=[monthlyDrawInterest,drawInterest,repaymentPayment,repaymentInterest,totalInterest,transitionChange,stressRate,stressDrawPayment,stressRepaymentPayment];
+ if(!values.every(Number.isFinite)){showError('These values produced an invalid estimate. Check your inputs and try again.');return;}
+
+ document.getElementById('drawPayment').textContent=drawMonths===0?'Draw period ended':money(monthlyDrawInterest);
+ document.getElementById('repayBalance').textContent=money(balance);
+ document.getElementById('repayPayment').textContent=money(repaymentPayment);
+ document.getElementById('paymentChange').textContent=drawMonths===0?'Not applicable':(transitionChange>=0?'+':'−')+money(Math.abs(transitionChange));
+ document.getElementById('drawInterest').textContent=money(drawInterest);
+ document.getElementById('repayInterest').textContent=money(repaymentInterest);
+ document.getElementById('totalInterest').textContent=money(totalInterest);
+ document.getElementById('totalTime').textContent=(drawYears+repayYears)+' years';
+
+ document.getElementById('stressRate').textContent=stressRate.toFixed(2)+'%';
+ document.getElementById('stressDrawPayment').textContent=drawMonths===0?'Draw period ended':money(stressDrawPayment);
+ document.getElementById('stressRepayPayment').textContent=money(stressRepaymentPayment);
+
+ const summary=drawMonths===0
+  ?'Your draw period is entered as ended. The repayment estimate amortizes the current '+money(balance)+' balance over '+repayYears+' years at '+rate.toFixed(2)+'%, assuming no fees and a constant rate.'
+  :'At the current '+rate.toFixed(2)+'% rate, an interest-only illustration is '+money(monthlyDrawInterest)+' per month for the remaining draw phase. If the balance is unchanged, the fully amortizing repayment estimate is '+money(repaymentPayment)+' per month over '+repayYears+' years. A '+rateShock.toFixed(2)+' percentage-point rate increase would make the modeled repayment payment '+money(stressRepaymentPayment)+'.';
+ document.getElementById('summary').textContent=summary;
+}
+document.getElementById('calculateButton').addEventListener('click',calculate);
+document.querySelectorAll('.calculator input').forEach(input=>input.addEventListener('keydown',event=>{
+ if(event.key==='Enter'){event.preventDefault();calculate();}
+}));
 calculate();
 </script>
 </body>
