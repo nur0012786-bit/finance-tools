@@ -13,8 +13,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PMI Calculator | Private Mortgage Insurance Estimate</title>
-<meta name="description" content="Estimate private mortgage insurance, loan-to-value, principal and interest, and total monthly housing payment for a US home loan.">
+<title>PMI Calculator | Monthly Cost & Cancellation Timeline</title>
+<meta name="description" content="Estimate monthly PMI cost, mortgage payment and when a conventional loan may reach the 80% cancellation and 78% automatic termination thresholds.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="../style.css">
 <style>
@@ -34,6 +34,14 @@
 {"@type":"ListItem","position":2,"name":"PMI Calculator","item":"https://nur0012786-bit.github.io/finance-tools/pmi-calculator/"}
 ]}
 </script>
+<style>
+.tool-intro{font-size:14px;color:#526174;line-height:1.65;margin:0 0 20px}
+.calc-error{margin:14px 0 0;padding:12px 14px;border-radius:10px;background:#fff1f0;border:1px solid #f3c5c2;color:#9d2520;font-size:14px;line-height:1.5}
+.calc-error[hidden]{display:none}
+.field input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}
+.result strong{display:block;line-height:1.25}
+@media(max-width:650px){.calculator,.results{grid-template-columns:1fr}.card{padding:20px!important}}
+</style>
 </head>
 <body class="design-pmi">
 <header class="site-header"><div class="container nav"><a class="brand" href="../">FinanceTools</a><nav><a href="../">Calculators</a><a href="../#about">About</a></nav></div></header>
@@ -41,86 +49,197 @@
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../">Finance Tools</a><span aria-hidden="true">/</span><span>PMI Calculator</span></nav>
 <section class="hero-text">
 <p class="eyebrow">US MORTGAGE PLANNING</p>
-<h1>US PMI Calculator</h1>
-<p>Estimate private mortgage insurance for a conventional mortgage, calculate starting loan-to-value, and compare your estimated monthly housing payment.</p>
+<h1>PMI Calculator</h1>
+<p>Estimate private mortgage insurance on a conventional mortgage, calculate starting loan-to-value (LTV), and see when the scheduled balance may reach the 80% cancellation and 78% automatic-termination thresholds.</p>
 </section>
 
 <section class="card">
+<h2>Enter your conventional mortgage assumptions</h2>
+<p class="tool-intro">Use the original home value for the purchase or refinance that created the mortgage. For a purchase, this is generally the lower of the contract price or appraised value. The PMI rate is an assumption—use a lender or mortgage-insurer quote when available.</p>
 <div class="calculator">
-<div class="field"><label for="price">Home price ($)</label><input id="price" type="number" value="400000" min="0" step="1000"></div>
-<div class="field"><label for="down">Down payment ($)</label><input id="down" type="number" value="40000" min="0" step="1000"></div>
-<div class="field"><label for="rate">Annual mortgage interest rate (%)</label><input id="rate" type="number" value="6.5" min="0" step="0.01"></div>
-<div class="field"><label for="term">Loan term (years)</label><input id="term" type="number" value="30" min="1" max="50" step="1"></div>
-<div class="field"><label for="pmiRate">Estimated annual PMI rate (%)</label><input id="pmiRate" type="number" value="0.7" min="0" step="0.01"></div>
+<div class="field"><label for="price">Original home value ($)</label><input id="price" type="number" value="400000" min="1" max="100000000" step="1000" inputmode="decimal"></div>
+<div class="field"><label for="down">Down payment ($)</label><input id="down" type="number" value="40000" min="0" max="99999999" step="1000" inputmode="decimal"></div>
+<div class="field"><label for="rate">Annual fixed mortgage interest rate (%)</label><input id="rate" type="number" value="6.5" min="0" max="30" step="0.01" inputmode="decimal"></div>
+<div class="field"><label for="term">Original loan term (years)</label><input id="term" type="number" value="30" min="1" max="50" step="1" inputmode="numeric"></div>
+<div class="field"><label for="pmiRate">Assumed annual PMI rate (%)</label><input id="pmiRate" type="number" value="0.7" min="0" max="5" step="0.01" inputmode="decimal"></div>
+<div class="field"><label for="tax">Estimated property tax (annual %)</label><input id="tax" type="number" value="1.1" min="0" max="10" step="0.01" inputmode="decimal"></div>
+<div class="field"><label for="insurance">Homeowners insurance (annual $)</label><input id="insurance" type="number" value="1800" min="0" max="100000" step="100" inputmode="decimal"></div>
 </div>
-<button type="button" class="button" style="margin-top:20px" onclick="calculate()">Calculate PMI</button>
+<button type="button" class="button" style="margin-top:20px" id="calculateButton">Calculate PMI and cancellation milestones</button>
+<p class="calc-error" id="inputError" role="alert" hidden></p>
 <div class="results">
-<div class="result"><span>Estimated loan amount</span><strong id="loan">$0</strong></div>
-<div class="result"><span>Loan-to-value (LTV)</span><strong id="ltv">0%</strong></div>
-<div class="result"><span>Estimated monthly PMI</span><strong id="monthlyPmi" aria-live="polite">$0</strong></div>
-<div class="result"><span>Estimated annual PMI</span><strong id="annualPmi">$0</strong></div>
-<div class="result"><span>Estimated monthly principal & interest</span><strong id="payment">$0</strong></div>
-<div class="result"><span>Estimated monthly housing payment</span><strong id="total">$0</strong></div>
+<div class="result"><span>Estimated base loan amount</span><strong id="loan">$0.00</strong></div>
+<div class="result"><span>Starting loan-to-value (LTV)</span><strong id="ltv">0%</strong></div>
+<div class="result"><span>Estimated monthly PMI</span><strong id="monthlyPmi" aria-live="polite">$0.00</strong></div>
+<div class="result"><span>Estimated annual PMI</span><strong id="annualPmi">$0.00</strong></div>
+<div class="result"><span>Monthly principal &amp; interest</span><strong id="payment">$0.00</strong></div>
+<div class="result"><span>Estimated monthly property tax</span><strong id="monthlyTax">$0.00</strong></div>
+<div class="result"><span>Monthly homeowners insurance</span><strong id="monthlyIns">$0.00</strong></div>
+<div class="result"><span>Estimated monthly payment with PMI</span><strong id="total">$0.00</strong></div>
+<div class="result"><span>80% original-value balance</span><strong id="target80">$0.00</strong></div>
+<div class="result"><span>Scheduled month to reach 80%</span><strong id="month80">—</strong></div>
+<div class="result"><span>78% original-value balance</span><strong id="target78">$0.00</strong></div>
+<div class="result"><span>Scheduled month to reach 78%</span><strong id="month78">—</strong></div>
+<div class="result"><span>Midpoint of original loan term</span><strong id="midpoint">—</strong></div>
+<div class="result"><span>Potential HPA automatic-termination month*</span><strong id="autoEnd">—</strong></div>
 </div>
-<div class="note" id="summary"></div>
-<div class="warning">PMI pricing varies significantly by borrower credit profile, down payment, loan characteristics, insurer and lender. This calculator uses the PMI rate you enter and is an educational estimate, not a quote.</div>
+<div class="note" id="summary" aria-live="polite"></div>
+<div class="warning">PMI pricing varies by credit score, down payment, loan amount, mortgage type, insurer and lender. The entered annual PMI rate is an assumption, not a quote. This calculator models borrower-paid monthly PMI on a standard fixed-rate conventional mortgage; lender-paid or single-premium PMI and special loan rules are not modeled.</div>
 </section>
 
 <section class="card">
-<h2>How this US PMI calculator works</h2>
-<p>Private mortgage insurance (PMI) is generally associated with conventional mortgages when the down payment is below 20%. PMI protects the lender rather than the homeowner. The exact premium depends on the loan and borrower, so this calculator asks you to enter an estimated annual PMI rate instead of assuming one universal rate.</p>
-<h3>PMI calculation methodology</h3>
-<p>The calculator first subtracts your down payment from the home price to estimate the mortgage balance. Starting LTV is then calculated as mortgage balance divided by home price. For the PMI estimate, the mortgage balance is multiplied by your entered annual PMI rate and divided by 12:</p>
+<h2>How this PMI calculator works</h2>
+<p>Private mortgage insurance (PMI) is generally associated with conventional mortgages when the down payment is less than 20%. PMI protects the lender—not the homeowner—against loss if the borrower defaults. FHA, VA and USDA mortgage-insurance or guarantee-fee rules are different and are not calculated by this tool. <a href="https://yourhome.fanniemae.com/buy/private-mortgage-insurance">Read Fannie Mae's overview of private mortgage insurance</a>.</p>
+<h3>1. Calculate the starting loan and LTV</h3>
+<p>The estimated base loan is the original home value minus the down payment. Starting loan-to-value is the loan amount divided by the original home value:</p>
+<p><strong>Starting LTV = loan amount ÷ original home value × 100</strong></p>
+<p>For a purchase, the Homeowners Protection Act generally defines original value as the lower of the contract sales price or the appraised value at purchase. For a refinance, it generally means the appraised value at the time of refinance. Use the figure that applies to your loan documents.</p>
+<h3>2. Estimate the PMI premium</h3>
+<p>This calculator uses the annual PMI rate you enter as a percentage of the original loan amount:</p>
 <p><strong>Estimated monthly PMI = loan amount × annual PMI rate ÷ 12</strong></p>
-<p>The page also calculates principal and interest using the entered rate and term, then adds estimated monthly PMI to show a combined principal-and-interest-plus-PMI figure. Property taxes, homeowners insurance, HOA dues, and other housing costs are not included in that result.</p>
-<h3>Why the PMI rate is an input</h3>
-<p>PMI pricing is not a single fixed percentage. It can vary with factors such as down payment, credit score, loan amount, and mortgage type. Fannie Mae notes that PMI is commonly priced as a percentage of the mortgage amount.</p>
-<h3>When PMI may end</h3>
-<p>For many eligible conventional mortgages covered by the federal PMI rules, a borrower can request cancellation when the principal balance reaches 80% of the home's original value, subject to applicable conditions. In general, automatic termination occurs when the scheduled balance reaches 78% of original value if the borrower is current. FHA and VA mortgage-insurance rules are different.</p>
-<h3>PMI is not the same as FHA mortgage insurance</h3>
-<p>Conventional PMI and government-loan mortgage insurance follow different program rules. FHA loans have their own mortgage-insurance requirements, while VA loans have different fee and insurance structures. Use the dedicated FHA and VA calculators when comparing those programs.</p>
+<p>There is no single PMI rate for every borrower. Fannie Mae identifies down payment, credit score, loan amount and mortgage type as factors that affect the premium. Its homebuyer FAQ describes a broad annual range of 0.2% to 2% of the loan amount; your own quote may differ. Use your Loan Estimate or insurer quote when available.</p>
+<p>If the starting LTV is 80% or lower, the calculator assumes borrower-paid monthly PMI is not required at origination for a typical conventional purchase mortgage. Loan terms and lender-paid or single-premium arrangements can differ.</p>
+<h3>3. Estimate the mortgage payment</h3>
+<p>Principal and interest use the standard fixed-rate mortgage amortization formula. The estimated monthly housing total shown here adds principal and interest, the entered PMI estimate, estimated property tax and homeowners insurance. It does not include HOA dues, utilities, maintenance, closing costs or other charges.</p>
+<h3>4. Estimate when the scheduled balance reaches 80% and 78%</h3>
+<p>The calculator simulates the original fixed-rate amortization schedule with regular on-time payments and no additional principal payments. It identifies the scheduled month when the balance first falls to 80% of original value and the month when it first falls to 78%.</p>
+<p>For many conventional mortgages covered by the federal Homeowners Protection Act (HPA), a borrower may request PMI cancellation at the scheduled 80% point, or earlier if additional principal payments bring the actual balance to 80%. A written request, good payment history, current payments, no junior lien and evidence that the property value has not declined may be required. The servicer's PMI disclosure and loan-specific terms control the process.</p>
+<p>For many covered loans, PMI generally must automatically terminate at the scheduled 78% point if the borrower is current. If the balance has not reached 78%, the HPA also provides for termination after the midpoint of the original amortization schedule, provided the borrower is current. The calculator shows an indicative month for this rule; it cannot confirm HPA coverage, high-risk-loan exceptions or eligibility.</p>
+<p>These federal requirements generally apply to covered single-family principal-residence mortgages closed on or after July 29, 1999. FHA and VA loans, lender-paid mortgage insurance and certain other transactions follow different rules. Review the <a href="https://www.consumerfinance.gov/ask-cfpb/when-can-i-remove-private-mortgage-insurance-pmi-from-my-loan-en-202/">CFPB's PMI cancellation guidance</a> and contact your servicer for a decision.</p>
+</section>
+
+<section class="card">
+<h2>PMI cancellation: 80% request vs. 78% automatic termination</h2>
+<table>
+<thead><tr><th scope="col">Milestone</th><th scope="col">What it generally means for covered loans</th></tr></thead>
+<tbody>
+<tr><td><strong>80% of original value</strong></td><td>You may submit a written request to cancel PMI when the scheduled balance reaches this level. You may be able to request earlier if extra principal payments bring the actual balance to 80% and the applicable conditions are met.</td></tr>
+<tr><td><strong>78% of original value</strong></td><td>PMI generally must automatically terminate on the scheduled date if you are current on payments.</td></tr>
+<tr><td><strong>Midpoint of original term</strong></td><td>If the balance has not reached 78%, covered loans generally must terminate PMI after the midpoint of the original amortization schedule if the borrower is current.</td></tr>
+</tbody>
+</table>
+<p>The 80% and 78% tests use the original value defined for the mortgage—not necessarily today's estimated market value. A servicer may have additional investor-specific cancellation pathways based on current value. Do not stop paying PMI until the servicer confirms termination in writing.</p>
+<a class="text-link" href="https://www.consumerfinance.gov/ask-cfpb/when-can-i-remove-private-mortgage-insurance-pmi-from-my-loan-en-202/">Read CFPB's full PMI cancellation rules →</a>
+</section>
+
+<section class="card">
+<h2>Worked PMI example</h2>
+<p>Assume an original home value of $400,000, a $40,000 down payment, a 6.50% fixed interest rate, a 30-year term and an assumed annual PMI rate of 0.70%. The estimated original loan is $360,000, giving a starting LTV of 90%.</p>
+<table><thead><tr><th scope="col">Input or estimate</th><th scope="col">Amount</th></tr></thead><tbody>
+<tr><td>Original home value</td><td>$400,000.00</td></tr><tr><td>Down payment</td><td>$40,000.00</td></tr><tr><td>Estimated loan amount</td><td>$360,000.00</td></tr><tr><td>Starting LTV</td><td>90.0%</td></tr><tr><td>Annual PMI rate assumption</td><td>0.70%</td></tr><tr><td>Estimated annual PMI</td><td>$2,520.00</td></tr><tr><td>Estimated monthly PMI</td><td>$210.00</td></tr><tr><td>Monthly principal and interest</td><td>$2,275.44</td></tr><tr><td>Estimated monthly property tax (1.1%)</td><td>$366.67</td></tr><tr><td>Monthly homeowners insurance ($1,800/year)</td><td>$150.00</td></tr><tr><td>Estimated monthly payment with PMI</td><td><strong>$3,002.11</strong></td></tr><tr><td>80% original-value balance</td><td>$320,000.00</td></tr><tr><td>Scheduled month to reach 80%</td><td>95 (7 years, 11 months)</td></tr><tr><td>78% original-value balance</td><td>$312,000.00</td></tr><tr><td>Scheduled month to reach 78%</td><td>109 (9 years, 1 month)</td></tr>
+</tbody></table>
+<p>This is an illustrative monthly-premium model, not a PMI quote or legal determination. It assumes a constant rate and on-time monthly payments, and excludes any extra principal payments. The actual premium and cancellation date depend on your mortgage terms, insurer, servicer, payment history and applicable rules.</p>
+</section>
+
+<section class="card">
+<h2>What can change your PMI cost?</h2>
+<p>PMI pricing is risk-based rather than a universal flat rate. Fannie Mae identifies factors such as down payment, credit score, mortgage amount and loan type. Different insurers and lenders can also offer different premium structures, including monthly, single-premium or lender-paid arrangements. Ask the lender to compare the total cost and terms—not only the monthly PMI line item.</p>
+<h3>Why the annual PMI rate is an input</h3>
+<p>This calculator does not have access to your credit report, loan-level pricing, insurer rate card or lender quote. It therefore asks you to enter an assumed annual PMI rate. The 0.70% prefilled value is an example input, not a universal average or recommended quote.</p>
+<h3>PMI is not FHA mortgage insurance</h3>
+<p>Conventional PMI and FHA mortgage insurance have different cancellation rules and premium structures. FHA annual MIP may continue for the mortgage term depending on the original LTV and case rules. Use the <a href="../fha-mortgage-calculator/">FHA Mortgage Calculator</a> for a standard FHA purchase estimate, not this PMI tool.</p>
 </section>
 
 <section class="card">
 <h2>PMI calculator FAQs</h2>
-<h3>What is PMI?</h3><p>PMI is private mortgage insurance that is commonly required on conventional mortgages with smaller down payments. It protects the lender, not the borrower.</p>
-<h3>How much does PMI cost?</h3><p>There is no universal PMI rate. The premium can vary based on factors including down payment, credit profile, loan amount, and mortgage type. Enter an estimated annual rate to model your own scenario.</p>
-<h3>Can I avoid PMI with 20% down?</h3><p>For a conventional mortgage, a 20% down payment generally means borrower-paid PMI is not required at origination, although specific loan and lender terms apply.</p>
-<h3>When can PMI be canceled?</h3><p>For many eligible conventional mortgages, you can request cancellation when the principal balance is scheduled to reach 80% of the home's original value if the applicable requirements are met. Automatic termination generally occurs at 78% when the borrower is current.</p>
-<h3>Does FHA use PMI?</h3><p>No. FHA uses its own mortgage-insurance rules. This calculator is designed for an estimated conventional PMI scenario, not an FHA mortgage-insurance calculation.</p>
-<h3>Is this a PMI quote?</h3><p>No. It is a mathematical estimate using your home price, down payment, mortgage rate, term, and assumed PMI rate. A lender or mortgage insurer may quote a different premium.</p>
+<h3>What is PMI?</h3><p>Private mortgage insurance is commonly required on conventional mortgages with less than 20% down. It protects the lender, not the homeowner, against losses if the borrower defaults.</p>
+<h3>How much does PMI cost per month?</h3><p>It depends on the loan and borrower. This calculator estimates monthly PMI by applying the annual rate you enter to the original loan amount and dividing by 12. The actual lender or insurer quote may be different.</p>
+<h3>Can I avoid PMI with 20% down?</h3><p>For a typical borrower-paid PMI conventional mortgage, a down payment of 20% or more generally means PMI is not required at origination. Different lender-paid or special loan structures may have different pricing.</p>
+<h3>When can I request PMI cancellation at 80% LTV?</h3><p>For many HPA-covered mortgages, you may submit a written cancellation request when the scheduled balance reaches 80% of original value, or earlier if extra payments bring the actual balance to that level. You must meet applicable payment-history, current-payment, junior-lien and property-value conditions.</p>
+<h3>Does PMI automatically end at 78% LTV?</h3><p>For many covered mortgages, the servicer generally must automatically terminate PMI when the scheduled balance reaches 78% of original value if payments are current. If 78% is not reached, the HPA midpoint rule may apply to covered loans.</p>
+<h3>What is the original value of the home?</h3><p>For a purchase mortgage, it generally means the lower of the contract sales price or the appraised value at purchase. For a refinance, it generally means the appraised value at the time of refinance.</p>
+<h3>Does paying extra principal remove PMI sooner?</h3><p>Extra principal can bring the actual balance to 80% of original value before the scheduled date, which may let you request cancellation earlier if you meet the servicer's conditions. This calculator's milestone schedule assumes regular payments only and does not model extra payments.</p>
+<h3>Is this calculator valid for FHA or VA mortgage insurance?</h3><p>No. FHA, VA and USDA programs have different fees and insurance rules. This calculator is intended for a simplified borrower-paid conventional PMI estimate.</p>
+<h3>Is this an official PMI quote or cancellation decision?</h3><p>No. The calculator provides a mathematical estimate. Your PMI disclosure, mortgage documents, investor rules and servicer determine the premium and whether cancellation or termination requirements are met.</p>
+</section>
+
+<section class="card">
+<h2>PMI and mortgage learning resources</h2>
+<p>Explore these related calculators and guides for more context:</p>
+<ul>
+<li><a href="../pmi-guide/">Private Mortgage Insurance (PMI) Guide</a></li>
+<li><a href="../mortgage-amortization-guide/">Mortgage Amortization Guide</a></li>
+<li><a href="../down-payment-guide/">Down Payment Guide</a></li>
+<li><a href="../mortgage-calculator/">Mortgage Calculator</a></li>
+<li><a href="../fha-mortgage-calculator/">FHA Mortgage Calculator</a></li>
+</ul>
+</section>
+
+<section class="card">
+<h2>Official PMI resources</h2>
+<p>These resources explain PMI pricing and cancellation requirements:</p>
+<ul>
+<li><a href="https://www.consumerfinance.gov/ask-cfpb/when-can-i-remove-private-mortgage-insurance-pmi-from-my-loan-en-202/">Consumer Financial Protection Bureau: When can I remove PMI?</a></li>
+<li><a href="https://yourhome.fanniemae.com/buy/private-mortgage-insurance">Fannie Mae: What to know about private mortgage insurance</a></li>
+<li><a href="https://yourhome.fanniemae.com/frequently-asked-questions/homebuyer">Fannie Mae: Homebuyer FAQ — PMI cost and factors</a></li>
+</ul>
+<p class="note">Program scope and consumer guidance reviewed November 14, 2026. This independent calculator is for educational estimates, not legal advice, a lender quote or a servicer cancellation decision.</p>
 </section>
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Estimate private mortgage insurance and housing payments with related mortgage tools.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../mortgage-affordability-calculator/">Mortgage Affordability Calculator</a></li><li><a href="../down-payment-calculator/">Down Payment Calculator</a></li></ul></div></section>
 </main>
 <section class="section light related-tools"><div class="container narrow"><p class="eyebrow">RELATED TOOLS</p><h2>Explore more financial calculators</h2><p><a href="../mortgage-calculator/">Mortgage Calculator</a> · <a href="../mortgage-affordability-calculator/">Mortgage Affordability</a> · <a href="../loan-calculator/">Loan Calculator</a> · <a href="../savings-calculator/">Savings Calculator</a> · <a href="../retirement-calculator/">Retirement Calculator</a> · <a href="../debt-payoff-calculator/">Debt Payoff</a></p></div></section>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
-function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+function money(value){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(value);}
+function monthlyPayment(principal,annualRate,months){const r=annualRate/1200;if(months<=0)return 0;if(r===0)return principal/months;return principal*r/(1-Math.pow(1+r,-months));}
+function monthToBalanceTarget(principal,annualRate,months,target){
+ if(principal<=target+0.005)return 0;
+ const payment=monthlyPayment(principal,annualRate,months),r=annualRate/1200;
+ let balance=principal;
+ for(let month=1;month<=months;month++){
+  const interest=balance*r,principalPaid=Math.min(balance,Math.max(0,payment-interest));
+  balance=Math.max(0,balance-principalPaid);
+  if(balance<=target+0.005)return month;
+ }
+ return null;
+}
+function formatMonth(month){
+ if(month===null)return 'Not reached in term';
+ if(month===0)return 'Already at/below target';
+ const years=Math.floor(month/12),remaining=month%12;
+ if(!years)return month+' months';
+ return month+' months ('+years+' yr'+(years===1?'':'s')+(remaining?' '+remaining+' mo':'')+')';
+}
+function readNumber(id){const field=document.getElementById(id);if(!field||field.value.trim()==='')return NaN;return Number(field.value);}
+function showError(message){const error=document.getElementById('inputError');error.textContent=message;error.hidden=false;}
 function calculate(){
-const price=Math.max(0,Number(document.getElementById('price').value)||0);
-const down=Math.max(0,Number(document.getElementById('down').value)||0);
-const rate=Math.max(0,Number(document.getElementById('rate').value)||0)/100;
-const years=Math.max(1,Number(document.getElementById('term').value)||30);
-const pmiRate=Math.max(0,Number(document.getElementById('pmiRate').value)||0)/100;
-const loan=Math.max(0,price-down);
-const ltv=price>0?loan/price*100:0;
-const annualPmi=loan*pmiRate;
-const monthlyPmi=annualPmi/12;
-const months=years*12;
-let payment=0;
-if(loan>0){
-const r=rate/12;
-payment=r===0?loan/months:loan*r/(1-Math.pow(1+r,-months));
+ const error=document.getElementById('inputError');error.hidden=true;
+ const homeValue=readNumber('price'),down=readNumber('down'),annualRate=readNumber('rate'),years=readNumber('term'),annualPmiRate=readNumber('pmiRate'),taxRate=readNumber('tax'),insurance=readNumber('insurance');
+ if(!Number.isFinite(homeValue)||homeValue<=0||homeValue>100000000){showError('Enter an original home value greater than $0 and no more than $100 million.');return;}
+ if(!Number.isFinite(down)||down<0||down>=homeValue){showError('Enter a down payment of $0 or more that is less than the original home value.');return;}
+ if(!Number.isFinite(annualRate)||annualRate<0||annualRate>30){showError('Enter an annual fixed mortgage interest rate between 0% and 30%.');return;}
+ if(!Number.isFinite(years)||years<1||years>50){showError('Enter an original mortgage term between 1 and 50 years.');return;}
+ if(!Number.isFinite(annualPmiRate)||annualPmiRate<0||annualPmiRate>5){showError('Enter an assumed annual PMI rate between 0% and 5%.');return;}
+ if(!Number.isFinite(taxRate)||taxRate<0||taxRate>10){showError('Enter an annual property-tax estimate between 0% and 10%.');return;}
+ if(!Number.isFinite(insurance)||insurance<0||insurance>100000){showError('Enter annual homeowners insurance between $0 and $100,000.');return;}
+ const loan=homeValue-down,ltv=loan/homeValue*100,months=Math.round(years*12),pi=monthlyPayment(loan,annualRate,months);
+ const pmiApplies=ltv>80,annualPmi=pmiApplies?loan*annualPmiRate/100:0,monthlyPmi=annualPmi/12;
+ const monthlyTax=homeValue*taxRate/100/12,monthlyInsurance=insurance/12,total=pi+monthlyPmi+monthlyTax+monthlyInsurance;
+ const target80=homeValue*.8,target78=homeValue*.78;
+ const month80=monthToBalanceTarget(loan,annualRate,months,target80),month78=monthToBalanceTarget(loan,annualRate,months,target78);
+ const midpointMonth=Math.floor(months/2)+1,potentialAutoMonth=month78===null?midpointMonth:Math.min(month78,midpointMonth);
+ if(![loan,ltv,pi,annualPmi,monthlyPmi,monthlyTax,monthlyInsurance,total,target80,target78].every(Number.isFinite)){showError('These values produced an invalid estimate. Check the inputs and try again.');return;}
+ document.getElementById('loan').textContent=money(loan);
+ document.getElementById('ltv').textContent=ltv.toFixed(1)+'%';
+ document.getElementById('monthlyPmi').textContent=money(monthlyPmi);
+ document.getElementById('annualPmi').textContent=money(annualPmi);
+ document.getElementById('payment').textContent=money(pi);
+ document.getElementById('monthlyTax').textContent=money(monthlyTax);
+ document.getElementById('monthlyIns').textContent=money(monthlyInsurance);
+ document.getElementById('total').textContent=money(total);
+ document.getElementById('target80').textContent=money(target80);
+ document.getElementById('month80').textContent=formatMonth(month80);
+ document.getElementById('target78').textContent=money(target78);
+ document.getElementById('month78').textContent=formatMonth(month78);
+ document.getElementById('midpoint').textContent=formatMonth(midpointMonth);
+ document.getElementById('autoEnd').textContent=ltv<=80?'Usually not needed at origination':formatMonth(potentialAutoMonth);
+ const summary=ltv<=80
+  ?'Your starting LTV is '+ltv.toFixed(1)+'%. Borrower-paid monthly PMI is generally not required at origination for a typical conventional mortgage with 20% or more down. If your loan has a different mortgage-insurance structure, use your lender documents.'
+  :'Your starting LTV is '+ltv.toFixed(1)+'%. At the assumed '+annualPmiRate.toFixed(2)+'% annual PMI rate, estimated PMI is '+money(monthlyPmi)+' per month. On the original scheduled amortization, the balance is projected to reach 80% of original value in '+formatMonth(month80)+' and 78% in '+formatMonth(month78)+'. Extra principal payments may allow an earlier 80% cancellation request if you meet the applicable requirements.';
+ document.getElementById('summary').textContent=summary;
 }
-const total=payment+monthlyPmi;
-document.getElementById('loan').textContent=money(loan);
-document.getElementById('ltv').textContent=ltv.toFixed(1)+'%';
-document.getElementById('monthlyPmi').textContent=money(monthlyPmi);
-document.getElementById('annualPmi').textContent=money(annualPmi);
-document.getElementById('payment').textContent=money(payment);
-document.getElementById('total').textContent=money(total);
-document.getElementById('summary').textContent='With a '+(price>0?(down/price*100).toFixed(1):'0.0')+'% down payment, your estimated starting LTV is '+ltv.toFixed(1)+'%. At an assumed PMI rate of '+(pmiRate*100).toFixed(2)+'%, estimated PMI is '+money(monthlyPmi)+' per month.';
-}
+document.getElementById('calculateButton').addEventListener('click',calculate);
+document.querySelectorAll('.calculator input').forEach(input=>input.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();calculate();}}));
 calculate();
 </script>
 </body>
