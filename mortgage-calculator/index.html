@@ -10,9 +10,9 @@
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Free US mortgage calculator with principal, interest, property taxes, homeowners insurance, PMI, HOA, total monthly payment, total interest and amortization estimates.">
+  <meta name="description" content="Estimate a US mortgage payment with principal, interest, property taxes, homeowners insurance, PMI, HOA, extra payments, amortization and cash-to-close planning.">
   <meta name="robots" content="index,follow">
-  <title>Mortgage Calculator | Monthly Payment, Taxes, Insurance & PMI</title>
+  <title>Mortgage Calculator: Monthly Payment, Taxes, Insurance & PMI</title>
   <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/mortgage-calculator/">
   <link rel="stylesheet" href="../style.css">
   <style>
@@ -125,10 +125,12 @@
         <div class="mc-field"><label for="term">Loan term</label><select id="term"><option value="30">30 years</option><option value="20">20 years</option><option value="15">15 years</option><option value="10">10 years</option></select></div>
         <div class="mc-field"><label for="tax">Property tax (%/yr)</label><input id="tax" type="number" min="0" step="0.01" value="1.10"><div class="mc-help">Enter a local annual tax rate or your known annual tax as a percentage of home value.</div></div>
         <div class="mc-field"><label for="insurance">Home insurance ($/yr)</label><input id="insurance" type="number" min="0" step="50" value="1800"></div>
-        <div class="mc-field"><label for="pmi">PMI (%/yr)</label><input id="pmi" type="number" min="0" step="0.01" value="0.50"><div class="mc-help">Set to 0 if PMI does not apply.</div></div>
+        <div class="mc-field"><label for="pmi">Assumed PMI rate (% of original loan / yr)</label><input id="pmi" type="number" min="0" max="10" step="0.01" value="0.50"><div class="mc-help">A simplified flat estimate, not a lender quote. Set to 0 if no monthly PMI applies.</div></div>
         <div class="mc-field"><label for="hoa">HOA ($/month)</label><input id="hoa" type="number" min="0" step="10" value="0"></div>
-        <div class="mc-field"><label for="closing">Closing costs (% of price)</label><input id="closing" type="number" min="0" step="0.1" value="3.0"></div>
-        <div class="mc-field"><label for="extra">Extra payment ($/month)</label><input id="extra" type="number" min="0" step="25" value="0"></div>
+        <div class="mc-field"><label for="closing">Estimated closing costs (% of price)</label><input id="closing" type="number" min="0" max="20" step="0.1" value="3.0"><div class="mc-help">A budgeting assumption; replace with lender and settlement estimates.</div></div>
+        <div class="mc-field"><label for="extra">Additional principal payment ($/month)</label><input id="extra" type="number" min="0" step="25" value="0"></div>
+        <div class="mc-field"><label for="earnest">Earnest money / deposit already paid ($)</label><input id="earnest" type="number" min="0" step="0.01" value="5000"></div>
+        <div class="mc-field"><label for="credits">Lender / seller credits toward closing costs ($)</label><input id="credits" type="number" min="0" step="0.01" value="0"></div>
       </div>
       <button class="mc-button" type="button" onclick="calculateMortgage()">Calculate payment</button>
       <div id="warning" class="mc-warning" role="alert"></div>
@@ -143,7 +145,11 @@
           <div class="mc-stat"><span>Loan amount</span><strong id="loan">$0</strong></div>
           <div class="mc-stat"><span>Down payment</span><strong id="downOut">$0</strong></div>
           <div class="mc-stat"><span>Total interest</span><strong id="interest">$0</strong></div>
-          <div class="mc-stat"><span>Cash to close*</span><strong id="cash">$0</strong></div>
+          <div class="mc-stat"><span>Estimated cash to close*</span><strong id="cash">$0</strong></div>
+          <div class="mc-stat"><span>Extra principal per month</span><strong id="extraOut">$0</strong></div>
+          <div class="mc-stat"><span>Total monthly outflow with extra</span><strong id="outflow">$0</strong></div>
+          <div class="mc-stat"><span>Estimated payoff with extra</span><strong id="payoffTime">—</strong></div>
+          <div class="mc-stat"><span>Closing costs after credits</span><strong id="closingNet">$0</strong></div>
         </div>
       </div>
       <div class="mc-breakdown">
@@ -164,7 +170,7 @@
         <button type="button" onclick="window.print()">Print / save PDF</button>
         <button type="button" onclick="copyScenario()">Copy scenario</button>
       </div>
-      <p class="mc-note"><strong>*Cash to close</strong> is a simple planning estimate of down payment + estimated closing costs. It does not include all prepaid items, credits, deposits or lender-specific charges.</p>
+      <p class="mc-note"><strong>*Cash to close</strong> is a simplified estimate: down payment + estimated closing costs − credits applied − earnest money applied. Credits are capped at the entered closing-cost estimate. Taxes, insurance prepaids, escrow adjustments and other settlement items may change the actual amount.</p>
     </div>
   </div>
 
@@ -176,8 +182,9 @@
     <p class="eyebrow">UNDERSTAND THE NUMBER</p>
     <h2>What a mortgage payment really includes</h2>
     <p>A mortgage payment is often discussed as principal and interest, but a homeowner's monthly housing cost can be larger. This calculator separates principal and interest from estimated property taxes, homeowners insurance, PMI and HOA dues so you can test a more realistic budget.</p>
-    <p>Fannie Mae's mortgage calculator similarly explains that mortgage costs can include principal, interest, property taxes, mortgage insurance, homeowners insurance and HOA or condo fees.</p>
-    <p>The CFPB also cautions that affordability is not the same as the amount a lender may be willing to approve, and recommends considering taxes, insurance, PMI and the rest of your household budget.</p>
+    <p>Fannie Mae explains that a monthly housing expense can include principal, interest, property taxes, homeowners insurance, mortgage insurance and HOA or condo fees. The Consumer Financial Protection Bureau distinguishes the principal-and-interest amount from a total payment that may also include taxes, insurance and mortgage insurance.</p>
+    <p>HOA dues are often paid separately, and taxes and insurance may be paid through escrow or directly by the homeowner. A monthly estimate should include them either way when planning total housing costs.</p>
+    <p><a href="https://www.consumerfinance.gov/ask-cfpb/how-do-mortgage-lenders-calculate-monthly-payments-en-1965/">CFPB: How mortgage payments are calculated</a> · <a href="https://www.consumerfinance.gov/ask-cfpb/what-costs-come-with-taking-out-a-mortgage-en-153/">CFPB: Mortgage and homeownership costs</a> · <a href="https://yourhome.fanniemae.com/calculators-tools/mortgage-calculator">Fannie Mae: Mortgage calculator components</a></p>
   </div>
 </section>
 
@@ -215,11 +222,14 @@
   <div class="mc-wrap mc-content">
     <p class="eyebrow">FAQ</p>
     <h2>Mortgage calculator questions</h2>
-    <details><summary>Does this calculator include property taxes?</summary><p>Yes. Enter an estimated annual property-tax rate. The calculator converts it to a monthly estimate based on the home price.</p></details>
-    <details><summary>Does it include homeowners insurance?</summary><p>Yes. Enter your estimated annual premium and the calculator divides it by 12.</p></details>
-    <details><summary>Does PMI automatically apply?</summary><p>No. PMI is an assumption you control with the PMI field. Set it to 0 when it does not apply. Actual PMI pricing and cancellation rules depend on the loan and borrower.</p></details>
-    <details><summary>Is the result a mortgage offer?</summary><p>No. It is an educational estimate. Actual loan terms depend on the lender, borrower, property, loan program and other underwriting factors.</p></details>
-    <details><summary>Should I use the calculator to decide how much I can afford?</summary><p>Use it to test scenarios, not to establish a safe personal budget by itself. The CFPB distinguishes lender qualification from affordability and recommends considering the rest of your household finances.</p></details>
+    <details><summary>Does this calculator include property taxes?</summary><p>Yes. Enter an estimated annual tax rate, and the calculator applies it to the entered home price and divides the annual estimate by 12. Actual assessments and tax bills depend on local rules.</p></details>
+    <details><summary>Does it include homeowners insurance?</summary><p>Yes. Enter an estimated annual homeowners insurance premium and the calculator divides it by 12. Actual premiums depend on the home, location, coverage, deductible and insurer.</p></details>
+    <details><summary>How is PMI estimated?</summary><p>The PMI input is treated as a flat annual percentage of the original loan amount and divided by 12. This is a simplified planning assumption only. Actual conventional PMI pricing and cancellation conditions depend on the borrower, loan, property and insurer. FHA and USDA fees follow different rules.</p></details>
+    <details><summary>Does the total include HOA dues?</summary><p>Yes. Enter the monthly HOA or condo dues. These charges are often paid separately from the mortgage servicer, but they still matter to your total monthly housing budget.</p></details>
+    <details><summary>Does an extra payment change the scheduled monthly payment?</summary><p>No. The primary monthly payment remains the required estimated housing payment. An extra principal payment is shown separately, and the calculator estimates how it changes payoff time and total interest if the same extra amount is paid each month.</p></details>
+    <details><summary>How is cash to close estimated?</summary><p>This simplified estimate adds the down payment and closing costs, then subtracts lender or seller credits applied to the estimated costs and earnest money already paid. Actual closing disclosures may include prepaid interest, tax and insurance escrows, prorations and other adjustments.</p></details>
+    <details><summary>Does this calculator provide a mortgage offer?</summary><p>No. It is an educational estimate. Actual rates, loan terms, insurance and fees depend on the lender, borrower, property and loan program.</p></details>
+    <details><summary>Why might my lender's payment be different?</summary><p>Your lender may use a different interest rate, loan amount, tax estimate, insurance premium, mortgage-insurance amount, escrow schedule or loan terms. Compare the complete payment and costs on your Loan Estimate.</p></details>
   </div>
 </section>
 
@@ -242,88 +252,120 @@
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only. <span style="float:right"><a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../financial-disclaimer.html">Disclaimer</a> · <a href="../contact.html">Contact</a></span></div></footer>
 
 <script>
-function money(n){return Number(n||0).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
-function num(id){return Math.max(0,Number(document.getElementById(id).value)||0);}
+function money(n){return Number(n||0).toLocaleString('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2});}
+function num(id){return Number(document.getElementById(id).value);}
 let lastScenario=null;
-
 function monthlyPI(P,annualRate,months){
-  const r=annualRate/100/12;
-  if(months<=0)return 0;
-  return r===0?P/months:P*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1);
+ if(P<=0||months<=0)return 0;
+ const r=annualRate/100/12;
+ if(r===0)return P/months;
+ const factor=Math.pow(1+r,months);
+ return P*r*factor/(factor-1);
 }
-
+function fmtDuration(months){
+ if(months===0)return 'Paid off';
+ const years=Math.floor(months/12),remaining=months%12;
+ if(years===0)return remaining+' mo';
+ if(remaining===0)return years+' yr';
+ return years+' yr '+remaining+' mo';
+}
 function calculateMortgage(){
-  const price=num('price'),down=num('down'),annual=num('rate'),years=Number(document.getElementById('term').value);
-  const tax=num('tax'),insurance=num('insurance'),pmiRate=num('pmi'),hoa=num('hoa'),closing=num('closing'),extra=num('extra');
-  const warning=document.getElementById('warning');
-  warning.style.display='none'; warning.textContent='';
-  if(price<=0 || down>price || annual<0 || years<=0){warning.textContent='Please enter valid values. Down payment cannot exceed the home price.';warning.style.display='block';return;}
-  const P=price-down, months=years*12, pi=monthlyPI(P,annual,months);
-  const taxM=price*(tax/100)/12, insM=insurance/12, pmiM=P*(pmiRate/100)/12, base=pi+taxM+insM+pmiM+hoa;
-  let balance=P, totalInterest=0, payoffMonths=months, month=0;
-  const annualRows=[], monthlyRows=[];
-  while(balance>0.005 && month<months){
-    month++;
-    const r=annual/100/12, interest=r===0?0:balance*r;
-    let principal=(pi+extra)-interest;
-    if(principal<=0){payoffMonths=Infinity;break;}
-    if(principal>balance)principal=balance;
-    balance-=principal; totalInterest+=interest;
-    if(month<=12)monthlyRows.push({month,interest,principal,balance});
-    if(month%12===0 || balance<=0.005)annualRows.push({year:Math.ceil(month/12),paid:pi*12+extra*12,interest:0,balance});
+ const fields=[
+  ['price','Home price',0.01,100000000],['down','Down payment',0,100000000],
+  ['rate','Interest rate',0,30],['tax','Property tax rate',0,20],
+  ['insurance','Annual homeowners insurance',0,10000000],['pmi','Assumed annual PMI rate',0,10],
+  ['hoa','Monthly HOA dues',0,1000000],['closing','Estimated closing-cost percentage',0,20],
+  ['extra','Additional monthly principal payment',0,10000000],
+  ['earnest','Earnest money already paid',0,100000000],['credits','Credits toward closing costs',0,100000000]
+ ];
+ const v={},errors=[];
+ for(const [id,label,min,max] of fields){
+  const raw=document.getElementById(id).value.trim(),n=raw===''?NaN:Number(raw);
+  if(!Number.isFinite(n)||n<min||n>max)errors.push(label+' must be between '+min+' and '+max+'.');
+  else v[id]=n;
+ }
+ const years=Number(document.getElementById('term').value);
+ if(![10,15,20,30].includes(years))errors.push('Choose a supported loan term.');
+ if(v.down!==undefined&&v.price!==undefined&&v.down>v.price)errors.push('Down payment cannot exceed the home price.');
+ const warning=document.getElementById('warning');
+ warning.style.display='none';warning.textContent='';
+ const outputIds=['monthly','loan','downOut','interest','cash','vPI','vTax','vIns','vPMI','vHOA','extraOut','outflow','payoffTime','closingNet'];
+ if(errors.length){
+  outputIds.forEach(id=>document.getElementById(id).textContent='—');
+  warning.textContent=errors.join(' ');warning.style.display='block';lastScenario=null;return;
+ }
+ const price=v.price,down=v.down,P=price-down,months=years*12;
+ const pi=monthlyPI(P,v.rate,months);
+ const taxM=price*v.tax/100/12,insM=v.insurance/12,pmiM=P*v.pmi/100/12,hoa=v.hoa;
+ const base=pi+taxM+insM+pmiM+hoa,extra=v.extra;
+ const closingGross=price*v.closing/100,creditsApplied=Math.min(v.credits,closingGross);
+ const closingNet=closingGross-creditsApplied,cashBeforeDeposit=down+closingNet;
+ const depositApplied=Math.min(v.earnest,cashBeforeDeposit),cashToClose=Math.max(0,cashBeforeDeposit-depositApplied);
+ const unusedCredits=Math.max(0,v.credits-creditsApplied),unusedDeposit=Math.max(0,v.earnest-depositApplied);
+ let balance=P,totalInterest=0,payoffMonths=0;
+ const monthlyRows=[],annualRows=[];
+ let yrInterest=0,yrPrincipal=0,yrPaid=0;
+ for(let m=1;m<=months&&balance>0.005;m++){
+  const interest=balance*v.rate/100/12,due=balance+interest;
+  let payment=Math.min(due,pi+extra),principal=Math.max(0,payment-interest);
+  if(principal>balance){principal=balance;payment=interest+principal;}
+  balance=Math.max(0,balance-principal);
+  totalInterest+=interest;yrInterest+=interest;yrPrincipal+=principal;yrPaid+=payment;payoffMonths=m;
+  if(m<=12)monthlyRows.push({month:m,paid:payment,interest,principal,balance});
+  if(m%12===0||balance<=0.005){
+   annualRows.push({year:Math.ceil(m/12),paid:yrPaid,interest:yrInterest,principal:yrPrincipal,balance});
+   yrInterest=0;yrPrincipal=0;yrPaid=0;
   }
-  // Rebuild annual interest accurately from monthly amortization without storing every month.
-  balance=P; totalInterest=0; annualRows.length=0; let yInterest=0,yPaid=0;
-  for(let m=1;m<=months && balance>0.005;m++){
-    const r=annual/100/12, interest=r===0?0:balance*r;
-    let payment=pi+extra, principal=payment-interest;
-    if(principal<=0){break;}
-    if(principal>balance){principal=balance;payment=interest+principal;}
-    balance-=principal; totalInterest+=interest; yInterest+=interest; yPaid+=payment;
-    if(m%12===0 || balance<=0.005){annualRows.push({year:Math.ceil(m/12),paid:yPaid,interest:yInterest,balance:Math.max(0,balance)});yInterest=0;yPaid=0;}
-    payoffMonths=m;
-  }
-  const cash=down+price*(closing/100);
-  const values={pi,taxM,insM,pmiM,hoa,base,P,down,totalInterest,cash,payoffMonths,annualRows,monthlyRows,price,annual,years,extra};
-  lastScenario=values;
-  if(typeof gtag==='function'){gtag('event','mortgage_calculation',{home_price:Math.round(price),loan_term_years:years,interest_rate:annual,extra_payment:Math.round(extra)});}
-  document.getElementById('monthly').textContent=money(base);
-  document.getElementById('loan').textContent=money(P);
-  document.getElementById('downOut').textContent=money(down);
-  document.getElementById('interest').textContent=money(totalInterest);
-  document.getElementById('cash').textContent=money(cash);
-  document.getElementById('vPI').textContent=money(pi);
-  document.getElementById('vTax').textContent=money(taxM);
-  document.getElementById('vIns').textContent=money(insM);
-  document.getElementById('vPMI').textContent=money(pmiM);
-  document.getElementById('vHOA').textContent=money(hoa);
-  const parts=[pi,taxM,insM,pmiM,hoa];
-  ['barPI','barTax','barIns','barPMI','barHOA'].forEach((id,i)=>document.getElementById(id).style.width=(base?parts[i]/base*100:0)+'%');
-  if(extra>0 && isFinite(payoffMonths)) warning.textContent='With the extra monthly payment entered, the modeled loan pays off in approximately '+Math.ceil(payoffMonths/12*10)/10+' years instead of '+years+' years.';
-  if(extra>0){warning.style.display='block';}
-  document.getElementById('amortizationOutput').innerHTML='<p style="padding:22px;color:#6b7b90">Click “Show amortization” to generate the schedule.</p>';
+ }
+ const outflow=base+extra;
+ lastScenario={price,down,P,pi,taxM,insM,pmiM,hoa,base,extra,closingGross,creditsApplied,closingNet,depositApplied,cashToClose,unusedCredits,unusedDeposit,totalInterest,payoffMonths,years,rate:v.rate,annualRows,monthlyRows};
+ if(typeof gtag==='function')gtag('event','mortgage_calculation',{home_price:Math.round(price),loan_term_years:years,interest_rate:v.rate,extra_payment:Math.round(extra)});
+ document.getElementById('monthly').textContent=money(base);
+ document.getElementById('loan').textContent=money(P);
+ document.getElementById('downOut').textContent=money(down);
+ document.getElementById('interest').textContent=money(totalInterest);
+ document.getElementById('cash').textContent=money(cashToClose);
+ document.getElementById('extraOut').textContent=money(extra);
+ document.getElementById('outflow').textContent=money(outflow);
+ document.getElementById('payoffTime').textContent=fmtDuration(payoffMonths);
+ document.getElementById('closingNet').textContent=money(closingNet);
+ document.getElementById('vPI').textContent=money(pi);
+ document.getElementById('vTax').textContent=money(taxM);
+ document.getElementById('vIns').textContent=money(insM);
+ document.getElementById('vPMI').textContent=money(pmiM);
+ document.getElementById('vHOA').textContent=money(hoa);
+ const parts=[pi,taxM,insM,pmiM,hoa];
+ ['barPI','barTax','barIns','barPMI','barHOA'].forEach((id,i)=>document.getElementById(id).style.width=(base?parts[i]/base*100:0)+'%');
+ const warnings=[];
+ if(unusedCredits>0)warnings.push(money(unusedCredits)+' of entered credits exceed the estimated closing costs and are not applied.');
+ if(unusedDeposit>0)warnings.push(money(unusedDeposit)+' of the entered deposit exceeds estimated down payment plus net closing costs; confirm settlement treatment.');
+ if(v.pmi>0)warnings.push('PMI is modeled as a flat annual percentage of the original loan amount. Actual premiums may differ and can change or end under the loan terms.');
+ if(extra>0)warnings.push('Extra principal is additional to the scheduled housing payment. The payment breakdown above excludes this optional extra amount.');
+ if(warnings.length){warning.textContent=warnings.join(' ');warning.style.display='block';}
+ document.getElementById('amortizationOutput').innerHTML='<p style="padding:22px;color:#6b7b90">Click “Show amortization” to generate the schedule.</p>';
 }
-
 function showAmortization(){
-  if(!lastScenario){calculateMortgage();}
-  const s=lastScenario;if(!s)return;
-  let html='<table class="mc-table"><thead><tr><th>Period</th><th>Paid</th><th>Interest</th><th>Principal</th><th>Ending balance</th></tr></thead><tbody>';
-  s.monthlyRows.forEach(x=>html+='<tr><td>Month '+x.month+'</td><td>'+money(x.interest+x.principal)+'</td><td>'+money(x.interest)+'</td><td>'+money(x.principal)+'</td><td>'+money(x.balance)+'</td></tr>');
-  s.annualRows.forEach(x=>html+='<tr><td>Year '+x.year+'</td><td>'+money(x.paid)+'</td><td>'+money(x.interest)+'</td><td>—</td><td>'+money(x.balance)+'</td></tr>');
-  html+='</tbody></table>';
-  document.getElementById('amortizationOutput').innerHTML=html;
-  if(typeof gtag==='function')gtag('event','mortgage_amortization_view',{loan_term_years:s.years,extra_payment:Math.round(s.extra)});
-  document.getElementById('amortization').scrollIntoView({behavior:'smooth'});
+ if(!lastScenario)calculateMortgage();
+ const s=lastScenario;if(!s)return;
+ let html='<h3 style="padding:16px 16px 0">First 12 monthly payments</h3><table class="mc-table"><thead><tr><th>Month</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Ending balance</th></tr></thead><tbody>';
+ s.monthlyRows.forEach(x=>html+='<tr><td>Month '+x.month+'</td><td>'+money(x.paid)+'</td><td>'+money(x.interest)+'</td><td>'+money(x.principal)+'</td><td>'+money(x.balance)+'</td></tr>');
+ html+='</tbody></table><h3 style="padding:18px 16px 0">Annual summaries</h3><table class="mc-table"><thead><tr><th>Year</th><th>Total paid</th><th>Interest</th><th>Principal</th><th>Ending balance</th></tr></thead><tbody>';
+ s.annualRows.forEach(x=>html+='<tr><td>Year '+x.year+'</td><td>'+money(x.paid)+'</td><td>'+money(x.interest)+'</td><td>'+money(x.principal)+'</td><td>'+money(x.balance)+'</td></tr>');
+ html+='</tbody></table>';
+ document.getElementById('amortizationOutput').innerHTML=html;
+ if(typeof gtag==='function')gtag('event','mortgage_amortization_view',{loan_term_years:s.years,extra_payment:Math.round(s.extra)});
+ document.getElementById('amortization').scrollIntoView({behavior:'smooth'});
 }
-
 function copyScenario(){
-  if(!lastScenario)calculateMortgage();
-  const s=lastScenario;if(!s)return;
-  const text='Mortgage scenario: '+money(s.price)+' home, '+money(s.down)+' down, '+s.annual.toFixed(3)+'% rate, '+s.years+' years. Estimated total monthly payment: '+money(s.base)+'.';
-  if(navigator.clipboard)navigator.clipboard.writeText(text);
-  if(typeof gtag==='function')gtag('event','mortgage_scenario_copy');
-  alert('Scenario copied.');
+ if(!lastScenario)calculateMortgage();
+ const s=lastScenario;if(!s)return;
+ const text='Mortgage scenario: '+money(s.price)+' home, '+money(s.down)+' down, '+s.rate.toFixed(3)+'% rate, '+s.years+' years. Estimated required monthly housing payment: '+money(s.base)+'. Optional extra principal: '+money(s.extra)+'. Estimated cash to close: '+money(s.cashToClose)+'.';
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>alert('Scenario copied.')).catch(()=>alert(text));
+ else alert(text);
+ if(typeof gtag==='function')gtag('event','mortgage_scenario_copy');
 }
+document.getElementById('calculate').addEventListener('click',calculateMortgage);
+document.querySelectorAll('.mc-fields input,.mc-fields select').forEach(el=>el.addEventListener('input',calculateMortgage));
 calculateMortgage();
 </script>
 </body>
