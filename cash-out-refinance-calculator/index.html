@@ -12,9 +12,9 @@
 </script>
 
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estimate cash available, new mortgage payment, loan-to-value and interest for a U.S. cash-out refinance using your home value, mortgage balance, target LTV, rate and term.">
+<meta name="description" content="Estimate a US cash-out refinance loan amount, potential cash to borrower, loan-to-value, monthly principal and interest, and total interest using your payoff, home value, costs, rate and term.">
 <meta name="robots" content="index,follow">
-<title>Cash-Out Refinance Calculator | Cash & Payment Estimate</title>
+<title>Cash-Out Refinance Calculator: Cash & Payment Estimate</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/cash-out-refinance-calculator/">
 <style>
@@ -48,103 +48,76 @@ body.design-cashout .warning{color:#4f3d0a!important}
 
 <div class="calc-box">
 <div class="form-grid">
-<div><label for="value">Current home value ($)</label><input id="value" type="number" min="0" value="450000"></div>
-<div><label for="balance">Current mortgage balance ($)</label><input id="balance" type="number" min="0" value="260000"></div>
-<div><label for="maxLtv">Target maximum LTV (%)</label><input id="maxLtv" type="number" min="0" max="100" step="0.1" value="80"></div>
-<div><label for="cash">Cash-out amount requested ($)</label><input id="cash" type="number" min="0" value="50000"></div>
-<div><label for="rate">New mortgage interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="6.5"></div>
-<div><label for="term">New loan term (years)</label><input id="term" type="number" min="1" value="30"></div>
-<div><label for="closing">Refinance closing costs ($)</label><input id="closing" type="number" min="0" value="8000"></div>
-<div><label for="otherDebt">Other liens/debt paid from refinance ($)</label><input id="otherDebt" type="number" min="0" value="0"></div>
+<div><label for="value">Current home value ($)</label><input id="value" type="number" min="0.01" step="0.01" value="450000" required></div>
+<div><label for="payoff">Estimated current mortgage payoff ($)</label><input id="payoff" type="number" min="0" step="0.01" value="260000" required></div>
+<div><label for="maxLtv">Target maximum LTV (%)</label><input id="maxLtv" type="number" min="0.1" max="100" step="0.1" value="80" required></div>
+<div><label for="cash">Cash requested by borrower ($)</label><input id="cash" type="number" min="0" step="0.01" value="50000" required></div>
+<div><label for="rate">New mortgage interest rate (%)</label><input id="rate" type="number" min="0" max="30" step="0.01" value="6.5" required></div>
+<div><label for="term">New loan term (years)</label><input id="term" type="number" min="1" max="40" step="1" value="30" required></div>
+<div><label for="closing">Closing costs financed into new loan ($)</label><input id="closing" type="number" min="0" step="0.01" value="8000" required></div>
+<div><label for="otherDebt">Other secured debt payoffs included ($)</label><input id="otherDebt" type="number" min="0" step="0.01" value="0" required></div>
 </div>
 <button type="button" class="button calc-button" onclick="calculateCashOut()">Calculate Cash-Out Refinance</button>
 
 <div class="results">
-<div class="result"><small>Maximum estimated new loan</small><strong id="maxLoan">$0.00</strong></div>
-<div class="result"><small>Requested new loan</small><strong id="newLoan">$0.00</strong></div>
-<div class="result"><small>Maximum cash available</small><strong id="cashResult">$0.00</strong></div>
-<div class="result"><small>New monthly principal & interest</small><strong id="monthly" aria-live="polite">$0.00</strong></div>
-<div class="result"><small>Requested new loan-to-value</small><strong id="ltv">0.00%</strong></div>
-<div class="result"><small>Estimated total interest</small><strong id="interest">$0.00</strong></div>
+<div class="result"><small>Target maximum new loan</small><strong id="maxLoan">$0.00</strong></div>
+<div class="result"><small>Estimated new loan amount</small><strong id="newLoan">$0.00</strong></div>
+<div class="result"><small>Maximum additional cash to borrower</small><strong id="cashResult">$0.00</strong></div>
+<div class="result"><small>Estimated monthly principal & interest</small><strong id="monthly" aria-live="polite">$0.00</strong></div>
+<div class="result"><small>Estimated new first-mortgage LTV</small><strong id="ltv">0.00%</strong></div>
+<div class="result"><small>Estimated equity remaining</small><strong id="equityRemaining">$0.00</strong></div>
+<div class="result"><small>Total interest over new loan term</small><strong id="interest">$0.00</strong></div>
 </div>
 
 <div class="warning" id="validation"></div>
-<p class="note">Estimate only. A lender may use different LTV limits, appraisal values, underwriting rules, pricing and eligible-cost rules. This calculator does not determine qualification or a lender's actual cash-out amount.</p>
+<p class="note">The target LTV is an assumption you choose, not a universal lender limit. This estimate assumes the entered mortgage payoff, other listed debt payoffs, financed closing costs and borrower cash are all included in the new loan. Monthly payment and total interest are principal-and-interest estimates only.</p>
 </div>
 </div></section>
 
 <section class="section light"><div class="container narrow">
-<p class="eyebrow">CALCULATION METHOD</p>
-<h2>How this US cash-out refinance calculator works</h2>
-<p>A cash-out refinance replaces an existing mortgage with a new mortgage. The new loan can be larger than the existing balance, with the difference used for cash to the borrower and, depending on the transaction, eligible costs or other payoffs.</p>
-<p>This calculator first estimates the maximum new loan as <strong>home value × target LTV</strong>. It then subtracts the existing mortgage balance, refinance closing costs and other liens/debt entered by the user to estimate the maximum cash that could fit within that target.</p>
-<p>The requested new loan is calculated as <strong>current mortgage balance + requested cash-out + closing costs + other debt paid from the refinance</strong>. If that amount exceeds the target maximum loan, the requested scenario is above the entered LTV assumption.</p>
-
-<h2>Worked cash-out refinance example</h2>
-<p>Suppose your home is worth <strong>$450,000</strong>, your mortgage balance is <strong>$260,000</strong>, your target maximum LTV is <strong>80%</strong>, and you request <strong>$50,000</strong> cash with <strong>$8,000</strong> in closing costs.</p>
+<p class="eyebrow">CASH-OUT REFINANCE GUIDE</p>
+<h2>How the cash-out refinance estimate works</h2>
+<p>A cash-out refinance replaces an existing mortgage with a new mortgage. The new loan pays the estimated existing mortgage payoff and any other secured debts you choose to include. If the new loan is large enough, the remaining proceeds can be paid to you at closing after the financed costs and other required amounts are accounted for. The lender determines the actual payoff, eligible loan amount, costs and cash due at closing.</p>
+<h2>Calculator formulas</h2>
+<p>This tool uses the home value and your chosen target loan-to-value (LTV) assumption to estimate a target maximum new first-mortgage amount:</p>
 <ul>
-<li>Target maximum new loan: $450,000 × 80% = <strong>$360,000</strong></li>
-<li>Loan needed for existing balance + cash + closing costs: $260,000 + $50,000 + $8,000 = <strong>$318,000</strong></li>
-<li>Remaining mathematical room under the target: $360,000 − $260,000 − $8,000 = <strong>$92,000</strong></li>
-<li>The $50,000 requested cash fits within this illustrative LTV assumption.</li>
+<li><strong>Target maximum new loan:</strong> home value × target LTV percentage.</li>
+<li><strong>Estimated new loan amount:</strong> mortgage payoff + other secured debt payoffs + closing costs financed into the loan + cash requested.</li>
+<li><strong>Maximum additional cash:</strong> target maximum new loan − mortgage payoff − other secured debt payoffs − financed closing costs, with the displayed cash amount floored at $0.</li>
+<li><strong>New first-mortgage LTV:</strong> estimated new loan amount ÷ home value.</li>
+<li><strong>Estimated remaining equity:</strong> home value − estimated new loan amount.</li>
 </ul>
-<p>This example does not establish an actual lender limit. The lender may use a different maximum LTV, property valuation, credit criteria or loan program.</p>
-
-<h2>Why closing costs matter</h2>
-<p>Refinancing has transaction costs. Depending on the loan structure, some costs can be paid at closing or financed into the new loan. Financing costs increases the amount borrowed, which can increase the payment and reduce the equity remaining in the property. The CFPB notes that adding closing costs to the loan amount is one way a refinance can be structured, while lender credits can offset costs in exchange for a higher rate. </p>
-
-<h2>Cash-out refinance vs. HELOC</h2>
-<p>A cash-out refinance replaces the existing mortgage with a new mortgage. A HELOC is generally a separate revolving line of credit secured by the home. The two products can have different rates, payment structures, costs and effects on the existing mortgage. The CFPB describes cash-out refinancing as replacing an existing mortgage with a larger mortgage and taking the difference in cash. </p>
-
-<h2>Using cash-out proceeds for other debt</h2>
-<p>Cash-out proceeds may be used for purposes such as home improvements or debt consolidation, depending on the loan and borrower. The CFPB has noted that converting non-mortgage debt into mortgage debt changes the risk because the new debt is secured by the home. </p>
-</div></section>
-
-<section class="section"><div class="container narrow">
-<section class="guide">
-<p class="eyebrow">CASH-OUT REFINANCE GUIDE</p>
-<h2>How this cash-out refinance calculator works</h2>
-<p>A cash-out refinance replaces an existing mortgage with a new, larger mortgage. The new loan first pays off the existing mortgage and other entered liens, while the remaining amount can be received as cash, subject to the loan terms and lender requirements. </p>
-<p>This calculator estimates the maximum loan supported by your entered home value and target maximum LTV, then compares that with the requested cash-out amount. It also estimates the new principal-and-interest payment using the new rate and term.</p>
-<h2>Loan-to-value matters</h2>
-<p>LTV compares the mortgage debt with the property's value. A cash-out transaction increases the new mortgage balance, so the amount of cash available depends on the lender's permitted LTV and the existing debt that must be paid off. Actual limits vary by loan program, property, occupancy, credit profile and lender.</p>
+<p>The LTV shown is the new first mortgage divided by the home value you enter. It is not a combined loan-to-value calculation. A lien that remains on the property rather than being paid off may affect a lender's combined-LTV assessment, but this basic calculator does not model that lien.</p>
 <h2>Worked example</h2>
-<p>For example, suppose a home is worth <strong>$400,000</strong>, the current mortgage balance is <strong>$220,000</strong>, the target maximum LTV is <strong>80%</strong>, and you request <strong>$50,000</strong> cash out. An 80% LTV corresponds to a maximum secured loan of $320,000 before considering closing costs or other liens. The calculator then estimates the resulting payment using your selected new rate and term.</p>
-<h2>Cash-out refinance vs. HELOC</h2>
-<p>A cash-out refinance replaces the existing first mortgage, while a HELOC is generally a separate credit line secured by the home. A refinance can change the rate, term and entire mortgage balance; a HELOC generally leaves the existing first mortgage in place. CFPB notes that the relative cost depends on the specific terms and circumstances. </p>
-<h2>Consider the full cost</h2>
-<p>Refinancing can involve origination charges, appraisal or title costs, points, government fees and other closing costs. Rolling costs into the new loan can reduce the amount paid upfront but increases the loan balance and can increase interest paid over time. </p>
-<h2>Important limitations</h2>
-<p>This calculator does not determine eligibility, appraisal value, lender-specific LTV limits, APR, taxes, insurance, mortgage insurance or exact closing costs. A lender's Loan Estimate and Closing Disclosure provide the transaction-specific figures.</p>
-</section>
-
-<section class="guide">
-<p class="eyebrow">CASH-OUT REFINANCE GUIDE</p>
-<h2>How this cash-out refinance calculator works</h2>
-<p>This calculator estimates a new mortgage amount, potential cash-out amount, loan-to-value (LTV), monthly principal-and-interest payment and total interest from the values you enter. It assumes the existing mortgage and eligible liens are being replaced or paid through the new refinance loan.</p>
-<p>A cash-out refinance replaces an existing mortgage with a new mortgage for more than the current balance, with the difference generally available as cash at closing. Because the new mortgage is secured by the home, the property remains collateral for the debt. </p>
-<h2>How maximum LTV affects cash available</h2>
-<p>The maximum loan amount in this calculator is based on the home value multiplied by your selected target LTV. Existing mortgage and other secured debt are then considered when estimating potential cash-out. Actual lender limits vary by loan type, occupancy, credit profile, property type and other underwriting factors.</p>
-<h2>Worked example</h2>
-<p>For example, suppose a home is worth <strong>$400,000</strong>, the current mortgage balance is <strong>$220,000</strong>, the target maximum LTV is <strong>80%</strong>, and you request <strong>$60,000</strong> cash out. The calculator estimates whether the requested amount fits within the selected LTV assumption and estimates the resulting new payment using the rate and term you enter.</p>
-<h2>Cash-out refinance costs</h2>
-<p>A refinance can involve lender charges, appraisal, title and settlement costs, prepaid items and other transaction expenses. Rolling costs into the new loan increases the amount financed and can increase total interest over time. </p>
-<h2>Cash-out refinance vs. home equity products</h2>
-<p>A cash-out refinance replaces the existing first mortgage. A home equity loan or HELOC generally leaves the existing first mortgage in place and creates additional secured debt. Each structure has different rates, fees, payment terms and risks.</p>
-<h2>What this calculator does not determine</h2>
-<p>This tool does not determine lender approval, appraisal value, actual maximum LTV, closing costs charged by a lender, taxes, insurance, prepayment penalties or the final cash available at closing. Use the lender's Loan Estimate and Closing Disclosure for transaction-specific figures.</p>
-</section>
-
-<div class="faq"><p class="eyebrow">FAQ</p><h2>US cash-out refinance calculator FAQs</h2>
-<div class="faq-item"><h3>What is a cash-out refinance?</h3><p>It is a refinance in which the new mortgage is larger than the existing mortgage balance and the borrower receives cash from the transaction after accounting for the existing debt and applicable costs.</p></div>
-<div class="faq-item"><h3>How much cash can I get from a cash-out refinance?</h3><p>It depends on the property's value, the lender's maximum LTV, your existing secured debt, closing costs and underwriting requirements. This calculator shows a mathematical estimate using your selected LTV assumption.</p></div>
-<div class="faq-item"><h3>What is the maximum loan-to-value?</h3><p>It is the maximum percentage of the property's value that the assumed new mortgage can represent. Actual cash-out LTV limits vary by lender, loan program, occupancy, property and borrower.</p></div>
-<div class="faq-item"><h3>Do closing costs reduce cash available?</h3><p>They can. If closing costs are financed within the new loan, they use part of the available loan amount and reduce the cash that can fit under a target LTV.</p></div>
-<div class="faq-item"><h3>Can I use cash-out proceeds to pay other debt?</h3><p>Depending on the loan and borrower, cash-out proceeds can be used for debt consolidation or other purposes. If debt is moved into a mortgage secured by the home, the repayment risk is different because the home serves as collateral.</p></div>
-<div class="faq-item"><h3>Why can the new payment be higher?</h3><p>The new mortgage may have a larger principal balance, a different interest rate or a different term. Financing closing costs or other debt can also increase the amount borrowed.</p></div>
-<div class="faq-item"><h3>Does the calculator include taxes and insurance?</h3><p>No. The displayed monthly payment is principal and interest only. Property taxes, homeowners insurance, mortgage insurance, HOA dues and other homeownership costs are excluded.</p></div>
-<div class="faq-item"><h3>Is this a lender quote or approval calculator?</h3><p>No. It is an educational estimate. A lender will determine the actual property value, eligible loan amount, rate, costs and qualification.</p></div>
-<div class="faq-item"><h3>Can I finance refinance closing costs?</h3><p>Depending on the transaction, some costs may be financed into the new loan. Doing so increases the balance and can affect payment and equity.</p></div>
+<p>Assume a home value of <strong>$450,000</strong>, an estimated current mortgage payoff of <strong>$260,000</strong>, a target LTV of <strong>80%</strong>, financed closing costs of <strong>$8,000</strong>, no other secured-debt payoff, and <strong>$50,000</strong> cash requested.</p>
+<ul>
+<li>Target maximum new loan: $450,000 × 80% = <strong>$360,000</strong>.</li>
+<li>Estimated new loan: $260,000 + $8,000 + $50,000 = <strong>$318,000</strong>.</li>
+<li>Maximum additional cash under the same target: $360,000 − $260,000 − $8,000 = <strong>$92,000</strong>.</li>
+<li>Estimated new first-mortgage LTV: $318,000 ÷ $450,000 = <strong>70.67%</strong>.</li>
+<li>Estimated remaining equity before selling costs or value changes: $450,000 − $318,000 = <strong>$132,000</strong>.</li>
+</ul>
+<p>At an illustrative fixed rate of 6.50% for 30 years, the estimated payment on $318,000 is about <strong>$2,009.98 per month</strong> for principal and interest, with about <strong>$405,591.47</strong> in total scheduled interest if all payments are made as modeled. This is a mathematical example, not a rate offer or approval.</p>
+<h2>Use a payoff figure, not just the balance on a statement</h2>
+<p>The amount needed to pay off a mortgage can differ from the principal balance shown on a monthly statement. A lender payoff statement may include interest through a specified date and other amounts due. Enter the best current payoff estimate available to you. The final closing agent and lender use transaction-specific payoff figures.</p>
+<h2>What the closing-cost input means</h2>
+<p>Enter only the portion of refinance costs that you expect to finance into the new mortgage. Costs paid separately in cash are not added to the modeled new loan. Actual closing costs can include lender charges and third-party services; compare the Loan Estimate from each lender rather than relying on a generic estimate. The CFPB explains how to review origination charges, other loan costs and lender credits in a Loan Estimate.</p>
+<p><a href="https://www.consumerfinance.gov/owning-a-home/loan-estimate/">CFPB: Loan Estimate explainer</a> · <a href="https://www.consumerfinance.gov/owning-a-home/compare/compare-loan-estimates/">CFPB: Compare loan estimates</a> · <a href="https://www.consumerfinance.gov/owning-a-home/closing-disclosure/">CFPB: Closing Disclosure explainer</a></p>
+<h2>Cash-out refinance versus a HELOC</h2>
+<p>A cash-out refinance replaces the existing first mortgage with a new mortgage. A home equity line of credit (HELOC) is typically a separate credit line secured by the property and may leave the existing first mortgage in place. They can differ in interest rate, fees, repayment structure and total borrowing cost. Compare the full terms rather than choosing by the initial payment alone.</p>
+<p><a href="../heloc-payment-calculator/">Estimate HELOC payments</a> · <a href="../home-equity-calculator/">Estimate home equity and lien ratios</a> · <a href="../mortgage-refinance-calculator/">Compare a mortgage refinance</a></p>
+<h2>Important risks and limitations</h2>
+<p>Using mortgage debt to pay off credit cards, auto loans or other non-mortgage debt changes the risk: the new debt is secured by your home. If payments become unaffordable, you could put the property at risk. A lower monthly payment does not necessarily mean a lower total cost, especially when debt is spread over a longer term. Consider the total interest, fees, the new term and alternatives before borrowing against home equity. The CFPB discusses these trade-offs in its research on cash-out refinancing and non-mortgage debt paydown.</p>
+<p><a href="https://files.consumerfinance.gov/f/documents/cfpb_cash-out-refinances-and-paydown-behavior-of-non-mortgage-debt-balances_2025-01.pdf">CFPB research: Cash-out refinances and non-mortgage debt paydown</a></p>
+<p>This estimate does not determine eligibility, appraisal value, the maximum LTV allowed by a specific loan program, taxes, insurance, mortgage insurance, prepaid interest, escrow adjustments, prepayment penalties or actual cash to close. The lender's Loan Estimate and final Closing Disclosure provide transaction-specific figures.</p>
+<div class="faq"><p class="eyebrow">FAQ</p><h2>Cash-out refinance calculator FAQs</h2>
+<div class="faq-item"><h3>How much cash can I take out?</h3><p>It depends on the lender's permitted loan amount, the property's accepted value, the mortgage payoff, other liens, financed costs and underwriting. This calculator gives a mathematical estimate using the target LTV you select; it does not establish a lender's limit.</p></div>
+<div class="faq-item"><h3>Why does the calculator ask for a mortgage payoff?</h3><p>The refinance must account for the amount required to satisfy the existing mortgage. That payoff can differ from the unpaid principal balance because interest and other amounts may be due through the closing date.</p></div>
+<div class="faq-item"><h3>Are closing costs deducted from cash-out?</h3><p>Costs entered as financed into the new loan use part of the target loan amount and reduce the additional cash that fits under the selected LTV. Costs paid separately are not included in this loan-amount calculation.</p></div>
+<div class="faq-item"><h3>Does 80% LTV apply to every cash-out refinance?</h3><p>No. The target LTV is an assumption for scenario planning. Actual limits depend on loan program, property, occupancy, borrower and lender requirements.</p></div>
+<div class="faq-item"><h3>Does the monthly payment include taxes and insurance?</h3><p>No. The displayed payment is principal and interest only. Property taxes, homeowners insurance, mortgage insurance, HOA dues and escrow items are excluded.</p></div>
+<div class="faq-item"><h3>Is a cash-out refinance the same as a HELOC?</h3><p>No. A cash-out refinance replaces the existing first mortgage. A HELOC is generally a separate credit line secured by the home and may leave the existing first mortgage unchanged.</p></div>
+<div class="faq-item"><h3>Is this a lender quote?</h3><p>No. It is an educational estimate based on the numbers you enter. Only a lender can provide transaction-specific terms and determine whether you qualify.</p></div>
 </div>
 </div></section>
 
@@ -161,37 +134,63 @@ body.design-cashout .warning{color:#4f3d0a!important}
 <footer><div class="container"><a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../financial-disclaimer.html">Disclaimer</a> · <a href="../contact.html">Contact</a><br>© 2026 Finance Tools. For educational purposes only.</div></footer>
 
 <script>
-function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});}
-function payment(P,annual,months){const r=annual/100/12;if(P<=0)return 0;if(r===0)return P/months;return P*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1);}
-function calculateCashOut(){
-const value=Math.max(0,Number(document.getElementById("value").value)||0);
-const balance=Math.max(0,Number(document.getElementById("balance").value)||0);
-const maxLtv=Math.min(100,Math.max(0,Number(document.getElementById("maxLtv").value)||0));
-const cash=Math.max(0,Number(document.getElementById("cash").value)||0);
-const rate=Math.max(0,Number(document.getElementById("rate").value)||0);
-const term=Math.max(1,Number(document.getElementById("term").value)||1);
-const closing=Math.max(0,Number(document.getElementById("closing").value)||0);
-const other=Math.max(0,Number(document.getElementById("otherDebt").value)||0);
-const maxLoan=value*maxLtv/100;
-const requested=balance+cash+closing+other;
-const available=Math.max(0,maxLoan-balance-closing-other);
-const requestedLtv=value>0?requested/value*100:0;
-const months=Math.max(1,Math.round(term*12));
-const monthly=payment(requested,rate,months);
-const totalInterest=Math.max(0,monthly*months-requested);
-document.getElementById("maxLoan").textContent=money(maxLoan);
-document.getElementById("newLoan").textContent=money(requested);
-document.getElementById("cashResult").textContent=money(available);
-document.getElementById("monthly").textContent=money(monthly);
-document.getElementById("ltv").textContent=requestedLtv.toFixed(2)+"%";
-document.getElementById("interest").textContent=money(totalInterest);
-const validation=document.getElementById("validation");
-if(value<=0){validation.textContent="Enter a home value greater than $0 to calculate the LTV scenario.";}
-else if(balance>value){validation.textContent="The entered mortgage balance is greater than the home value. Review the inputs before relying on the estimate.";}
-else if(requested>maxLoan){validation.textContent="The requested new loan exceeds the target maximum LTV by "+money(requested-maxLoan)+". Reduce the requested cash-out amount, reduce costs/debt paid from the refinance, or change the LTV assumption for a different scenario.";}
-else{validation.textContent="The requested scenario fits within the entered target LTV mathematically. The maximum cash available under this assumption is "+money(available)+" before lender-specific underwriting and other requirements.";}
+function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2,maximumFractionDigits:2});}
+function payment(P,annual,months){
+  if(P<=0)return 0;
+  const r=annual/100/12;
+  if(r===0)return P/months;
+  const factor=Math.pow(1+r,months);
+  return P*r*factor/(factor-1);
 }
-calculateCashOut();
-</script>
+function calculateCashOut(){
+  const fields=[
+    ["value","Home value",0.01,Infinity],
+    ["payoff","Estimated mortgage payoff",0,Infinity],
+    ["maxLtv","Target maximum LTV",0.1,100],
+    ["cash","Cash requested",0,Infinity],
+    ["rate","New interest rate",0,30],
+    ["term","New loan term",1,40],
+    ["closing","Closing costs financed",0,Infinity],
+    ["otherDebt","Other secured debt payoffs",0,Infinity]
+  ];
+  const v={},errors=[];
+  for(const [id,label,min,max] of fields){
+    const raw=document.getElementById(id).value.trim();
+    const num=raw===""?NaN:Number(raw);
+    if(!Number.isFinite(num)||num<min||num>max){
+      errors.push(label+" must be "+(min===0?"zero or greater":"at least "+min)+(Number.isFinite(max)?" and no more than "+max:"")+".");
+    }else{v[id]=num;}
+  }
+  if(v.term!==undefined&&!Number.isInteger(v.term))errors.push("New loan term must be a whole number of years.");
+  const validation=document.getElementById("validation");
+  const outputs=["maxLoan","newLoan","cashResult","monthly","ltv","equityRemaining","interest"];
+  if(errors.length){
+    outputs.forEach(id=>document.getElementById(id).textContent="—");
+    validation.textContent=errors.join(" ");
+    return;
+  }
+  const maxLoan=v.value*v.maxLtv/100;
+  const payoffAndCosts=v.payoff+v.otherDebt+v.closing;
+  const newLoan=payoffAndCosts+v.cash;
+  const maxCash=Math.max(0,maxLoan-payoffAndCosts);
+  const ltv=newLoan/v.value*100;
+  const monthly=payment(newLoan,v.rate,v.term*12);
+  const interest=Math.max(0,monthly*v.term*12-newLoan);
+  document.getElementById("maxLoan").textContent=money(maxLoan);
+  document.getElementById("newLoan").textContent=money(newLoan);
+  document.getElementById("cashResult").textContent=money(maxCash);
+  document.getElementById("monthly").textContent=money(monthly);
+  document.getElementById("ltv").textContent=ltv.toFixed(2)+"%";
+  document.getElementById("equityRemaining").textContent=money(v.value-newLoan);
+  document.getElementById("interest").textContent=money(interest);
+  if(payoffAndCosts>maxLoan){
+    validation.textContent="The mortgage payoff, other secured-debt payoffs and financed closing costs already exceed the target maximum loan by "+money(payoffAndCosts-maxLoan)+". Under this assumption, no additional cash-out fits.";
+  }else if(v.cash>maxCash){
+    validation.textContent="The requested cash exceeds the estimated amount that fits under your target LTV by "+money(v.cash-maxCash)+". The calculator still shows the requested loan and payment so you can compare scenarios.";
+  }else{
+    validation.textContent="The requested cash-out scenario fits within the target LTV mathematically. Maximum additional cash under this assumption is "+money(maxCash)+". This is not lender approval or a cash-to-close quote.";
+  }
+}
+calculateCashOut();</script>
 </body>
 </html>
