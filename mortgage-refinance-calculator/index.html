@@ -120,6 +120,7 @@
 
 <script>
 function money(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2});}
+function signedMoney(n){return Math.abs(n)<0.005?money(0):(n>0?'+':'−')+money(Math.abs(n));}
 function payment(principal,annualRate,months){
  if(principal<=0)return 0;
  const r=annualRate/100/12;
@@ -164,13 +165,13 @@ function calculate(){
  const fmt=m=>{if(m===0)return 'Immediate';const y=Math.floor(m/12),r=m%12;if(!y)return r+' month'+(r===1?'':'s');if(!r)return y+' year'+(y===1?'':'s');return y+'y '+r+'m';};
  document.getElementById('currentPayment').textContent=money(currentMonthly);
  document.getElementById('newPayment').textContent=money(newMonthly);
- document.getElementById('monthlySavings').textContent=(monthlyChange>=0?'+':'−')+money(Math.abs(monthlyChange));
+ document.getElementById('monthlySavings').textContent=signedMoney(monthlyChange);
  document.getElementById('newPrincipal').textContent=money(newPrincipal);
  document.getElementById('breakEven').textContent=breakMonth===null?'Not reached':fmt(breakMonth);
- document.getElementById('holdingCost').textContent=(diffH>0?'+':'−')+money(Math.abs(diffH));
+ document.getElementById('holdingCost').textContent=signedMoney(diffH);
  document.getElementById('currentInterest').textContent=money(curFull.interestPaid);
  document.getElementById('newInterest').textContent=money(newFull.interestPaid);
- document.getElementById('netBenefit').textContent=(fullTermNetSaving>=0?'+':'−')+money(Math.abs(fullTermNetSaving));
+ document.getElementById('netBenefit').textContent=signedMoney(fullTermNetSaving);
  const interpretation=diffH>0?'refinancing is estimated to cost '+money(diffH)+' more':diffH<0?'refinancing is estimated to save '+money(Math.abs(diffH)):'both options have the same modeled cost';
  let msg='Over '+v.holdingYears+' year'+(v.holdingYears===1?'':'s')+', '+interpretation+', including payments made, the remaining loan payoff and the closing-cost treatment selected.';
  if(monthlyChange>0)msg+=' The new monthly principal-and-interest payment is lower by '+money(monthlyChange)+'.';else if(monthlyChange<0)msg+=' The new monthly principal-and-interest payment is higher by '+money(Math.abs(monthlyChange))+'.';else msg+=' The monthly principal-and-interest payments are equal.';
