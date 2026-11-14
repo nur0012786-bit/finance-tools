@@ -13,8 +13,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Calculate a home down payment, estimated mortgage amount and cash needed for a US home purchase.">
-<title>Down Payment Calculator | Home Purchase Estimate</title>
+<meta name="description" content="Calculate your US home down payment, estimated mortgage amount, cash needed at closing and maximum down payment supported by your available cash.">
+<title>Down Payment Calculator: Home Purchase & Cash Needed</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/down-payment-calculator/">
 <script type="application/ld+json">
@@ -37,46 +37,74 @@
 
 <section class="section"><div class="container"><div class="calculator-grid">
 <div class="calculator-card"><h2>Enter your home-buying numbers</h2><div class="input-grid">
-<label>Home price ($)<input id="price" type="number" min="0" step="1000" value="400000"></label>
-<label>Down payment (%)<input id="percent" type="number" min="0" max="100" step="0.1" value="20"></label>
-<label>Available cash for closing ($)<input id="cash" type="number" min="0" step="1000" value="100000"></label>
-<label>Estimated closing costs ($)<input id="closing" type="number" min="0" step="100" value="12000"></label>
-<label>Earnest money already paid ($)<input id="earnest" type="number" min="0" step="100" value="5000"></label>
+<label>Home purchase price ($)<input id="price" type="number" min="0.01" step="0.01" value="400000" required></label>
+<label>Planned down payment (%)<input id="percent" type="number" min="0" max="100" step="0.1" value="20" required></label>
+<label>Cash available now for closing ($), excluding earnest money already paid<input id="cash" type="number" min="0" step="1000" value="100000" required></label>
+<label>Estimated closing costs ($)<input id="closing" type="number" min="0" step="0.01" value="12000" required></label>
+<label>Earnest money / deposit already paid ($)<input id="earnest" type="number" min="0" step="0.01" value="5000" required></label>
 </div><button type="button" class="button" id="calculate">Calculate Down Payment</button>
-<p class="small-note">Use your actual lender and transaction estimates when available. This tool is for planning and does not determine loan eligibility.</p></div>
+<p class="small-note">Enter cash still available today after setting aside emergency savings, moving costs and other goals. Exclude earnest money already paid; enter that deposit separately. Use your lender's and settlement provider's estimates when available.</p></div>
 
 <div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Your down payment plan</h2><div class="results">
-<div><span>Down payment</span><strong id="downOut">$0</strong></div>
+<div><span>Down payment amount</span><strong id="downOut">$0</strong></div>
 <div><span>Down payment percentage</span><strong id="pctOut">0%</strong></div>
-<div><span>Estimated mortgage amount</span><strong id="loanOut">$0</strong></div>
-<div><span>Closing costs</span><strong id="closingOut">$0</strong></div>
-<div><span>Cash needed before deposit</span><strong id="neededOut" aria-live="polite">$0</strong></div>
-<div><span>Earnest money applied</span><strong id="earnestOut">$0</strong></div>
-<div><span>Estimated cash still needed</span><strong id="remainingOut">$0</strong></div>
-<div><span>Cash remaining after closing</span><strong id="leftOut">$0</strong></div>
-</div></div></div></div></section>
+<div><span>Estimated base mortgage amount</span><strong id="loanOut">$0</strong></div>
+<div><span>Estimated closing costs</span><strong id="closingOut">$0</strong></div>
+<div><span>Down payment + closing costs</span><strong id="neededOut">$0</strong></div>
+<div><span>Earnest money credit applied</span><strong id="earnestOut">$0</strong></div>
+<div><span>Estimated cash due at closing</span><strong id="remainingOut" aria-live="polite">$0</strong></div>
+<div><span>Cash surplus / (shortfall)</span><strong id="leftOut">$0</strong></div>
+<div><span>Maximum down payment supported by cash budget</span><strong id="maxDownOut">$0</strong></div>
+<div><span>Maximum supported down payment (%)</span><strong id="maxDownPctOut">0%</strong></div>
+<div><span>Deposit not applied to this estimate</span><strong id="depositSurplusOut">$0</strong></div>
+</div>
+<div class="table-wrap">
+<h3>Compare common down payment options</h3>
+<p class="small-note">These scenarios use your current home price, closing-cost estimate and earnest-money deposit. They do not represent loan-program eligibility.</p>
+<table class="down-scenarios">
+<thead><tr><th>Down payment</th><th>Down payment amount</th><th>Estimated loan</th><th>Cash due after deposit</th></tr></thead>
+<tbody>
+<tr><td>3%</td><td id="scenario3down">$0</td><td id="scenario3loan">$0</td><td id="scenario3cash">$0</td></tr>
+<tr><td>3.5%</td><td id="scenario35down">$0</td><td id="scenario35loan">$0</td><td id="scenario35cash">$0</td></tr>
+<tr><td>5%</td><td id="scenario5down">$0</td><td id="scenario5loan">$0</td><td id="scenario5cash">$0</td></tr>
+<tr><td>10%</td><td id="scenario10down">$0</td><td id="scenario10loan">$0</td><td id="scenario10cash">$0</td></tr>
+<tr><td>20%</td><td id="scenario20down">$0</td><td id="scenario20loan">$0</td><td id="scenario20cash">$0</td></tr>
+</tbody></table></div><div class="notice" id="validation" aria-live="polite"></div></div></div></div></div></section>
 
 <section class="section light"><div class="container narrow"><p class="eyebrow">HOW IT WORKS</p><h2>How the down payment calculator works</h2>
-<p>The calculator multiplies the purchase price by the down payment percentage you enter. That produces the estimated upfront down payment; subtracting it from the purchase price gives the estimated mortgage amount before other transaction adjustments.</p>
-<p>It then adds your estimated closing costs to the down payment to calculate cash needed before deposits. Earnest money already paid is treated as a credit toward that amount, so the calculator estimates the additional cash still needed. Any cash left over is calculated from the available-cash figure you enter.</p>
-<p>This page does not decide what down payment is appropriate for you. It is a budgeting model that helps you compare upfront cash requirements with the amount you would need to finance.</p></div></section>
+<p>The calculator multiplies the home purchase price by your planned down payment percentage. The result is your down payment. Subtracting that amount from the purchase price gives the estimated base mortgage amount before any financed program fees or other loan adjustments.</p>
+<ul>
+<li><strong>Down payment:</strong> home price × planned down payment percentage.</li>
+<li><strong>Base mortgage amount:</strong> home price − down payment.</li>
+<li><strong>Cash needed before deposit:</strong> down payment + estimated closing costs.</li>
+<li><strong>Cash due at closing:</strong> cash needed before deposit − earnest money applied, floored at zero.</li>
+<li><strong>Cash surplus or shortfall:</strong> available cash today, excluding the deposit already paid, − cash due at closing.</li>
+<li><strong>Maximum down payment supported by your cash budget:</strong> available cash today + earnest money applied − closing costs, limited to the home price.</li>
+</ul>
+<p>Earnest money is normally credited toward the buyer's funds due at closing; it is not an additional cost on top of the down payment and closing costs. The amount credited in the final settlement depends on the contract and closing statement.</p>
+<p>For the cash-surplus calculation, enter cash you can still use at closing after setting aside your emergency cushion, moving costs, renovation funds and other savings goals. Do not include earnest money already transferred in that number; enter it separately so it is not counted twice.</p>
+<p>This calculator does not estimate property taxes, homeowners insurance, mortgage insurance, HOA dues, prepaid costs or loan-program fees separately. Include relevant estimates in the closing-cost input or use your lender's Loan Estimate. Actual cash to close can also reflect seller credits, lender credits and transaction adjustments.</p>
+</div></section>
 
 <section class="section"><div class="container narrow"><p class="eyebrow">US HOME-BUYING GUIDANCE</p><h2>Down payment is only part of your upfront budget</h2>
-<p>The Consumer Financial Protection Bureau recommends considering your available savings, other financial goals, moving costs, renovations and an emergency cushion before deciding how much cash to put toward a down payment. It also notes that closing costs are separate from the down payment.</p>
-<p>Down payment requirements vary by loan type and lender. The CFPB notes that some conventional loans can have low down payment options, while FHA, VA and USDA programs have their own eligibility and financing rules.</p>
+<p>The Consumer Financial Protection Bureau recommends subtracting funds for other savings goals, moving costs, renovations, furnishings and an emergency cushion before deciding how much is actually available for the down payment and closing. It also explains that closing costs are separate from the down payment and commonly fall within a broad 2%–5% planning range, depending on the transaction.</p>
+<p>Down payment requirements vary by loan program and lender. The CFPB describes options that can start around 3% for some conventional loans and 3.5% for FHA loans, while special programs may offer other terms. A low down payment can make homeownership accessible, but may increase financing costs or trigger mortgage insurance. Check actual eligibility and quoted terms.</p>
+<p><a class="text-link" href="https://www.consumerfinance.gov/owning-a-home/prepare/determine-your-down-payment/">CFPB: Determine your down payment</a> · <a class="text-link" href="https://www.consumerfinance.gov/owning-a-home/prepare/figure-out-how-much-you-want-to-spend/">CFPB: Figure out how much you want to spend</a></p>
 </div></section>
 
 <section class="section light"><div class="container narrow"><p class="eyebrow">EXAMPLE</p><h2>Example down payment comparison</h2>
 <p>On a $400,000 home, a 10% down payment is $40,000, leaving an estimated $360,000 mortgage. At 20%, the down payment is $80,000 and the estimated mortgage is $320,000. If closing costs were $12,000, the corresponding cash needed before deposits would be $52,000 and $92,000.</p>
-<p>For example, with $100,000 available for closing and $5,000 of earnest money already paid, the 20% scenario would leave about $13,000 after the remaining estimated cash requirement ($80,000 + $12,000 − $5,000 = $87,000). This is a simple budgeting example; actual cash-to-close can also reflect lender credits, seller credits, prepaid items, deposits, and other transaction adjustments.</p></div></section>
+<p>Assume the buyer has $100,000 still available for closing, excluding $5,000 of earnest money already paid. With $80,000 down and $12,000 in closing costs, cash due at closing is $87,000 ($80,000 + $12,000 − $5,000). The buyer would have an estimated $13,000 surplus from the $100,000 still available. This is a planning example; actual cash to close can reflect credits, prepaids and settlement adjustments.</p></div></section>
 
 <section class="section"><div class="container narrow"><p class="eyebrow">FAQ</p><h2>Down payment calculator FAQs</h2>
 <h3>Do I need 20% down?</h3><p>No. Down payment requirements vary by loan program and lender. Some options allow substantially less than 20% down.</p>
 <h3>Does a bigger down payment lower the loan amount?</h3><p>Yes. For a given purchase price, every additional dollar paid upfront generally reduces the amount that must be financed.</p>
 <h3>Does a down payment include closing costs?</h3><p>No. Closing costs are separate. Your total cash to close can include the down payment and closing costs, less deposits and credits that apply.</p>
-<h3>Could a smaller down payment increase monthly costs?</h3><p>It can. A smaller down payment means a larger loan, and mortgage insurance may also apply depending on the loan and circumstances.</p>
-<h3>Should I use all my savings for the down payment?</h3><p>Not necessarily. Your cash budget may also need to cover closing costs, moving or renovation expenses and an emergency reserve. Consider those amounts before treating all available savings as down-payment funds.</p>
-<h3>Is this calculator a loan-qualification tool?</h3><p>No. It estimates down payment and cash requirements from the numbers you enter. Lenders use their own underwriting criteria to determine eligibility and loan terms.</p>
+<h3>Could a smaller down payment increase monthly costs?</h3><p>It can. A smaller down payment means a larger mortgage, and mortgage insurance may apply depending on the loan type and lender. Conventional loans with less than 20% down commonly require private mortgage insurance (PMI); FHA and USDA loans have separate mortgage-insurance or guarantee-fee rules. Check the actual quote for your loan program.</p>
+<h3>Should I use all my savings for the down payment?</h3><p>No. The CFPB suggests setting aside money for other savings goals, moving costs, furnishings, renovations and an emergency cushion. A larger down payment reduces the amount borrowed, but it also leaves less cash available for unexpected expenses.</p>
+<h3>Does earnest money count toward the down payment?</h3><p>Earnest money is generally credited toward the funds due at closing under the purchase contract. It can be applied toward the down payment and/or closing costs in the final settlement. Enter the deposit separately so the calculator does not count it as a new cost.</p>
+<h3>Is this calculator a loan-qualification tool?</h3><p>No. It estimates down payment and cash requirements from the numbers you enter. Lenders use underwriting criteria to determine eligibility, required funds, rates and loan terms.</p>
+<h3>Does 20% down guarantee the best mortgage deal?</h3><p>No. A larger down payment can reduce borrowing and may avoid conventional PMI, but the best choice depends on rates, fees, mortgage-insurance pricing, loan program and the value of keeping cash available. Compare complete Loan Estimates from lenders.</p>
 </div></section>
 
 <section class="section"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This calculator does not determine loan eligibility or recommend a down payment. Loan programs, lender requirements, mortgage insurance, closing costs and cash-to-close figures can vary.</div></div></section>
@@ -84,21 +112,51 @@
 </main>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
-function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);}
-function val(id){return Math.max(0,Number(document.getElementById(id).value)||0);}
+function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(v);}
+function signedMoney(v){return Math.abs(v)<0.005?money(0):(v<0?'−':'')+money(Math.abs(v));}
 function calc(){
- const price=val('price'), pct=Math.min(100,val('percent')), down=Math.min(price,price*pct/100), loan=Math.max(0,price-down), cash=val('cash'), closing=val('closing'), earnest=Math.min(val('earnest'),down+closing), needed=Math.max(0,down+closing), remaining=Math.max(0,needed-earnest), left=Math.max(0,cash-remaining);
+ const defs=[['price','Home price',0.01,100000000],['percent','Down payment percentage',0,100],['cash','Available cash now',0,100000000],['closing','Closing costs',0,100000000],['earnest','Earnest money already paid',0,100000000]];
+ const values={},errors=[];
+ defs.forEach(([id,label,min,max])=>{
+  const raw=document.getElementById(id).value.trim(),n=raw===''?NaN:Number(raw);
+  if(!Number.isFinite(n)||n<min||n>max)errors.push(label+' must be between '+min+' and '+max+'.');else values[id]=n;
+ });
+ const outputIds=['downOut','pctOut','loanOut','closingOut','neededOut','earnestOut','remainingOut','leftOut','maxDownOut','maxDownPctOut','depositSurplusOut'];
+ const validation=document.getElementById('validation');
+ if(errors.length){outputIds.forEach(id=>document.getElementById(id).textContent='—');validation.textContent=errors.join(' ');return;}
+ const price=values.price,pct=values.percent,cashNow=values.cash,closing=values.closing,earnest=values.earnest;
+ const down=price*pct/100,loan=price-down,needed=down+closing;
+ const earnestApplied=Math.min(earnest,needed),depositSurplus=Math.max(0,earnest-earnestApplied);
+ const cashDue=Math.max(0,needed-earnestApplied),cashPosition=cashNow-cashDue;
+ const maxDown=Math.min(price,Math.max(0,cashNow+earnestApplied-closing));
+ const maxDownPct=price>0?maxDown/price*100:0;
  document.getElementById('downOut').textContent=money(down);
  document.getElementById('pctOut').textContent=pct.toFixed(1)+'%';
  document.getElementById('loanOut').textContent=money(loan);
  document.getElementById('closingOut').textContent=money(closing);
  document.getElementById('neededOut').textContent=money(needed);
- document.getElementById('earnestOut').textContent=money(earnest);
- document.getElementById('remainingOut').textContent=money(remaining);
- document.getElementById('leftOut').textContent=money(left);
+ document.getElementById('earnestOut').textContent=money(earnestApplied);
+ document.getElementById('remainingOut').textContent=money(cashDue);
+ document.getElementById('leftOut').textContent=signedMoney(cashPosition);
+ document.getElementById('maxDownOut').textContent=money(maxDown);
+ document.getElementById('maxDownPctOut').textContent=maxDownPct.toFixed(1)+'%';
+ document.getElementById('depositSurplusOut').textContent=money(depositSurplus);
+ [3,3.5,5,10,20].forEach(rate=>{
+  const token=String(rate).replace('.',''),amount=price*rate/100,balance=price-amount;
+  const due=Math.max(0,amount+closing-earnestApplied);
+  document.getElementById('scenario'+token+'down').textContent=money(amount);
+  document.getElementById('scenario'+token+'loan').textContent=money(balance);
+  document.getElementById('scenario'+token+'cash').textContent=money(due);
+ });
+ const notes=[];
+ if(cashPosition<0)notes.push('Your available cash is short by '+money(Math.abs(cashPosition))+' for the planned down payment and closing costs.');
+ else notes.push('Your entered cash covers the modeled amount due and leaves '+money(cashPosition)+' after closing.');
+ if(depositSurplus>0)notes.push(money(depositSurplus)+' of the entered earnest-money deposit exceeds the modeled down payment plus closing costs; confirm how it will be reconciled.');
+ if(pct<20)notes.push('At this down payment percentage, mortgage insurance may apply depending on loan type and lender. This calculator does not estimate the premium.');
+ validation.textContent=notes.join(' ');
 }
 document.getElementById('calculate').addEventListener('click',calc);
-document.querySelectorAll('input').forEach(x=>x.addEventListener('input',calc));
+document.querySelectorAll('.input-grid input').forEach(x=>x.addEventListener('input',calc));
 calc();
 </script>
 </body>
