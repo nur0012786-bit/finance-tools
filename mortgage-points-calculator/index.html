@@ -13,8 +13,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Use this US mortgage points calculator to estimate discount-point cost, monthly payment savings, simple break-even time and mortgage interest differences.">
-<title>US Mortgage Points Calculator | Cost & Break-Even</title>
+<meta name="description" content="Compare US mortgage discount points with a zero-point rate, including upfront cost, monthly savings, simple break-even and holding-period cost after remaining loan balances.">
+<title>Mortgage Points Calculator: Cost & Break-Even</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/mortgage-points-calculator/">
 <script type="application/ld+json">
@@ -37,11 +37,12 @@
 
 <section class="section"><div class="container"><div class="calculator-grid">
 <div class="calculator-card"><h2>Enter mortgage details</h2><div class="input-grid">
-<label>Mortgage loan amount ($)<input id="loan" type="number" min="1" step="1000" value="300000"></label>
-<label>Discount points paid (%)<input id="points" type="number" min="0" step="0.125" value="1"></label>
-<label>Rate without points (%)<input id="rate0" type="number" min="0" step="0.01" value="6.50"></label>
-<label>Rate with points (%)<input id="rate1" type="number" min="0" step="0.01" value="6.25"></label>
-<label>Loan term (years)<input id="years" type="number" min="1" max="50" step="1" value="30"></label>
+<label>Mortgage loan amount ($)<input id="loan" type="number" min="0.01" max="100000000" step="0.01" value="300000" required></label>
+<label>Discount points paid (% of loan)<input id="points" type="number" min="0" max="10" step="0.125" value="1" required></label>
+<label>Interest rate without points (%)<input id="rate0" type="number" min="0" max="30" step="0.001" value="6.50" required></label>
+<label>Interest rate with points (%)<input id="rate1" type="number" min="0" max="30" step="0.001" value="6.25" required></label>
+<label>Loan term (years)<input id="years" type="number" min="1" max="50" step="1" value="30" required></label>
+<label>Expected time you will keep this loan (years)<input id="holdingYears" type="number" min="1" max="50" step="1" value="5" required></label>
 </div><button type="button" class="button" id="calculate">Calculate Points</button><p class="small-note">One discount point generally costs 1% of the loan amount. The interest-rate reduction per point is not fixed and varies by lender, loan type and market conditions.</p></div>
 <div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Points comparison</h2><div class="results">
 <div><span>Upfront cost of points</span><strong id="cost">$0</strong></div>
@@ -51,8 +52,12 @@
 <div><span>Simple break-even</span><strong id="breakEven">—</strong></div>
 <div><span>Interest without points</span><strong id="i0">$0</strong></div>
 <div><span>Interest with points</span><strong id="i1">$0</strong></div>
-<div><span>Interest difference before points cost</span><strong id="interestDiff">$0</strong></div>
-<div><span>Interest difference after points cost</span><strong id="netDiff">$0</strong></div>
+<div><span>Interest saved over full loan term</span><strong id="interestDiff">$0</strong></div>
+<div><span>Net full-term savings after points cost</span><strong id="netDiff">$0</strong></div>
+<div><span>Economic break-even</span><strong id="economicBreakEven">—</strong></div>
+<div><span>Net savings / (extra cost) at holding period</span><strong id="holdingNet">$0</strong></div>
+<div><span>Balance without points at holding period</span><strong id="balance0">$0</strong></div>
+<div><span>Balance with points at holding period</span><strong id="balance1">$0</strong></div>
 </div></div></div></div></section>
 
 <section class="section light"><div class="container narrow"><p class="eyebrow">HOW IT WORKS</p><h2>How this mortgage points calculator works</h2>
