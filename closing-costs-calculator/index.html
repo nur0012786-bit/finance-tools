@@ -13,8 +13,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estimate US home closing costs, prepaid expenses, lender and seller credits, earnest money and cash needed to close a home purchase.">
-<title>Closing Costs Calculator | Home Buying Cost Estimate</title>
+<meta name="description" content="Estimate US home-buying closing costs and cash to close, including loan fees, government charges, prepaids, escrow deposits, lender credits, seller credits and earnest money.">
+<title>Closing Costs Calculator: Estimate Cash to Close</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/closing-costs-calculator/">
 <script type="application/ld+json">
@@ -41,8 +41,8 @@
 <label>Loan origination / lender charges ($)<input id="lender" type="number" min="0" step="100" value="2500"></label>
 <label>Discount points ($)<input id="points" type="number" min="0" step="100" value="0"></label>
 <label>Appraisal & credit report ($)<input id="appraisal" type="number" min="0" step="50" value="700"></label>
-<label>Title / settlement / recording ($)<input id="title" type="number" min="0" step="100" value="2500"></label>
-<label>Transfer & government fees ($)<input id="gov" type="number" min="0" step="100" value="1500"></label>
+<label>Title / settlement services ($)<input id="title" type="number" min="0" step="0.01" value="2500" required></label>
+<label>Recording, transfer & government fees ($)<input id="gov" type="number" min="0" step="0.01" value="1500" required></label>
 <label>Inspection / survey / other services ($)<input id="services" type="number" min="0" step="100" value="800"></label>
 <label>Prepaid interest ($)<input id="prepaidInterest" type="number" min="0" step="50" value="600"></label>
 <label>Prepaid homeowners insurance ($)<input id="insurance" type="number" min="0" step="50" value="1500"></label>
@@ -51,22 +51,45 @@
 <label>HOA / other prepaid costs ($)<input id="other" type="number" min="0" step="50" value="300"></label>
 <label>Lender credits ($)<input id="lenderCredits" type="number" min="0" step="100" value="0"></label>
 <label>Seller credits ($)<input id="sellerCredits" type="number" min="0" step="100" value="0"></label>
-<label>Earnest money already paid ($)<input id="earnest" type="number" min="0" step="100" value="5000"></label>
-</div><button type="button" class="button" id="calculate">Calculate Closing Costs</button><p class="small-note">Replace the defaults with estimates from your Loan Estimate, lender, title company, insurer, tax authority or other providers whenever available. Costs vary by transaction and location.</p></div>
+<label>Closing costs paid before closing ($)<input id="paidBefore" type="number" min="0" step="0.01" value="0" required></label>
+<label>Closing costs financed in the mortgage ($)<input id="financed" type="number" min="0" step="0.01" value="0" required></label>
+<label>Earnest money / deposit already paid ($)<input id="earnest" type="number" min="0" step="0.01" value="5000" required></label>
+</div><button type="button" class="button" id="calculate">Calculate Closing Costs</button><p class="small-note">Use your Loan Estimate and provider quotes when available. Enter only costs actually paid before closing or financed in the loan in those separate fields. Credits are capped at estimated costs remaining in this simplified model; program-specific concession limits are not determined here.</p></div>
 
 <div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Your closing-cost summary</h2><div class="results">
-<div><span>Loan amount</span><strong id="loan">$0</strong></div><div><span>Down payment</span><strong id="downOut">$0</strong></div><div><span>Loan costs</span><strong id="loanCosts">$0</strong></div><div><span>Other costs</span><strong id="otherCosts">$0</strong></div><div><span>Total before credits</span><strong id="beforeCredits">$0</strong></div><div><span>Lender credits</span><strong id="lc">$0</strong></div><div><span>Estimated closing costs</span><strong id="closing">$0</strong></div><div><span>Seller credits</span><strong id="sc">$0</strong></div><div><span>Earnest money applied</span><strong id="em">$0</strong></div><div><span>Estimated cash to close</span><strong id="cash" aria-live="polite">$0</strong></div>
-</div></div></div></div></section>
+<div><span>Base mortgage amount</span><strong id="loan">$0.00</strong></div>
+<div><span>New loan incl. financed costs</span><strong id="newLoan">$0.00</strong></div>
+<div><span>Down payment</span><strong id="downOut">$0.00</strong></div>
+<div><span>Loan costs</span><strong id="loanCosts">$0.00</strong></div>
+<div><span>Government & other services</span><strong id="otherCosts">$0.00</strong></div>
+<div><span>Prepaids & initial escrow</span><strong id="prepaids">$0.00</strong></div>
+<div><span>Total closing costs before credits</span><strong id="beforeCredits">$0.00</strong></div>
+<div><span>Lender credits applied</span><strong id="lc">$0.00</strong></div>
+<div><span>Costs after lender credits</span><strong id="closing">$0.00</strong></div>
+<div><span>Costs paid before closing</span><strong id="paidBeforeOut">$0.00</strong></div>
+<div><span>Costs financed in loan</span><strong id="financedOut">$0.00</strong></div>
+<div><span>Seller credits applied</span><strong id="sellerApplied">$0.00</strong></div>
+<div><span>Earnest money applied</span><strong id="em">$0.00</strong></div>
+<div><span>Estimated cash needed at closing</span><strong id="cash" aria-live="polite">$0.00</strong></div>
+<div><span>Seller credits not applied</span><strong id="sellerUnused">$0.00</strong></div>
+<div><span>Deposit not applied</span><strong id="depositSurplus">$0.00</strong></div>
+</div></div><div class="notice" id="validation" aria-live="polite"></div></div></div></section>
 
 <section class="section light"><div class="container narrow"><p class="eyebrow">HOW IT WORKS</p><h2>How this closing costs calculator works</h2>
-<p>The calculator organizes your inputs into loan costs and other transaction costs. Loan costs include lender charges, discount points, appraisal and credit-report expenses, and title or settlement costs entered in the form. Other costs can include government charges, inspections or other services, prepaid interest, homeowners insurance, initial escrow deposits and other prepaid amounts.</p>
-<p>Estimated closing costs are calculated as the total entered costs minus lender credits, with the result prevented from going below zero. Estimated cash to close is then calculated from the down payment plus estimated closing costs, less seller credits and earnest money already paid.</p>
-<p>This is an organizing and planning model, not a replica of every line on a Loan Estimate or Closing Disclosure. Some charges may be categorized differently on your lender's documents, and transaction-specific adjustments can change the final amount.</p>
+<p>The calculator groups entered charges into three planning categories. Your lender's Loan Estimate and Closing Disclosure use their own detailed line-item classifications.</p>
+<ul>
+<li><strong>Loan costs:</strong> lender origination charges, discount points, appraisal and credit-report fees, and title or settlement services.</li>
+<li><strong>Government and other services:</strong> recording or transfer fees, other government charges, inspections, surveys and other services.</li>
+<li><strong>Prepaids and initial escrow:</strong> prepaid interest, homeowners insurance paid in advance, initial property-tax and insurance escrow deposits, and entered HOA or other prepaid items.</li>
+</ul>
+<p>Total closing costs before credits are the sum of those categories. Lender credits reduce that amount. Costs paid before closing and costs financed from loan proceeds are then deducted from the remaining amount due at closing. Seller credits are applied only against the remaining costs in this model, not the down payment. Earnest money is then applied against the remaining borrower funds due.</p>
+<p>The estimated new loan amount is the purchase price minus the down payment, plus costs you enter as financed. Estimated cash needed at closing is the down payment plus closing costs still due, less applied seller credits and earnest money. Any excess credit or deposit is shown separately rather than silently reducing the cash requirement below zero.</p>
+<p>This model excludes property-tax proration, seller-paid individual line items, adjustments for expenses paid or unpaid by the seller, funds for the borrower, other third-party credits, loan-program financing restrictions and lender-specific treatment. Actual cash to close may differ.</p>
 </div></section>
 
 <section class="section"><div class="container narrow"><p class="eyebrow">US MORTGAGE GUIDANCE</p><h2>Closing costs vs. cash to close</h2>
-<p>The Consumer Financial Protection Bureau describes closing costs as upfront costs associated with obtaining the mortgage and transferring ownership. Cash to close is a separate figure: it reflects the amount you need to pay at closing after the transaction's down payment, closing costs, deposits, credits and other adjustments are taken into account.</p>
-<p>For covered mortgage transactions, a lender generally provides a Loan Estimate after application and a Closing Disclosure with final loan terms and costs. The CFPB says the Closing Disclosure must generally be provided at least three business days before closing, giving you time to compare the final figures with your Loan Estimate.</p>
+<p>The Consumer Financial Protection Bureau distinguishes total closing costs from cash to close. Closing costs are upfront loan and transaction expenses, excluding the down payment. Cash to close also accounts for the down payment, costs paid before closing, costs financed from the loan amount, the deposit, seller credits and other adjustments or credits.</p>
+<p>For covered mortgage transactions, the lender generally provides a Loan Estimate after application and a Closing Disclosure at least three business days before scheduled closing. Review final figures against your most recent Loan Estimate and ask the lender or settlement agent about changes you do not understand.</p>
 <a class="text-link" href="https://www.consumerfinance.gov/owning-a-home/closing-disclosure/">Review the CFPB Closing Disclosure guide →</a>
 </div></section>
 
@@ -76,18 +99,19 @@
 </div></section>
 
 <section class="section"><div class="container narrow"><p class="eyebrow">WORKED EXAMPLE</p><h2>Example home purchase</h2>
-<p>Suppose a home costs $400,000 and you plan to put $80,000 down. Using the calculator's default inputs, loan costs total $5,700 and other entered costs total $7,200, producing $12,900 of estimated closing costs before credits. With $5,000 of earnest money already paid and no seller or lender credits, estimated cash to close is $87,900.</p>
+<p>Suppose a home costs $400,000 and you plan to put $80,000 down. With the default cost inputs, loan costs total $5,700, government and other service costs total $2,300, and prepaids and initial escrow total $4,900. This produces $12,900 of estimated closing costs before credits. With no credits, no costs paid before closing or financed, and $5,000 of earnest money, estimated cash needed at closing is $87,900.</p>
 <p>The estimated mortgage amount before any separate loan-program fees is $320,000. Your actual cash requirement can be different because your Loan Estimate, provider quotes, negotiated credits, prepaid items and transaction adjustments may differ.</p>
 </div></section>
 
 <section class="section light"><div class="container narrow"><p class="eyebrow">FAQ</p><h2>Closing costs calculator FAQs</h2>
 <h3>What are closing costs?</h3><p>Closing costs are upfront costs associated with getting a mortgage and completing a real estate transaction. They can include lender charges, appraisal and credit-report fees, title and settlement services, government charges, prepaid expenses and initial escrow deposits.</p>
 <h3>Are closing costs the same as cash to close?</h3><p>No. Closing costs are one part of the amount you may need to bring to closing. Cash to close can also reflect the down payment, earnest money already paid, seller credits and other transaction adjustments.</p>
-<h3>Does this calculator include the down payment?</h3><p>The calculator shows the down payment separately and uses it when estimating cash to close. It does not treat the down payment as part of the displayed estimated closing-cost figure.</p>
-<h3>What are lender credits?</h3><p>Lender credits can offset some closing costs. The CFPB notes that a lender may provide a credit in exchange for a higher interest rate or through other loan pricing, so compare the overall cost rather than looking only at the upfront credit.</p>
-<h3>What are prepaid costs and escrow deposits?</h3><p>Prepaid costs can include items such as prepaid interest and homeowners insurance. Initial escrow deposits can fund an account used for future property taxes, insurance and other applicable charges.</p>
+<h3>Does this calculator include the down payment?</h3><p>Yes, in estimated cash needed at closing. The down payment is shown separately and is not included in the total closing-cost figure.</p>
+<h3>What are lender credits and seller credits?</h3><p>Lender credits are rebates from the lender that offset some closing costs and are commonly associated with a higher interest rate. Seller credits are amounts the seller has agreed to contribute toward eligible closing costs. Program rules and the purchase agreement can limit how credits are applied; this calculator caps them at estimated costs remaining in its simplified model.</p>
+<h3>What are prepaid costs and escrow deposits?</h3><p>Prepaids can include interest from closing through the end of the month and an upfront homeowners insurance premium. Initial escrow deposits fund the starting balance for future property taxes, insurance and other charges where an escrow account is used. They are different from recurring monthly escrow payments.</p>
 <h3>Why do closing costs vary?</h3><p>Costs vary with the loan type, lender, property location, services selected, taxes, insurance, timing and negotiated transaction terms. Some costs are also paid by the seller or offset by credits depending on the contract and applicable rules.</p>
 <h3>Is this an official Closing Disclosure?</h3><p>No. This calculator is an educational estimate. Your lender's Loan Estimate and final Closing Disclosure contain the transaction-specific figures you should use for the actual purchase.</p>
+<h3>Can I enter costs paid before closing or financed in my loan?</h3><p>Yes. Enter those figures separately. Costs paid before closing have already been paid and reduce the amount due at settlement. Costs financed from loan proceeds increase the estimated loan amount and reduce upfront cash due.</p>
 <h3>When should I check my final closing costs?</h3><p>For covered mortgage transactions, the CFPB says you generally receive the Closing Disclosure at least three business days before closing. Review it against your most recent Loan Estimate and ask the lender about unexpected changes.</p>
 </div></section>
 
@@ -97,10 +121,65 @@
 </main>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
-function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);}
-function val(id){return Math.max(0,Number(document.getElementById(id).value)||0);}
-function calc(){const price=val('price'),down=Math.min(val('down'),price),loan=Math.max(0,price-down),loanCosts=val('lender')+val('points')+val('appraisal')+val('title'),otherCosts=val('gov')+val('services')+val('prepaidInterest')+val('insurance')+val('taxEscrow')+val('insEscrow')+val('other'),before=loanCosts+otherCosts,lc=val('lenderCredits'),closing=Math.max(0,before-lc),sc=val('sellerCredits'),earnest=Math.min(val('earnest'),down+closing),cash=Math.max(0,down+closing-sc-earnest);document.getElementById('loan').textContent=money(loan);document.getElementById('downOut').textContent=money(down);document.getElementById('loanCosts').textContent=money(loanCosts);document.getElementById('otherCosts').textContent=money(otherCosts);document.getElementById('beforeCredits').textContent=money(before);document.getElementById('lc').textContent=money(lc);document.getElementById('closing').textContent=money(closing);document.getElementById('sc').textContent=money(sc);document.getElementById('em').textContent=money(earnest);document.getElementById('cash').textContent=money(cash);}
-document.getElementById('calculate').addEventListener('click',calc);document.querySelectorAll('input').forEach(x=>x.addEventListener('input',calc));calc();
+function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(v);}
+function calc(){
+ const ids=['price','down','lender','points','appraisal','title','gov','services','prepaidInterest','insurance','taxEscrow','insEscrow','other','lenderCredits','sellerCredits','paidBefore','financed','earnest'];
+ const names={price:'Home price',down:'Down payment',lender:'Lender charges',points:'Discount points',appraisal:'Appraisal and credit fees',title:'Title and settlement services',gov:'Government fees',services:'Other services',prepaidInterest:'Prepaid interest',insurance:'Prepaid insurance',taxEscrow:'Property-tax escrow',insEscrow:'Insurance escrow',other:'Other prepaid costs',lenderCredits:'Lender credits',sellerCredits:'Seller credits',paidBefore:'Costs paid before closing',financed:'Costs financed',earnest:'Earnest money'};
+ const v={},errors=[];
+ ids.forEach(id=>{
+  const raw=document.getElementById(id).value.trim(),n=raw===''?NaN:Number(raw);
+  if(!Number.isFinite(n)||n<0)errors.push(names[id]+' must be a non-negative amount.');else v[id]=n;
+ });
+ if(v.price!==undefined&&v.price<=0)errors.push('Home price must be greater than $0.');
+ if(v.price!==undefined&&v.down!==undefined&&v.down>v.price)errors.push('Down payment cannot exceed the home price.');
+ const outputs=['loan','newLoan','downOut','loanCosts','otherCosts','prepaids','beforeCredits','lc','closing','paidBeforeOut','financedOut','sellerApplied','em','cash','sellerUnused','depositSurplus'];
+ const validation=document.getElementById('validation');
+ if(errors.length){outputs.forEach(id=>document.getElementById(id).textContent='—');validation.textContent=errors.join(' ');return;}
+ const baseLoan=v.price-v.down;
+ const loanCosts=v.lender+v.points+v.appraisal+v.title;
+ const otherCosts=v.gov+v.services;
+ const prepaids=v.prepaidInterest+v.insurance+v.taxEscrow+v.insEscrow+v.other;
+ const grossCosts=loanCosts+otherCosts+prepaids;
+ const lenderApplied=Math.min(v.lenderCredits,grossCosts);
+ const afterLender=Math.max(0,grossCosts-lenderApplied);
+ const financedApplied=Math.min(v.financed,afterLender);
+ const afterFinancing=Math.max(0,afterLender-financedApplied);
+ const paidBeforeApplied=Math.min(v.paidBefore,afterFinancing);
+ const costsDueAtClosing=Math.max(0,afterFinancing-paidBeforeApplied);
+ const sellerApplied=Math.min(v.sellerCredits,costsDueAtClosing);
+ const sellerUnused=Math.max(0,v.sellerCredits-sellerApplied);
+ const borrowerFundsBeforeDeposit=Math.max(0,v.down+costsDueAtClosing-sellerApplied);
+ const earnestApplied=Math.min(v.earnest,borrowerFundsBeforeDeposit);
+ const depositSurplus=Math.max(0,v.earnest-earnestApplied);
+ const cashToClose=Math.max(0,borrowerFundsBeforeDeposit-earnestApplied);
+ const newLoan=baseLoan+financedApplied;
+ document.getElementById('loan').textContent=money(baseLoan);
+ document.getElementById('newLoan').textContent=money(newLoan);
+ document.getElementById('downOut').textContent=money(v.down);
+ document.getElementById('loanCosts').textContent=money(loanCosts);
+ document.getElementById('otherCosts').textContent=money(otherCosts);
+ document.getElementById('prepaids').textContent=money(prepaids);
+ document.getElementById('beforeCredits').textContent=money(grossCosts);
+ document.getElementById('lc').textContent=money(lenderApplied);
+ document.getElementById('closing').textContent=money(afterLender);
+ document.getElementById('paidBeforeOut').textContent=money(paidBeforeApplied);
+ document.getElementById('financedOut').textContent=money(financedApplied);
+ document.getElementById('sellerApplied').textContent=money(sellerApplied);
+ document.getElementById('em').textContent=money(earnestApplied);
+ document.getElementById('cash').textContent=money(cashToClose);
+ document.getElementById('sellerUnused').textContent=money(sellerUnused);
+ document.getElementById('depositSurplus').textContent=money(depositSurplus);
+ const notes=[];
+ if(v.lenderCredits>lenderApplied)notes.push(money(v.lenderCredits-lenderApplied)+' of entered lender credits exceed the costs in this estimate and were not applied.');
+ if(v.sellerCredits>sellerApplied)notes.push(money(sellerUnused)+' of entered seller credits exceed the remaining costs in this estimate and were not applied to the down payment.');
+ if(depositSurplus>0)notes.push(money(depositSurplus)+' of the entered deposit is above the modeled amount due; ask your settlement agent how the surplus will be reconciled.');
+ if(v.financed>afterLender)notes.push('Financed closing costs were capped at costs remaining after lender credits.');
+ if(v.paidBefore>afterFinancing)notes.push('Costs paid before closing were capped at costs remaining after credits and financed costs.');
+ validation.textContent=notes.length?notes.join(' '):'Estimate only. The modeled amount includes the down payment and remaining costs after the credits, prior payments, financed costs and deposit entered.';
+}
+document.querySelectorAll('.input-grid input').forEach(x=>x.addEventListener('input',calc));
+document.getElementById('calculate').addEventListener('click',calc);
+calc();
 </script>
 </body>
 </html>
