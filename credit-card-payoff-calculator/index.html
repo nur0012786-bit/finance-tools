@@ -308,10 +308,10 @@ function calculate(){
     payment:document.getElementById('payment').value.trim(),
     extra:document.getElementById('extra').value.trim()
   };
-  const balance=Number(fields.balance);
-  const apr=Number(fields.apr);
-  const payment=Number(fields.payment);
-  const extra=Number(fields.extra);
+  const balance=roundCents(Number(fields.balance));
+  const apr=roundCents(Number(fields.apr));
+  const payment=roundCents(Number(fields.payment));
+  const extra=roundCents(Number(fields.extra));
   const msg=document.getElementById('message');
 
   clearResults();
