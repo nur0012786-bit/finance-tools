@@ -17,7 +17,7 @@
 <title>US Auto Loan Calculator | Car Payment, Tax & Interest</title>
 <link rel="stylesheet" href="../style.css">
 <style>
-.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}}
+.calc-wrap{max-width:900px;margin:0 auto}.calc-box{background:#fff;border:1px solid #e1e8f0;border-radius:20px;padding:30px;box-shadow:0 12px 35px rgba(30,65,110,.08)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}label{font-weight:700;display:block;margin-bottom:8px}.calc-box input:not([type="checkbox"]){width:100%;padding:13px;border:1px solid #ccd6e2;border-radius:9px;font-size:16px;box-sizing:border-box}.calc-box input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}.field-help{display:block;color:#687588;font-size:13px;line-height:1.45;margin-top:6px}.check-row{display:flex;align-items:flex-start;gap:10px;margin-top:22px;font-size:14px;line-height:1.5}.check-row input{width:auto;min-width:17px;height:17px;margin-top:2px}.calc-button{margin-top:22px;width:100%;border:0;cursor:pointer;font-size:16px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.result{background:#f5f8fc;border-radius:12px;padding:18px;min-width:0}.result small{display:block;color:#647286;margin-bottom:5px}.result strong{font-size:22px;overflow-wrap:anywhere}.result-explanation{margin-top:16px;padding:14px 16px;border-left:3px solid #93a4b8;background:#f8fafc;border-radius:8px;line-height:1.6;color:#405066}.error-message{color:#b42318;background:#fff1f0;border-radius:8px;padding:12px;margin-top:14px}.faq{margin-top:35px}.faq-item{padding:20px 0;border-bottom:1px solid #e1e8f0}.faq-item h3{margin:0 0 8px;font-size:18px}.faq-item p{margin:0;color:#526174;line-height:1.7}.note{font-size:14px;color:#687588;margin-top:25px}@media(max-width:650px){.form-grid,.results{grid-template-columns:1fr}.calc-box{padding:20px}}
 </style>
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/auto-loan-calculator/">
 <script type="application/ld+json">
@@ -41,65 +41,155 @@
 <p class="hero-text">Estimate your vehicle loan amount, monthly principal-and-interest payment, sales tax, total interest and upfront cash using the purchase price, down payment, trade-in value, rate and loan term.</p>
 <div class="calc-box">
 <div class="form-grid">
-<div><label for="price">Vehicle price ($)</label><input id="price" type="number" min="0" value="30000"></div>
-<div><label for="down">Down payment ($)</label><input id="down" type="number" min="0" value="5000"></div>
-<div><label for="trade">Trade-in value ($)</label><input id="trade" type="number" min="0" value="0"></div>
-<div><label for="rate">Annual interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="7"></div>
-<div><label for="years">Loan term (years)</label><input id="years" type="number" min="1" value="5"></div>
-<div><label for="tax">Sales tax (%)</label><input id="tax" type="number" min="0" step="0.01" value="0"></div>
+<div><label for="price">Vehicle price ($)</label><input id="price" type="number" min="0.01" step="0.01" value="30000" inputmode="decimal"></div>
+<div><label for="down">Cash down payment ($)</label><input id="down" type="number" min="0" step="0.01" value="5000" inputmode="decimal"></div>
+<div><label for="trade">Trade-in value ($)</label><input id="trade" type="number" min="0" step="0.01" value="0" inputmode="decimal"></div>
+<div><label for="tradePayoff">Payoff on trade-in ($)</label><input id="tradePayoff" type="number" min="0" step="0.01" value="0" inputmode="decimal"><small class="field-help">Enter the current lender's payoff quote, not just the balance shown on a statement.</small></div>
+<div><label for="fees">Financed fees and add-ons ($)</label><input id="fees" type="number" min="0" step="0.01" value="0" inputmode="decimal"><small class="field-help">Only enter costs that will be included in the new loan.</small></div>
+<div><label for="rate">Annual contract interest rate (%)</label><input id="rate" type="number" min="0" step="0.01" value="7" inputmode="decimal"><small class="field-help">Use the contract rate used to calculate payments, not APR unless they are identical.</small></div>
+<div><label for="years">Loan term (years)</label><input id="years" type="number" min="0.5" max="15" step="0.5" value="5" inputmode="decimal"></div>
+<div><label for="tax">Estimated sales tax (%)</label><input id="tax" type="number" min="0" step="0.01" value="0" inputmode="decimal"></div>
 </div>
-<button type="button" class="button calc-button" onclick="calculateAutoLoan()">Calculate auto loan</button>
+<label class="check-row" for="tradeTaxCredit"><input id="tradeTaxCredit" type="checkbox"><span>Apply a trade-in sales-tax credit to the taxable vehicle price (only where state/local rules allow)</span></label>
+<button type="button" class="button calc-button" id="calculateButton">Calculate auto loan</button>
+<p class="error-message" id="calcError" role="alert" hidden></p>
 <div class="results">
-<div class="result"><small>Estimated loan amount</small><strong id="loanAmount">$0.00</strong></div>
-<div class="result"><small>Monthly payment</small><strong id="monthly" aria-live="polite">$0.00</strong></div>
-<div class="result"><small>Total interest</small><strong id="interest">$0.00</strong></div>
-<div class="result"><small>Total payments</small><strong id="total">$0.00</strong></div>
+<div class="result"><small>Estimated amount financed</small><strong id="loanAmount">$0.00</strong></div>
+<div class="result"><small>Estimated monthly payment</small><strong id="monthly" aria-live="polite">$0.00</strong></div>
+<div class="result"><small>Estimated total interest</small><strong id="interest">$0.00</strong></div>
+<div class="result"><small>Total scheduled payments</small><strong id="total">$0.00</strong></div>
 <div class="result"><small>Estimated sales tax</small><strong id="taxAmount">$0.00</strong></div>
-<div class="result"><small>Upfront down payment</small><strong id="downResult">$0.00</strong></div>
+<div class="result"><small>Net trade-in equity (+ / −)</small><strong id="tradeEquity">$0.00</strong></div>
+<div class="result"><small>Financed fees and add-ons</small><strong id="feesResult">$0.00</strong></div>
+<div class="result"><small>Cash down payment</small><strong id="downResult">$0.00</strong></div>
 </div>
-<p class="note">Estimate only. This tool does not include registration, title fees, dealer fees, insurance, maintenance, warranties or lender-specific charges. Trade-in tax treatment can vary by location.</p>
+<p class="result-explanation" id="calculationSummary" aria-live="polite"></p>
+<p class="note">Estimate only. This tool does not include registration, title fees, insurance, maintenance or ownership costs unless you enter a financed fee. Sales-tax treatment and trade-in credits vary by state and locality. The tax-credit checkbox is an assumption you must verify locally.</p>
 </div>
 </div></section>
 
 <section class="section light"><div class="container narrow">
 <p class="eyebrow">AUTO LOAN GUIDE</p>
 <h2>How does an auto loan calculator work?</h2>
-<p>An auto loan calculator estimates the monthly payment from the amount financed, annual interest rate and repayment term. This version also lets you account for a down payment, trade-in value and an optional sales-tax estimate.</p>
-<h2>How does a down payment affect a car loan?</h2>
-<p>A down payment reduces the amount you need to finance. Borrowing less can reduce the monthly payment and the total interest paid, assuming the interest rate and term stay the same.</p>
-<h2>Why include trade-in value?</h2>
-<p>A trade-in can reduce the amount that needs to be financed, depending on the vehicle's value, any remaining loan balance and applicable local rules.</p>
-<h2>Auto loan example</h2>
-<p>Try a $30,000 vehicle with a $5,000 down payment, a 7% annual interest rate and a 5-year term. You can also add a trade-in value and sales tax to compare scenarios.</p>
+<p>This calculator estimates the amount financed, scheduled monthly payment, total scheduled interest and total of payments from the vehicle price, cash down payment, trade-in value and payoff, financed fees, estimated sales tax, contract interest rate and loan term. It uses a standard fixed-rate monthly amortization model.</p>
 
-<section class="guide"><h2>How this US auto loan calculator works</h2><p>The calculator starts with the vehicle price, subtracts the down payment and trade-in value, and adds estimated sales tax to determine the financed amount. It then applies standard fixed-rate amortization to estimate the monthly principal-and-interest payment.</p><p>The model does not automatically include every dealer or government charge. Registration, title, documentation fees, warranties, maintenance, insurance and other add-ons can change the actual amount you pay.</p><h2>Sales tax, trade-in and down payment</h2><p>Sales tax can materially change the amount financed. A trade-in can reduce the amount you need to finance, while a larger down payment reduces principal and can reduce interest over the life of the loan.</p><h2>Auto loan rate vs. APR</h2><p>The interest rate measures the borrowing cost, while APR can include the interest rate plus certain fees. When comparing US auto financing offers, compare APRs with APRs and review the required disclosures. </p><h2>Why loan term matters</h2><p>A longer term can reduce the scheduled monthly payment but may increase total interest and keep you in debt longer. The CFPB also notes that a longer auto loan can increase the period during which you may have negative equity. </p><h2>Worked example</h2><p>For a $30,000 vehicle with $5,000 down, a $3,000 trade-in and a 6.5% rate over 60 months, enter the applicable sales-tax rate to see the estimated financed amount and payment. Your actual purchase price can also include taxes, title, registration and dealer charges.</p></section>
-<p class="eyebrow">FAQ</p><h2>Frequently asked questions</h2>
-<div class="faq-item"><h3>What does an auto loan calculator calculate?</h3><p>It estimates the amount financed, monthly payment, total interest and total scheduled payments using the values you enter.</p></div>
-<div class="faq-item"><h3>Does a larger down payment lower the monthly car payment?</h3><p>Generally, yes. A larger down payment means a smaller amount is financed, which can reduce the scheduled monthly payment and interest for the same rate and term.</p></div>
-<div class="faq-item"><h3>Does this calculator include sales tax?</h3><p>Yes. You can enter an estimated sales-tax percentage. The result is a simple estimate; actual tax treatment varies by location and transaction.</p></div>
-<div class="faq-item"><h3>Does trade-in value reduce the loan amount?</h3><p>The calculator subtracts the entered trade-in value from the vehicle price for an estimate. Actual financing can differ if there is a remaining balance on the trade-in or other transaction costs.</p></div>
-<div class="faq-item"><h3>Does the calculator include insurance and registration?</h3><p>No. Insurance, registration, title fees, dealer fees and other ownership costs are not included in the monthly payment estimate.</p></div>
-</div>
+<h2>How the amount financed is estimated</h2>
+<p>The basic estimate is:</p>
+<p><strong>Vehicle price + estimated sales tax + financed fees − cash down payment − net trade-in equity</strong></p>
+<p>Net trade-in equity is the trade-in value minus the payoff on the existing vehicle loan. Positive equity reduces the new loan. Negative equity increases the amount that must be financed if it is rolled into the deal. Always verify the actual trade-in value and payoff amount separately.</p>
+<p>The calculator's amount financed is a planning estimate, not a substitute for the amount financed disclosed in the final retail installment contract. Actual contracts can include additional taxes, fees, optional products or other adjustments.</p>
+
+<h2>How the monthly payment is calculated</h2>
+<p>For a standard fixed-rate loan with monthly payments, the calculator uses the contract interest rate and number of monthly payments to estimate principal and interest. It does not use APR as a direct replacement for the contract rate. APR is a broader credit-cost disclosure that may include certain finance charges.</p>
+<p>When the interest rate is zero, the amount financed is divided evenly across the scheduled payments. For other rates, the standard amortization formula is used. Actual lenders may accrue interest daily, round installments or apply contract-specific rules, so the lender's payment schedule controls the actual payment.</p>
+
+<h2>Sales tax and trade-in credits</h2>
+<p>Sales-tax rules vary by state and locality. Some jurisdictions calculate tax on the full vehicle price, while others allow an eligible trade-in allowance to reduce the taxable amount. This calculator uses the full vehicle price by default. You can select the trade-in tax-credit assumption only if your state and transaction qualify.</p>
+<p>The tax-credit option subtracts the trade-in value—not net trade-in equity—from the taxable vehicle price. It does not determine state eligibility, tax caps, private-party rules or other local exceptions. Confirm the taxable amount with your state revenue authority or dealer's itemized buyer's order.</p>
+
+<h2>Why trade-in payoff matters</h2>
+<p>If the vehicle you trade in still has a loan, the new transaction must account for the lender's payoff. A trade-in worth $12,000 with a $9,000 payoff has $3,000 in positive equity. A trade-in worth $15,000 with an $18,000 payoff has $3,000 in negative equity. If the negative equity is rolled into the new loan, it increases the amount financed and the interest you may pay.</p>
+<p>Do not assume a dealer's promise to "pay off" the old loan makes a shortfall disappear. Check how the payoff, trade-in allowance and any negative equity appear in the written contract.</p>
+
+<h2>Financed fees and add-ons</h2>
+<p>Enter only the fees and optional products that will actually be added to the new loan. Do not include amounts you will pay separately in cash. Optional warranties, GAP products, credit insurance, dealer-installed items and other add-ons can increase the amount financed and total repayment cost. Ask whether each item is optional and review its price, coverage, exclusions and cancellation rules.</p>
+
+<h2>What this calculator does not include</h2>
+<p>The calculator does not automatically estimate state-specific title, registration, documentation, dealer or delivery charges; automobile insurance; fuel; maintenance; repairs; parking; or other ownership costs. Include any eligible amount in "Financed fees and add-ons" only when it will be financed. The actual transaction may also use state-specific tax calculations or loan terms not represented here.</p>
+
+<h2>Compare more than the monthly payment</h2>
+<p>A longer term can lower the scheduled monthly payment but generally increases the number of months you pay interest. Compare the amount financed, contract interest rate, APR, loan term, monthly payment, total interest and total of payments. Check the Truth in Lending disclosure and retail installment contract before signing.</p>
+
+<h2>Auto loan calculation example</h2>
+<p>Try a $30,000 vehicle, $5,000 cash down, no trade-in, no financed fees, a 7% annual contract interest rate and a 5-year term. With zero sales tax entered, the estimated amount financed is $25,000 and the monthly principal-and-interest payment is about $495.03.</p>
+<p>Then test a trade-in with an outstanding payoff. For example, a $12,000 trade-in value and a $14,000 payoff create $2,000 of negative equity. With all other inputs unchanged, that shortfall adds to the amount financed if it is rolled into the transaction.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="faq-item"><h3>Does this calculator use APR or interest rate?</h3><p>It uses the annual contract interest rate for the standard monthly payment calculation. APR is a broader disclosure measure that may include certain finance charges. Compare the official APR and amount financed on the lender's disclosure.</p></div>
+<div class="faq-item"><h3>Does it include the payoff on my current trade-in?</h3><p>Yes. Enter the trade-in value and the amount needed to pay off its current loan. The calculator subtracts net positive equity or adds negative equity to the estimated amount financed.</p></div>
+<div class="faq-item"><h3>Does the sales-tax credit always apply to a trade-in?</h3><p>No. Tax treatment varies by state and locality. The option is an assumption for users who have confirmed that a trade-in tax credit applies to their transaction.</p></div>
+<div class="faq-item"><h3>Does the calculator include dealer fees?</h3><p>Only if you enter fees or add-ons that will be financed. Enter financed costs only; do not include fees that you will pay separately in cash.</p></div>
+<div class="faq-item"><h3>Does it include car insurance?</h3><p>No. Auto insurance, fuel, maintenance, repairs and other vehicle ownership expenses are separate from the estimated loan payment.</p></div>
+<div class="faq-item"><h3>Why might the lender's payment be different?</h3><p>The lender may use daily interest, different payment dates, rounding, additional financed amounts or contract provisions not included in this simplified monthly model. The written loan contract and payment schedule control.</p></div>
+<div class="faq-item"><h3>Can a longer loan term lower the payment?</h3><p>Generally, yes, but it usually means paying interest over more months and can increase the total cost. Compare total of payments, not only the monthly amount.</p></div>
+<div class="faq-item"><h3>Does a larger down payment guarantee a lower APR?</h3><p>No. A larger down payment reduces the amount financed, but the APR depends on the credit terms and applicable finance charges. Lender pricing and approval also depend on other factors.</p></div>
 </div></section>
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Plan vehicle financing with related loan and payoff calculators.</p><ul><li><a href="../loan-calculator/">Loan Calculator</a></li><li><a href="../personal-loan-calculator/">Personal Loan Calculator</a></li><li><a href="../debt-payoff-calculator/">Debt Payoff Calculator</a></li></ul></div></section>
 </main>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
-function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD"})}
-function calculateAutoLoan(){
- const price=Number(document.getElementById("price").value),down=Number(document.getElementById("down").value),trade=Number(document.getElementById("trade").value),annual=Number(document.getElementById("rate").value),years=Number(document.getElementById("years").value),tax=Number(document.getElementById("tax").value);
- if(!price||price<=0||down<0||trade<0||annual<0||!years||years<=0||tax<0){alert("Please enter valid values.");return}
- const taxAmount=price*tax/100;
- const P=Math.max(0,price+taxAmount-down-trade),n=Math.round(years*12),r=annual/100/12;
- const payment=P===0?0:(r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1));
- const total=payment*n,interest=Math.max(0,total-P);
- document.getElementById("loanAmount").textContent=money(P);
- document.getElementById("monthly").textContent=money(payment);
- document.getElementById("interest").textContent=money(interest);
- document.getElementById("total").textContent=money(total);
- document.getElementById("taxAmount").textContent=money(taxAmount);
- document.getElementById("downResult").textContent=money(down);
+function money(value){
+  return value.toLocaleString("en-US",{style:"currency",currency:"USD"});
 }
+function getNumber(id){
+  return Number(document.getElementById(id).value);
+}
+function calculateAutoLoan(){
+  const price=getNumber("price");
+  const down=getNumber("down");
+  const trade=getNumber("trade");
+  const tradePayoff=getNumber("tradePayoff");
+  const fees=getNumber("fees");
+  const annual=getNumber("rate");
+  const years=getNumber("years");
+  const tax=getNumber("tax");
+  const tradeTaxCredit=document.getElementById("tradeTaxCredit").checked;
+  const error=document.getElementById("calcError");
+  const values=[price,down,trade,tradePayoff,fees,annual,years,tax];
+
+  if(values.some(value=>!Number.isFinite(value)) ||
+     price<=0 || down<0 || trade<0 || tradePayoff<0 || fees<0 ||
+     annual<0 || annual>100 || years<0.5 || years>15 || tax<0 || tax>30){
+    error.textContent="Enter a vehicle price above zero, non-negative dollar amounts, a rate from 0% to 100%, a term from 0.5 to 15 years, and a sales-tax rate from 0% to 30%.";
+    error.hidden=false;
+    return;
+  }
+
+  const taxablePrice=Math.max(0,price-(tradeTaxCredit?trade:0));
+  const taxAmount=taxablePrice*tax/100;
+  const netTradeEquity=trade-tradePayoff;
+  const rawLoanAmount=price+taxAmount+fees-down-netTradeEquity;
+
+  if(rawLoanAmount < -0.005){
+    error.textContent="Your cash down payment and net trade-in equity exceed the estimated transaction amount. Check the inputs; this calculator does not model a cash refund or cash paid back to you.";
+    error.hidden=false;
+    return;
+  }
+
+  error.hidden=true;
+  const principal=Math.max(0,rawLoanAmount);
+  const numberOfPayments=Math.round(years*12);
+  const monthlyRate=annual/100/12;
+  const payment=principal===0?0:(monthlyRate===0?principal/numberOfPayments:
+    principal*monthlyRate*Math.pow(1+monthlyRate,numberOfPayments)/
+    (Math.pow(1+monthlyRate,numberOfPayments)-1));
+  const totalPayments=payment*numberOfPayments;
+  const totalInterest=Math.max(0,totalPayments-principal);
+
+  document.getElementById("loanAmount").textContent=money(principal);
+  document.getElementById("monthly").textContent=money(payment);
+  document.getElementById("interest").textContent=money(totalInterest);
+  document.getElementById("total").textContent=money(totalPayments);
+  document.getElementById("taxAmount").textContent=money(taxAmount);
+  document.getElementById("tradeEquity").textContent=money(netTradeEquity);
+  document.getElementById("feesResult").textContent=money(fees);
+  document.getElementById("downResult").textContent=money(down);
+
+  const notes=[];
+  if(netTradeEquity>0.005) notes.push("Your trade-in has estimated positive equity, which reduces the new loan.");
+  else if(netTradeEquity< -0.005) notes.push("Your trade-in has estimated negative equity, which increases the new loan if the shortfall is rolled into the deal.");
+  else notes.push("Your trade-in has no estimated net equity at the entered payoff amount.");
+  if(tradeTaxCredit) notes.push("The sales-tax estimate subtracts the trade-in value from the taxable price. Use this only if your state/local rules allow it.");
+  else notes.push("Sales tax is estimated on the full vehicle price.");
+  if(fees>0) notes.push("The entered fees/add-ons are assumed to be financed.");
+  notes.push("The payment estimate is principal and interest only.");
+  document.getElementById("calculationSummary").textContent=notes.join(" ");
+}
+document.getElementById("calculateButton").addEventListener("click",calculateAutoLoan);
+document.getElementById("tradeTaxCredit").addEventListener("change",calculateAutoLoan);
+["price","down","trade","tradePayoff","fees","rate","years","tax"].forEach(id=>{
+  document.getElementById(id).addEventListener("input",calculateAutoLoan);
+});
 calculateAutoLoan();
 </script>
 
