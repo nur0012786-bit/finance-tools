@@ -101,33 +101,100 @@
 </main>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
-function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);}
-function payment(p,rate,months){const r=rate/100/12;if(r===0)return p/months;return p*r/(1-Math.pow(1+r,-months));}
+function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(v);}
+function payment(principal,rate,months){
+ if(principal<=0||months<=0)return 0;
+ const r=rate/100/12;
+ if(r===0)return principal/months;
+ const factor=Math.pow(1+r,months);
+ return principal*r*factor/(factor-1);
+}
+function buildSchedule(principal,rate,termMonths){
+ const required=payment(principal,rate,termMonths),r=rate/100/12;
+ let balance=principal,paid=0,interestPaid=0;
+ const rows=[{month:0,paid:0,interest:0,balance:principal}];
+ for(let m=1;m<=termMonths&&balance>0.000001;m++){
+  const interest=balance*r,due=balance+interest;
+  const installment=Math.min(required,due);
+  const principalPaid=Math.max(0,installment-interest);
+  balance=Math.max(0,balance-principalPaid);
+  paid+=installment;interestPaid+=interest;
+  rows.push({month:m,paid,interest:interestPaid,balance});
+ }
+ return {payment:required,paid:paid,interest:interestPaid,rows};
+}
+function duration(months){
+ if(months===null)return 'Not reached';
+ if(months===0)return 'Immediate';
+ const years=Math.floor(months/12),remaining=months%12;
+ if(years===0)return months+' months';
+ if(remaining===0)return years+' years';
+ return years+' yr '+remaining+' mo';
+}
 function calc(){
- const loan=Math.max(0,+document.getElementById('loan').value||0);
- const points=Math.max(0,+document.getElementById('points').value||0);
- const rate0=Math.max(0,+document.getElementById('rate0').value||0);
- const rate1=Math.max(0,+document.getElementById('rate1').value||0);
- const years=Math.max(1,+document.getElementById('years').value||1);
- const months=years*12;
- const cost=loan*points/100;
- const p0=payment(loan,rate0,months),p1=payment(loan,rate1,months);
- const saving=p0-p1;
- const be=saving>0?cost/saving:Infinity;
- const i0=Math.max(0,p0*months-loan),i1=Math.max(0,p1*months-loan);
- const interestDiff=i0-i1,netDiff=interestDiff-cost;
- document.getElementById('cost').textContent=money(cost);
- document.getElementById('p0').textContent=money(p0);
- document.getElementById('p1').textContent=money(p1);
- document.getElementById('saving').textContent=(saving>=0?'+':'-')+money(Math.abs(saving));
- document.getElementById('breakEven').textContent=Number.isFinite(be)?(be<1?'< 1 month':be.toFixed(1)+' months'):'Not reached';
- document.getElementById('i0').textContent=money(i0);
- document.getElementById('i1').textContent=money(i1);
- document.getElementById('interestDiff').textContent=(interestDiff>=0?'+':'-')+money(Math.abs(interestDiff));
- document.getElementById('netDiff').textContent=(netDiff>=0?'+':'-')+money(Math.abs(netDiff));
+ const specs=[
+  ['loan','Mortgage loan amount',0.01,100000000],
+  ['points','Discount points percentage',0,10],
+  ['rate0','Rate without points',0,30],
+  ['rate1','Rate with points',0,30],
+  ['years','Loan term',1,50],
+  ['holdingYears','Expected holding period',1,50]
+ ];
+ const values={},errors=[];
+ specs.forEach(([id,label,min,max])=>{
+  const raw=document.getElementById(id).value.trim(),n=raw===''?NaN:Number(raw);
+  if(!Number.isFinite(n)||n<min||n>max)errors.push(label+' must be between '+min+' and '+max+'.');
+  else values[id]=n;
+ });
+ if(values.years!==undefined&&!Number.isInteger(values.years))errors.push('Loan term must be a whole number of years.');
+ if(values.holdingYears!==undefined&&!Number.isInteger(values.holdingYears))errors.push('Expected holding period must be a whole number of years.');
+ if(values.holdingYears!==undefined&&values.years!==undefined&&values.holdingYears>values.years)errors.push('Expected holding period cannot exceed the loan term.');
+ if(values.points>0&&values.rate1>=values.rate0)errors.push('When discount points are paid, the entered rate with points should be lower than the rate without points. Compare matching lender offers.');
+ const outputIds=['cost','p0','p1','saving','breakEven','i0','i1','interestDiff','netDiff','economicBreakEven','holdingNet','balance0','balance1'];
+ const status=document.getElementById('pointsValidation');
+ if(errors.length){
+  outputIds.forEach(id=>document.getElementById(id).textContent='—');
+  status.textContent=errors.join(' ');
+  return;
+ }
+ const months=values.years*12,holdingMonths=values.holdingYears*12;
+ const pointsCost=values.loan*values.points/100;
+ const noPoints=buildSchedule(values.loan,values.rate0,months);
+ const withPoints=buildSchedule(values.loan,values.rate1,months);
+ const monthlySavings=noPoints.payment-withPoints.payment;
+ const totalInterestSavings=noPoints.interest-withPoints.interest;
+ const fullTermNet=totalInterestSavings-pointsCost;
+ const row0=noPoints.rows[Math.min(holdingMonths,months)];
+ const row1=withPoints.rows[Math.min(holdingMonths,months)];
+ const costAtHold0=row0.paid+row0.balance;
+ const costAtHold1=row1.paid+row1.balance+pointsCost;
+ const netAtHold=costAtHold0-costAtHold1;
+ let economicBreakEven=null;
+ for(let m=1;m<=months;m++){
+  const a=noPoints.rows[m],b=withPoints.rows[m];
+  const net=(a.paid+a.balance)-(b.paid+b.balance+pointsCost);
+  if(net>0.005){economicBreakEven=m;break;}
+ }
+ const simpleMonths=monthlySavings>0?Math.ceil(pointsCost/monthlySavings):null;
+ document.getElementById('cost').textContent=money(pointsCost);
+ document.getElementById('p0').textContent=money(noPoints.payment);
+ document.getElementById('p1').textContent=money(withPoints.payment);
+ document.getElementById('saving').textContent=(monthlySavings>=0?'+':'−')+money(Math.abs(monthlySavings));
+ document.getElementById('breakEven').textContent=simpleMonths===null?'Not reached':(simpleMonths>months?'Beyond loan term':duration(simpleMonths));
+ document.getElementById('i0').textContent=money(noPoints.interest);
+ document.getElementById('i1').textContent=money(withPoints.interest);
+ document.getElementById('interestDiff').textContent=(totalInterestSavings>=0?'+':'−')+money(Math.abs(totalInterestSavings));
+ document.getElementById('netDiff').textContent=(fullTermNet>=0?'+':'−')+money(Math.abs(fullTermNet));
+ document.getElementById('economicBreakEven').textContent=duration(economicBreakEven);
+ document.getElementById('holdingNet').textContent=(netAtHold>=0?'+':'−')+money(Math.abs(netAtHold));
+ document.getElementById('balance0').textContent=money(row0.balance);
+ document.getElementById('balance1').textContent=money(row1.balance);
+ let message=netAtHold>0.005?'At '+values.holdingYears+' years, paying points is estimated to save '+money(netAtHold)+' in nominal dollars.':netAtHold< -0.005?'At '+values.holdingYears+' years, paying points is estimated to cost '+money(Math.abs(netAtHold))+' more in nominal dollars.':'At '+values.holdingYears+' years, the two options have the same modeled cost.';
+ message+=' The holding-period comparison includes principal-and-interest payments made, the remaining loan balance and the upfront points charge. It excludes tax effects and the time value of money.';
+ status.textContent=message;
 }
 document.getElementById('calculate').addEventListener('click',calc);
-document.querySelectorAll('input').forEach(x=>x.addEventListener('input',calc));
+document.querySelectorAll('input').forEach(el=>el.addEventListener('input',calc));
 calc();
 </script>
 </body>
