@@ -175,17 +175,17 @@ function calc(){
   const net=(a.paid+a.balance)-(b.paid+b.balance+pointsCost);
   if(net>0.005){economicBreakEven=m;break;}
  }
- const simpleMonths=monthlySavings>0?Math.ceil(pointsCost/monthlySavings):null;
+ const simpleMonths=pointsCost===0?0:(monthlySavings>0?Math.ceil(pointsCost/monthlySavings):null);
  document.getElementById('cost').textContent=money(pointsCost);
  document.getElementById('p0').textContent=money(noPoints.payment);
  document.getElementById('p1').textContent=money(withPoints.payment);
  document.getElementById('saving').textContent=(monthlySavings>=0?'+':'−')+money(Math.abs(monthlySavings));
- document.getElementById('breakEven').textContent=simpleMonths===null?'Not reached':(simpleMonths>months?'Beyond loan term':duration(simpleMonths));
+ document.getElementById('breakEven').textContent=pointsCost===0?'No points cost':(simpleMonths===null?'Not reached':(simpleMonths>months?'Beyond loan term':duration(simpleMonths)));
  document.getElementById('i0').textContent=money(noPoints.interest);
  document.getElementById('i1').textContent=money(withPoints.interest);
  document.getElementById('interestDiff').textContent=(totalInterestSavings>=0?'+':'−')+money(Math.abs(totalInterestSavings));
  document.getElementById('netDiff').textContent=(fullTermNet>=0?'+':'−')+money(Math.abs(fullTermNet));
- document.getElementById('economicBreakEven').textContent=duration(economicBreakEven);
+ document.getElementById('economicBreakEven').textContent=pointsCost===0?'No upfront point cost':duration(economicBreakEven);
  document.getElementById('holdingNet').textContent=(netAtHold>=0?'+':'−')+money(Math.abs(netAtHold));
  document.getElementById('balance0').textContent=money(row0.balance);
  document.getElementById('balance1').textContent=money(row1.balance);
