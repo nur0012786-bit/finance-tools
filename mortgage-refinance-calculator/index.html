@@ -64,7 +64,8 @@
 <div class="result"><span>Estimated net saving over full terms</span><strong id="netBenefit">$0.00</strong></div>
 </div>
 
-<div class="note" id="summary"></div>
+<div class="note" id="summary" aria-live="polite"></div>
+<p class="note">For the holding-period result, a positive cost difference means refinancing is estimated to cost more; a negative difference means refinancing is estimated to cost less. This is a nominal-dollar estimate, not a guarantee.</p>
 <div class="warning">Educational estimate only. The model assumes fixed rates, equal starting payoff and no extra payments. It excludes taxes, insurance, mortgage insurance, discount points not included in costs, lender credits, prepayment penalties, escrow adjustments, cash-out proceeds and lender-specific rules. Actual payoff and closing figures may differ.</div>
 </section>
 
@@ -84,10 +85,10 @@
 <h3>Worked example using the default inputs</h3>
 <p>Assume a current mortgage payoff of <strong>$300,000</strong> at <strong>7%</strong> with <strong>25 years</strong> remaining. The proposed refinance is <strong>6%</strong> for <strong>25 years</strong>, with <strong>$6,000</strong> in closing costs paid at closing.</p>
 <ul>
-<li>Estimated current monthly principal and interest: <strong>$2,120.40</strong>.</li>
-<li>Estimated new monthly principal and interest: <strong>$1,933.28</strong>.</li>
-<li>Monthly principal-and-interest reduction: about <strong>$187.12</strong>.</li>
-<li>Simple payment-only payback of $6,000: about <strong>32.1 months</strong>.</li>
+<li>Estimated current monthly principal and interest: <strong>$2,120.34</strong>.</li>
+<li>Estimated new monthly principal and interest: <strong>$1,932.90</strong>.</li>
+<li>Monthly principal-and-interest reduction: about <strong>$187.43</strong>.</li>
+<li>Simple payment-only payback of $6,000: about <strong>32.0 months</strong>.</li>
 </ul>
 <p>The calculator's economic break-even and five-year holding-period comparison also account for how quickly each loan balance declines. Those results can differ from the simple payment-only calculation.</p>
 <h3>Closing costs: pay upfront or finance them</h3>
@@ -156,9 +157,9 @@ function calculate(){
  const curH=amortize(v.balance,v.currentRate,currentMonths,horizonMonths),newH=amortize(newPrincipal,v.newRate,newMonths,horizonMonths);
  const diffH=(newH.paid+newH.balance+cashCosts)-(curH.paid+curH.balance),monthlyChange=currentMonthly-newMonthly;
  let breakMonth=null;
- for(let m=0;m<=Math.max(currentMonths,newMonths);m++){
+ for(let m=1;m<=Math.max(currentMonths,newMonths);m++){
   const c=amortize(v.balance,v.currentRate,currentMonths,m),n=amortize(newPrincipal,v.newRate,newMonths,m);
-  if((n.paid+n.balance+cashCosts)-(c.paid+c.balance)<=0.005){breakMonth=m;break;}
+  if((n.paid+n.balance+cashCosts)-(c.paid+c.balance)<-0.005){breakMonth=m;break;}
  }
  const fmt=m=>{if(m===0)return 'Immediate';const y=Math.floor(m/12),r=m%12;if(!y)return r+' month'+(r===1?'':'s');if(!r)return y+' year'+(y===1?'':'s');return y+'y '+r+'m';};
  document.getElementById('currentPayment').textContent=money(currentMonthly);
