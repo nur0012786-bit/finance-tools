@@ -10,7 +10,7 @@
   gtag('config', 'G-8VNZEWGEQR');
 </script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Estimate a VA home loan payment, funding fee, principal and interest, taxes and insurance for a US mortgage scenario.">
+<meta name="description" content="Estimate a US VA purchase mortgage payment with standard funding-fee tiers, exemption scenarios, down payment, taxes, homeowners insurance and HOA dues.">
 <title>VA Mortgage Calculator | Payment & Funding Fee</title><link rel="stylesheet" href="../style.css">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/va-mortgage-calculator/">
 <script type="application/ld+json">
@@ -27,57 +27,139 @@
 <div class="hero-card"><div class="hero-icon">$</div><h2>VA funding fee</h2><p>The funding fee is a one-time charge for many VA-backed loans. The amount depends on the loan type, down payment and prior use, and some borrowers are exempt.</p><a class="text-link" href="https://www.va.gov/housing-assistance/home-loans/funding-fee-and-closing-costs/">Verify current VA rules →</a></div></div></section>
 
 <section class="section"><div class="container"><div class="calculator-grid"><div class="calculator-card"><h2>Enter your VA loan details</h2><div class="input-grid">
-<label>Home price ($)<input id="price" type="number" min="1" step="1000" value="400000"></label>
+<label>Home price ($)<input id="price" type="number" min="1" max="100000000" step="1000" value="400000"></label>
 <label>Down payment (%)<input id="downPct" type="number" min="0" max="100" step="0.1" value="0"></label>
-<label>Interest rate (%)<input id="rate" type="number" min="0" step="0.01" value="6.25"></label>
-<label>Loan term (years)<input id="term" type="number" min="1" max="40" value="30"></label>
-<label>VA funding fee (%)<input id="fee" type="number" min="0" step="0.01" value="2.15"></label>
-<label>Funding fee paid in cash?<select id="cash"><option value="no">No — finance fee</option><option value="yes">Yes — pay fee upfront</option></select></label>
-<label>Property tax (annual %)<input id="tax" type="number" min="0" step="0.01" value="1.1"></label>
-<label>Homeowners insurance (annual $)<input id="insurance" type="number" min="0" step="100" value="1800"></label>
-</div><button type="button" class="button" id="calculate">Calculate VA Payment</button><p class="small-note">The default 2.15% fee is an example for a first-use VA purchase with less than 5% down. Change the fee to match your circumstances, or enter 0% if you are exempt.</p></div>
+<label>Interest rate (%)<input id="rate" type="number" min="0" max="30" step="0.01" value="6.25"></label>
+<label>Loan term (years)<input id="term" type="number" min="1" max="40" step="1" value="30"></label>
+<label>VA benefit use<select id="use"><option value="first">First use</option><option value="subsequent">Subsequent use</option></select></label>
+<label>Funding-fee exemption<select id="exempt"><option value="no">Not exempt</option><option value="yes">I have confirmed an exemption</option></select></label>
+<label>Funding fee payment<select id="cash"><option value="no">Finance the fee</option><option value="yes">Pay the fee at closing</option></select></label>
+<label>Property tax (annual % of home price)<input id="tax" type="number" min="0" max="10" step="0.01" value="1.1"></label>
+<label>Homeowners insurance (annual $)<input id="insurance" type="number" min="0" max="100000" step="100" value="1800"></label>
+<label>HOA dues (monthly $)<input id="hoa" type="number" min="0" max="10000" step="25" value="0"></label>
+</div><button type="button" class="button" id="calculate">Calculate VA Payment</button><p id="error" class="small-note" role="alert" aria-live="polite"></p><p class="small-note">The funding-fee estimate uses the standard VA purchase-loan schedule based on first or subsequent use and your down payment. Special fee categories and exemptions may change the actual amount. Confirm your fee with VA and your lender.</p></div>
 <div class="result-card"><p class="eyebrow">ESTIMATE</p><h2>Your VA payment</h2><div class="results">
-<div><span>Base loan</span><strong id="base">$0</strong></div><div><span>VA funding fee</span><strong id="feeOut">$0</strong></div><div><span>Starting loan</span><strong id="loan">$0</strong></div><div><span>Monthly principal & interest</span><strong id="pi">$0</strong></div><div><span>Monthly property tax</span><strong id="taxOut">$0</strong></div><div><span>Monthly homeowners insurance</span><strong id="insOut">$0</strong></div><div><span>Total estimated monthly payment</span><strong id="total" aria-live="polite">$0</strong></div><div><span>Starting LTV</span><strong id="ltv">0%</strong></div></div></div></div></div></section>
+<div><span>Down payment</span><strong id="downOut">$0.00</strong></div>
+<div><span>Base loan before funding fee</span><strong id="base">$0.00</strong></div>
+<div><span>VA funding-fee rate</span><strong id="feeRate">0%</strong></div>
+<div><span>VA funding fee</span><strong id="feeOut">$0.00</strong></div>
+<div><span>Starting loan amount</span><strong id="loan">$0.00</strong></div>
+<div><span>Monthly principal & interest</span><strong id="pi">$0.00</strong></div>
+<div><span>Monthly property tax estimate</span><strong id="taxOut">$0.00</strong></div>
+<div><span>Monthly homeowners insurance</span><strong id="insOut">$0.00</strong></div>
+<div><span>Monthly HOA dues</span><strong id="hoaOut">$0.00</strong></div>
+<div><span>Total estimated monthly payment</span><strong id="total" aria-live="polite">$0.00</strong></div>
+<div><span>Base loan-to-price ratio</span><strong id="ltv">0%</strong></div>
+<div><span>Cash needed before other closing costs</span><strong id="cashOut">$0.00</strong></div></div></div></div></div></section>
 
 <section class="section light"><div class="container narrow"><p class="eyebrow">HOW IT WORKS</p><h2>How this VA mortgage calculator works</h2>
-<p>The calculator first subtracts the down payment from the purchase price to estimate the base VA loan. It then estimates the one-time funding fee from the percentage you enter.</p>
-<p>If you choose to finance the fee, the fee is added to the base loan and the resulting balance is used to calculate principal and interest. If you choose to pay the fee in cash, the monthly principal-and-interest calculation uses only the base loan. VA says the funding fee can generally be paid at closing or financed into the loan. Some eligible borrowers are exempt. <a href="https://www.va.gov/housing-assistance/home-loans/funding-fee-and-closing-costs/">See VA funding-fee rules</a>.</p>
-<p>The monthly estimate then adds property tax and homeowners insurance. The calculator does not add a monthly private mortgage insurance charge because VA states that its home loan program does not require monthly private mortgage insurance.</p>
-<p>For VA-backed purchase loans, the current VA funding-fee schedule lists 2.15% for first use with less than 5% down, 1.5% with 5% or more down, and 1.25% with 10% or more down. For subsequent use, the rates are 3.3% with less than 5% down, 1.5% with 5% or more, and 1.25% with 10% or more. These percentages are inputs so you can model the rate that applies to your situation. <a href="https://www.va.gov/housing-assistance/home-loans/funding-fee-and-closing-costs/">Verify the current VA table</a>.</p>
+<p>The calculator subtracts the down payment from the purchase price to estimate the base loan. It then applies a standard VA purchase-loan funding-fee rate according to whether you select first or subsequent use and the percentage down.</p>
+<p>Under the standard rate schedule for VA purchase or construction loans:</p>
+<ul>
+<li><strong>First use:</strong> 2.15% with less than 5% down; 1.5% with 5% or more down; 1.25% with 10% or more down.</li>
+<li><strong>Subsequent use:</strong> 3.3% with less than 5% down; 1.5% with 5% or more down; 1.25% with 10% or more down.</li>
+</ul>
+<p>The current published table applies to loans closing from April 7, 2023 through June 8, 2034. The calculator uses the standard schedule; it does not handle every borrower category or every VA loan type. Your Certificate of Eligibility (COE) and lender disclosures are the final references for your fee. <a href="https://www.benefits.va.gov/homeloans/documents/circulars/26-23-06-exhibitb.pdf">View the VA funding-fee schedule</a> and <a href="https://www.benefits.va.gov/HOMELOANS/resources_circulars.asp">later VA circular updates</a>.</p>
+<p>Some borrowers are exempt from the funding fee, including certain Veterans receiving or eligible for VA disability compensation and certain surviving spouses receiving Dependency and Indemnity Compensation. Other circumstances can also qualify. The calculator cannot determine your exemption; confirm it with VA or your lender before selecting the exemption option. <a href="https://www.va.gov/housing-assistance/home-loans/funding-fee-and-closing-costs/">Read VA funding-fee and exemption guidance</a>.</p>
+<p>If you finance the fee, it is added to the base loan and the monthly principal-and-interest payment is calculated on the larger starting balance. If you pay it at closing, it is not added to the loan balance. The cash-needed result includes your down payment and any fee paid upfront, but <strong>excludes other closing costs, prepaid items and escrow deposits</strong>.</p>
+<p>The monthly estimate adds property taxes, homeowners insurance and the HOA dues you enter. The property-tax calculation uses your entered annual percentage times the home price; actual tax bills are based on local assessment rules and may differ. Utilities, maintenance and repairs are not included.</p>
+<p>VA-backed purchase loans do not require monthly private mortgage insurance (PMI). This page estimates a VA-backed <strong>purchase loan</strong>, not an IRRRL, cash-out refinance, assumption, or other VA loan type. VA says only the funding fee may be financed into a VA purchase loan; other closing costs must be paid at closing, subject to applicable seller credits. <a href="https://www.benefits.va.gov/HOMELOANS/purchaseco_loan_fee.asp">See VA loan fees and closing costs</a>.</p>
 </div></section>
 
 <section class="section"><div class="container narrow"><p class="eyebrow">WORKED EXAMPLE</p><h2>Example VA mortgage calculation</h2>
-<p>Suppose you buy a $400,000 home with no down payment, a 6.25% interest rate and a 30-year term. Using the default 2.15% funding fee, the base loan is $400,000 and the estimated funding fee is $8,600. If the fee is financed, the starting loan becomes $408,600 before principal and interest are calculated.</p>
-<p>At 6.25% over 30 years, the estimated monthly principal and interest on $408,600 is about $2,515. Adding 1.1% annual property tax ($367/month) and $1,800 annual homeowners insurance ($150/month) produces an estimated total monthly payment of about $3,032. Your actual payment can differ because your rate, taxes, insurance, funding-fee status and lender terms may be different.</p>
+<p>Assume a $400,000 purchase, no down payment, first use, no funding-fee exemption, a 30-year term and a 6.25% annual rate. Under the standard first-use purchase schedule for less than 5% down, the funding-fee rate is 2.15%. The base loan is $400,000; the estimated fee is $8,600; and financing the fee produces a starting loan of $408,600.</p>
+<p>The estimated monthly principal and interest on $408,600 is <strong>$2,515.82</strong>. With property tax estimated at 1.1% of the home price per year ($366.67 per month), homeowners insurance of $1,800 per year ($150 per month), and no HOA dues, the estimated total is <strong>$3,032.49 per month</strong>. This is an illustration, not a lender quote or an eligibility decision.</p>
 </div></section>
 
 <section class="section light"><div class="container narrow"><p class="eyebrow">VA LOAN CONTEXT</p><h2>VA entitlement, loan limits and eligibility</h2>
-<p>A VA mortgage calculator can estimate payment math, but it cannot determine whether you qualify for a VA-backed loan. Eligibility and underwriting involve VA benefit eligibility, a Certificate of Eligibility (COE), income, credit, debts, the property and lender requirements.</p>
-<p>VA's entitlement rules are also more specific than a simple nationwide loan-limit number. Your COE shows entitlement, and remaining bonus entitlement can be calculated using the one-unit county loan limit. VA explains that lenders may require a down payment when available entitlement is not enough to support the requested loan amount under their guaranty requirements. If you have sufficient entitlement, a VA-backed loan may be available above the county loan limit, subject to lender approval and other requirements.</p>
-<p>For that reason, this calculator does not label a loan amount as automatically VA-eligible. Use it for payment planning and confirm your entitlement and loan structure with a VA-approved lender.</p>
-<a class="text-link" href="https://www.benefits.va.gov/HOMELOANS/purchaseco_loan_limits.asp?subexpandable=0">Review VA entitlement and limits →</a>
+<p>A payment calculator cannot determine whether you qualify for a VA-backed loan. Eligibility generally requires a valid Certificate of Eligibility (COE), compliance with VA and lender requirements, and a home that meets applicable property and occupancy rules.</p>
+<p>Eligible borrowers may be able to buy with no down payment when the purchase price does not exceed the home's appraised value. Entitlement and guaranty rules are more specific than a single nationwide loan-limit figure. Your COE and lender help establish available entitlement and the amount VA can guaranty.</p>
+<p>This calculator does not assess entitlement, residual income, debt-to-income limits, appraisal value, property eligibility or underwriting. Do not treat its loan amount as a VA approval. Confirm your eligibility and loan structure with VA and a VA-approved lender. <a href="https://www.va.gov/housing-assistance/home-loans/loan-types/purchase-loan/">Review VA purchase-loan eligibility</a>.</p>
 </div></section>
 
 <section class="section light"><div class="container narrow"><p class="eyebrow">FAQ</p><h2>VA mortgage calculator FAQs</h2>
 <h3>Does a VA loan require PMI?</h3><p>No. VA states that its home loan program does not require monthly private mortgage insurance.</p>
 <h3>Can I use a VA loan with no down payment?</h3><p>Eligible borrowers may be able to purchase with no down payment when their entitlement, the property, the loan and lender requirements support the transaction.</p>
 <h3>What is the VA funding fee?</h3><p>It is a one-time charge on many VA-backed or VA direct home loans. The rate depends on factors such as loan type, down payment and whether the benefit is being used for the first or a subsequent time. Certain borrowers are exempt.</p>
-<h3>Can I finance the VA funding fee?</h3><p>Yes. VA says the funding fee can generally be included in the loan or paid in full at closing. Financing it increases the balance on which interest is calculated.</p>
-<h3>Why is the funding fee set to 2.15%?</h3><p>The default models a first-use purchase with less than 5% down. VA's current purchase-loan table uses different rates for 5% and 10% down payments and for subsequent use, so you should change the input when your situation differs.</p>
+<h3>Can I finance the VA funding fee?</h3><p>For a VA purchase loan, the funding fee may generally be financed into the loan or paid at closing. Financing it increases the starting principal and the interest calculated over time. Other purchase closing costs generally cannot be added to the VA loan amount.</p>
+<h3>How does the calculator choose the funding-fee rate?</h3><p>It applies the standard purchase-loan schedule using first or subsequent use and your down-payment tier. The COE and lender disclosures should be used to confirm your actual funding fee.</p>
 <h3>Does the calculator determine my VA eligibility?</h3><p>No. It is a payment calculator, not an eligibility or underwriting tool. A lender and VA eligibility documentation such as a COE are needed to establish eligibility.</p>
-<h3>Does the calculator include closing costs?</h3><p>No. Lender fees, appraisal charges, prepaid items, discount points and other transaction-specific closing costs are not included in the monthly estimate.</p>
+<h3>Does the calculator include closing costs?</h3><p>No. The cash-needed result includes only the down payment and, when selected, the upfront funding fee. Lender fees, appraisal charges, prepaid items, discount points, escrow deposits and other transaction costs are excluded.</p>
 <h3>Does it include property taxes and homeowners insurance?</h3><p>Yes, when you enter estimates for those costs. They are added to principal and interest to produce the total estimated monthly payment.</p>
 </div></section>
 
-<section class="section"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This calculator is for planning only. VA funding-fee rules, entitlement, lender requirements, interest rates, property taxes, insurance and other costs can vary. Confirm current requirements with the U.S. Department of Veterans Affairs and your lender before relying on an estimate.</div></div></section>
+<section class="section"><div class="container narrow"><div class="notice"><strong>Educational estimate:</strong> This purchase-loan calculator uses the standard published VA funding-fee schedule. Your actual fee, special rate category, exemption status, eligibility and closing costs must be confirmed with VA and your lender. It is not a loan approval or quote.</div></div></section>
 
 <section class="section"><div class="container narrow related-calculators"><p class="eyebrow">EXPLORE MORE</p><h2>Related calculators</h2><p>Compare VA payment estimates with other US home-finance tools.</p><ul><li><a href="../mortgage-calculator/">Mortgage Calculator</a></li><li><a href="../fha-mortgage-calculator/">FHA Mortgage Calculator</a></li><li><a href="../usda-mortgage-calculator/">USDA Mortgage Calculator</a></li><li><a href="../mortgage-affordability-calculator/">Mortgage Affordability Calculator</a></li></ul></div></section>
 </main>
 <section class="section light related-tools"><div class="container narrow"><p class="eyebrow">RELATED TOOLS</p><h2>Explore more financial calculators</h2><p><a href="../mortgage-calculator/">Mortgage Calculator</a> · <a href="../mortgage-affordability-calculator/">Mortgage Affordability</a> · <a href="../loan-calculator/">Loan Calculator</a> · <a href="../savings-calculator/">Savings Calculator</a> · <a href="../retirement-calculator/">Retirement Calculator</a> · <a href="../debt-payoff-calculator/">Debt Payoff</a></p></div></section>
 <footer><div class="container">© 2026 Finance Tools. For educational purposes only.</div></footer>
 <script>
-function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);}
-function pay(p,r,n){if(!n)return 0;const x=r/100/12;if(x===0)return p/n;return p*x/(1-Math.pow(1+x,-n));}
-function calc(){const price=+priceEl.value||0,down=Math.min(100,Math.max(0,+downEl.value||0)),rate=Math.max(0,+rateEl.value||0),term=Math.max(1,+termEl.value||30),fee=Math.max(0,+feeEl.value||0),tax=Math.max(0,+taxEl.value||0),ins=Math.max(0,+insuranceEl.value||0);const base=price*(1-down/100),feeAmt=base*fee/100,loan=cash.value==='yes'?base:base+feeAmt,pi=pay(loan,rate,term*12),mt=price*tax/100/12,mi=ins/12,total=pi+mt+mi;document.getElementById('base').textContent=money(base);document.getElementById('feeOut').textContent=money(feeAmt);document.getElementById('loan').textContent=money(loan);document.getElementById('pi').textContent=money(pi);document.getElementById('taxOut').textContent=money(mt);document.getElementById('insOut').textContent=money(mi);document.getElementById('total').textContent=money(total);document.getElementById('ltv').textContent=(price?base/price*100:0).toFixed(1)+'%';}
-const priceEl=document.getElementById('price'),downEl=document.getElementById('downPct'),rateEl=document.getElementById('rate'),feeEl=document.getElementById('fee'),taxEl=document.getElementById('tax'),insuranceEl=document.getElementById('insurance'),cash=document.getElementById('cash');document.getElementById('calculate').addEventListener('click',calc);document.querySelectorAll('input,select').forEach(x=>x.addEventListener('input',calc));calc();
+function money(value){
+  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+}
+function payment(principal,annualRate,months){
+  if(principal<=0||months<=0)return 0;
+  const monthlyRate=annualRate/100/12;
+  if(monthlyRate===0)return principal/months;
+  return principal*monthlyRate/(1-Math.pow(1+monthlyRate,-months));
+}
+function standardPurchaseFeeRate(downPct,usage){
+  if(downPct>=10)return 1.25;
+  if(downPct>=5)return 1.5;
+  return usage==='subsequent'?3.3:2.15;
+}
+const fields={
+  price:document.getElementById('price'),downPct:document.getElementById('downPct'),
+  rate:document.getElementById('rate'),term:document.getElementById('term'),
+  use:document.getElementById('use'),exempt:document.getElementById('exempt'),
+  cash:document.getElementById('cash'),tax:document.getElementById('tax'),
+  insurance:document.getElementById('insurance'),hoa:document.getElementById('hoa')
+};
+function show(id,value){document.getElementById(id).textContent=value;}
+function calc(){
+  const v=Object.fromEntries(Object.entries(fields).map(([key,el])=>[key,el.value]));
+  const price=Number(v.price),downPct=Number(v.downPct),rate=Number(v.rate),term=Number(v.term),
+    tax=Number(v.tax),insurance=Number(v.insurance),hoa=Number(v.hoa);
+  const valid=Number.isFinite(price)&&price>0&&price<=100000000&&
+    Number.isFinite(downPct)&&downPct>=0&&downPct<=100&&
+    Number.isFinite(rate)&&rate>=0&&rate<=30&&
+    Number.isInteger(term)&&term>=1&&term<=40&&
+    Number.isFinite(tax)&&tax>=0&&tax<=10&&
+    Number.isFinite(insurance)&&insurance>=0&&insurance<=100000&&
+    Number.isFinite(hoa)&&hoa>=0&&hoa<=10000;
+  const error=document.getElementById('error');
+  if(!valid){
+    error.textContent='Enter a home price above $0, a down payment from 0% to 100%, an interest rate from 0% to 30%, a whole loan term from 1 to 40 years, and valid non-negative tax, insurance and HOA estimates.';
+    return;
+  }
+  error.textContent='';
+  const downPayment=price*downPct/100;
+  const baseLoan=price-downPayment;
+  const feeRate=v.exempt==='yes'?0:standardPurchaseFeeRate(downPct,v.use);
+  const fee=baseLoan*feeRate/100;
+  const financeFee=v.cash==='no';
+  const startingLoan=baseLoan+(financeFee?fee:0);
+  const monthlyPI=payment(startingLoan,rate,term*12);
+  const monthlyTax=price*tax/100/12;
+  const monthlyInsurance=insurance/12;
+  const monthlyHOA=hoa;
+  const total=monthlyPI+monthlyTax+monthlyInsurance+monthlyHOA;
+  const cashNeeded=downPayment+(financeFee?0:fee);
+  show('downOut',money(downPayment));
+  show('base',money(baseLoan));
+  show('feeRate',feeRate.toFixed(2)+'%');
+  show('feeOut',money(fee));
+  show('loan',money(startingLoan));
+  show('pi',money(monthlyPI));
+  show('taxOut',money(monthlyTax));
+  show('insOut',money(monthlyInsurance));
+  show('hoaOut',money(monthlyHOA));
+  show('total',money(total));
+  show('ltv',(price?baseLoan/price*100:0).toFixed(2)+'%');
+  show('cashOut',money(cashNeeded));
+}
+document.getElementById('calculate').addEventListener('click',calc);
+Object.values(fields).forEach(el=>{el.addEventListener('input',calc);el.addEventListener('change',calc);});
+calc();
 </script></body></html>
