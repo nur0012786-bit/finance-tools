@@ -121,14 +121,15 @@ function calc(){
   const raw=document.getElementById(id).value.trim(),n=raw===''?NaN:Number(raw);
   if(!Number.isFinite(n)||n<min||n>max)errors.push(label+' must be between '+min+' and '+max+'.');else values[id]=n;
  });
- const outputIds=['downOut','pctOut','loanOut','closingOut','neededOut','earnestOut','remainingOut','leftOut','maxDownOut','maxDownPctOut','depositSurplusOut'];
+ const outputIds=['downOut','pctOut','loanOut','closingOut','neededOut','earnestOut','remainingOut','leftOut','maxDownOut','maxDownPctOut','depositSurplusOut','scenario3down','scenario3loan','scenario3cash','scenario35down','scenario35loan','scenario35cash','scenario5down','scenario5loan','scenario5cash','scenario10down','scenario10loan','scenario10cash','scenario20down','scenario20loan','scenario20cash'];
  const validation=document.getElementById('validation');
  if(errors.length){outputIds.forEach(id=>document.getElementById(id).textContent='—');validation.textContent=errors.join(' ');return;}
  const price=values.price,pct=values.percent,cashNow=values.cash,closing=values.closing,earnest=values.earnest;
  const down=price*pct/100,loan=price-down,needed=down+closing;
  const earnestApplied=Math.min(earnest,needed),depositSurplus=Math.max(0,earnest-earnestApplied);
  const cashDue=Math.max(0,needed-earnestApplied),cashPosition=cashNow-cashDue;
- const maxDown=Math.min(price,Math.max(0,cashNow+earnestApplied-closing));
+ const earnestAvailable=Math.min(earnest,price+closing);
+ const maxDown=Math.min(price,Math.max(0,cashNow+earnestAvailable-closing));
  const maxDownPct=price>0?maxDown/price*100:0;
  document.getElementById('downOut').textContent=money(down);
  document.getElementById('pctOut').textContent=pct.toFixed(1)+'%';
@@ -143,7 +144,8 @@ function calc(){
  document.getElementById('depositSurplusOut').textContent=money(depositSurplus);
  [3,3.5,5,10,20].forEach(rate=>{
   const token=String(rate).replace('.',''),amount=price*rate/100,balance=price-amount;
-  const due=Math.max(0,amount+closing-earnestApplied);
+  const scenarioEarnest=Math.min(earnest,amount+closing);
+  const due=Math.max(0,amount+closing-scenarioEarnest);
   document.getElementById('scenario'+token+'down').textContent=money(amount);
   document.getElementById('scenario'+token+'loan').textContent=money(balance);
   document.getElementById('scenario'+token+'cash').textContent=money(due);
