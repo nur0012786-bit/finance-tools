@@ -32,7 +32,8 @@
 .calculate-row button:disabled{opacity:.5;cursor:not-allowed}
 .field label{display:block;font-weight:700;margin-bottom:8px;color:#172033}
 .field input{width:100%;padding:13px 14px;border:1px solid #d7dce5;border-radius:10px;font:inherit;box-sizing:border-box}
-.field input:focus{outline:2px solid rgba(37,99,235,.15);border-color:#2563eb}
+.field input:focus,.field select:focus{outline:2px solid rgba(37,99,235,.15);border-color:#2563eb}
+.field select{width:100%;padding:13px 14px;border:1px solid #d7dce5;border-radius:10px;background:#fff;font:inherit;box-sizing:border-box}
 .full{grid-column:1/-1}
 .calculate-row{margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .results{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
@@ -122,7 +123,7 @@
 <div class="results" aria-live="polite">
   <div class="result"><small>Total starting debt</small><strong id="startingDebt">—</strong></div>
   <div class="result"><small>Total monthly budget</small><strong id="monthlyBudget">—</strong></div>
-  <div class="result"><small>Lower-interest strategy</small><strong id="lowerCostMethod">—</strong></div>
+  <div class="result"><small>Strategy comparison</small><strong id="lowerCostMethod">—</strong></div>
   <div class="result"><small>Estimated debt-free date</small><strong id="debtFree">—</strong></div>
 </div>
 
@@ -144,8 +145,8 @@
 </div>
 
 <div class="results">
-  <div class="result"><small>Interest difference</small><strong id="interestDifference">—</strong></div>
-  <div class="result"><small>Payoff-time difference</small><strong id="timeDifference">—</strong></div>
+  <div class="result"><small>Interest gap between methods</small><strong id="interestDifference">—</strong></div>
+  <div class="result"><small>Payoff-time gap</small><strong id="timeDifference">—</strong></div>
   <div class="result"><small>Number of debts</small><strong id="debtCountResult">—</strong></div>
   <div class="result"><small>Extra monthly amount</small><strong id="extraShown">—</strong></div>
 </div>
@@ -181,7 +182,7 @@
 <li><strong>Snowball order:</strong> the $2,000 card, then the $4,000 card, then the $6,000 loan.</li>
 <li><strong>Total monthly budget:</strong> $150 + $80 + $250 + $100 = $580.</li>
 </ul>
-<p>The calculator simulates each method using the same $580 total monthly budget. The result is an illustration based on the entered APRs and payments, not a prediction of an issuer's changing minimum payments, daily interest or fees.</p>
+<p>The calculator simulates each method using the same $580 total monthly budget. With the monthly-interest assumptions used here, the example takes about <strong>25 months</strong> and <strong>$2,461.20 in interest</strong> with avalanche, compared with about <strong>26 months</strong> and <strong>$2,578.93 in interest</strong> with snowball. These are calculator illustrations, not predictions of changing minimum payments, daily interest or fees.</p>
 
 <h2>How the calculator rolls payments forward</h2>
 <p>At the start of each modeled month, the calculator adds one month's interest to each remaining balance. It then applies the planned payment entered for each debt. Any part of the total budget that is not needed to satisfy those payments is directed to the next target in the selected strategy. If a debt is paid in full before its planned payment is used, the unused portion is also available for the target debt.</p>
@@ -224,6 +225,7 @@
 
 <h2>Educational disclaimer</h2>
 <p>This tool and guide provide general educational estimates, not individualized financial, legal, tax or credit advice. Results depend on the balances, APRs, monthly payments and assumptions entered. They do not replace current statements, creditor agreements or official payoff quotes. Verify required payments, fees, interest calculations and account-specific terms with each creditor.</p>
+</div>
 </div>
 </div>
 </section>
@@ -270,10 +272,11 @@ function showWarning(message){
   box.textContent=message||'';
   box.hidden=!message;
 }
+let debtFieldId=0;
 function makeField(labelText,field,value,min,step){
   const wrap=document.createElement('div');
   wrap.className='field';
-  const id=field+'-'+Math.random().toString(36).slice(2,9);
+  const id=field+'-'+(++debtFieldId);
   const label=document.createElement('label');
   label.htmlFor=id;
   label.textContent=labelText;
@@ -513,12 +516,12 @@ function calculate(){
   let lowerCost;
   if(avalanche.paidOff&&snowball.paidOff){
     const difference=roundCents(snowball.interest-avalanche.interest);
-    lowerCost=difference>0?'Avalanche':difference<0?'Snowball':'Tie';
+    lowerCost=difference>0?'Avalanche lower':difference<0?'Snowball lower':'Equal interest';
     document.getElementById('interestDifference').textContent=money(Math.abs(difference));
     const monthGap=Math.abs(avalanche.months-snowball.months);
     document.getElementById('timeDifference').textContent=formatTime(monthGap);
   }else{
-    lowerCost=avalanche.paidOff?'Avalanche':'Snowball';
+    lowerCost=avalanche.paidOff?'Only avalanche completed':'Only snowball completed';
     document.getElementById('interestDifference').textContent='One strategy only';
     document.getElementById('timeDifference').textContent='—';
   }
@@ -529,9 +532,11 @@ function calculate(){
     document.getElementById('debtFree').textContent=addMonthsDate(chosen.months);
     renderSchedule(chosen,selected);
   }else{
-    const fallback=selected==='avalanche'?snowball:avalanche;
+    const fallbackStrategy=selected==='avalanche'?'snowball':'avalanche';
+    const fallback=fallbackStrategy==='avalanche'?avalanche:snowball;
+    document.getElementById('scheduleStrategy').value=fallbackStrategy;
     document.getElementById('debtFree').textContent=addMonthsDate(fallback.months);
-    renderSchedule(fallback,selected==='avalanche'?'snowball':'avalanche');
+    renderSchedule(fallback,fallbackStrategy);
     showWarning('The selected strategy did not reach zero within the 100-year limit. The other strategy did; its payoff schedule is shown instead.');
   }
   setMessage('Both strategies calculated using a fixed monthly debt budget.');
