@@ -14,7 +14,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>US Credit Card Minimum Payment Calculator | Payoff Estimate</title>
-<meta name="description" content="Use this US credit card minimum payment calculator to estimate payoff time and interest under a simplified minimum-payment percentage model and compare a higher monthly payment.">
+<meta name="description" content="Estimate credit card payoff time and interest using issuer-style minimum payment formulas, a minimum dollar floor and a higher fixed payment comparison.">
 <link rel="canonical" href="https://nur0012786-bit.github.io/finance-tools/credit-card-minimum-payment-calculator/">
 <link rel="stylesheet" href="../style.css">
 <style>
@@ -71,50 +71,34 @@
 <section class="container narrow">
 <div class="calculator-box">
   <div class="form-grid">
-    <div class="field">
-      <label for="balance">Credit card balance ($)</label>
-      <input id="balance" type="number" min="0" step="0.01" value="5000">
-    </div>
-    <div class="field">
-      <label for="apr">Annual percentage rate (APR)</label>
-      <input id="apr" type="number" min="0" step="0.01" value="24">
-    </div>
-    <div class="field">
-      <label for="minPercent">Minimum payment (% of balance)</label>
-      <input id="minPercent" type="number" min="0.1" step="0.1" value="2">
-    </div>
-    <div class="field">
-      <label for="higherPayment">Higher planned payment ($)</label>
-      <input id="higherPayment" type="number" min="0" step="0.01" value="200">
-    </div>
-    <div class="full">
-      <button type="button" class="button" type="button" onclick="calculate()">Calculate</button>
-    </div>
-  </div>
-
-  <p class="note">The percentage entered here is a simplified model, not a statement of your issuer's exact minimum-payment formula. Actual minimum payments may include interest, fees, a fixed floor, or other account-specific rules.</p>
-  <div id="message" class="note" style="display:none"></div>
-
-  <div class="result-grid">
-    <div class="result"><small>Estimated minimum payment</small><strong id="minimumPayment" aria-live="polite">—</strong></div>
-    <div class="result"><small>Payoff time at minimum</small><strong id="minimumTime">—</strong></div>
-    <div class="result"><small>Interest at minimum</small><strong id="minimumInterest">—</strong></div>
-    <div class="result"><small>Payoff time at higher payment</small><strong id="higherTime">—</strong></div>
-    <div class="result"><small>Interest at higher payment</small><strong id="higherInterest">—</strong></div>
-    <div class="result"><small>Interest difference</small><strong id="interestDifference">—</strong></div>
-  </div>
-
-  <div class="compare">
-    <table>
-      <thead><tr><th>Scenario</th><th>Starting payment</th><th>Payoff time</th><th>Total interest</th><th>Total paid</th></tr></thead>
-      <tbody>
-        <tr><td>Percentage minimum</td><td id="minPayCell">—</td><td id="minTimeCell">—</td><td id="minInterestCell">—</td><td id="minTotalCell">—</td></tr>
-        <tr><td>Higher payment</td><td id="highPayCell">—</td><td id="highTimeCell">—</td><td id="highInterestCell">—</td><td id="highTotalCell">—</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p class="note">Important: a real credit card may recalculate its minimum payment every statement cycle as the balance changes. This calculator uses the entered percentage to create a planning estimate.</p>
+<div class="field"><label for="balance">Credit card balance ($)</label><input id="balance" type="number" min="0.01" step="0.01" value="5000" inputmode="decimal"></div>
+<div class="field"><label for="apr">Purchase APR (%)</label><input id="apr" type="number" min="0" max="100" step="0.01" value="24" inputmode="decimal"></div>
+<div class="field full"><label for="minimumMethod">Minimum payment formula model</label><select id="minimumMethod"><option value="plus-interest" selected>Percentage of balance + cycle interest</option><option value="statement-percent">Percentage of statement balance (interest included)</option></select><small class="field-help">Choose the model closest to the formula in your card agreement. Issuer methods vary.</small></div>
+<div class="field"><label for="minPercent">Balance percentage (%)</label><input id="minPercent" type="number" min="0.1" max="100" step="0.1" value="1" inputmode="decimal"></div>
+<div class="field"><label for="minimumFloor">Minimum dollar floor ($)</label><input id="minimumFloor" type="number" min="0" step="0.01" value="40" inputmode="decimal"><small class="field-help">Illustrative only. Use the floor shown in your card agreement.</small></div>
+<div class="field full"><label for="higherPayment">Fixed monthly payment to compare ($)</label><input id="higherPayment" type="number" min="0.01" step="0.01" value="200" inputmode="decimal"></div>
+<div class="full"><button type="button" class="button" id="calculateButton">Calculate payoff comparison</button></div>
+</div>
+<p class="note">This is a planning model, not your issuer's payment calculation. It estimates one balance at one APR, assumes no new purchases or extra fees, and approximates monthly interest as APR divided by 12. Many issuers calculate interest daily using an average daily balance, and an account may have different APRs for purchases, transfers and cash advances.</p>
+<div id="message" class="error-message" role="alert" hidden></div>
+<p id="formulaHelp" class="formula-help" aria-live="polite">Model: minimum due is the greater of the dollar floor or 1% of the starting balance plus estimated cycle interest. Payment is capped at the modeled statement balance.</p>
+<div class="result-grid" aria-live="polite">
+<div class="result"><small>First modeled minimum</small><strong id="minimumPayment">—</strong></div>
+<div class="result"><small>Payoff time at minimum</small><strong id="minimumTime">—</strong></div>
+<div class="result"><small>Interest at minimum</small><strong id="minimumInterest">—</strong></div>
+<div class="result"><small>Fixed comparison payment</small><strong id="higherPaymentResult">—</strong></div>
+<div class="result"><small>Payoff time at fixed payment</small><strong id="higherTime">—</strong></div>
+<div class="result"><small>Interest at fixed payment</small><strong id="higherInterest">—</strong></div>
+<div class="result"><small>Estimated interest saved</small><strong id="interestDifference">—</strong></div>
+<div class="result"><small>Payment to repay in 36 months</small><strong id="threeYearPayment">—</strong></div>
+</div>
+<div class="compare">
+<table><thead><tr><th>Scenario</th><th>First payment</th><th>Payoff time</th><th>Total interest</th><th>Total paid</th></tr></thead>
+<tbody>
+<tr><td>Modeled minimum</td><td id="minPayCell">—</td><td id="minTimeCell">—</td><td id="minInterestCell">—</td><td id="minTotalCell">—</td></tr>
+<tr><td>Fixed monthly payment</td><td id="highPayCell">—</td><td id="highTimeCell">—</td><td id="highInterestCell">—</td><td id="highTotalCell">—</td></tr>
+</tbody></table></div>
+<p class="note">No new charges, balance transfers, promotional-rate expiration, late fees, past-due amounts or recurring fees are modeled. The fixed-payment scenario assumes the same monthly payment is made on time until the balance is paid.</p>
 </div>
 
 <div class="content-section">
