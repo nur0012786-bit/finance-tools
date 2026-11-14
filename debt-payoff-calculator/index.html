@@ -282,10 +282,16 @@ function makeField(labelText,field,value,min,step){
   label.textContent=labelText;
   const input=document.createElement('input');
   input.id=id;
-  input.type='number';
-  input.min=String(min);
-  input.step=String(step);
-  input.inputMode='decimal';
+  input.type=field==='name'?'text':'number';
+  if(field==='name'){
+    input.maxLength=50;
+    input.autocomplete='off';
+    input.placeholder='e.g. Credit card A';
+  }else{
+    input.min=String(min);
+    input.step=String(step);
+    input.inputMode='decimal';
+  }
   input.dataset.field=field;
   input.value=String(value);
   input.required=true;
@@ -541,6 +547,13 @@ function calculate(){
   }
   setMessage('Both strategies calculated using a fixed monthly debt budget.');
 }
+function invalidateEstimate(){
+  clearResults();
+  showWarning('');
+  setMessage('Inputs changed. Compare again to refresh the estimates.');
+}
+document.getElementById('debtInputs').addEventListener('input',invalidateEstimate);
+document.getElementById('extraBudget').addEventListener('input',invalidateEstimate);
 document.getElementById('addDebt').addEventListener('click',()=>addDebtRow());
 document.getElementById('calculateButton').addEventListener('click',calculate);
 document.getElementById('scheduleStrategy').addEventListener('change',()=>{
