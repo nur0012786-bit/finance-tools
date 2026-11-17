@@ -77,19 +77,19 @@
       <div class="form-grid">
         <div class="field">
           <label for="initial">Current savings ($)</label>
-          <input id="initial" type="number" min="0" step="100" value="5000">
+          <input id="initial" type="number" min="0" step="100" value="5000" max="1000000000">
         </div>
         <div class="field">
           <label for="monthly">Monthly deposit ($)</label>
-          <input id="monthly" type="number" min="0" step="25" value="250">
+          <input id="monthly" type="number" min="0" step="25" value="250" max="10000000">
         </div>
         <div class="field">
           <label for="rate">Annual interest rate (%)</label>
-          <input id="rate" type="number" min="0" step="0.1" value="4">
+          <input id="rate" type="number" min="0" step="0.1" value="4" max="100">
         </div>
         <div class="field">
           <label for="years">Savings period (years)</label>
-          <input id="years" type="number" min="1" step="1" value="5">
+          <input id="years" type="number" min="1" step="1" value="5" max="100">
         </div>
         <div class="field full">
           <label for="frequency">Interest compounding</label>
@@ -179,36 +179,45 @@ function money(value){
 }
 
 function calculate(){
-  const initial=Math.max(0,Number(document.getElementById('initial').value)||0);
-  const monthly=Math.max(0,Number(document.getElementById('monthly').value)||0);
-  const annualRate=Math.max(0,Number(document.getElementById('rate').value)||0)/100;
+  const initialRaw=document.getElementById('initial').value.trim();
+  const monthlyRaw=document.getElementById('monthly').value.trim();
+  const rateRaw=document.getElementById('rate').value.trim();
+  const yearsRaw=document.getElementById('years').value.trim();
+  const initial=Number(initialRaw),monthly=Number(monthlyRaw),rate=Number(rateRaw),years=Number(yearsRaw);
   const compounds=Number(document.getElementById('frequency').value);
-  const years=Math.max(1,Math.floor(Number(document.getElementById('years').value)||1));
-  const months=years*12;
-  const monthlyRate=annualRate===0 ? 0 : Math.pow(1+annualRate/compounds,compounds/12)-1;
-
-  let balance=initial;
-  let deposits=initial;
+  const valid=initialRaw!==''&&monthlyRaw!==''&&rateRaw!==''&&yearsRaw!==''&&
+    [initial,monthly,rate,years,compounds].every(Number.isFinite)&&
+    initial>=0&&initial<=1000000000&&monthly>=0&&monthly<=10000000&&
+    rate>=0&&rate<=100&&Number.isInteger(years)&&years>=1&&years<=100&&
+    [1,4,12,365].includes(compounds);
   const body=document.getElementById('growthBody');
-  body.innerHTML='';
-
+  const message=document.getElementById('message');
+  if(!valid){
+    body.replaceChildren();
+    ['future','deposits','interest','starting'].forEach(id=>document.getElementById(id).textContent='—');
+    message.textContent='Enter a starting balance from $0 to $1 billion, a monthly deposit from $0 to $10 million, an annual rate from 0% to 100%, and a whole savings period from 1 to 100 years.';
+    return;
+  }
+  const annualRate=rate/100,months=years*12;
+  const monthlyRate=annualRate===0?0:Math.pow(1+annualRate/compounds,compounds/12)-1;
+  let balance=initial,deposits=initial;
+  body.replaceChildren();
   for(let month=1;month<=months;month++){
-    balance += balance*monthlyRate;
-    balance += monthly;
-    deposits += monthly;
-
-    if(month%12===0 || month===months){
+    balance+=balance*monthlyRate;
+    balance+=monthly;
+    deposits+=monthly;
+    if(month%12===0||month===months){
       const row=document.createElement('tr');
-      row.innerHTML='<td>'+Math.ceil(month/12)+'</td><td>'+money(deposits)+'</td><td>'+money(Math.max(0,balance-deposits))+'</td><td>'+money(balance)+'</td>';
+      const values=[Math.ceil(month/12),money(deposits),money(Math.max(0,balance-deposits)),money(balance)];
+      values.forEach(value=>{const cell=document.createElement('td');cell.textContent=String(value);row.appendChild(cell);});
       body.appendChild(row);
     }
   }
-
   document.getElementById('future').textContent=money(balance);
   document.getElementById('deposits').textContent=money(deposits);
   document.getElementById('interest').textContent=money(Math.max(0,balance-deposits));
   document.getElementById('starting').textContent=money(initial);
-  document.getElementById('message').textContent='Estimate updated.';
+  message.textContent='Estimate updated.';
 }
 
 calculate();
