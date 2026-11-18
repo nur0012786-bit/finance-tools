@@ -30,7 +30,7 @@
     .mc-field label{display:block;font-size:12px;font-weight:850;color:#344b67;margin-bottom:7px}
     .mc-field input,.mc-field select{width:100%;min-height:50px;border:1px solid #c9d6e5;border-radius:11px;padding:11px 13px;font-size:16px;font-weight:650;color:#10233e;background:#fff;outline:none}
     .mc-field input:focus,.mc-field select:focus{border-color:#1769d1;box-shadow:0 0 0 4px rgba(23,105,209,.11)}
-    .mc-help{font-size:11px;color:#748397;margin-top:5px;line-height:1.4}
+    .mc-help{font-size:11px;color:#5f6f83;margin-top:5px;line-height:1.4}
     .mc-button{width:100%;border:0;border-radius:12px;background:linear-gradient(135deg,#1769d1,#0b4f9c);color:#fff;font-size:16px;font-weight:850;padding:15px 18px;margin-top:20px;cursor:pointer;box-shadow:0 10px 24px rgba(23,105,209,.2)}
     .mc-button:hover{filter:brightness(1.05)}
     .mc-result-top{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
@@ -40,7 +40,7 @@
     .mc-primary span{font-size:13px;color:#d7e8f8}
     .mc-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .mc-stat{padding:17px;border:1px solid #dbe4ef;border-radius:15px;background:#f8fbff}
-    .mc-stat span{display:block;font-size:11px;color:#6a7a90;font-weight:750;margin-bottom:5px}
+    .mc-stat span{display:block;font-size:11px;color:#596b82;font-weight:750;margin-bottom:5px}
     .mc-stat strong{display:block;color:#102b4d;font-size:19px;line-height:1.2}
     .mc-breakdown{margin-top:14px;border:1px solid #dbe4ef;border-radius:18px;padding:20px;background:#fbfdff}
     .mc-breakdown h3{font-size:16px;margin:0 0 12px}
@@ -59,7 +59,7 @@
     .mc-section h2{font-size:36px;letter-spacing:-.045em;color:#0b1930;margin:0 0 18px}
     .mc-section p{color:#5f6f83;line-height:1.8}
     .mc-content{max-width:850px}
-    .mc-ad{min-height:90px;border:1px dashed #b8c8da;background:#f8fbfe;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#8a98aa;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:22px 0}
+    .mc-ad{min-height:90px;border:1px dashed #b8c8da;background:#f8fbfe;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#596b82;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:22px 0}
     .mc-table-wrap{overflow:auto;border:1px solid #dbe4ef;border-radius:16px;background:#fff}
     .mc-table{width:100%;border-collapse:collapse;font-size:13px}
     .mc-table th,.mc-table td{padding:11px 12px;border-bottom:1px solid #e8edf3;text-align:right;white-space:nowrap}
@@ -154,7 +154,7 @@
       </div>
       <div class="mc-breakdown">
         <h3>Monthly payment breakdown</h3>
-        <div class="mc-bar" aria-label="Monthly payment breakdown">
+        <div class="mc-bar" role="group" aria-label="Monthly payment breakdown">
           <span class="pi" id="barPI"></span><span class="tax" id="barTax"></span><span class="ins" id="barIns"></span><span class="pmi" id="barPMI"></span><span class="hoa" id="barHOA"></span>
         </div>
         <div class="mc-legend">
@@ -174,7 +174,7 @@
     </div>
   </div>
 
-  <div class="mc-ad" aria-label="Advertisement">Advertisement space — add your approved ad code here after monetization approval</div>
+  <div class="mc-ad" role="region" aria-label="Advertisement placeholder">Advertisement space — add your approved ad code here after monetization approval</div>
 </section>
 
 <section class="mc-section">
