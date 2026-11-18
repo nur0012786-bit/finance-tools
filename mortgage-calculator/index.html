@@ -193,7 +193,7 @@
     <p class="eyebrow">AMORTIZATION</p>
     <h2>Mortgage amortization</h2>
     <p class="mc-content">Use the button above to generate the first 12 months plus annual summaries. Extra monthly payments are applied against the loan balance in this educational model and can shorten the estimated payoff period.</p>
-    <div id="amortizationOutput" class="mc-table-wrap"><p style="padding:22px;color:#6b7b90">Run the calculator to generate an amortization table.</p></div>
+    <div id="amortizationOutput" class="mc-table-wrap"><p style="padding:22px;color:#475569">Run the calculator to generate an amortization table.</p></div>
   </div>
 </section>
 
@@ -342,7 +342,7 @@ function calculateMortgage(){
  if(v.pmi>0)warnings.push('PMI is modeled as a flat annual percentage of the original loan amount. Actual premiums may differ and can change or end under the loan terms.');
  if(extra>0)warnings.push('Extra principal is additional to the scheduled housing payment. The payment breakdown above excludes this optional extra amount.');
  if(warnings.length){warning.textContent=warnings.join(' ');warning.style.display='block';}
- document.getElementById('amortizationOutput').innerHTML='<p style="padding:22px;color:#6b7b90">Click “Show amortization” to generate the schedule.</p>';
+ document.getElementById('amortizationOutput').innerHTML='<p style="padding:22px;color:#475569">Click “Show amortization” to generate the schedule.</p>';
 }
 function showAmortization(){
  if(!lastScenario)calculateMortgage();
