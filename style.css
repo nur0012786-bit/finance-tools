@@ -798,6 +798,7 @@ body.design-closing .result:first-child strong,body.design-closing .result-card 
 body.design-closing .result-card{background:radial-gradient(circle at 100% 0%,#df8b151f 0 135px,transparent 136px),linear-gradient(145deg,#fff,#fff5e3)!important;border-color:#a75b002e!important}
 body.design-closing .text-link{color:#a75b00}
 body.design-closing .faq-item{border-bottom-color:#a75b0020!important}
+body.design-closing .result-card .results span{color:#475569!important}
 body.design-closing footer{background:#713d00!important}
 
 
