@@ -146,8 +146,8 @@ function calculateAutoLoan(){
 
   if(values.some(value=>!Number.isFinite(value)) ||
      price<=0 || down<0 || trade<0 || tradePayoff<0 || fees<0 ||
-     annual<0 || annual>100 || years<0.5 || years>15 || tax<0 || tax>30){
-    showCalcError("Enter a vehicle price above zero, non-negative dollar amounts, a rate from 0% to 100%, a term from 0.5 to 15 years, and a sales-tax rate from 0% to 30%.");
+     annual<0 || annual>100 || years<0.5 || years>15 || !Number.isInteger(years*2) || tax<0 || tax>30){
+    showCalcError("Enter a vehicle price above zero, non-negative dollar amounts, a rate from 0% to 100%, a term from 0.5 to 15 years in 0.5-year increments, and a sales-tax rate from 0% to 30%.");
     return;
   }
 
