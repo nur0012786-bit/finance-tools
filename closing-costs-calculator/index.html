@@ -128,7 +128,8 @@ function calc(){
  const v={},errors=[];
  ids.forEach(id=>{
   const raw=document.getElementById(id).value.trim(),n=raw===''?NaN:Number(raw);
-  if(!Number.isFinite(n)||n<0)errors.push(names[id]+' must be a non-negative amount.');else v[id]=n;
+  const max=id==='price'?100000000:1000000000;
+  if(!Number.isFinite(n)||n<0||n>max)errors.push(names[id]+' must be between $0 and '+money(max)+'.');else v[id]=n;
  });
  if(v.price!==undefined&&v.price<=0)errors.push('Home price must be greater than $0.');
  if(v.price!==undefined&&v.down!==undefined&&v.down>v.price)errors.push('Down payment cannot exceed the home price.');
@@ -153,6 +154,12 @@ function calc(){
  const depositSurplus=Math.max(0,v.earnest-earnestApplied);
  const cashToClose=Math.max(0,borrowerFundsBeforeDeposit-earnestApplied);
  const newLoan=baseLoan+financedApplied;
+ const calculated=[baseLoan,loanCosts,otherCosts,prepaids,grossCosts,lenderApplied,afterLender,financedApplied,afterFinancing,paidBeforeApplied,costsDueAtClosing,sellerApplied,sellerUnused,borrowerFundsBeforeDeposit,earnestApplied,depositSurplus,cashToClose,newLoan];
+ if(!calculated.every(Number.isFinite)){
+  outputs.forEach(id=>document.getElementById(id).textContent='—');
+  validation.textContent='These amounts are too large to calculate safely. Reduce the entered values and try again.';
+  return;
+ }
  document.getElementById('loan').textContent=money(baseLoan);
  document.getElementById('newLoan').textContent=money(newLoan);
  document.getElementById('downOut').textContent=money(v.down);
