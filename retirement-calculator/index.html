@@ -102,13 +102,13 @@
         <div class="result"><small>Estimated balance</small><strong id="future">$0</strong></div>
         <div class="result"><small>Current savings</small><strong id="starting">$0</strong></div>
         <div class="result"><small>Total contributions</small><strong id="contributions">$0</strong></div>
-        <div class="result"><small>Estimated growth</small><strong id="growth">$0</strong></div>
+        <div class="result"><small>Net investment gain / (loss)</small><strong id="growth">$0</strong></div>
       </div>
 
       <div class="table-wrap">
         <h2>Year-by-year projection</h2>
         <table class="retirement-table">
-          <thead><tr><th>Year</th><th>Contributions</th><th>Estimated growth</th><th>Ending balance</th></tr></thead>
+          <thead><tr><th>Year</th><th>Contributions</th><th>Net investment gain / (loss)</th><th>Ending balance</th></tr></thead>
           <tbody id="growthBody"></tbody>
         </table>
       </div>
@@ -206,7 +206,7 @@ function calculate(){
 
     if(month%12===0 || month===months){
       const row=document.createElement('tr');
-      const values=[Math.ceil(month/12),money(contributions),money(Math.max(0,balance-contributions)),money(balance)];
+      const values=[Math.ceil(month/12),money(contributions),money(balance-contributions),money(balance)];
       values.forEach(value=>{const cell=document.createElement('td');cell.textContent=String(value);row.appendChild(cell);});
       body.appendChild(row);
     }
