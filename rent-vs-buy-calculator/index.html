@@ -178,9 +178,10 @@ for(let m=1;m<=months;m++){
  rentTotal+=v.rent*Math.pow(1+v.rentGrowth/100,yearIndex);
  if(m<=loanMonths&&balance>0){
   const rr=v.rate/100/12,interest=balance*rr;
-  const principal=Math.min(balance,Math.max(0,pmt-interest));
+  const paymentDue=Math.min(pmt,balance+interest);
+  const principal=Math.min(balance,Math.max(0,paymentDue-interest));
   balance=Math.max(0,balance-principal);
-  buyHousing+=Math.min(pmt,balance+principal);
+  buyHousing+=paymentDue;
  }
  buyHousing+=v.price*(v.propertyTax/100)/12+v.insurance/12+v.price*(v.maintenance/100)/12;
 }
