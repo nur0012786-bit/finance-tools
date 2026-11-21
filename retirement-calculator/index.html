@@ -215,7 +215,7 @@ function calculate(){
   document.getElementById('future').textContent=money(balance);
   document.getElementById('starting').textContent=money(current);
   document.getElementById('contributions').textContent=money(contributions);
-  document.getElementById('growth').textContent=money(Math.max(0,balance-contributions));
+  document.getElementById('growth').textContent=money(balance-contributions);
   message.textContent='Projection updated.';
 }
 
