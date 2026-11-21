@@ -128,7 +128,7 @@ function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"US
 function calculateTax(){
  const specs=[
   ["value","Property market or purchase value",0.01,100000000],
-  ["assessment","Assessed value",0.01,100000000],
+  ["assessment","Assessed value",0,100000000],
   ["rate","Property tax rate",0,200],
   ["exemption","Annual exemption",0,100000000]
  ];
@@ -174,8 +174,12 @@ function calculateTax(){
 }
 document.getElementById("rateFormat").addEventListener("change",function(){
  const rate=document.getElementById("rate");
- if(this.value==="mills"){rate.max="200";rate.step="0.001";rate.value=(Number(rate.value)*10).toString();}
- else{rate.max="20";rate.step="0.001";rate.value=(Number(rate.value)/10).toString();}
+ if(rate.value.trim()!==""){
+  const current=Number(rate.value);
+  if(Number.isFinite(current))rate.value=(this.value==="mills"?current*10:current/10).toString();
+ }
+ if(this.value==="mills"){rate.max="200";rate.step="0.001";}
+ else{rate.max="20";rate.step="0.001";}
  calculateTax();
 });
 document.querySelectorAll(".form-grid input").forEach(el=>el.addEventListener("input",calculateTax));
