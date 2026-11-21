@@ -228,6 +228,11 @@ function showError(message){
  const error=document.getElementById('inputError');
  error.textContent=message;
  error.hidden=false;
+ ['equity','debt','equityPct','balanceDtv','cltv','hcltv','cltvDebt','hcltvDebt','targetAmount','available','aboveTarget'].forEach(id=>{
+  const output=document.getElementById(id);
+  if(output)output.textContent='—';
+ });
+ document.getElementById('summary').textContent='';
 }
 function calculate(){
  const error=document.getElementById('inputError');
