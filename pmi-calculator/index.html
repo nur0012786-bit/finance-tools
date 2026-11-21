@@ -201,14 +201,21 @@ function formatMonth(month){
  return month+' months ('+years+' yr'+(years===1?'':'s')+(remaining?' '+remaining+' mo':'')+')';
 }
 function readNumber(id){const field=document.getElementById(id);if(!field||field.value.trim()==='')return NaN;return Number(field.value);}
-function showError(message){const error=document.getElementById('inputError');error.textContent=message;error.hidden=false;}
+function showError(message){
+ const error=document.getElementById('inputError');error.textContent=message;error.hidden=false;
+ ['loan','ltv','monthlyPmi','annualPmi','payment','monthlyTax','monthlyIns','total','target80','month80','target78','month78','midpoint','autoEnd'].forEach(id=>{
+  const output=document.getElementById(id);
+  if(output)output.textContent='—';
+ });
+ document.getElementById('summary').textContent='';
+}
 function calculate(){
  const error=document.getElementById('inputError');error.hidden=true;
  const homeValue=readNumber('price'),down=readNumber('down'),annualRate=readNumber('rate'),years=readNumber('term'),annualPmiRate=readNumber('pmiRate'),taxRate=readNumber('tax'),insurance=readNumber('insurance');
  if(!Number.isFinite(homeValue)||homeValue<=0||homeValue>100000000){showError('Enter an original home value greater than $0 and no more than $100 million.');return;}
  if(!Number.isFinite(down)||down<0||down>=homeValue){showError('Enter a down payment of $0 or more that is less than the original home value.');return;}
  if(!Number.isFinite(annualRate)||annualRate<0||annualRate>30){showError('Enter an annual fixed mortgage interest rate between 0% and 30%.');return;}
- if(!Number.isFinite(years)||years<1||years>50){showError('Enter an original mortgage term between 1 and 50 years.');return;}
+ if(!Number.isFinite(years)||!Number.isInteger(years)||years<1||years>50){showError('Enter a whole-number original mortgage term between 1 and 50 years.');return;}
  if(!Number.isFinite(annualPmiRate)||annualPmiRate<0||annualPmiRate>5){showError('Enter an assumed annual PMI rate between 0% and 5%.');return;}
  if(!Number.isFinite(taxRate)||taxRate<0||taxRate>10){showError('Enter an annual property-tax estimate between 0% and 10%.');return;}
  if(!Number.isFinite(insurance)||insurance<0||insurance>100000){showError('Enter annual homeowners insurance between $0 and $100,000.');return;}
