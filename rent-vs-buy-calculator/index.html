@@ -57,7 +57,7 @@
 
 <div class="results">
 <div class="result"><small>Total estimated rent cost</small><strong id="rentTotal">$0</strong></div>
-<div class="result"><small>Buy cash outflows</small><strong id="buyOutflow">$0</strong></div>
+<div class="result"><small>Ongoing buying costs</small><strong id="buyOutflow">$0</strong></div>
 <div class="result"><small>Estimated home equity</small><strong id="equity">$0</strong></div>
 <div class="result"><small>Estimated sale proceeds</small><strong id="saleProceeds">$0</strong></div>
 <div class="result"><small>Opportunity cost of upfront cash</small><strong id="opportunity">$0</strong></div>
@@ -172,7 +172,7 @@ if(errors.length){
 }
 const months=v.years*12,loan=v.price-v.down,loanMonths=v.term*12;
 const pmt=mortgagePayment(loan,v.rate,loanMonths);
-let balance=loan,rentTotal=0,buyHousing=v.down+v.closing;
+let balance=loan,rentTotal=0,buyHousing=0;
 for(let m=1;m<=months;m++){
  const yearIndex=Math.floor((m-1)/12);
  rentTotal+=v.rent*Math.pow(1+v.rentGrowth/100,yearIndex);
@@ -189,7 +189,7 @@ const futureHome=v.price*Math.pow(1+v.appreciation/100,v.years);
 const saleCost=futureHome*(v.selling/100);
 const saleProceeds=Math.max(0,futureHome-saleCost-balance),equity=Math.max(0,futureHome-balance);
 const upfront=v.down+v.closing,opportunity=upfront*(Math.pow(1+v.investment/100,v.years)-1);
-const buyNet=buyHousing-saleProceeds+opportunity;
+const buyNet=upfront+buyHousing-saleProceeds+opportunity;
 if(![rentTotal,buyHousing,futureHome,saleProceeds,equity,opportunity,buyNet].every(Number.isFinite)){
  outputIds.forEach(id=>document.getElementById(id).textContent="—");
  warning.textContent="The combined calculation exceeded the supported numeric range. Reduce the entered amounts or assumptions.";
