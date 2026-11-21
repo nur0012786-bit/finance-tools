@@ -117,12 +117,18 @@ const fields={
   insurance:document.getElementById('insurance'),hoa:document.getElementById('hoa')
 };
 function show(id,value){document.getElementById(id).textContent=value;}
+function clearResults(){
+  ['downOut','base','feeOut','loan','pi','taxOut','insOut','hoaOut','total','cashOut'].forEach(id=>show(id,'$0.00'));
+  show('feeRate','0.00%');show('ltv','0.00%');
+}
 function calc(){
   const v=Object.fromEntries(Object.entries(fields).map(([key,el])=>[key,el.value]));
   const price=Number(v.price),downPct=Number(v.downPct),rate=Number(v.rate),term=Number(v.term),
     tax=Number(v.tax),insurance=Number(v.insurance),hoa=Number(v.hoa);
-  const valid=Number.isFinite(price)&&price>0&&price<=100000000&&
-    Number.isFinite(downPct)&&downPct>=0&&downPct<=100&&
+  const numericFields=['price','downPct','rate','term','tax','insurance','hoa'];
+  const allProvided=numericFields.every(key=>fields[key].value.trim()!=='');
+  const valid=allProvided&&Number.isFinite(price)&&price>0&&price<=100000000&&
+    Number.isFinite(downPct)&&downPct>=0&&downPct<100&&
     Number.isFinite(rate)&&rate>=0&&rate<=30&&
     Number.isInteger(term)&&term>=1&&term<=40&&
     Number.isFinite(tax)&&tax>=0&&tax<=10&&
@@ -130,7 +136,8 @@ function calc(){
     Number.isFinite(hoa)&&hoa>=0&&hoa<=10000;
   const error=document.getElementById('error');
   if(!valid){
-    error.textContent='Enter a home price above $0, a down payment from 0% to 100%, an interest rate from 0% to 30%, a whole loan term from 1 to 40 years, and valid non-negative tax, insurance and HOA estimates.';
+    clearResults();
+    error.textContent='Complete every numeric field. Enter a home price above $0, a down payment from 0% to less than 100%, an interest rate from 0% to 30%, a whole loan term from 1 to 40 years, and valid non-negative tax, insurance and HOA estimates.';
     return;
   }
   error.textContent='';
