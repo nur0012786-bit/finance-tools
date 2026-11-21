@@ -202,6 +202,7 @@ function calculateLoan(){
  if(!Number.isFinite(P)||P<=0||P>1000000000){showInputError("Enter a loan amount greater than $0 and no more than $1 billion.");return;}
  if(!Number.isFinite(annual)||annual<0||annual>100){showInputError("Enter an annual interest rate between 0% and 100%.");return;}
  if(!Number.isFinite(years)||years<1||years>50){showInputError("Enter a loan term between 1 and 50 years.");return;}
+ if(!Number.isInteger(years)){showInputError("Enter the loan term as a whole number of years.");return;}
  if(!Number.isFinite(extra)||extra<0||extra>1000000000){showInputError("Enter an extra monthly principal payment of $0 or more, up to $1 billion.");return;}
 
  const n=Math.round(years*12);
