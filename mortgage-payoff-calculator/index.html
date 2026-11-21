@@ -118,12 +118,24 @@ function simulate(balance,annualRate,scheduledPayment,extraMonthly,lumpSum){
 function formatTime(months){const years=Math.floor(months/12),rest=months%12;if(!years)return rest+' month'+(rest===1?'':'s');return years+' yr'+(years===1?'':'s')+(rest?' '+rest+' mo':'');}
 function getNumber(id){const input=document.getElementById(id);if(!input||input.value.trim()==='')return NaN;return Number(input.value);}
 function showError(message){const error=document.getElementById('inputError');error.textContent=message;error.hidden=false;}
+function clearResults(){
+ document.getElementById('payment').textContent='$0.00';
+ document.getElementById('regularTime').textContent='—';
+ document.getElementById('regularInterest').textContent='$0.00';
+ document.getElementById('newTime').textContent='—';
+ document.getElementById('newInterest').textContent='$0.00';
+ document.getElementById('monthsSaved').textContent='—';
+ document.getElementById('interestSaved').textContent='$0.00';
+ document.getElementById('lumpApplied').textContent='$0.00';
+ document.getElementById('balanceAfterLump').textContent='$0.00';
+ document.getElementById('newPayment').textContent='$0.00';
+}
 function calculate(){
- const error=document.getElementById('inputError');error.hidden=true;
+ const error=document.getElementById('inputError');error.hidden=true;clearResults();
  const balance=getNumber('balance'),rate=getNumber('rate'),years=getNumber('years'),extra=getNumber('extra'),lump=getNumber('lump');
  if(!Number.isFinite(balance)||balance<=0||balance>1000000000){showError('Enter a current principal balance greater than $0 and no more than $1 billion.');return;}
  if(!Number.isFinite(rate)||rate<0||rate>30){showError('Enter a fixed annual interest rate between 0% and 30%.');return;}
- if(!Number.isFinite(years)||years<1||years>50){showError('Enter a remaining mortgage term between 1 and 50 years.');return;}
+ if(!Number.isFinite(years)||!Number.isInteger(years)||years<1||years>50){showError('Enter a whole-number remaining mortgage term between 1 and 50 years.');return;}
  if(!Number.isFinite(extra)||extra<0||extra>1000000000){showError('Enter an extra monthly principal amount of $0 or more.');return;}
  if(!Number.isFinite(lump)||lump<0||lump>=balance){showError('The one-time principal payment must be $0 or more and less than your current principal balance.');return;}
  const months=Math.round(years*12),payment=monthlyPayment(balance,rate,months),regular=simulate(balance,rate,payment,0,0),accelerated=simulate(balance,rate,payment,extra,lump);
