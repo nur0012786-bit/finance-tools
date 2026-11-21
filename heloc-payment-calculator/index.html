@@ -228,6 +228,10 @@ function showError(message){
  const error=document.getElementById('inputError');
  error.textContent=message;
  error.hidden=false;
+ ['drawPayment','repayBalance','repayPayment','paymentChange','drawInterest','repayInterest','totalInterest','totalTime','stressRate','stressDrawPayment','stressRepayPayment'].forEach(id=>{
+  const output=document.getElementById(id);
+  if(output)output.textContent='—';
+ });
 }
 function calculate(){
  const error=document.getElementById('inputError');
