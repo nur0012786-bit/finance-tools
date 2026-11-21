@@ -48,14 +48,14 @@ body.design-cashout .warning{color:#4f3d0a!important}
 
 <div class="calc-box">
 <div class="form-grid">
-<div><label for="value">Current home value ($)</label><input id="value" type="number" min="0.01" step="0.01" value="450000" required></div>
-<div><label for="payoff">Estimated current mortgage payoff ($)</label><input id="payoff" type="number" min="0" step="0.01" value="260000" required></div>
+<div><label for="value">Current home value ($)</label><input id="value" type="number" min="0.01" max="100000000" step="0.01" value="450000" required></div>
+<div><label for="payoff">Estimated current mortgage payoff ($)</label><input id="payoff" type="number" min="0" max="1000000000" step="0.01" value="260000" required></div>
 <div><label for="maxLtv">Target maximum LTV (%)</label><input id="maxLtv" type="number" min="0.1" max="100" step="0.1" value="80" required></div>
-<div><label for="cash">Cash requested by borrower ($)</label><input id="cash" type="number" min="0" step="0.01" value="50000" required></div>
+<div><label for="cash">Cash requested by borrower ($)</label><input id="cash" type="number" min="0" max="1000000000" step="0.01" value="50000" required></div>
 <div><label for="rate">New mortgage interest rate (%)</label><input id="rate" type="number" min="0" max="30" step="0.01" value="6.5" required></div>
 <div><label for="term">New loan term (years)</label><input id="term" type="number" min="1" max="40" step="1" value="30" required></div>
-<div><label for="closing">Closing costs financed into new loan ($)</label><input id="closing" type="number" min="0" step="0.01" value="8000" required></div>
-<div><label for="otherDebt">Other secured debt payoffs included ($)</label><input id="otherDebt" type="number" min="0" step="0.01" value="0" required></div>
+<div><label for="closing">Closing costs financed into new loan ($)</label><input id="closing" type="number" min="0" max="1000000000" step="0.01" value="8000" required></div>
+<div><label for="otherDebt">Other secured debt payoffs included ($)</label><input id="otherDebt" type="number" min="0" max="1000000000" step="0.01" value="0" required></div>
 </div>
 <button type="button" class="button calc-button" onclick="calculateCashOut()">Calculate Cash-Out Refinance</button>
 
@@ -144,14 +144,14 @@ function payment(P,annual,months){
 }
 function calculateCashOut(){
   const fields=[
-    ["value","Home value",0.01,Infinity],
-    ["payoff","Estimated mortgage payoff",0,Infinity],
+    ["value","Home value",0.01,100000000],
+    ["payoff","Estimated mortgage payoff",0,1000000000],
     ["maxLtv","Target maximum LTV",0.1,100],
-    ["cash","Cash requested",0,Infinity],
+    ["cash","Cash requested",0,1000000000],
     ["rate","New interest rate",0,30],
     ["term","New loan term",1,40],
-    ["closing","Closing costs financed",0,Infinity],
-    ["otherDebt","Other secured debt payoffs",0,Infinity]
+    ["closing","Closing costs financed",0,1000000000],
+    ["otherDebt","Other secured debt payoffs",0,1000000000]
   ];
   const v={},errors=[];
   for(const [id,label,min,max] of fields){
@@ -172,6 +172,11 @@ function calculateCashOut(){
   const maxLoan=v.value*v.maxLtv/100;
   const payoffAndCosts=v.payoff+v.otherDebt+v.closing;
   const newLoan=payoffAndCosts+v.cash;
+  if(!Number.isFinite(maxLoan)||!Number.isFinite(payoffAndCosts)||!Number.isFinite(newLoan)){
+    outputs.forEach(id=>document.getElementById(id).textContent="—");
+    validation.textContent="The combined loan amounts are too large to calculate safely. Reduce the entered amounts and try again.";
+    return;
+  }
   const maxCash=Math.max(0,maxLoan-payoffAndCosts);
   const ltv=newLoan/v.value*100;
   const monthly=payment(newLoan,v.rate,v.term*12);
