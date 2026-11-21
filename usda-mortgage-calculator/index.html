@@ -181,9 +181,15 @@ function showError(message){
   error.textContent=message;
   error.hidden=false;
 }
+function clearResults(){
+  ['base','upfrontOut','loan','pi','annualOut','taxOut','insOut','hoaOut','total'].forEach(id=>document.getElementById(id).textContent='$0.00');
+  document.getElementById('feeStatus').textContent='—';
+  document.getElementById('ltv').textContent='0.0%';
+}
 function calc(){
   const error=document.getElementById('calcError');
   error.hidden=true;
+  clearResults();
   const price=getNumber('price');
   const downPct=getNumber('downPct');
   const rate=getNumber('rate');
@@ -195,14 +201,14 @@ function calc(){
   const termYears=30;
   const months=termYears*12;
 
-  if(!Number.isFinite(price)||price<=0){showError('Enter a home price greater than $0.');return;}
+  if(!Number.isFinite(price)||price<=0||price>100000000){showError('Enter a home price greater than $0 and no more than $100 million.');return;}
   if(!Number.isFinite(downPct)||downPct<0||downPct>=100){showError('Enter a down payment from 0% to less than 100%.');return;}
   if(!Number.isFinite(rate)||rate<0||rate>30){showError('Enter an annual interest rate between 0% and 30%.');return;}
   if(!Number.isFinite(upfrontRate)||upfrontRate<0||upfrontRate>3.5){showError('Enter an upfront guarantee fee between 0% and 3.5%.');return;}
   if(!Number.isFinite(annualRate)||annualRate<0||annualRate>0.5){showError('Enter an annual fee between 0% and 0.50%.');return;}
   if(!Number.isFinite(taxRate)||taxRate<0||taxRate>10){showError('Enter an annual property-tax estimate between 0% and 10%.');return;}
-  if(!Number.isFinite(insurance)||insurance<0){showError('Enter a homeowners insurance amount of $0 or more.');return;}
-  if(!Number.isFinite(hoa)||hoa<0){showError('Enter HOA dues of $0 or more.');return;}
+  if(!Number.isFinite(insurance)||insurance<0||insurance>100000){showError('Enter annual homeowners insurance between $0 and $100,000.');return;}
+  if(!Number.isFinite(hoa)||hoa<0||hoa>10000){showError('Enter monthly HOA dues between $0 and $10,000.');return;}
 
   const baseLoan=price*(1-downPct/100);
   const feeRate=upfrontRate/100;
@@ -222,6 +228,10 @@ function calc(){
   const monthlyTax=price*taxRate/100/12;
   const monthlyInsurance=insurance/12;
   const estimatedMonthlyTotal=principalInterest+annualFeeMonthly+monthlyTax+monthlyInsurance+hoa;
+  if(![baseLoan,startingLoan,upfrontFee,principalInterest,annualFeeMonthly,monthlyTax,monthlyInsurance,estimatedMonthlyTotal].every(Number.isFinite)){
+    showError('These inputs produced an invalid estimate. Check the values and try again.');
+    return;
+  }
 
   document.getElementById('base').textContent=money(baseLoan);
   document.getElementById('upfrontOut').textContent=money(upfrontFee);
