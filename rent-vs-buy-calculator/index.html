@@ -146,34 +146,54 @@
 function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});}
 function mortgagePayment(P,annual,months){const r=annual/100/12;if(P<=0)return 0;if(r===0)return P/months;return P*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1);}
 function calculateRentBuy(){
-const rent=Math.max(0,Number(document.getElementById("rent").value)||0);
-const rg=Math.max(0,Number(document.getElementById("rentGrowth").value)||0);
-const price=Math.max(0,Number(document.getElementById("price").value)||0);
-const down=Math.max(0,Number(document.getElementById("down").value)||0);
-const rate=Math.max(0,Number(document.getElementById("rate").value)||0);
-const term=Math.max(1,Number(document.getElementById("term").value)||1);
-const tax=Math.max(0,Number(document.getElementById("propertyTax").value)||0);
-const insurance=Math.max(0,Number(document.getElementById("insurance").value)||0);
-const maint=Math.max(0,Number(document.getElementById("maintenance").value)||0);
-const closing=Math.max(0,Number(document.getElementById("closing").value)||0);
-const selling=Math.max(0,Number(document.getElementById("selling").value)||0);
-const app=Number(document.getElementById("appreciation").value)||0;
-const years=Math.max(1,Number(document.getElementById("years").value)||1);
-const inv=Math.max(0,Number(document.getElementById("investment").value)||0);
-if(price<=0||down>price){document.getElementById("rentTotal").textContent="$0";document.getElementById("buyOutflow").textContent="$0";document.getElementById("equity").textContent="$0";document.getElementById("saleProceeds").textContent="$0";document.getElementById("opportunity").textContent="$0";document.getElementById("buyNet").textContent="$0";return;}
-const months=Math.max(1,Math.round(years*12)),loan=price-down,loanMonths=Math.max(1,Math.round(term*12)),pmt=mortgagePayment(loan,rate,loanMonths);
-let balance=loan,rentTotal=0,buyHousing=down+closing;
-for(let m=1;m<=months;m++){
-const yearIndex=Math.floor((m-1)/12);
-rentTotal+=rent*Math.pow(1+rg/100,yearIndex);
-const rr=rate/100/12,interest=balance*rr,principal=Math.min(balance,Math.max(0,pmt-interest));
-balance=Math.max(0,balance-principal);
-buyHousing+=pmt+price*(tax/100)/12+insurance/12+price*(maint/100)/12;
+const specs=[
+ ["rent","Monthly rent",0,1000000],["rentGrowth","Annual rent increase",0,100],
+ ["price","Home price",0.01,100000000],["down","Down payment",0,100000000],
+ ["rate","Mortgage interest rate",0,30],["term","Mortgage term",1,40],
+ ["propertyTax","Annual property tax rate",0,20],["insurance","Annual homeowners insurance",0,1000000],
+ ["maintenance","Annual maintenance rate",0,30],["closing","Buying closing costs",0,1000000],
+ ["selling","Selling costs",0,20],["appreciation","Annual home appreciation",-50,50],
+ ["years","Expected years in home",1,40],["investment","Annual investment return",0,50]
+];
+const v={},errors=[];
+specs.forEach(([id,label,min,max])=>{
+ const raw=document.getElementById(id).value.trim(),n=raw===""?NaN:Number(raw);
+ if(!Number.isFinite(n)||n<min||n>max)errors.push(label+" must be between "+min+" and "+max+".");
+ else v[id]=n;
+});
+["term","years"].forEach(id=>{if(v[id]!==undefined&&!Number.isInteger(v[id]))errors.push((id==="term"?"Mortgage term":"Expected stay")+" must be a whole number of years.");});
+const outputIds=["rentTotal","buyOutflow","equity","saleProceeds","opportunity","buyNet","rentInitial","buyInitial","rentOutflow","buyHousing","buyEnding","rentNet","buyNetTable"];
+if(v.down!==undefined&&v.price!==undefined&&v.down>v.price)errors.push("Down payment cannot exceed the home price.");
+const warning=document.querySelector(".warning");
+if(errors.length){
+ outputIds.forEach(id=>document.getElementById(id).textContent="—");
+ warning.textContent=errors.join(" ");
+ return;
 }
-const futureHome=price*Math.pow(1+app/100,years),saleCost=futureHome*(selling/100);
+const months=v.years*12,loan=v.price-v.down,loanMonths=v.term*12;
+const pmt=mortgagePayment(loan,v.rate,loanMonths);
+let balance=loan,rentTotal=0,buyHousing=v.down+v.closing;
+for(let m=1;m<=months;m++){
+ const yearIndex=Math.floor((m-1)/12);
+ rentTotal+=v.rent*Math.pow(1+v.rentGrowth/100,yearIndex);
+ if(m<=loanMonths&&balance>0){
+  const rr=v.rate/100/12,interest=balance*rr;
+  const principal=Math.min(balance,Math.max(0,pmt-interest));
+  balance=Math.max(0,balance-principal);
+  buyHousing+=Math.min(pmt,balance+principal);
+ }
+ buyHousing+=v.price*(v.propertyTax/100)/12+v.insurance/12+v.price*(v.maintenance/100)/12;
+}
+const futureHome=v.price*Math.pow(1+v.appreciation/100,v.years);
+const saleCost=futureHome*(v.selling/100);
 const saleProceeds=Math.max(0,futureHome-saleCost-balance),equity=Math.max(0,futureHome-balance);
-const upfront=down+closing,opportunity=upfront*(Math.pow(1+inv/100,years)-1);
+const upfront=v.down+v.closing,opportunity=upfront*(Math.pow(1+v.investment/100,v.years)-1);
 const buyNet=buyHousing-saleProceeds+opportunity;
+if(![rentTotal,buyHousing,futureHome,saleProceeds,equity,opportunity,buyNet].every(Number.isFinite)){
+ outputIds.forEach(id=>document.getElementById(id).textContent="—");
+ warning.textContent="The combined calculation exceeded the supported numeric range. Reduce the entered amounts or assumptions.";
+ return;
+}
 document.getElementById("rentTotal").textContent=money(rentTotal);
 document.getElementById("buyOutflow").textContent=money(buyHousing);
 document.getElementById("equity").textContent=money(equity);
@@ -187,6 +207,7 @@ document.getElementById("buyHousing").textContent=money(buyHousing);
 document.getElementById("buyEnding").textContent=money(equity);
 document.getElementById("rentNet").textContent=money(rentTotal);
 document.getElementById("buyNetTable").textContent=money(buyNet);
+warning.textContent="Scenario estimate only. Mortgage payments stop after the selected loan term; taxes, insurance and maintenance continue through the full stay. Test multiple assumptions before drawing conclusions.";
 }
 calculateRentBuy();
 </script>
