@@ -212,7 +212,7 @@ function firstYearAverageScheduledBalance(startingLoan,annualRate,termYears,sche
  return months?sum/months:0;
 }
 function firstYearMonthlyMip(startingLoan,annualRate,termYears,payment,mipRate,ufmipFinanced){
- const average=firstYearAverageScheduledBalance(startingLoan,annualRate,termYears,payment);
+ const average=firstYearAverageScheduledBalance(startingLoan,annualRate,termYears,roundCents(payment));
  let annualPremium=roundCents(average*mipRate/100);
  if(ufmipFinanced)annualPremium=roundCents(annualPremium/(1+FHA_UFMIP_RATE/100));
  return roundCents(annualPremium/12);
@@ -236,11 +236,11 @@ function calculate(){
  if(!Number.isFinite(taxRate)||taxRate<0||taxRate>10){showError('Enter an annual property-tax estimate between 0% and 10%.');return;}
  if(!Number.isFinite(insurance)||insurance<0||insurance>100000){showError('Enter annual homeowners insurance between $0 and $100,000.');return;}
  const baseLoan=price*(1-downPct/100);if(baseLoan<=0){showError('The base loan must be greater than $0.');return;}
- const ltv=baseLoan/price*100,upfrontMip=baseLoan*FHA_UFMIP_RATE/100,finance=document.getElementById('financeMip').checked;
- const startingLoan=finance?baseLoan+upfrontMip:baseLoan,months=Math.round(term*12);
- const pi=mortgagePayment(startingLoan,rate,months),rule=getFhaMipRule(baseLoan,ltv,term);
+ const ltv=baseLoan/price*100,upfrontMip=roundCents(baseLoan*FHA_UFMIP_RATE/100),finance=document.getElementById('financeMip').checked;
+ const startingLoan=roundCents(finance?baseLoan+upfrontMip:baseLoan),months=Math.round(term*12);
+ const pi=roundCents(mortgagePayment(startingLoan,rate,months)),rule=getFhaMipRule(baseLoan,ltv,term);
  const monthlyMip=firstYearMonthlyMip(startingLoan,rate,term,pi,rule.rate,finance);
- const monthlyTax=price*taxRate/100/12,monthlyInsurance=insurance/12,total=pi+monthlyMip+monthlyTax+monthlyInsurance;
+ const monthlyTax=roundCents(price*taxRate/100/12),monthlyInsurance=roundCents(insurance/12),total=roundCents(pi+monthlyMip+monthlyTax+monthlyInsurance);
  if(![baseLoan,upfrontMip,startingLoan,pi,monthlyMip,monthlyTax,monthlyInsurance,total].every(Number.isFinite)){showError('These inputs produced an invalid estimate. Check the values and try again.');return;}
  document.getElementById('baseLoan').textContent=money(baseLoan);
  document.getElementById('upfrontMip').textContent=money(upfrontMip);
