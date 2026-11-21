@@ -158,9 +158,11 @@ function calculate(){
  const curH=amortize(v.balance,v.currentRate,currentMonths,horizonMonths),newH=amortize(newPrincipal,v.newRate,newMonths,horizonMonths);
  const diffH=(newH.paid+newH.balance+cashCosts)-(curH.paid+curH.balance),monthlyChange=currentMonthly-newMonthly;
  let breakMonth=null;
- for(let m=1;m<=Math.max(currentMonths,newMonths);m++){
+ const initialCostDifference=financedCosts+cashCosts;
+ if(initialCostDifference<=0.005)breakMonth=0;
+ for(let m=1;breakMonth===null&&m<=Math.max(currentMonths,newMonths);m++){
   const c=amortize(v.balance,v.currentRate,currentMonths,m),n=amortize(newPrincipal,v.newRate,newMonths,m);
-  if((n.paid+n.balance+cashCosts)-(c.paid+c.balance)<-0.005){breakMonth=m;break;}
+  if((n.paid+n.balance+cashCosts)-(c.paid+c.balance)<=0.005){breakMonth=m;break;}
  }
  const fmt=m=>{if(m===0)return 'Immediate';const y=Math.floor(m/12),r=m%12;if(!y)return r+' month'+(r===1?'':'s');if(!r)return y+' year'+(y===1?'':'s');return y+'y '+r+'m';};
  document.getElementById('currentPayment').textContent=money(currentMonthly);
