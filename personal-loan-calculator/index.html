@@ -74,19 +74,19 @@
   <div class="form-grid">
     <div class="field">
       <label for="amount">Loan amount ($)</label>
-      <input id="amount" type="number" min="0" step="0.01" value="10000">
+      <input id="amount" type="number" min="0.01" max="1000000000" step="0.01" value="10000">
     </div>
     <div class="field">
       <label for="rate">Annual interest rate (%)</label>
-      <input id="rate" type="number" min="0" step="0.01" value="12">
+      <input id="rate" type="number" min="0" max="100" step="0.01" value="12">
     </div>
     <div class="field">
       <label for="term">Loan term (years)</label>
-      <input id="term" type="number" min="1" step="1" value="5">
+      <input id="term" type="number" min="1" max="100" step="1" value="5">
     </div>
     <div class="field">
       <label for="extra">Extra monthly payment ($)</label>
-      <input id="extra" type="number" min="0" step="0.01" value="0">
+      <input id="extra" type="number" min="0" max="10000000" step="0.01" value="0">
     </div>
     <div class="full">
       <button type="button" class="button" type="button" onclick="calculate()">Calculate loan</button>
@@ -268,21 +268,44 @@ function simulate(principal,rate,payment,maxMonths){
   return {months,interest,total,schedule};
 }
 function calculate(){
-  const amount=Math.max(0,parseFloat(document.getElementById('amount').value)||0);
-  const rate=Math.max(0,parseFloat(document.getElementById('rate').value)||0);
-  const years=Math.max(1,parseFloat(document.getElementById('term').value)||1);
-  const extra=Math.max(0,parseFloat(document.getElementById('extra').value)||0);
+  const amountRaw=document.getElementById('amount').value.trim();
+  const rateRaw=document.getElementById('rate').value.trim();
+  const yearsRaw=document.getElementById('term').value.trim();
+  const extraRaw=document.getElementById('extra').value.trim();
+  const amount=Number(amountRaw);
+  const rate=Number(rateRaw);
+  const years=Number(yearsRaw);
+  const extra=Number(extraRaw);
   const msg=document.getElementById('message');
   msg.style.display='none';
+  msg.textContent='';
 
-  if(amount===0){msg.textContent='Enter a loan amount greater than $0.';msg.style.display='block';return;}
+  const valid=amountRaw!==''&&rateRaw!==''&&yearsRaw!==''&&extraRaw!==''&&
+    [amount,rate,years,extra].every(Number.isFinite)&&
+    amount>0&&amount<=1000000000&&
+    rate>=0&&rate<=100&&
+    Number.isInteger(years)&&years>=1&&years<=100&&
+    extra>=0&&extra<=10000000;
+  if(!valid){
+    ['payment','interest','total','extraPayment','extraInterest','savedInterest'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('scheduleBody').replaceChildren();
+    msg.textContent='Enter a loan amount above $0 and up to $1 billion, an annual rate from 0% to 100%, a whole loan term from 1 to 100 years, and an extra monthly payment from $0 to $10 million.';
+    msg.style.display='block';
+    return;
+  }
 
-  const months=Math.round(years*12);
+  const months=years*12;
   const payment=fixedPayment(amount,rate,months);
   const regular=simulate(amount,rate,payment,1200);
   const accelerated=simulate(amount,rate,payment+extra,1200);
 
-  if(!regular||!accelerated){msg.textContent='Please check the loan amount, interest rate and payment values.';msg.style.display='block';return;}
+  if(!regular||!accelerated){
+    ['payment','interest','total','extraPayment','extraInterest','savedInterest'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('scheduleBody').replaceChildren();
+    msg.textContent='The loan could not be calculated with these inputs. Please review the values and try again.';
+    msg.style.display='block';
+    return;
+  }
 
   document.getElementById('payment').textContent=money(payment);
   document.getElementById('interest').textContent=money(regular.interest);
