@@ -181,6 +181,10 @@ function showInputError(message){
  const error=document.getElementById("inputError");
  error.textContent=message;
  error.hidden=false;
+ ["monthly","interest","total","newTerm","monthsSaved","interestWithExtra","interestSaved","paymentWithExtra","totalWithExtra"].forEach(id=>{
+   document.getElementById(id).textContent="—";
+ });
+ document.getElementById("schedule").replaceChildren();
 }
 function getLoanNumber(id){
  const input=document.getElementById(id);
