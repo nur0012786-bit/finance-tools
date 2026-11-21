@@ -205,8 +205,8 @@ function firstYearAverageScheduledBalance(startingLoan,annualRate,termYears,sche
  const months=Math.min(12,Math.round(termYears*12));let balance=startingLoan,sum=0;
  for(let month=0;month<months;month++){
   sum+=balance;
-  const annualInterest=roundCents(balance*annualRate/100);
-  const monthlyInterest=roundCents(annualInterest/12);
+  const annualInterest=roundCents(balance*annualRate);
+  const monthlyInterest=roundCents(annualInterest/1200);
   balance=Math.max(0,balance+monthlyInterest-scheduledPayment);
  }
  return months?sum/months:0;
